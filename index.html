@@ -76,6 +76,8 @@ details.comp[open] summary::after{content:"–"}
 .comp .body{padding:0 14px 14px}
 .comp ul{margin:6px 0 10px;padding-left:20px}
 .comp li{margin-bottom:6px}
+.micro{margin-top:12px;padding:10px 12px 4px;border-radius:8px;background:color-mix(in srgb,var(--hue) 9%,transparent)}
+.micro h4{margin:0 0 4px;font-size:.98rem}
 .tag{display:inline-block;font-size:.8rem;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid var(--hue);color:var(--hue);margin:2px 6px 8px 0}
 .tag.warn{border-color:var(--c-ana);color:var(--c-ana)}
 
@@ -230,7 +232,7 @@ header h1 button:hover{color:var(--accent)}
       <p><strong>Hvem som har laget den.</strong> Heidi Leona Porskrog-Mjelde, anestesisykepleier og masterstudent. Innholdet er samlet og skrevet som et selvstendig læringsprosjekt.</p>
       <p><strong>Hva det er.</strong> Et interaktivt læringsverktøy om generell anestesi og hjernen som målorgan: hvilke komponenter en generell anestesi består av, hvordan de kan vurderes, og hvordan EEG og spektrogram ser ut under ulike legemidler, i ulike aldre og ved endringer i hjernens perfusjon. Fanene tar for seg komponentene (bevissthet, hukommelse, nocisepsjon, immobilitet og autonom stabilitet), en skjematisk spektrogram-simulator, legemidlenes virkning på bevissthet og hukommelse, perfusjon og leiring, sedasjon på intensiv, en quiz og en samlet kildeliste.</p>
       <p><strong>Hvem det er for.</strong> Anestesisykepleiere og anestesileger, til undervisning og egenlæring. Det forutsetter grunnleggende kjennskap til anestesi og er laget for å gi en felles begrepsbruk og et presist forhold til hva kildene faktisk viser. Det er ikke en klinisk retningslinje og gir ingen doseringsråd.</p>
-      <p><strong>Hva det bygger på.</strong> Hovedkildene er Miller's Anesthesia, 10. utgave (kapittel 8, 9, 10, 16, 17, 21, 27, 30, 36, 61 og 80), Morgan og Mikhail (2022, kapittel 8, 9 og 43) til sammenligning, og Lobo og Lamperti (2025) om EEG under anestesi, supplert med fagfellevurderte originalartikler og oversikter som er oppgitt i Kilder-fanen. Hver påstand er merket med kilden. Der kapitlene bygger på originalstudier, er disse listet under «Originalreferanser i Miller's».</p>
+      <p><strong>Hva det bygger på.</strong> Hovedkildene er Miller's Anesthesia, 10. utgave (kapittel 8, 9, 10, 16, 17, 21, 22, 27, 30, 36, 61 og 80), Morgan og Mikhail (2022, kapittel 8, 9 og 43) til sammenligning, og Lobo og Lamperti (2025) om EEG under anestesi, supplert med fagfellevurderte originalartikler og oversikter som er oppgitt i Kilder-fanen. Hver påstand er merket med kilden. Der kapitlene bygger på originalstudier, er disse listet under «Originalreferanser i Miller's».</p>
       <p><strong>Hva det ikke er.</strong> Spektrogrammene i simulatoren er skjematiske modeller bygget på beskrivelsene i kildene, ikke opptak fra pasienter. Der kildene er uenige, eller der artikler inneholder interne avvik, er dette samlet i «Avvik og uenigheter mellom kilder» i Kilder-fanen i stedet for å bli glattet over. Kontroller originalkildene før innholdet brukes i undervisning.</p>
       <p><strong>Uavhengighet.</strong> Dette er ikke produktinformasjon. Produktnavn (for eksempel BIS, SedLine og nocisepsjonsmonitorer) nevnes bare der kildene gjør det eller der det trengs for å forklare et prinsipp, og ingen produsent eller leverandør har hatt innflytelse på innholdet. Interessekonflikter som forfatterne av kildene selv oppgir, er gjengitt på hvert kort.</p>
     </div>
@@ -404,6 +406,21 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Hudetz og Mashour. Anesth Analg 2016;123:1228–1240</span></div>
 
+  <h3>Hjernenettverk og anestesi: metoder og funn (Liu 2023)</h3>
+  <div class="card">
+  <p>Narrativ oversikt (Engineering 2023;20:77–95) fra en ingeniørgruppe i Kina. Den er ikke systematisk og har ingen kvalitetsvurdering av studiene. Forfatterne søkte i Web of Science i juli 2021 og valgte ut 27 EEG-baserte og 16 fMRI-baserte nettverksstudier som representative.</p>
+  <ul>
+   <li><strong>Mikronivå:</strong> oversikten nevner GABA<sub>A</sub>, NMDA (de fleste inhalasjonsmidler hemmer NMDA, men i ulik grad) og to-pore-kaliumkanaler (mus uten disse kanalene er mindre følsomme for inhalasjonsmidler).</li>
+   <li><strong>Makronivå:</strong> tre forklaringsmodeller er forstyrrede forbindelser mellom thalamus og hjernebark, påvirkning av søvn–våkenhetssystemene og kortikal fragmentering. Propofol og sevofluran virker tidligere i hjernebarken enn subkortikalt (Velly 2007).</li>
+   <li><strong>Tre typer konnektivitet:</strong> strukturell (fysiske baner), funksjonell (statistisk samvariasjon, for eksempel koherens, PLI, wPLI og PLV) og effektiv (rettet påvirkning, for eksempel Granger-kausalitet og overføringsentropi).</li>
+   <li><strong>Grafteori:</strong> hjernen beskrives som et «small-world»-nettverk med balanse mellom lokal spesialisering og global integrasjon. Mål som klyngekoeffisient, veilengde, effektivitet, modularitet og nav («rich club») brukes for å beskrive hvordan nettverket endres. Dynamisk konnektivitet analyseres med glidende tidsvinduer.</li>
+   <li><strong>Funn:</strong> frontoparietal frakobling under propofol er vist i flere studier. Deltakere med svakere alfanettverk før sedasjon ble lettere uresponsive av samme propofoldose (Chennu 2016). Midazolam og propofol ga lik endring i effekt, men ulik konnektivitet. Lystgass reduserte koblingen fra parietal til frontal. Ketamin økte theta-koblingen.</li>
+   <li><strong>Klinisk:</strong> BIS og entropi er frontale mål fra én eller to kanaler og varierer med midlet. BIS stiger med lystgass og ketamin, og påvirkes av opioider, muskelrelaksantia og EMG. Forfatterne mener nettverksmål fra 25–64 kanaler kan bli bedre kliniske verktøy, men det er ikke vist i klinisk bruk, og dynamiske analyser krever lange signaler.</li>
+   <li><strong>Uresponsivitet:</strong> oversikten understreker at uresponsivitet ikke er det samme som bevisstløshet (Sanders 2012, se kortet over).</li>
+   <li><strong>Forbehold:</strong> flere kildehenvisninger stemmer ikke med påstandene (se Avvik). Ingen interessekonflikter oppgitt, offentlig kinesisk finansiering.</li>
+  </ul>
+  <span class="tag">Liu et al. Engineering 2023;20:77–95</span></div>
+
   <h3>Propofol med 64-kanals EEG: hva som skjer i det bevisstheten tapes og kommer tilbake (Purdon 2013)</h3>
   <div class="card">
   <p>Studien som de fleste av propofol-signaturene i appen bygger på (PNAS 2013;110:E1142–E1151). Ti friske frivillige fikk propofol med effektstedmål 0, 1, 2, 3, 4 og 5 µg/ml i 14 minutter per trinn, deretter trinnvis nedtrapping. Hvert 4. sekund kom en lyd (klikk eller ord/eget navn) som skulle besvares med knappetrykk, slik at responsen kunne følges nesten kontinuerlig. 64-kanals EEG, øynene lukket, Laplace-referanse. Tre anestesileger til stede, arterielt blodtrykk og fenylefrin ved behov.</p>
@@ -431,6 +448,31 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Forbehold:</strong> ti deltakere, subanestetisk infusjon rett før bolus kan ha påvirket anestesifasen, 86–91 av 128 kanaler ble beholdt, ondansetron og skopolamin ble gitt, gamma ble ikke analysert for konnektivitet på grunn av mulig EMG, og spektral- og konnektivitetsanalysene bygde på ulik artefaktrensing. Ingen interessekonflikter oppgitt, finansiert av NIH.</li>
   </ul>
   <span class="tag">Vlisides et al. Anesthesiology 2017;127:58–69</span></div>
+
+  <h3>Ketamin målt inne i hjernen: frontal gamma, 3 Hz og samspill med propofol (Tian 2023)</h3>
+  <div class="card">
+  <p>Nature Communications 2023;14:1748. Ti epilepsipasienter (22–59 år) med dybdeelektroder fikk subanestetisk ketamin (0,5 mg/kg over 14 minutter) før elektrodene skulle fjernes, og deretter propofolbolus til innledning. 824 bipolare kanaler fra ti pasienter under ketamin, og 606 kanaler fra sju pasienter etter propofol. Dissosiasjon ble målt med en forkortet CADSS-skala med ja/nei-svar.</p>
+  <ul>
+   <li><strong>Ketamin:</strong> gamma (25–55 Hz) økte mest i fremre og bakre cingulum og frontale områder, og også i blant annet hippocampus/amygdala og striatum, men falt occipitalt. Alfa (8–15 Hz) falt i nesten alle områder, mest i postsentral og occipital kortex. Langsom og delta falt i de fleste områdene. Beta falt mange steder, men økte i hippocampus/amygdala.</li>
+   <li><strong>3 Hz-rytme:</strong> økt effekt i 3–4 Hz i bakre og isthmus cingulum (posteromedial kortex) og pars opercularis, med topp mellom 3 og 6 Hz. Denne rytmen er tidligere foreslått som mekanisme for dissosiasjon, ut fra forsøk på mus.</li>
+   <li><strong>Når propofol ble lagt til:</strong> gamma-økningen (40–55 Hz) frontalt ble reversert, og alfa-fallet ble reversert i de fleste områdene, men occipital alfa falt ytterligere. Beta, theta, langsom og delta økte nesten overalt, og 3–4 Hz økte videre.</li>
+   <li><strong>Forfatternes tolkning:</strong> effekter som propofol motvirker, tolkes som NMDA-mediert disinhibisjon. Effekter som forsterkes, tolkes som felles HCN1-hemming. Frontal og hippokampal gamma knyttes til ketaminens antidepressive effekt, men studien målte verken depresjon eller antidepressiv effekt.</li>
+   <li><strong>Forbehold:</strong> epilepsipasienter med elektroder plassert ut fra klinisk behov, og dissosiasjonen ble bare vurdert med ja/nei. Forfatterne rapporterer effektstørrelser og bootstrap-konfidensintervaller, men ingen p-verdier og ingen korreksjon for mange sammenligninger. Propofolfasen mangler for tre pasienter, og doser av anestesimidlene er bare oppgitt for fem. Noen dB-verdier er usannsynlig høye (se Avvik). Purdon, Brown og Akeju oppgir patenter lisensiert til Masimo, og Purdon og Brown er medgrunnleggere av PASCALL Systems.</li>
+  </ul>
+  <span class="tag">Tian et al. Nat Commun 2023;14:1748</span></div>
+
+  <h3>Ketamin hos aper: sanseinformasjonen når hjernebarken, men går ikke videre (Schroeder 2016)</h3>
+  <div class="card">
+  <p>NeuroImage 2016;134:459–465, fra Mashours og Chesteks grupper. Tre rhesusaper med mikroelektroder i primær somatosensorisk kortex (S1) og motorisk kortex (M1). Fingrene ble strøket to ganger per sekund før og etter ketamin 10 mg/kg intramuskulært.</p>
+  <ul>
+   <li><strong>Utgangspunkt:</strong> ketamin passer dårlig med de vanlige forklaringene på anestesi. Forfatterne skriver at ketamin ikke binder med høy affinitet til GABA<sub>A</sub>, ikke demper metabolismen i thalamus, ikke aktiverer den søvnfremmende preoptiske kjernen og ikke demper høyfrekvent EEG.</li>
+   <li><strong>Avlesning av berøring:</strong> hvilken finger som ble berørt, kunne avleses fra nevronaktiviteten i S1 (89,3 % riktig) og M1 (68,7 %) hos våkne dyr. 10–30 minutter etter ketamin falt M1 til tilfeldig nivå (27,4 %, tilfeldig nivå 33,3 %), mens S1 var bevart. Etter fire timer var M1 tilbake til 54,4 %. Fyringsfrekvensen endret seg ikke samlet.</li>
+   <li><strong>Kobling mellom nevroner:</strong> overføringsentropi, et mål på rettet informasjonsoverføring, falt mellom S1 og M1, og også innen S1.</li>
+   <li><strong>Svingninger i S1:</strong> beta falt, mens gamma og delta økte, slik det er beskrevet i skalp-EEG hos mennesker under ketaminanestesi.</li>
+   <li><strong>Tolkning:</strong> overføringen fra thalamus til S1 ser ut til å være bevart, mens overføringen mellom områder i hjernebarken svikter. Forfatterne ser dette som et mulig felles sluttpunkt for midler med ulike molekylære mål. De skriver selv at subanestetiske ketamindoser også endrer koblingen hos mennesker, så det er uklart om frakoblingen er årsak til bevisstløsheten eller bare følger med.</li>
+   <li><strong>Forbehold:</strong> tre aper, der én bare gjennomførte et forkortet forsøk, og analysene av overføringsentropi og spekter bygger på to av dem. Blodkonsentrasjonen ble ikke målt, og bevissthet ble vurdert ut fra reflekser. Studien er finansiert av NIH.</li>
+  </ul>
+  <span class="tag">Schroeder et al. NeuroImage 2016;134:459–465</span></div>
 
   <h3>Anestesi som oppsplitting av selvopplevelse (Sleigh, Warnaby og Tracey 2018)</h3>
   <div class="card">
@@ -717,7 +759,7 @@ header h1 button:hover{color:var(--accent)}
   <span class="tag">Johnson et al. Anesth Analg 2010;111:387–394</span></div>
 
   <div class="card"><h3>Hysterese og nevral treghet</h3>
-    <p>Når konsentrasjonen endres, for eksempel ved induksjon og oppvåkning, henger effekten etter plasmakonsentrasjonen. Effektsted-modellen beskriver forsinkelsen (kap. 16). Kapittel 36 beskriver i tillegg nevral treghet: pasienter trenger høyere konsentrasjon for å miste respons enn der de våkner, og forskjellen lar seg ikke forklare fullt ut med farmakokinetikk. Warnaby 2017 fant derimot ingen forskjell i gjennomsnittlig propofolkonsentrasjon for tap og retur av respons hos 16 frivillige, men hysterese i konsentrasjonen for metning av langsom bølgeaktivitet (se kortet over). Det pågår debatt om hvor mye som skyldes farmakokinetikk. Eldre og dexmedetomidin øker hysteresen, ifølge kapittelet. For propofol oppgir kapittel 21 en ekvilibreringstid for EEG-effekt på ca. 2,5 minutter (tid til topp ca. 90–100 sekunder) og ca. 7 minutter for den hemodynamiske depresjonen. Kapittel 21 oppgir også at våknekonsentrasjonen (ca. 2,2 µg/ml) er lik konsentrasjonen for tap av respons når ekvilibrering tillates (Kazama 1998). Det nyanserer nevral treghet og passer med debatten kapittel 36 viser til. Kapittel 16 påpeker også at endetidal sevofluran er unøyaktig når vaporinnstillingen endres, fordi den ikke tar høyde for forsinkelsen til effektsted (Johnson 2010; se kortet over).</p>
+    <p>Når konsentrasjonen endres, for eksempel ved induksjon og oppvåkning, henger effekten etter plasmakonsentrasjonen. Effektsted-modellen beskriver forsinkelsen (kap. 16). Kapittel 36 beskriver i tillegg nevral treghet: pasienter trenger høyere konsentrasjon for å miste respons enn der de våkner, og forskjellen lar seg ikke forklare fullt ut med farmakokinetikk. Warnaby 2017 fant derimot ingen forskjell i gjennomsnittlig propofolkonsentrasjon for tap og retur av respons hos 16 frivillige, men hysterese i konsentrasjonen for metning av langsom bølgeaktivitet (se kortet over). Det pågår debatt om hvor mye som skyldes farmakokinetikk. Eldre og dexmedetomidin øker hysteresen, ifølge kapittelet. For propofol oppgir kapittel 21 en tid til likevekt mellom blod og effektsted for EEG-effekt på ca. 2,5 minutter (tid til topp ca. 90–100 sekunder) og ca. 7 minutter for den hemodynamiske depresjonen. Kapittel 21 oppgir også at våknekonsentrasjonen (ca. 2,2 µg/ml) er lik konsentrasjonen for tap av respons når det er tid til likevekt mellom blod og effektsted (Kazama 1998). Det nyanserer nevral treghet og passer med debatten kapittel 36 viser til. Kapittel 16 påpeker også at endetidal sevofluran er unøyaktig når vaporinnstillingen endres, fordi den ikke tar høyde for forsinkelsen til effektsted (Johnson 2010; se kortet over).</p>
     <p class="small">Simulatoren over modellerer ikke hysterese. Induksjon og oppvåkning er symmetriske.</p>
     <span class="tag">Miller's kap. 16, 21 og 36</span></div>
 
@@ -848,6 +890,22 @@ header h1 button:hover{color:var(--accent)}
   <h2>Legemidler: bevissthet og amnesi</h2>
   <p>Ulike midler påvirker bevissthet, erindring, smerte og bevegelse i ulik grad. Tallene under er populasjonsgjennomsnitt fra litteraturen, med stor individuell variasjon. De er ikke doseringsråd.</p>
 
+  <details class="comp" style="--hue:var(--c-sta)"><summary>Grunnbegreper: reseptorer, ionekanaler og kretser</summary><div class="body">
+    <span class="tag">Miller's kap. 21 og 8</span> <span class="tag">Purdon 2015</span> <span class="tag">Brown, Lydic og Schiff 2010</span>
+    <p>Hvert middel under har et eget avsnitt om mikronivå: hvilke reseptorer midlet binder til, hva som skjer i nervecellen, og hvilke kretser som påvirkes. Mye av kunnskapen kommer fra dyreforsøk, cellestudier og modellering, og kildene beskriver mekanismene som sannsynlige, ikke fullstendig kartlagte.</p>
+    <ul>
+      <li><strong>GABA<sub>A</sub>-reseptoren:</strong> en kloridkanal satt sammen av fem subenheter. Kapittel 21 oppgir at reseptoren bygges fra 18 eller flere ulike subenheter, og at α-subenheten finnes i seks varianter (α1–α6). Mange kombinasjoner finnes i ulike deler av hjernen. Bindingssetene ligger i grenseflatene mellom subenhetene, og kombinasjonen avgjør hvor godt for eksempel propofol, etomidat eller pentobarbital binder.</li>
+      <li><strong>Når kanalen åpner:</strong> klorid strømmer inn, cellemembranen hyperpolariseres, og terskelen for at nervecellen skal fyre øker. Derfor kalles GABA-systemet hemmende (kap. 21).</li>
+      <li><strong>Forsterke eller aktivere:</strong> kapittel 21 beskriver at propofol, barbiturater og etomidat ved kliniske konsentrasjoner forsterker virkningen av GABA, slik at mindre GABA trengs. Ved høyere konsentrasjoner kan de åpne kanalen direkte, uten GABA. Benzodiazepiner beskrives bare som forsterkere av GABA-responsen.</li>
+      <li><strong>Synaptisk og tonisk hemming:</strong> i hippocampus finnes mange GABA<sub>A</sub>-reseptorer med α5-subenhet, som nesten ikke finnes ellers i hjernebarken. De gir en vedvarende (tonisk) hemming av pyramidecellene i CA1 og regulerer langtidspotensiering (LTP) ved stimulering i theta-området (kap. 8). Dette er knyttet til amnesi, se etomidat og inhalasjonsmidler.</li>
+      <li><strong>NMDA-reseptoren:</strong> en glutamatstyrt ionekanal. Ketamin er en kanalblokker og virker bare når kanalen er åpen (Purdon 2015).</li>
+      <li><strong>α<sub>2</sub>-adrenoreseptorer:</strong> G-proteinkoblede reseptorer. De hemmer adenylatsyklase og påvirker kalsium- og kaliumkanaler (kap. 21).</li>
+      <li><strong>Arousal-sentrene:</strong> våkenhet holdes oppe av kjerner i hjernestammen, hypothalamus og basale forhjerne: locus coeruleus (noradrenalin), raphe (serotonin), tuberomammillære kjerne (histamin), ventrale tegmentale område (dopamin), basale forhjerne og de laterodorsale og pedunkulopontine tegmentale kjernene (acetylkolin) og lateral hypothalamus (oreksin). Preoptisk område i hypothalamus sender hemmende GABA- og galaninbaner til disse sentrene. Purdon 2015 skriver at aktivering av disse banene antas å være en sentral del av hvordan NREM-søvn starter (Brown 2010, Purdon 2015).</li>
+      <li><strong>Fra reseptor til EEG:</strong> Purdon 2015 bygger på at EEG-signaturene oppstår fordi midlene virker på bestemte reseptorer i bestemte kretser. For propofol beskrives det slik at thalamus og hjernebark, som er tett koblet, ikke slås av når de hemmes, men i stedet svinger i rytmer som alfa og beta.</li>
+      <li><strong>Interaksjoner som spor:</strong> Hendrickx 2008 bruker interaksjoner som hint om virkested: additivitet tyder på felles virkested, synergi på ulike virkesteder. Se kortet «Synergi mellom midler og isoelektrisk EEG».</li>
+    </ul>
+  </div></details>
+
   <details class="comp" style="--hue:var(--c-hyp)" open><summary>Propofol</summary><div class="body">
     <span class="tag">EEG-signatur (Purdon 2015)</span> <span class="tag">Miller's kap. 21</span>
     <ul>
@@ -855,10 +913,22 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Amnesi:</strong> 95 % hadde ingen erindring ved BIS 77 i den samme typen studie (Glass 1997). Amnesi inntrer altså ved et lettere hypnosenivå enn tap av respons. Kapittel 21 sier at ustimulerte frivillige trengte infusjon på minst 2 mg/kg/t for amnesi.</li>
       <li><strong>Bevegelse:</strong> Konsentrasjonen som hindret bevegelse ved snitt hos halvparten var 16 µg/ml uten andre midler, og markant lavere med opioid (kap. 21; kap. 36 oppgir minst 15).</li>
       <li><strong>EEG:</strong> Alfa-delta ved vedlikehold. Se Spektrogram-fanen.</li>
-      <li><strong>Tidsforløp:</strong> Halveringstiden for ekvilibrering mellom blod og EEG-effekt er ca. 2,5 minutter, og ca. 7 minutter for hemodynamisk depresjon. Hypotensjonen kan øke noen minutter etter tap av bevissthet.</li>
+      <li><strong>Tidsforløp:</strong> Halveringstiden til likevekt mellom blod og EEG-effekt er ca. 2,5 minutter, og ca. 7 minutter for hemodynamisk depresjon. Hypotensjonen kan øke noen minutter etter tap av bevissthet.</li>
       <li><strong>Alder:</strong> Kapittel 21 oppgir at pasienter på 80 år eller mer trenger omtrent halve dosen som 20-åringer. Kapittel 16 oppgir at dosen til 80-åringer bør reduseres med 65 % (Schnider 1999). Tallene avviker.</li>
     </ul>
     <p class="small">BIS-verdiene er fra friske frivillige. Kapittel 36 oppgir at enkeltpasienter kan bli bevisste ved BIS-verdier fra 40 til 90.</p>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Bindingssted:</strong> den hypnotiske effekten går hovedsakelig via GABA<sub>A</sub>-reseptoren, der propofol binder til β-subenheten. Seter på β1, β2 og β3 i den delen av reseptoren som går gjennom cellemembranen er avgjørende, og α- og γ2-subenhetene ser også ut til å bidra (kap. 21).</li>
+      <li><strong>To virkemåter:</strong> indirekte ved at propofol forsterker GABA og venstreforskyver konsentrasjon–respons-kurven, og ved høyere konsentrasjoner direkte aktivering av kanalen (kap. 21).</li>
+      <li><strong>Andre mål:</strong> kapittel 21 nevner bred hemming av NMDA-reseptorer via påvirkning av natriumkanalenes portstyring, virkning på GABA<sub>A</sub>- og glycinreseptorer i ryggmargens bakhorn, økt dopamin i nucleus accumbens (velvære), redusert serotonin i area postrema (kvalmedempende) og hemmet frigjøring av acetylkolin i hippocampus og prefrontal kortex. α2-systemet ser ut til å ha en indirekte rolle i sedasjonen.</li>
+      <li><strong>Kretser:</strong> i hjernebarken forsterker propofol hemmingen av pyramidecellene fra hemmende internevroner. I thalamus forsterker propofol GABA-hemmingen i den retikulære kjernen, som styrer hva thalamus sender videre til kortex. Fordi thalamus og kortex er tett koblet, gir dette svingninger i beta og alfa. Propofol forsterker også de hemmende GABA-banene fra preoptisk område til arousal-sentrene. Mindre eksitatorisk tilførsel fra thalamus og hjernestammen hyperpolariserer kortex og gir langsom-delta (Purdon 2015). Brown 2010 nevner i tillegg hemmet frigjøring av histamin fra tuberomammillære kjerne.</li>
+      <li><strong>Bolus:</strong> etter bolus kommer langsom-delta i løpet av sekunder, samtidig med tap av respons, tap av okulocefal refleks, apné og atoni. Purdon tolker dette som rask virkning i hjernestammen: hjernenervekjernene III, IV og VI (øyebevegelser), respirasjonssentrene i medulla og pons (apné) og retikulære kjerner i pons og medulla (atoni).</li>
+      <li><strong>Koherent alfa, usammenhengende langsomme bølger:</strong> frontal alfa er svært koherent og kan oppstå i kretser mellom thalamus og frontal kortex. De langsomme bølgene er ikke koherente, og målinger med elektroder i hjernebarken viser at de avgrenser korte perioder med fyring. Purdon foreslår at alfa hindrer normal kommunikasjon mellom thalamus og kortex, og at de langsomme bølgene hindrer kommunikasjonen innad i kortex.</li>
+      <li><strong>Paradoksal eksitasjon:</strong> Purdon 2015 beskriver to foreslåtte mekanismer: GABA<sub>A</sub>-mediert hemming av de hemmende banene fra globus pallidus til thalamus, slik at thalamus driver kortex mer, og (fra simuleringsstudier) forbigående blokkering av langsomme kaliumstrømmer i nerveceller i kortex.</li>
+      <li><strong>Hukommelse:</strong> propofol hemmer induksjonen, men ikke vedlikeholdet, av LTP i hippocampus, og påvirker ikke langtidsdepresjon (LTD). Effekten blokkeres av GABA<sub>A</sub>-antagonisten pikrotoksin. Én studie fant LTP-hemming bare ved anestetiske, ikke ved amnestiske, konsentrasjoner. Propofol gir også tap av theta-faselåsing mellom kortex og hippocampus, mediert av β3-subenheten (kap. 8).</li>
+      <li><strong>Fysostigmin:</strong> Brown 2010 skriver at bevisstløshet fra propofol i kliniske studier er reversert med fysostigmin, som øker kolinerg aktivitet i hele kortex.</li>
+      <li><strong>Anfall:</strong> kapittel 21 beskriver at propofol kan dempe anfall via GABA, NMDA-hemming og langsomme kalsiumkanaler, men at GABA-agonisme og glycin-antagonisme også kan gi epileptiforme endringer, særlig ved innledning og oppvåkning.</li>
+    </ul></div>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-amn)"><summary>Midazolam (benzodiazepiner)</summary><div class="body">
@@ -871,6 +941,15 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Mekanisme:</strong> Kapittel 21 knytter sedasjon og anterograd amnesi til GABA-A-reseptorer med α1-subenhet. Kapittel 8 beskriver at amnesien for etomidat i mus er knyttet til α5-subenheter. Dette gjelder ulike midler og er ikke nødvendigvis motsigelser.</li>
       <li><strong>Alder:</strong> Eldre trenger mindre (Jacobs 1995).</li>
     </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Bindingssted:</strong> benzodiazepiner virker selektivt på GABA<sub>A</sub>-reseptoren og forsterker responsen på GABA ved å lette åpningen av kloridkanalen, med hyperpolarisering som resultat (kap. 21). Hendrickx 2008 skiller benzodiazepinsetet fra setet der propofol, barbiturater og etomidat virker.</li>
+      <li><strong>Subenheter og effekter:</strong> α1 er knyttet til sedasjon, anterograd amnesi og krampedempende effekt, α2 til angstdemping og muskelavslapning. α2 og α3 er knyttet til belønningseffektene og dermed avhengighet (kap. 21).</li>
+      <li><strong>Hvor reseptorene sitter:</strong> høyest tetthet i bulbus olfactorius, hjernebarken, lillehjernen, hippocampus, substantia nigra og colliculus inferior, lavere i striatum, nedre hjernestamme og ryggmarg (kap. 21).</li>
+      <li><strong>Styrke:</strong> affiniteten er lorazepam &gt; midazolam &gt; diazepam. Midazolam er ca. 3–6 og lorazepam 5–10 ganger så potent som diazepam (kap. 21).</li>
+      <li><strong>Tak:</strong> midazolam alene kan ikke helt fjerne bevegelse ved smertestimuli, mens propofol alene kan det. Hendrickx 2008 bruker dette som ett argument for at propofol og midazolam virker forskjellig, selv om begge virker via GABA<sub>A</sub>, og at kombinasjonen derfor er synergistisk.</li>
+      <li><strong>Flumazenil og reseptorbelegg:</strong> flumazenil er en kompetitiv antagonist med høy affinitet og nesten ingen egeneffekt. Effekten avhenger av hvor stor andel av reseptorene agonisten opptar. Ved svært høy agonistdose demper en liten dose flumazenil den dype CNS-depresjonen (bevisstløshet, respirasjonsdepresjon) uten å redusere effektene som bare krever lav reseptorandel (døsighet, amnesi). Store doser flumazenil ved lite agonist reverserer alt. Flumazenil elimineres raskt, så sedasjonen kan komme tilbake (kap. 21).</li>
+      <li><strong>Remimazolam:</strong> beskrives i kapittel 21 som en ultrakortvirkende GABA<sub>A</sub>-agonist.</li>
+    </ul></div>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-ana)"><summary>Ketamin</summary><div class="body">
@@ -880,8 +959,19 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Konsentrasjon:</strong> Minimum 0,6–2 µg/ml for generell anestesi. Smerteterskelen heves ved 0,1 µg/ml eller mer, altså langt under nivået for bevisstløshet.</li>
       <li><strong>Amnesi:</strong> Ingen erindring av kirurgi, men amnesien er mindre uttalt enn med benzodiazepiner.</li>
       <li><strong>Hjernens metabolisme:</strong> Øker CMRO₂ og blodstrøm (kap. 10 og 21).</li>
-      <li><strong>EEG:</strong> Kapittel 21 beskriver theta og epileptiform aktivitet i hippocampus, mens Akeju beskriver vekslende langsom-delta og gamma. Beskrivelsene er ikke like.</li>
+      <li><strong>EEG:</strong> Kapittel 21 beskriver generalisert thetaaktivitet i EEG og anfallslignende (petit mal) aktivitet i hippocampus, og nevner ikke gamma eller langsom-delta. Akeju beskriver vekslende langsom-delta og gamma, i tillegg til økt theta. Theta går igjen i begge, så beskrivelsene er ulike i omfang, ikke motstridende.</li>
     </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Hovedmål:</strong> blokkering av NMDA-reseptoren. Ketamin er en kanalblokker, så kanalen må være åpen for at ketamin skal virke (Purdon 2015).</li>
+      <li><strong>Internevroner først:</strong> NMDA-kanalene på hemmende internevroner er generelt mer aktive enn på pyramidecellene. Ved lave til moderate doser rammer ketamin derfor særlig internevronene, og pyramidecellene blir mindre hemmet. Purdon 2015 bruker dette til å forklare økt metabolisme, og at kortex, hippocampus og amygdala fortsetter å kommunisere, men uten koordinering i tid og rom: hallusinasjoner, dissosiasjon, eufori og dysfori. Ved høyere doser blokkeres også NMDA-reseptorene på de eksitatoriske nervecellene, og bevisstheten tapes. Brown 2010 beskriver det samme.</li>
+      <li><strong>Dopamin:</strong> hallusinasjonene forsterkes trolig av forstyrret dopaminoverføring i prefrontal kortex, delvis på grunn av økt glutamataktivitet på andre glutamatreseptorer enn NMDA (Purdon 2015).</li>
+      <li><strong>Andre reseptorer:</strong> opioidreseptorer og monoaminerge reseptorer. Ved høye konsentrasjoner påvirkes også sigma-reseptorer, muskarine reseptorer blokkeres og GABA-overføringen fremmes. S(+)-ketamin har noe μ-opioidaktivitet, og forsøk med μ-knockoutmus tyder på at μ-systemet bidrar til respirasjonsdepresjon og smertedemping over ryggmargsnivå (kap. 21). Kapittel 8 beskriver økt aktivitet i locus coeruleus, som ser ut til å bidra til den anestetiske effekten.</li>
+      <li><strong>Smertedemping:</strong> kapittel 21 knytter den spinale analgesien til hemming av «wide dynamic range»-nevroner i bakhornet, og beskriver at ketamin hemmer sentral sensitisering og opioidindusert hyperalgesi. Purdon 2015 plasserer analgesien ved «dorsalrotganglion, den første synapsen i smertebanen i ryggmargen».</li>
+      <li><strong>Kretser:</strong> kapittel 21 beskriver at ketamin demper deler av hjernebarken (særlig assosiasjonsområder) og thalamus, men stimulerer limbiske områder, også hippocampus, og kaller dette en funksjonell disorganisering. Kapittel 8 skriver at mange anestesimidler gir lavere metabolisme i thalamus, med ketamin som unntak.</li>
+      <li><strong>Til EEG:</strong> det aktive EEG-et passer med disinhibisjonen. Ved lav dose alene beskriver Purdon beta–gamma ved ca. 25–32 Hz. Ingen spesifikk antagonist reverserer alle ketaminens effekter (kap. 21).</li>
+      <li><strong>HCN1-kanalen (Tian 2023):</strong> ketamin hemmer også HCN1, en kanal som aktiveres ved hyperpolarisering og er viktig for rytmisk aktivitet. Mus uten HCN1 mister ikke rettrefleksen av ketamin, og propofol hemmer også HCN1. Tian foreslår at frontal gamma skyldes NMDA-mediert disinhibisjon (som propofols GABA-effekt motvirker), mens den felles HCN1-hemmingen kan forklare at occipital alfa faller ytterligere når propofol legges til. Se kortet i Komponenter-fanen.</li>
+      <li><strong>Kommunikasjon i hjernebarken (Schroeder 2016):</strong> hos aper under ketamin nådde sanseinformasjonen primær somatosensorisk kortex, men gikk ikke videre til motorisk kortex, og den rettede koblingen mellom nevronene i de to områdene falt.</li>
+    </ul></div>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-aki)"><summary>Dexmedetomidin</summary><div class="body">
@@ -892,15 +982,147 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Erindring:</strong> Kapittel 21 refererer en ICU-studie der pasienter på dexmedetomidin husket mer av oppholdet enn pasienter på propofol. Kapittel 8 beskriver svikt i innkoding i en eksperimentell lavdose-studie. Funnene er ikke direkte sammenlignbare.</li>
       <li><strong>Hysterese:</strong> Kapittel 36 sier at dexmedetomidin øker nevral treghet.</li>
     </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Reseptor:</strong> α2-agonist på G-proteinkoblede α2-adrenoreseptorer. Inne i cellen hemmes adenylatsyklase, L- og P-type kalsiumkanaler hemmes, og kalsiumaktiverte kaliumkanaler leder lettere (kap. 21).</li>
+      <li><strong>Undertyper:</strong> α2A, α2B og α2C. Kapittel 21 skriver at α2A hovedsakelig finnes perifert og α2B og α2C i hjerne og ryggmarg, og knytter analgesien i bakhornet til α2C og α2A. Kapittel 8 viser til at fjerning av α2A-reseptorer i locus coeruleus hos gnagere hindrer at dexmedetomidin gir tap av rettrefleks (se Avvik i Kilder-fanen).</li>
+      <li><strong>Krets:</strong> dexmedetomidin binder presynaptisk på nerveceller fra locus coeruleus og hyperpolariserer dem, slik at mindre noradrenalin frigjøres. Da faller hemmingen av preoptisk område bort, og preoptisk område hemmer arousal-sentrene med GABA og galanin, blant annet histaminfrigjøringen fra tuberomammillære kjerne. I tillegg faller noradrenalintilførselen til basale forhjerne, de intralaminære thalamuskjernene og kortex bort (Purdon 2015, kap. 21).</li>
+      <li><strong>Dyreforsøk:</strong> mikroinjeksjon av dexmedetomidin i locus coeruleus senker bevissthetsnivået, og det hindres av α2-antagonisten atipamezol. Mus som ikke kan lage noradrenalin er overfølsomme for dexmedetomidin, noe som tyder på at det også finnes andre virkemåter (kap. 8).</li>
+      <li><strong>Til EEG:</strong> spindlene (9–15 Hz) oppstår, som propofols frontale alfa og søvnspindler, trolig i sløyfer mellom thalamus og kortex, men de er korte og episodiske. Langsom-delta oppstår fordi kortex får mindre eksitatorisk tilførsel. Både spindler og langsomme bølger er mindre enn under propofol. Purdon tolker det som mindre forstyrrelse av nervecelleaktiviteten, og som en mulig forklaring på at pasienten kan vekkes.</li>
+      <li><strong>Kognisjon:</strong> kapittel 21 nevner data om at dempet uttrykk av α5-GABA<sub>A</sub>-reseptorer etter anestesi kan bidra til at kognisjonen bevares bedre med dexmedetomidin.</li>
+      <li><strong>Reversering:</strong> α2-antagonisten atipamezol reverserer effekten, men er ikke godkjent til mennesker (kap. 21).</li>
+      <li><strong>α2A i locus coeruleus (Mizobe 1996):</strong> hos rotter ga antisense mot α2A i locus coeruleus senere og kortere tap av rettrefleks etter dexmedetomidin, mens antisense mot α2C ikke hadde effekt. Se kortet nedenfor og Avvik.</li>
+      <li><strong>Thalamus (Akeju, Loggia et al. 2014):</strong> under bevissthetstap med dexmedetomidin var koblingen mellom områdene i hjernebarken bevart, mens koblingen mellom thalamus og default mode-nettverket var brutt. Se kortet nedenfor.</li>
+      <li><strong>Spindler (Huupponen 2008):</strong> spindlene under dyp dexmedetomidinsedasjon hadde samme tetthet, amplitude og frekvens som spindler i normal NREM 2-søvn, men varte lenger. Se kortet nedenfor.</li>
+    </ul></div>
   </div></details>
 
+  <details class="comp" style="--hue:var(--c-aki)"><summary>Klonidin</summary><div class="body">
+    <span class="tag">Miller's kap. 21, 10 og 22</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Hight 2020</span>
+    <ul>
+      <li><strong>Hva det er:</strong> en α2-agonist som dexmedetomidin, men mindre selektiv. Forholdet mellom binding til α2 og α1 er ca. 220:1, mot 1600:1 for dexmedetomidin (kap. 21). Kapittel 10 beskriver klonidin som betydelig mindre spesifikk og mindre potent.</li>
+      <li><strong>Bakgrunn:</strong> erfaring med pasienter som brukte klonidin, viste at α2-agonister kunne brukes i anestesi, og én studie fant lavere MAC for halotan hos slike pasienter. Det førte til utviklingen av dexmedetomidin (kap. 21).</li>
+      <li><strong>MAC:</strong> klonidin senket MAC for isofluran med ca. 30 % og for sevofluran med 17–34 %, og MAC-awake med 30 % (isofluran) og 17–21 % (sevofluran) hos mennesker. Hos barn ga dobbel dose ikke ytterligere fall i MAC-awake for sevofluran. Klonidin alene gir ikke immobilitet i klinisk brukte doser, så effekten har et tak (Hendrickx 2008).</li>
+      <li><strong>Interaksjoner:</strong> propofol og klonidin var additive for hypnose hos mennesker. Midazolam og klonidin var synergistiske hos rotter, og fentanyl og klonidin ga hypnose sammen hos dyr, selv om ingen av dem gjorde det alene (Hendrickx 2008). Kapittel 21 skriver at infusjonsdosen av blant annet klonidin bør reduseres når det kombineres med propofol.</li>
+      <li><strong>Respirasjon og opioider:</strong> klonidin forsterker ikke respirasjonsdepresjonen fra fentanyl og andre opioider. Klonidin intravenøst opphevet sympatikusaktiveringen ved μ-blokade hos opioidavhengige, og α2-agonister kan dempe fentanylhoste (kap. 22).</li>
+      <li><strong>EEG:</strong> dexmedetomidin og andre α2-agonister som klonidin gir et EEG dominert av langsomme bølger med spindler innimellom, med likhetstrekk med søvnstadium 2 og 3 (Hight 2020). Hight nevner også klonidin blant tilstandene der hysteresen er mer uttalt, og maner til forsiktighet med å senke konsentrasjonen av inhalasjonsmiddel under det som skal til for bevisstløshet.</li>
+    </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Reseptor:</strong> klonidin virker på α2-adrenoreseptorer, som er G-proteinkoblede og hemmer adenylatsyklase (se dexmedetomidin). Kildene her beskriver kretsmekanismen (locus coeruleus og preoptisk område) for dexmedetomidin, ikke særskilt for klonidin.</li>
+      <li><strong>Imidazolinreseptorer:</strong> klonidin og dexmedetomidin tilhører begge imidazolgruppen (kap. 21). Mizobe 1996 skriver at de klinisk tilgjengelige α2-agonistene har en imidazolring som også aktiverer imidazolin-bindingsseter, at de ikke skiller mellom α2-undertypene, og at bradykardien delvis kan skyldes imidazolinreseptorer i hjernestammen.</li>
+      <li><strong>Nevrobeskyttelse i dyreforsøk:</strong> klonidin senket katekolaminene i plasma og bedret utfallet etter ufullstendig iskemi hos rotter (kap. 10).</li>
+    </ul></div>
+  </div></details>
   <details class="comp" style="--hue:var(--c-sta)"><summary>Tiopental og etomidat</summary><div class="body">
     <span class="tag">Miller's kap. 21 og 10</span>
     <ul>
       <li><strong>Tiopental:</strong> Amnesien er mindre uttalt enn med benzodiazepiner. Når EEG blir isoelektrisk, er hjernens metabolisme ifølge kapittel 21 ca. 50 % av utgangsnivået.</li>
       <li><strong>Etomidat:</strong> Ved 0,2–0,3 mg/kg faller CBF med 34 % og CMRO₂ med 45 % uten endring i middelarterietrykk.</li>
     </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Barbiturater:</strong> GABA<sub>A</sub>-reseptoren er det eneste påviste virkestedet for barbituratanestesi. Ved lave konsentrasjoner gjør barbituratene at GABA slipper reseptoren langsommere og at kanalen står åpen lenger, noe som trolig gir sedasjon og hypnose. Ved høyere konsentrasjoner åpner de kanalen uten GABA, som kan forklare selve anestesien. De hemmer også eksitatorisk overføring (glutamat, acetylkolin), og tiopental reduserte glutamatnivå og NMDA-strømmer i prefrontal kortex hos rotter (kap. 21).</li>
+      <li><strong>Metabolisme og funksjon:</strong> CMRO₂ faller til ca. 50 % når EEG blir isoelektrisk, og ikke lenger. Barbituratene reduserer energibruken som går til signalering, ikke den som går til å holde cellene i live. Den kan bare hypotermi redusere (kap. 21).</li>
+      <li><strong>Etomidat:</strong> virker nesten bare via GABA<sub>A</sub>: positiv modulering ved kliniske konsentrasjoner og direkte aktivering ved høyere konsentrasjoner. Kapittel 21 beskriver to uavhengige bindingsseter på α1β2γ2-reseptoren som bidrar likt.</li>
+      <li><strong>Etomidat og amnesi:</strong> hos mus blokkerer etomidat LTP i CA1, men ikke hos mus som mangler α5-subenheten. Disse musene er motstandsdyktige mot amnesien, men ikke mot anestesien, og effekten oppheves av et α5-selektivt stoff med motsatt virkning (invers agonist, L-655,708). β3-subenheten ser ikke ut til å være involvert i etomidats amnesi (kap. 8). Amnesi og hypnose kan altså gå via ulike reseptorvarianter.</li>
+      <li><strong>Anfallsfokus:</strong> etomidat øker EEG-aktiviteten i epileptogene foci og er brukt til kartlegging før epilepsikirurgi (kap. 21).</li>
+    </ul></div>
   </div></details>
+
+  <details class="comp" style="--hue:var(--c-hyp)"><summary>Inhalasjonsmidler (sevofluran, isofluran, desfluran)</summary><div class="body">
+    <span class="tag">Morgan og Mikhail kap. 8</span> <span class="tag">Purdon 2015</span> <span class="tag">Miller's kap. 8 og 22</span> <span class="tag">Hendrickx 2008</span>
+    <ul>
+      <li><strong>MAC:</strong> den alveolære konsentrasjonen som hindrer bevegelse ved kirurgisk snitt hos halvparten av pasientene. MAC er bare ett punkt på konsentrasjon–respons-kurven (tilsvarer EC50). Omtrent 1,3 MAC hindrer bevegelse hos ca. 95 % (Morgan og Mikhail kap. 8).</li>
+      <li><strong>MAC-verdier:</strong> for 30–55-åringer oppgir Morgan og Mikhail ca. 2,0 % for sevofluran, 1,2 % for isofluran og 6,0 % for desfluran.</li>
+      <li><strong>Oppvåkning:</strong> 0,3–0,4 MAC er forbundet med oppvåkning (MAC-awake) når inhalasjonsmiddelet er det eneste anestesimiddelet (Morgan og Mikhail).</li>
+      <li><strong>Kombinasjoner:</strong> MAC-verdier for kombinasjoner er omtrent additive, for eksempel gir 0,5 MAC lystgass og 0,5 MAC isofluran samme effekt som 1,0 MAC isofluran (Morgan og Mikhail). Hendrickx 2008 fant ingen synergi mellom to inhalasjonsmidler, men vanligvis synergi med intravenøse midler. Opioider senker MAC, men med et tak (kap. 22).</li>
+      <li><strong>Alder:</strong> MAC faller ca. 6 % per tiår, uavhengig av middel (Morgan og Mikhail kap. 8). Kapittel 43 i samme bok oppgir et annet tall (se Avvik).</li>
+      <li><strong>Opptak og utskillelse:</strong> effekten avhenger av at konsentrasjonen i hjernen når et terapeutisk nivå, og den følger konsentrasjonen i alveolene. Lav løselighet i blod og vev gjør at desfluran gir svært rask innsovning og oppvåkning (Morgan og Mikhail).</li>
+      <li><strong>EEG:</strong> under MAC gir sevofluran kraftig alfa og langsom-delta som ligner propofol. Ved MAC og høyere kommer en theta-svingning som fyller ut mellom langsom-delta og alfa, og ved nedtrapping forsvinner theta først. Ved oppvåkning går alfa over i beta og gamma med lavere amplitude, som en «glidelås» som åpnes. Isofluran og desfluran gir samme mønster, og høye doser gir burst suppression (Purdon 2015). Se Spektrogram-fanen.</li>
+    </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Mange mål:</strong> Purdon 2015 lister forsterket GABA<sub>A</sub>-hemming, blokkering av to-pore-kaliumkanaler og HCN-kanaler, og hemmet glutamatfrigjøring via NMDA-reseptorer. Morgan og Mikhail nevner i tillegg glycinreseptorens α1-subenhet, som inhalasjonsmidlene forsterker, og nikotinerge acetylkolinreseptorer. De skriver at ingen obligatorisk virkested er funnet.</li>
+      <li><strong>Meyer–Overton:</strong> styrken korrelerer med fettløselighet, noe som tidligere støttet en felles mekanisme for alle inhalasjonsmidler. Korrelasjonen er bare omtrentlig (Morgan og Mikhail).</li>
+      <li><strong>Immobilitet i ryggmargen:</strong> MAC endres ikke når ryggmargen er overskåret hos rotter (Morgan og Mikhail), og Purdon skriver at den muskelavslappende effekten skyldes virkning på reseptorer og kanaler i ryggmargen. Hendrickx 2008 fant ingen synergi mellom to inhalasjonsmidler for MAC og tolker det som et felles virkested for immobilitet, til tross for ulike reseptoreffekter.</li>
+      <li><strong>Kretser:</strong> noradrenerge nerveceller i locus coeruleus påvirker isoflurananestesi og oppvåkning fra den. I pontine retikulærformasjon er lavere GABA-nivå knyttet til isofluranindusert bevisstløshet, et eksempel på at GABA ikke alltid hemmer våkenhet (kap. 8).</li>
+      <li><strong>Hukommelse:</strong> isofluran og sevofluran hemmer LTP i hippocampus, og effekten oppheves av GABA<sub>A</sub>-antagonister. For isofluran er også α4β2-nikotinreseptoren implisert. Lave, amnestiske konsentrasjoner forsterker den toniske hemmingen via α5-reseptorer. Mus uten α4, eller uten β3 i forhjernen, er motstandsdyktige mot amnesien fra isofluran, mens α1 og α2 ikke ser ut til å være involvert. Mus uten HCN1-kanaler er motstandsdyktige mot amnesien fra sevofluran. Hos gnagere ser svekket hukommelse 24–48 timer etter isofluran ut til å gå via α5 (kap. 8).</li>
+      <li><strong>Til EEG:</strong> under MAC gir sevofluran alfa og langsom-delta som ligner propofol, noe Purdon tolker som at GABA-forsterkning er hovedmekanismen. Theta ved MAC og høyere kan ifølge Purdon skyldes en av de andre mekanismene. Kapittel 8 nevner at sevoflurans effekt på theta i hippocampus kan involvere TASK-3-kanaler. Begge deler er hypoteser.</li>
+    </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-ana)"><summary>Lystgass</summary><div class="body">
+    <span class="tag">Morgan og Mikhail kap. 8</span> <span class="tag">Purdon 2015</span> <span class="tag">Miller's kap. 8 og 22</span> <span class="tag">Hendrickx 2008</span>
+    <ul>
+      <li><strong>Rolle:</strong> lystgass brukes som tilleggsmiddel fordi den ikke er potent nok alene til generell anestesi. Forsøk på å gi nok lystgass alene til bevisstløshet gir kvalme og oppkast (Purdon 2015). MAC er oppgitt til 105 %, altså over én atmosfære (Morgan og Mikhail kap. 8).</li>
+      <li><strong>Utskillelse:</strong> lystgass skilles ut så raskt at oksygen og CO₂ i alveolene fortynnes. Diffusjonshypoksi forebygges med 100 % oksygen i 5–10 minutter etter at lystgassen er slått av (Morgan og Mikhail).</li>
+      <li><strong>Bivirkninger ved lang eksponering:</strong> benmargsdepresjon (megaloblastisk anemi) og perifere nevropatier (Morgan og Mikhail).</li>
+      <li><strong>EEG:</strong> lystgass gir typisk beta og gamma, og BIS kan stige selv om pasienten er bevisstløs (Liu 2023). Ved overgang fra et eter-middel til mer enn 70 % lystgass kan det komme en forbigående, kraftig langsom-delta (Purdon 2015).</li>
+    </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Virkested:</strong> Purdon 2015 knytter lystgassens EEG-mønstre til NMDA-reseptorer. Hendrickx 2008 regner lystgass blant inhalasjonsmidlene med mindre avklart virkested. Lystgass er ikke potent nok alene til generell anestesi.</li>
+      <li><strong>EEG og mulige mekanismer:</strong> lystgass gir typisk beta–gamma. Ved overgang fra et eter-middel til høy konsentrasjon lystgass (over 70 %) kan det komme kraftig, forbigående langsom-delta med tap av effekt over ca. 10 Hz. Mekanismen er ukjent. Purdon foreslår blokkering av NMDA-medierte eksitatoriske signaler fra parabrachialkjernen og mediale pontine retikulærformasjon til basale forhjerne og thalamus, og at beta–gamma kan ha samme mekanisme som for ketamin.</li>
+      <li><strong>Hukommelse:</strong> amnestiske konsentrasjoner av lystgass, isofluran og halotan demper hippocampusavhengig fryktlæring hos dyr, og effekten står i forhold til hvor mye theta-toppfrekvensen senkes (kap. 8).</li>
+      <li><strong>Interaksjon:</strong> lystgass og isofluran er muligens infra-additive (Hendrickx 2008).</li>
+      <li><strong>Smertedemping (kap. 22):</strong> hos mus går lystgassens smertedemping ikke via μ-reseptoren, men via κ-reseptoren og nedadgående hemmende baner i ryggmargen. Den hypnotiske effekten avhenger ikke av κ. Kapittel 22 omtaler 70 % lystgass som en effektiv NMDA-antagonist som reduserte opioidindusert hyperalgesi.</li>
+    </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-amn)"><summary>Opioider</summary><div class="body">
+    <span class="tag">Miller's kap. 22</span> <span class="tag">Brown, Lydic og Schiff 2010</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Balanza 2022</span>
+    <p>Kapittel 22 (Fukuda) beskriver opioidenes virkning fra reseptor til klinikk. Mye av mekanismekunnskapen kommer fra cellestudier og dyreforsøk.</p>
+    <ul>
+      <li><strong>Ikke fullstendige anestetika:</strong> opioider senker MAC, men med et tak, og må kombineres med andre midler. Smertelindringen er vanligvis ikke ledsaget av bevissthetstap. Høye doser kan stoppe spontanpusten uten at pasienten blir bevisstløs, og pasienten kan puste på kommando (kap. 22). Brown 2010 bruker dette til å forklare awareness ved hjertekirurgi med høydose opioid. Hendrickx 2008 beskriver at fentanyl alene ikke gir full hypnose.</li>
+      <li><strong>EEG:</strong> fentanyl, alfentanil, sufentanil og remifentanil gir samme mønster. Små doser fentanyl (2–5 µg/kg) gir minimale EEG-endringer, mens høye doser (30–70 µg/kg) gir høyamplitudige langsomme deltabølger, med et tak. Isolerte, forbigående skarpe bølger (oftest frontotemporalt) kan sees etter store doser. Hos barn og ungdom reduserte morfin alfa og beta, mens delta og theta var uendret (Montandon 2016). Spektral kantfrekvens følger remifentanilkonsentrasjonen nesten uten forsinkelse, mens den henger etter for fentanyl og sufentanil (kap. 22). Balanza 2022 fant frontal theta med fentanyl (se kortet nedenfor og Avvik).</li>
+      <li><strong>Respirasjonsdepresjon:</strong> skyldes direkte virkning av μ-reseptoren på respirasjonssentrene i hjernestammen. PreBötzinger-komplekset formidler bare deler av effekten (tidsmønsteret, ikke frekvensfallet). G-proteinstyrte kaliumkanaler bidrar. Mus uten μ-reseptor får ikke respirasjonsdepresjon av morfin. Genvarianten A118G endrer smertelindringen, men ikke respirasjonsdepresjonen fra morfin-6-glukuronid, noe som tyder på ulike signalveier. Hos aper utviklet det seg toleranse for smertelindringen, men ikke for respirasjonsdepresjonen (kap. 22).</li>
+      <li><strong>Hyperalgesi og toleranse:</strong> opioidindusert hyperalgesi er i dyreforsøk knyttet til sensitisering for glutamat og substans P, NMDA-plastisitet og AMPA-reseptorer i bakhornet. Ketamin, lystgass, magnesium og buprenorfin har dempet den i studier som kapitlet gjengir. Ved langvarig bruk skjer det en oppregulering av cAMP-systemet i locus coeruleus (kap. 22).</li>
+      <li><strong>Muskelrigiditet:</strong> skyldes ikke virkning på muskelen. Nucleus raphe pontis, nucleus caudatus og fentanyls virkning i locus coeruleus på spinale motornevroner er foreslått. Naloxon reverserer rigiditeten (kap. 22).</li>
+    </ul>
+    <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
+      <li><strong>Reseptorfamilien:</strong> μ, δ, κ og nociceptinreseptoren har ca. 50 % lik aminosyresekvens. Alle er G-proteinkoblede reseptorer med sju segmenter gjennom cellemembranen, og liganden binder dypt i en stor lomme. Endogene ligander er β-endorfin og endomorfiner (μ), enkefaliner (δ), dynorfiner (κ) og nociceptin. Sigma-reseptoren regnes ikke lenger som en opioidreseptor. Morfin, fentanyl, sufentanil, alfentanil og remifentanil er μ-agonister (kap. 22).</li>
+      <li><strong>Inne i nervecellen:</strong> reseptoren aktiverer Gi/o-proteiner. Adenylatsyklase hemmes (mindre cAMP), spenningsstyrte kalsiumkanaler hemmes og innoverlikerettende kaliumkanaler aktiveres. Resultatet er lavere eksitabilitet i nervecellen (kap. 22).</li>
+      <li><strong>I ryggmargen:</strong> opioidreseptorer finnes rikelig i substantia gelatinosa. Presynaptisk gir hemmede kalsiumkanaler mindre frigjøring av glutamat og substans P fra de primære sensoriske nevronene. Postsynaptisk gir åpne kaliumkanaler hyperpolarisering av projeksjonsnevronet i bakhornet, slik at glutamat ikke like lett aktiverer det (kap. 22). Brown 2010 beskriver det samme.</li>
+      <li><strong>I hjernestammen:</strong> i periakveduktal grå substans (PAG) hemmer opioider frigjøringen av GABA fra tonisk aktive internevroner. Dermed slippes nedadgående baner via medulla løs, og de frigjør noradrenalin og serotonin som demper smertesignalene i bakhornet. Opioider virker altså delvis ved å hemme hemmingen (kap. 22).</li>
+      <li><strong>I hjernebarken:</strong> PET med remifentanil viste aktivering i fremre cingulum, insula, orbitofrontal kortex og hjernestammen. Virkning i amygdala bidrar til analgesi hos rotter (kap. 22).</li>
+      <li><strong>Våkenhet:</strong> morfin reduserte frigjøringen av acetylkolin i prefrontal kortex hos rotter, både gitt intravenøst og direkte i basale forhjerne. Kapittel 22 kaller dette et mulig nevrokjemisk grunnlag for endret bevissthet. Brown 2010 beskriver at fentanyl reduserer acetylkolin i mediale pontine retikulærformasjon.</li>
+      <li><strong>Skjev agonisme (biased agonism):</strong> teorien er at Gi/o-signalering gir smertelindring, mens β-arrestin gir bivirkninger som respirasjonsdepresjon, forstoppelse og eufori. Mus uten β-arrestin-2 fikk mindre respirasjonsdepresjon av morfin i én studie, men ikke i en nyere. Kapittel 22 konkluderer at det er uavklart om G-protein-selektive opioider har færre bivirkninger.</li>
+      <li><strong>Belønning:</strong> μ- og δ-agonister virker belønnende, κ-agonister aversivt. Opioider hemmer GABA-nevroner i ventrale tegmentale område og nucleus accumbens, slik at mer dopamin frigjøres i nucleus accumbens. Aktiviteten i locus coeruleus hemmes (kap. 22).</li>
+      <li><strong>Andre mål:</strong> buprenorfin blokkerer natriumkanaler, d-metadon er NMDA-antagonist, petidin virker på α2B-adrenoreseptoren (mulig forklaring på effekten mot skjelving), og morfin og hydromorfon hemmer 5-HT3A-reseptoren. I mus uten μ-reseptor var ketaminens respirasjonsdepresjon og smertedemping redusert, og MAC for sevofluran høyere (kap. 22).</li>
+    </ul></div>
+  </div></details>
+
+  <h3>Dexmedetomidin og søvnspindler: som NREM 2-søvn (Huupponen 2008)</h3>
+  <div class="card">
+  <p>Acta Anaesthesiol Scand 2008;52:289–294. Elleve friske unge menn (20–28 år) fikk dexmedetomidin som målstyrt infusjon, først 0,5 ng/ml i 25 minutter og deretter 3,2 ng/ml i 30 minutter. Målt plasmakonsentrasjon under dyp sedasjon var 5,1 ng/ml (SD 1,0). EEG ble registrert fra én frontal kanal med Entropy-modulen. Kontrollgruppen var ti andre friske personer (sju menn, 21–43 år) med normal nattesøvn, der første søvnsyklus ble analysert.</p>
+  <ul>
+   <li><strong>Visuelt:</strong> EEG under dyp dexmedetomidinsedasjon lignet NREM-søvnstadium 2, med lite til moderat langsom aktivitet og mange spindler. Lav dose (0,5 ng/ml) ga ikke søvn hos alle og ble holdt utenfor analysen.</li>
+   <li><strong>Kvantitativt:</strong> spindeltetthet (1,17 mot 1,26 per minutt), amplitude og frekvens (11,5 mot 12,0 Hz) skilte seg ikke mellom gruppene. Spindlene varte lenger under dexmedetomidin (1,11 mot 0,88 sekunder, p = 0,0014). Forfatterne nevner at lengre spindler kan bety sterkere søvnbeskyttelse, men kaller det bare én mulig forklaring.</li>
+   <li><strong>Frekvens og opprinnelse:</strong> frontale spindler er langsommere enn sentrale (11–12 Hz frontalt mot 13–14 Hz sentralt i normal søvn). Forfatterne mener de frontale spindlene trolig genereres i den mediodorsale thalamuskjernen, og at samme bane er aktiv under dexmedetomidin.</li>
+   <li><strong>Vekking:</strong> i en tidligere studie fra samme gruppe kunne deltakerne vekkes med tiltale og eventuelt lett risting, også ved 5,1 ng/ml (se Avvik).</li>
+   <li><strong>Forbehold:</strong> ulike personer i de to gruppene, registrering om morgenen mot om natten, bare én kanal og små grupper. Antall spindler per person varierte fra 1 til 174. Tre av forfatterne er fra GE Healthcare, som lager Entropy-modulen, og én forfatter har oppdragsforskning og konsulentarbeid for Orion Pharma, som produserer dexmedetomidin.</li>
+  </ul>
+  <span class="tag">Huupponen et al. Acta Anaesthesiol Scand 2008;52:289–294</span></div>
+
+  <h3>Dexmedetomidin og thalamus: kortikal kobling bevart, thalamokortikal brutt (Akeju, Loggia et al. 2014)</h3>
+  <div class="card">
+  <p>eLife 2014;3:e04499. Friske frivillige (18–36 år, ASA I) fikk dexmedetomidin 1 µg/kg over 10 minutter og deretter 0,7 µg/kg/t. Bevissthetstap ble definert som vedvarende lukkede øyne og ingen respons på beskjed om å åpne dem. Glukosemetabolismen ble målt med FDG-PET (ti deltakere, to besøk hver), og samtidig ble blodstrøm (ASL) og funksjonell konnektivitet (BOLD) målt med MR (17 deltakere, komplette BOLD-data hos 15). Ikke den samme studien som «Akeju 2014» om sevofluran andre steder i appen.</p>
+  <ul>
+   <li><strong>Metabolisme og blodstrøm:</strong> glukosemetabolisme og blodstrøm falt mest i thalamus, default mode-nettverket (DMN) og begge frontoparietale nettverk. Blodstrøm og metabolisme falt sammen, slik at koblingen mellom dem var bevart.</li>
+   <li><strong>Konnektivitet:</strong> koblingen mellom områdene i hjernebarken innen DMN og de frontoparietale nettverkene var bevart. Koblingen mellom thalamus og DMN var brutt, særlig mot bakre cingulum, precuneus og nedre parietallapp. Thalamusområdet tilsvarte intralaminære, midtlinje-, mediodorsale og ventrale fremre kjerner, men metoden kunne ikke skille kjernene presist.</li>
+   <li><strong>Oppvåkning:</strong> koblingen mellom thalamus og DMN, særlig bakre cingulum, kom tilbake da deltakerne igjen svarte på beskjed, mens blodstrømmen ikke steg. Forfatterne tolker dette som at koblingen gjenopprettes før metabolismen normaliseres, og at oppvåkningen skjer gradvis.</li>
+   <li><strong>Et hierarki av bevisstløshet:</strong> forfatterne foreslår at lettere tilstander (NREM 2-søvn, dexmedetomidin) innebærer brudd i thalamokortikal kobling med bevart kobling i hjernebarken, mens dypere tilstander (propofolanestesi, noen bevissthetsforstyrrelser) også bryter koblingen i hjernebarken. Bevart kortikal kobling kan forklare at pasienten lett kan vekkes.</li>
+   <li><strong>Forbehold:</strong> bevissthetstap ble definert ut fra manglende øyeåpning på beskjed. Funksjonell konnektivitet i fMRI er samvariasjon i langsomme BOLD-svingninger, ikke direkte målt kommunikasjon mellom nerveceller. Ingen interessekonflikter oppgitt. Studien er finansiert av NIH og FAER.</li>
+  </ul>
+  <span class="tag">Akeju, Loggia et al. eLife 2014;3:e04499</span></div>
+
+  <h3>Hvilken α2-reseptor gir hypnosen? α2A i locus coeruleus (Mizobe 1996)</h3>
+  <div class="card">
+  <p>J Clin Invest 1996;98:1076–1080, fra Mazes gruppe. Rotter fikk antisense-oligonukleotider (korte DNA-tråder som hindrer at en bestemt reseptor blir laget) mot α2A eller α2C direkte i locus coeruleus, og deretter dexmedetomidin 7 µg i samme område.</p>
+  <ul>
+   <li><strong>Cellestudier:</strong> antisense mot α2A reduserte α2A-reseptorene med ca. 30 %, og antisense mot α2C reduserte α2C med nesten 40 %, uten å påvirke den andre undertypen.</li>
+   <li><strong>Rotter:</strong> etter α2A-antisense kom tapet av rettrefleks senere og varte kortere, og effekten var borte åtte dager etter siste dose. α2C-antisense, «stokkede» kontrollsekvenser og saltvann hadde ingen effekt.</li>
+   <li><strong>Konklusjon:</strong> α2A er undertypen som formidler den hypnotiske effekten i locus coeruleus. Forfatterne skriver at α2A og α2C dominerer i sentralnervesystemet, mens α2B er sparsomt representert.</li>
+   <li><strong>Bivirkninger:</strong> forfatterne skriver at blodtrykksstigningen ved rask bolus trolig skyldes α2B (forsøk med knockoutmus), og at bradykardien delvis kan skyldes imidazolinreseptorer i hjernestammen.</li>
+   <li><strong>Forbehold:</strong> 4–5 rotter per gruppe, og reseptorreduksjonen ble bare målt i cellekulturer, ikke i selve locus coeruleus. Studien er finansiert av Veterans Affairs, NIH og Uehara-stiftelsen.</li>
+  </ul>
+  <span class="tag">Mizobe et al. J Clin Invest 1996;98:1076–1080</span></div>
 
   <h3>Flere effekter, ulike konsentrasjoner</h3>
   <div class="card"><p>Kapittel 16 beskriver at hvert legemiddel har et dynamisk område: konsentrasjonen der effekten endrer seg. Under området skjer lite, og over det gir mer legemiddel ikke mer effekt. Ulike effekter av samme middel har ulik C50.</p>
@@ -1900,7 +2122,7 @@ header h1 button:hover{color:var(--accent)}
   <div class="card"><h3>EEG etter hjertestans</h3>
   <ul>
    <li>Omtrent halvparten av komatøse pasienter etter hjertestans får dårlig utfall. SSEP og pupill- og kornealrefleks etter 72 timer fanger bare ca. 20 % av dem som ikke kommer seg.</li>
-   <li>Kontinuerlig, normal eller diffust sakket EEG etter 12 timer spådde godt utfall (CPC 1–2) med spesifisitet 91 %, sensitivitet 55 %, PPV 84 % og NPV 70 %. Isoelektrisk, lavvolt (under 20 μV) eller burst suppression med identiske bursts etter 24 timer spådde dårlig utfall (CPC 3–5) med spesifisitet 100 %, sensitivitet 42 %, PPV 100 % og NPV 55 %. Tallene bygger på to prospektive kohorter med til sammen 377 pasienter, alle behandlet med mild terapeutisk hypotermi og sedert.</li>
+   <li>Kontinuerlig, normal eller diffust sakket EEG etter 12 timer spådde godt utfall (CPC 1–2) med spesifisitet 91 %, sensitivitet 55 %, PPV 84 % og NPV 70 %. Isoelektrisk, lavamplitudig (under 20 μV) eller burst suppression med identiske bursts etter 24 timer spådde dårlig utfall (CPC 3–5) med spesifisitet 100 %, sensitivitet 42 %, PPV 100 % og NPV 55 %. Tallene bygger på to prospektive kohorter med til sammen 377 pasienter, alle behandlet med mild terapeutisk hypotermi og sedert.</li>
    <li>Utvikling mot kontinuerlig fysiologisk EEG innen 12 timer gir svært god prognose. Pasientens videre prognose avhenger da av skade på andre organer, og pasientene med gunstig EEG og dårlig utfall døde av svikt i andre organer, særlig hjertet. Dyp koma de første timene utelukker ikke full restitusjon.</li>
    <li>Forfatterne kaller det en seiglivet misforståelse at EEG ikke kan brukes under hypotermi eller sedasjon. Mild hypotermi til 32 °C påvirker knapt EEG. Ved vanlige propofoldoser forblir EEG kontinuerlig med anteriorisering av alfa, og isoelektrisitet oppstår ikke.</li>
    <li><strong>Sedasjonsindusert mot patologisk burst suppression:</strong> hos en relativt frisk hjerne er bursts heterogene, og de kommer og går gradvis. Ved postanoksisk skade er bursts identiske, intervallene mellom dem er flate, og overgangene mellom suppresjon og burst er brå. Det siste har dårlig prognose.</li>
@@ -2219,7 +2441,7 @@ header h1 button:hover{color:var(--accent)}
     <li><strong>Purdon 2015, interne tall:</strong> forskjellen mellom unge og eldre i alfa-effekt (8,68 dB) minus forskjellen i langsom effekt (4,91 dB) gir 3,77 dB for propofol, men alfa-til-langsom-forholdet oppgis som 2,81 dB lavere. For sevofluran gir 8,56 − 5,45 = 3,11 dB, mens forholdet oppgis som 2,07 dB. Forskjellen kan skyldes at topp og gjennomsnitt i båndene er målt ulikt, men det forklares ikke. Artikkelen oppgir også at dette tilsvarer en reduksjon i relativ alfa-effekt på ca. 90 % (propofol) og 61 % (sevofluran). Regnet ut gir 2,81 dB en reduksjon i effekt på ca. 48 % og 2,07 dB ca. 38 %. Teksten oppgir også en nedgang i propofolhastighet på ca. 0,39 mg/kg/min med alder uten tydelig enhet, så den er ikke brukt.</li>
     <li><strong>Propofol og EEG (kap. 21):</strong> Kapittel 21 beskriver en første økning i alfa fulgt av skifte til gamma og theta. Purdon 2015 og kapittel 36 beskriver alfa-delta under vedlikehold. Appen følger alfa-delta.</li>
     <li><strong>Burst suppression-konsentrasjon:</strong> Kapittel 21 oppgir over 8 µg/ml (blod, rask infusjon), mens kapittel 36 oppgir median ca. 5 µg/ml. Målemetodene kan være ulike.</li>
-    <li><strong>Nevral treghet:</strong> Kapittel 21 sier at våknekonsentrasjonen er lik konsentrasjonen for tap av respons når ekvilibrering tillates. Kapittel 36 beskriver nevral treghet som en forskjell mellom induksjon og oppvåkning, og refererer til debatt om farmakokinetikk.</li>
+    <li><strong>Nevral treghet:</strong> Kapittel 21 sier at våknekonsentrasjonen er lik konsentrasjonen for tap av respons når det er tid til likevekt mellom blod og effektsted. Kapittel 36 beskriver nevral treghet som en forskjell mellom induksjon og oppvåkning, og refererer til debatt om farmakokinetikk.</li>
     <li><strong>CMRO₂ ved isoelektrisk EEG:</strong> ca. 50 % av utgangsnivået i kapittel 21 (tiopental), ca. 60 % i kapittel 10 (burst suppression). Ulike mål og midler.</li>
     <li><strong>Flumazenil (kap. 21):</strong> Kapittelet sier først at flumazenil pålitelig reverserer amnesi, og senere at det reverserer hypnotiske og respiratoriske effekter mer enn amnestiske.</li>
     <li><strong>Propofoldose hos eldre:</strong> kapittel 21 oppgir ca. halv dose hos 80-åringer, kapittel 16 en reduksjon på 65 %. Purdon 2015 skriver at doser hos eldre kan være opptil halvparten av doser hos yngre (henviser til Martin 2003), og at propofolhastigheten i deres kohort sank litt med alder.</li>
@@ -2255,6 +2477,22 @@ header h1 button:hover{color:var(--accent)}
     <li><strong>Sepúlveda 2020 mot Obert 2020, antall pasienter:</strong> Anaesthesia-artikkelen oppgir 16 inkluderte (8 + 8) i perioden august–desember 2016, mens Sci Rep-artikkelen fra samme studie (NCT03140982) oppgir 18 randomiserte (9 + 9), hvorav tre i rask gruppe ble utelatt for burst suppression. Hvilke pasienter som er med i hvilken analyse er ikke forklart i noen av artiklene. Tidene til tap av respons (10,5 mot 1,4 minutter; 834 mot 90 sekunder) og effektstedkonsentrasjonene (2,6 mot 4,6 µg/ml) er like i begge.</li>
     <li><strong>Sepúlveda 2026, tall i sammendrag mot resultatdel:</strong> sammendraget oppgir observert mot predikert BIS 64,5 mot 61,3 før og 38,2 mot 55,5 etter perturbasjonen, mens resultatdelen oppgir 28,9 mot 38,8 fra post-PERT-fasen og setter opp 51,8 mot 38,1 som både «predikert» og «observert» pre- mot post-PERT, som åpenbart er en feil i teksten. Retningen (observert under predikert etter perturbasjonen) er den samme overalt, men størrelsen på forskjellen er usikker ut fra artikkelen.</li>
     <li><strong>To GABAerge hypnotika: additivt eller synergistisk?</strong> Miller's kap. 16 (gjengitt i Midler-fanen) oppsummerer at kombinasjoner av to GABAerge hypnotika stort sett er additive. Hendrickx 2008 fant at propofol + sevofluran og propofol + tiopental er additive (én studie synergistisk), mens propofol + midazolam er synergistisk i alle studier, trolig fordi de binder ulike seter på GABA<sub>A</sub>-reseptoren. Miller's oppsummering stemmer altså for hypnotikum + inhalasjonsmiddel, men ikke for benzodiazepin + propofol. Begge er gjengitt i appen.</li>
+    <li><strong>Dexmedetomidin og α2A-reseptoren (kap. 21 mot kap. 8):</strong> kapittel 21 skriver at α2A-reseptorene hovedsakelig finnes perifert, og α2B og α2C i hjerne og ryggmarg. Samme kapittel knytter analgesien i bakhornet til α2C og α2A. Kapittel 8 viser til at selektiv fjerning av α2A-reseptorer i locus coeruleus hos gnagere hindrer dexmedetomidins hypnotiske effekt, altså at α2A er viktig sentralt. Mizobe 1996 fant at α2A i locus coeruleus formidler den hypnotiske effekten hos rotter, og skriver at α2A og α2C dominerer i sentralnervesystemet, mens α2B er sparsomt representert. Kapittel 21s beskrivelse av α2A som hovedsakelig perifer støttes dermed ikke av de andre kildene her. Appen gjengir alle.</li>
+    <li><strong>Dexmedetomidin og vekkbarhet (Ebert 2000 i kap. 21 mot Huupponen 2008):</strong> kapittel 21 oppgir at ikke-vekkbar dyp sedasjon antas å inntre over ca. 1,9 ng/ml. Huupponen 2008 skriver at deltakerne i en tidligere studie fra samme gruppe kunne vekkes med tiltale og eventuelt lett risting ved målt 5,1 ng/ml. Forskjellen kan skyldes ulik definisjon av vekkbarhet og ulik stimulus, men kildene diskuterer det ikke.</li>
+    <li><strong>Dexmedetomidin, blodstrøm og metabolisme (kap. 21 mot Akeju, Loggia et al. 2014):</strong> kapittel 21 skriver at fallet i CBF ikke følges av lavere CMRO₂, men refererer også en studie med seks frivillige der begge falt. Akeju, Loggia et al. 2014 fant at blodstrøm og glukosemetabolisme falt sammen i de samme områdene.</li>
+    <li><strong>Hvilken kobling brytes først? (Akeju, Loggia et al. 2014 mot Schroeder 2016):</strong> Akeju skriver at bevisstløshet med brutt kobling i hjernebarken, men bevart thalamokortikal kobling, ikke ser ut til å forekomme ved søvn og anestesi. Schroeder 2016 fant hos aper under ketamin at overføringen fra thalamus til primær somatosensorisk kortex var bevart, mens overføringen mellom områder i hjernebarken sviktet. Studiene bruker ulike midler, arter og metoder (fMRI mot mikroelektroder).</li>
+    <li><strong>Akeju, Loggia et al. 2014, figurtekst:</strong> teksten beskriver at dexmedetomidin virker på projeksjoner fra locus coeruleus til intralaminære kjerner i thalamus, mens figurteksten til figur 1 skriver «hypothalamus».</li>
+    <li><strong>Ketamin og analgesi, hvor i ryggmargen:</strong> Purdon 2015 skriver at analgesien trolig skyldes NMDA-reseptorer «ved dorsalrotganglion, den første synapsen i smertebanen i ryggmargen». Kapittel 21 knytter den spinale analgesien til hemming av «wide dynamic range»-nevroner i bakhornet. Dorsalrotganglion inneholder cellekroppene til de sensoriske nevronene, mens den første synapsen ligger i bakhornet, så formuleringene peker på ulike steder.</li>
+    <li><strong>Propofol, LTP og amnesi (kap. 8):</strong> kapittel 8 beskriver at propofol hemmer LTP via GABA<sub>A</sub>, men gjengir også én studie der LTP bare ble hemmet ved anestetiske, ikke ved amnestiske, konsentrasjoner. Amnesi ved lave doser kan derfor ikke uten videre forklares med LTP-hemming.</li>
+    <li><strong>Flumazenil og amnesi (kap. 21 internt):</strong> kapittel 21 skriver både at flumazenil «pålitelig reverserer» sedasjon, respirasjonsdepresjon og amnesi, og at flumazenil reverserer hypnotiske og respiratoriske effekter mer enn de amnestiske. Kapitlet forklarer forskjellen med reseptorbelegg: en liten dose flumazenil reduserer effekter som krever høy reseptorandel, men ikke døsighet og amnesi, mens store doser reverserer alt.</li>
+    <li><strong>Opioider og EEG ved lave doser (kap. 22, kap. 36 og Balanza 2022):</strong> kapittel 22 skriver at små doser fentanyl (2–5 µg/kg) gir minimale EEG-endringer, og kapittel 36 at opioider endrer EEG lite. Balanza 2022 fant at frontal theta økte med fentanylkonsentrasjonen ved gjentatte doser på 2 µg/kg. Forskjellen kan skyldes metoden (spektralanalyse mot vurdering av rå-EEG), men kildene forklarer den ikke.</li>
+    <li><strong>Opioider og bevissthet (kap. 22 mot Hendrickx 2008):</strong> kapittel 22 viser til bevissthetstap hos frivillige som fikk fentanyl infundert til 15 µg/kg, og til høyamplitudige deltabølger ved 30–70 µg/kg «forenlig med anestesi». Samme kapittel skriver at opioider ikke er fullstendige anestetika og at høye doser kan stoppe pusten uten bevisstløshet. Hendrickx 2008 skriver at fentanyl alene ikke gir full hypnose.</li>
+    <li><strong>Skjev agonisme (kap. 22 internt):</strong> kapittelet gjengir at mus uten β-arrestin-2 fikk mindre respirasjonsdepresjon av morfin (2005), og en nyere studie som ikke fant noen forskjell (2021). Kapittelet konkluderer selv at spørsmålet er uavklart.</li>
+    <li><strong>Ketamin, hjernebark og thalamus (kap. 21, kap. 8 og Schroeder 2016):</strong> kapittel 21 skriver at ketamin demper deler av hjernebarken og thalamus. Schroeder 2016 skriver at ketamin ikke demper hjernebarken eller metabolismen i thalamus, og kapittel 8 at ketamin er unntaket fra den metabolske depresjonen av thalamus.</li>
+    <li><strong>Propofol og ketamin: synergi eller ikke? (Tian 2023 mot Hendrickx 2008):</strong> Tian skriver at propofol og ketamin ser ut til å virke synergistisk for å opprettholde bevisstløshet, og viser til Brown 2018. Hendrickx 2008 fant additivitet og ved reanalyse infra-additivitet for propofol + ketamin.</li>
+    <li><strong>Tian 2023, dB-verdier:</strong> artikkelen oppgir endringer i gjennomsnittlig effekt på over 100 dB (for eksempel 159 dB gamma-økning i cingulum og 214,9 dB beta-økning etter propofol). 100 dB tilsvarer en 10 milliarder ganger høyere effekt, noe som er fysiologisk usannsynlig, mens 3–4 Hz-endringer på 1–3 dB omtales som «dramatiske». Artikkelen forklarer ikke skalaen. Retningen på endringene kan brukes, men størrelsene bør ikke tolkes.</li>
+    <li><strong>Tian 2023, HCN1:</strong> sammendraget og innledningen kaller HCN1 en «kaliumkanal», mens diskusjonen omtaler strømmen som «kationisk» (Ih). Purdon 2015 lister HCN-kanaler som en egen gruppe ved siden av kaliumkanalene.</li>
+    <li><strong>Liu 2023, kildehenvisninger:</strong> (1) et forsøk med transkraniell magnetstimulering og overføringsentropi tilskrives Alkire, Hudetz og Tononi 2008, som er en oversiktsartikkel i Science. (2) Avsnitt 3.1 skriver at BIS og MAC ga like mye awareness (Avidan 2008), mens avsnitt 5.3 skriver at awareness øker når BIS brukes, og viser til Sebel 2004, som er en studie av forekomsten av awareness. (3) Påstanden om at ketamin forstyrrer informasjonsoverføringen, viser ett sted til Schroeder 2016 og et annet til en propofolstudie (Lee 2017).</li>
     <li><strong>Miyasaka 2025, hvor sikkert er hovedfunnet?</strong> Sammendraget og «Key Points» sier at PAED ble redusert signifikant med 14 %. Diskusjonen sier selv at effekten var marginal, at forskjellen ikke er signifikant med PAED-grense 12, og at interimanalysen gjør p-verdien usikker (0,03–0,05 avhengig av metode). Dosereduksjonen og raskere oppvåkning er derimot robuste. Tittelen i Key Points kaller det et 14 % fall, mens den absolutte differansen 35 mot 21 % tilsvarer 40 % relativ reduksjon.</li>
     <li><strong>Aperiodisk eksponent, ulike tall:</strong> Widmann 2025 oppgir α 1,61 våken og 2,60 under vedlikehold; Leroy 2023 oppgir 1,6–1,8 før og 1,9–2,2 etter tap av bevissthet; Connor 2026 nevner β 2,45 for propofol og 2,71 for sevofluran fra Dragovic 2025. Forskjellene skyldes ulike frekvensområder, FOOOF-innstillinger (med eller uten «kne») og tidspunkt (innledning mot vedlikehold), så verdiene er ikke utbyttbare.</li>
     <li><strong>Hysterese hos mennesker:</strong> Huang 2021 oppsummerer at Kuizenga 2018 og Warnaby 2017 ikke fant hysterese for propofol (Kuizenga fant den for sevofluran), mens Ferreira 2020, Nir 2019, Sepúlveda 2019 og Huang selv fant den. Huang påpeker at man ved å justere PK/PD-parametre kan få både ja og nei ut av samme atferdsdata, fordi konsentrasjonen er beregnet, ikke målt.</li>
@@ -2453,17 +2691,17 @@ function spec(f,d){
   const aw=Math.max(0,1-d/0.5), an=Math.min(d/0.5,1);
   let v=0.10*Math.exp(-f/12)+0.04;
   v+=aw*(0.10*g(f,10,3)+0.12*g(f,20,6)+0.06*g(f,3,2));
-  const ampAge=age==='old'?0.6:(age==='child'?1.25:1);
-  const alphaAge=age==='old'?(noAlpha?0.04:0.35):(age==='infant'?0.15:1);
+  const ampAge=age==='old'?0.6:(age==='child'?1.05:1);
+  const alphaAge=age==='old'?(noAlpha?0.04:0.55):(age==='infant'?0.15:(age==='child'?1.1:1));
   const slowAge=age==='old'?0.8:1;
   let a=0;
   if(agent==='propofol'){
-    a+=0.9*slowAge*g(f,0.6,0.8)+0.7*slowAge*g(f,2.5,1.3)+0.7*alphaAge*g(f,alphaFreq(),age==='infant'?3:1.6);
+    a+=0.9*slowAge*g(f,0.6,0.8)+0.7*slowAge*g(f,2.5,1.3)+1.0*alphaAge*g(f,alphaFreq(),age==='infant'?3:(age==='old'?1.8:(age==='child'?2.8:2.3)))+0.4*slowAge*g(f,5.5,2.2);
     if(d>0.65) a+=(d-0.65)*0.5*g(f,1.5,2);
   }else if(agent==='sevo'){
     /* Sevofluran: samme alfa-langsom-grunnmønster, men med theta (4-8 Hz) som fyller rommet mellom delta og alfa,
        noe bredere alfa-band og litt mer beta (Akeju 2014, Lobo og Lamperti kap. 3 og 5) */
-    a+=0.9*slowAge*g(f,0.6,0.8)+0.8*slowAge*g(f,2.5,1.3)+0.6*slowAge*g(f,5.5,2.0)+0.7*alphaAge*g(f,alphaFreq(),age==='infant'?3:2.4)+0.16*g(f,17,5);
+    a+=0.9*slowAge*g(f,0.6,0.8)+0.8*slowAge*g(f,2.5,1.3)+0.6*slowAge*g(f,5.5,2.0)+1.0*alphaAge*g(f,alphaFreq(),age==='infant'?3:(age==='old'?2.2:(age==='child'?3.2:2.8)))+0.16*g(f,17,5);
     if(d>0.65) a+=(d-0.65)*0.5*g(f,1.5,2);
     if(age==='child') a+=0.12*g(f,19,6);
   }else if(agent==='ketamine'){
@@ -2477,9 +2715,9 @@ function spec(f,d){
 const inSuppr=(t,d)=>deepOK()&&d>=1.0;
 const burstOn=t=>((t*70)%1)<0.35;
 
-const STOPS=[[0,[16,26,74]],[.22,[31,78,156]],[.42,[31,163,163]],[.62,[155,208,90]],[.78,[245,211,63]],[.9,[240,138,44]],[1,[214,55,43]]];
+const STOPS=[[0,[16,26,74]],[.18,[31,78,156]],[.34,[31,163,163]],[.505,[155,208,90]],[.636,[245,211,63]],[.734,[240,138,44]],[.815,[214,55,43]],[1,[120,14,28]]];
 function cmap(x){
-  x=Math.max(0,Math.min(1,x/1.1));
+  x=Math.max(0,Math.min(1,x/1.35));
   for(let i=0;i<STOPS.length-1;i++){
     const [a,ca]=STOPS[i],[b,cb]=STOPS[i+1];
     if(x>=a&&x<=b){
@@ -2755,7 +2993,7 @@ const QS=[
  {q:'I en frivilligstudie referert i kapittel 21 hadde 95 % ingen erindring ved BIS 77 under propofol, mens 95 % var uten respons på kommando først ved BIS 51. Hva illustrerer dette?',
   a:['Amnesi inntrer ved et lettere hypnosenivå enn tap av respons','Amnesi og tap av respons inntrer samtidig','Amnesi krever dypere anestesi enn bevisstløshet','BIS måler erindring direkte'],c:0,
   e:'Det passer med kapittel 17, som oppgir at anterograd amnesi inntrer ved lavere konsentrasjon enn bevisstløshet. BIS-verdiene er fra friske frivillige og varierer mye mellom pasienter.',s:'Miller\'s kap. 21 og 17 (Glass 1997)',t:'comp'},
- {q:'Hva er forskjellen i ekvilibreringstid mellom propofols hypnotiske og hemodynamiske effekt, ifølge kapittel 21?',
+ {q:'Hva er forskjellen i tid til likevekt mellom blod og effektsted for propofols hypnotiske og hemodynamiske effekt, ifølge kapittel 21?',
   a:['Hypnose ca. 2–3 minutter, hemodynamisk depresjon ca. 7 minutter','Begge ca. 2 minutter','Hypnose ca. 7 minutter, hemodynamikk ca. 2 minutter','Hemodynamikken følger hypnosen umiddelbart'],c:0,
   e:'Hypotensjonen kan derfor øke noen minutter etter at pasienten har mistet bevisstheten.',s:'Miller\'s kap. 21 (Kazama 1999)',t:'drug'},
  {q:'Hva sier kapittel 21 om flumazenil og benzodiazepiners effekter?',
@@ -3187,6 +3425,63 @@ const QS=[
  {q:'Hvilket middel var unntaket fra regelen om synergi i Hendrickx 2008?',
   a:['Remifentanil','Midazolam','Ketamin: additivt eller infra-additivt med GABAerge midler i alle studier, selv om det virker på en annen reseptor','Sevofluran'],c:2,
   e:'Propofol + ketamin var additivt (Hui 1995) og ved reanalyse infra-additivt for immobilitet; midazolam + ketamin infra-additivt for hypnose. Forfatterne foreslår aktiv metabolitt, sympatikusaktivering og metodiske forhold som forklaringer. Ching 2012 nevner at ketamin øker CMRO₂ og ikke gir klassisk burst suppression i kliniske doser.',s:'Hendrickx 2008',t:'drug'},
+ {q:'Hvor mye senket klonidin MAC for isofluran hos mennesker ifølge Hendrickx 2008?',
+  a:['Ca. 5 %','Ca. 30 %','Ca. 70 %','Ingenting'],c:1,
+  e:'Klonidin senket MAC for isofluran med ca. 30 % og for sevofluran med 17–34 %. Effekten har et tak, og klonidin alene gir ikke immobilitet.',s:'Hendrickx 2008',t:'drug'},
+ {q:'Hva skilte spindlene under dexmedetomidin fra spindler i normal NREM 2-søvn (Huupponen 2008)?',
+  a:['De hadde høyere frekvens','De varte lenger','De var mye tettere','De hadde mye høyere amplitude'],c:1,
+  e:'Tetthet, amplitude og frekvens var like. Spindlene varte lenger under dexmedetomidin (1,11 mot 0,88 sekunder).',s:'Huupponen 2008',t:'spec'},
+ {q:'Hvilken kobling var bevart under bevissthetstap med dexmedetomidin (Akeju, Loggia et al. 2014)?',
+  a:['Koblingen mellom thalamus og DMN','Koblingen mellom områdene i hjernebarken innen DMN og de frontoparietale nettverkene','Ingen kobling var bevart','Bare koblingen til lillehjernen'],c:1,
+  e:'Kortikal kobling var bevart, mens koblingen mellom thalamus og DMN var brutt. Forfatterne mener bevart kortikal kobling kan forklare at pasienten lett kan vekkes.',s:'Akeju, Loggia et al. 2014',t:'comp'},
+ {q:'Hvilken α2-undertype formidler den hypnotiske effekten av dexmedetomidin i locus coeruleus hos rotter (Mizobe 1996)?',
+  a:['α2A','α2B','α2C','Ingen av dem'],c:0,
+  e:'Antisense mot α2A ga senere og kortere tap av rettrefleks, mens antisense mot α2C ikke hadde effekt.',s:'Mizobe 1996',t:'drug'},
+ {q:'Hva skjer inne i nervecellen når μ-opioidreseptoren aktiveres (Millers kapittel 22)?',
+  a:['Natriumkanaler åpnes og cellen depolariseres','Gi/o aktiveres: adenylatsyklase og kalsiumkanaler hemmes, og innoverlikerettende kaliumkanaler aktiveres','Kloridkanalen i GABA-A-reseptoren åpnes','NMDA-kanalen blokkeres'],c:1,
+  e:'Alle opioidreseptorene er Gi/o-koblet. Mindre kalsium gir mindre transmitterfrigjøring presynaptisk, og kaliumstrøm hyperpolariserer postsynaptisk.',s:'Millers kap. 22',t:'drug'},
+ {q:'Hvordan gir opioider smertelindring via periakveduktal grå substans (PAG)?',
+  a:['De aktiverer GABA-nevroner som hemmer bakhornet direkte','De hemmer GABA-frigjøring fra tonisk aktive internevroner, slik at nedadgående baner frigjør noradrenalin og serotonin i bakhornet','De blokkerer NMDA-reseptorer i PAG','De øker acetylkolin i kortex'],c:1,
+  e:'Opioider hemmer hemmingen. Nedadgående baner via medulla demper deretter smertesignalene i bakhornet.',s:'Millers kap. 22',t:'drug'},
+ {q:'Hva er status for G-protein-selektive (biased) opioider ifølge kapittel 22?',
+  a:['Bevist å gi mindre respirasjonsdepresjon','Uavklart: musestudier spriker, og kapittelet kaller det kontroversielt','Forbudt i klinisk bruk','De virker bare på κ-reseptoren'],c:1,
+  e:'Én musestudie fant mindre respirasjonsdepresjon uten β-arrestin-2, en nyere fant ingen forskjell. TRV130 ga mindre respirasjonsdepresjon i en frivilligstudie, men kapittelet konkluderer med at spørsmålet er åpent.',s:'Millers kap. 22',t:'drug'},
+ {q:'Hva skjedde med occipital alfa da propofol ble gitt etter ketamin (Tian 2023)?',
+  a:['Den kom tilbake','Den falt ytterligere','Den ble uendret','Den flyttet seg til frontal kortex'],c:1,
+  e:'I de fleste områder reverserte propofol ketaminens alfa-fall, men occipitalt falt alfa ytterligere. Forfatterne tolker dette som felles HCN1-hemming.',s:'Tian 2023',t:'comp'},
+ {q:'Hva viste Schroeder 2016 hos aper under ketamin?',
+  a:['All sanseinformasjon forsvant fra hjernebarken','Berøring kunne fortsatt avleses i S1, men ikke i M1, og den rettede koblingen mellom områdene falt','Fyringsfrekvensen falt til null','Ketamin økte koblingen mellom S1 og M1'],c:1,
+  e:'Overføringen fra thalamus til S1 så ut til å være bevart, mens overføringen mellom områdene i hjernebarken sviktet.',s:'Schroeder 2016',t:'comp'},
+ {q:'Hva er forskjellen på funksjonell og effektiv konnektivitet (Liu 2023)?',
+  a:['Det er det samme','Funksjonell er statistisk samvariasjon mellom områder, effektiv er rettet påvirkning fra ett område til et annet','Funksjonell er fysiske nervebaner','Effektiv måles bare med fMRI'],c:1,
+  e:'Strukturell konnektivitet er fysiske baner, funksjonell er samvariasjon (for eksempel koherens og wPLI), og effektiv er rettet påvirkning (for eksempel Granger og overføringsentropi).',s:'Liu 2023',t:'comp'},
+ {q:'Hvor på GABA-A-reseptoren binder propofol ifølge Millers kapittel 21?',
+  a:['På benzodiazepinsetet','På β-subenheten, med avgjørende seter på β1, β2 og β3 i den transmembrane delen','På NMDA-reseptorens kanal','Bare på α5-subenheten'],c:1,
+  e:'Kapittel 21: propofol binder til β-subenheten; α og γ2 bidrar. Ved høye konsentrasjoner kan propofol også åpne kanalen direkte.',s:'Millers kap. 21',t:'drug'},
+ {q:'Hvorfor virker ketamin ved lave doser særlig på hemmende internevroner?',
+  a:['Internevroner har ikke NMDA-reseptorer','Ketamin er en kanalblokker som krever åpen kanal, og NMDA-kanalene på internevronene er mer aktive','Ketamin binder til GABA-A på internevronene','Ketamin virker bare i ryggmargen'],c:1,
+  e:'Purdon 2015: ketamin blokkerer åpne NMDA-kanaler. Internevronene hemmes, pyramidecellene disinhiberes, og metabolismen og EEG-aktiviteten øker.',s:'Purdon 2015',t:'drug'},
+ {q:'Hvordan gir dexmedetomidin sedasjon ifølge Purdon 2015 og kapittel 21?',
+  a:['Direkte forsterkning av GABA-A i kortex','Hyperpolarisering av locus coeruleus, mindre noradrenalin, og dermed økt hemming fra preoptisk område til arousal-sentrene','NMDA-blokkering i thalamus','Blokkering av μ-opioidreseptorer'],c:1,
+  e:'Mindre noradrenalin fra locus coeruleus fjerner hemmingen av preoptisk område, som hemmer arousal-sentrene med GABA og galanin. Det ligner starten av NREM-søvn.',s:'Purdon 2015, Millers kap. 21',t:'drug'},
+ {q:'Hva viste forsøk med mus uten α5-subenheten om etomidat (Millers kapittel 8)?',
+  a:['De var resistente mot både amnesi og anestesi','De var resistente mot amnesien, men ikke mot anestesien','De fikk sterkere amnesi','Etomidat virket ikke i det hele tatt'],c:1,
+  e:'Etomidat blokkerte ikke LTP i CA1 hos α5-knockoutmus, og musene var resistente mot amnesien, men ikke mot anestesien. Amnesi og hypnose kan gå via ulike reseptorvarianter.',s:'Millers kap. 8',t:'drug'},
+ {q:'Hvilken GABA-A-subenhet knyttes i kapittel 21 til sedasjon, anterograd amnesi og krampedempende effekt av benzodiazepiner?',
+  a:['α1','α2','α5','β3'],c:0,
+  e:'Kapittel 21: α1 gir sedasjon, anterograd amnesi og krampedempende effekt; α2 angstdemping og muskelavslapning; α2 og α3 belønningseffekter. Kapittel 8 knytter etomidats amnesi til α5.',s:'Millers kap. 21',t:'drug'},
+ {q:'Hvor sitter inhalasjonsmidlenes effekt på bevegelse (MAC) ifølge kildene?',
+  a:['I frontal kortex','I ryggmargen','I thalamus','I hippocampus'],c:1,
+  e:'MAC endres ikke når ryggmargen er overskåret hos rotter (Morgan og Mikhail), og Purdon knytter den muskelavslappende effekten til reseptorer og kanaler i ryggmargen.',s:'Morgan og Mikhail kap. 8, Purdon 2015',t:'drug'},
+ {q:'Hvordan forklarer Brown, Lydic og Schiff 2010 den høye forekomsten av awareness ved hjertekirurgi med høydose opioid?',
+  a:['Opioider øker kortikal aktivitet','Opioider virker først og fremst i smertebanene, ikke i kortex','Opioider blokkerer GABA-A','Opioider gir burst suppression'],c:1,
+  e:'Opioider binder i periakveduktal grå substans, rostrale ventrale medulla og ryggmargen, og demper våkenhet via kolinerge baner, men virker lite direkte i kortex.',s:'Brown 2010',t:'drug'},
+ {q:'Hva skjer ifølge kapittel 21 når en liten dose flumazenil gis etter en svært høy benzodiazepindose?',
+  a:['Alle effekter reverseres','Bevisstløshet og respirasjonsdepresjon dempes, men døsighet og amnesi består','Bare amnesien reverseres','Ingenting, flumazenil virker bare ved lave doser'],c:1,
+  e:'Flumazenil reduserer andelen reseptorer agonisten opptar. Effekter som krever høy reseptorandel dempes først. Store doser flumazenil ved lite agonist reverserer alt.',s:'Millers kap. 21',t:'drug'},
+ {q:'Hva gjør barbiturater med GABA-A-kanalen ved lave konsentrasjoner ifølge kapittel 21?',
+  a:['Blokkerer kanalen','GABA slipper reseptoren langsommere og kanalen står åpen lenger','Åpner kanalen uten GABA','Ingenting, de virker bare via NMDA'],c:1,
+  e:'Ved lave konsentrasjoner forsterkes GABA, trolig ansvarlig for sedasjon og hypnose. Ved høyere konsentrasjoner åpner barbituratene kanalen direkte.',s:'Millers kap. 21',t:'drug'},
  {q:'Hva fant Fritz 2016 (727 pasienter, mest hjertekirurgi) om EEG-suppresjon under kirurgi og delirium?',
   a:['Ingen sammenheng','Lengre tid i suppresjon ga høyere risiko for delirium også etter justering (OR 1,22 per log-minutt), og suppresjonstid predikerte delirium litt bedre enn tid med BIS under 20','Bare pasienter med BIS under 20 fikk delirium','Høy opioiddose ga mer suppresjon'],c:1,
   e:'26 % fikk delirium, 73 % hypoaktivt. Mer inhalasjonsmiddel og mindre opioid ga mer suppresjon. Studien er observasjonell og kan ikke skille «for dypt» fra «sårbar hjerne». ENGAGES fra samme gruppe reduserte suppresjonstid uten å redusere delirium.',s:'Fritz 2016',t:'ev'},
@@ -3323,6 +3618,12 @@ const REFS=[
  ['Cornelissen L, Kim SE, Purdon PL, Brown EN, Berde CB. Age-dependent electroencephalogram (EEG) patterns during sevoflurane general anesthesia in infants. eLife 2015;4:e06513.','https://doi.org/10.7554/eLife.06513','36 spedbarn 0–6 måneder, 30 analysert. Purdon og Brown oppgir patentsøknader og lisensavtale med Masimo.'],
  ['Newman D, Maschke C, Mashour GA, Blain-Moraes S. Reframing "paradoxical" excitation: disentangling electroencephalogram complexity and entropy reveals resting-state dynamics associated with propofol susceptibility in healthy adults. Br J Anaesth 2026;137:525–534.','https://doi.org/10.1016/j.bja.2026.03.082','Retrospektiv analyse av to små datasett (n = 20 og 8).'],
  ['Sikka P, Hu S, Heifets BD. Dreaming during anaesthesia: a scoping review. Br J Anaesth 2026;137:506–524.','https://doi.org/10.1016/j.bja.2026.05.002','157 studier 1921–2024.'],
+ ['Huupponen E, Maksimow A, Lapinlampi P, Särkelä M, Saastamoinen A, Snapir A, et al. Electroencephalogram spindle activity during dexmedetomidine sedation and physiological sleep. Acta Anaesthesiol Scand 2008;52:289–294.','https://doi.org/10.1111/j.1399-6576.2007.01537.x','Elleve frivillige og ti kontroller med normal søvn.'],
+ ['Akeju O, Loggia ML, Catana C, Pavone KJ, Vazquez R, Rhee J, et al. Disruption of thalamic functional connectivity is a neural correlate of dexmedetomidine-induced unconsciousness. eLife 2014;3:e04499.','https://doi.org/10.7554/eLife.04499','PET og MR hos friske frivillige.'],
+ ['Mizobe T, Maghsoudi K, Sitwala K, Tianzhi G, Ou J, Maze M. Antisense technology reveals the α2A adrenoceptor to be the subtype mediating the hypnotic response to the highly selective agonist, dexmedetomidine, in the locus coeruleus of the rat. J Clin Invest 1996;98:1076–1080.','','Rotteforsøk med antisense.'],
+ ['Tian F, Lewis LD, Zhou DW, Balanza GA, Paulk AC, Zelmann R, et al. Characterizing brain dynamics during ketamine-induced dissociation and subsequent interactions with propofol using human intracranial neurophysiology. Nat Commun 2023;14:1748.','https://doi.org/10.1038/s41467-023-37463-3','Intrakranielt EEG hos ti epilepsipasienter.'],
+ ['Schroeder KE, Irwin ZT, Gaidica M, Bentley JN, Patil PG, Mashour GA, Chestek CA. Disruption of corticocortical information transfer during ketamine anesthesia in the primate brain. NeuroImage 2016;134:459–465.','https://doi.org/10.1016/j.neuroimage.2016.04.039','Tre rhesusaper med mikroelektroder.'],
+ ['Liu J, Dong K, Sun Y, Kakkos I, Huang F, Wang G, et al. Progress of brain network studies on anesthesia and consciousness: framework and clinical applications. Engineering 2023;20:77–95.','https://doi.org/10.1016/j.eng.2021.11.013','Narrativ oversikt.'],
  ['Palanca BJA, Sleigh JW. Protocolizing Propofol Emergence: Turning “Milk of Amnesia” into Designer Dreams? Anesthesiology 2026 (PMID 42262384).','https://doi.org/10.1097/aln.0000000000006061','Lederartikkel til Sikka 2026.'],
  ['Doyal AS, Wanderer JP, Ende HB. Dream Weaving: How Anesthesiologists Can Encourage Dreaming under Anesthesia. Anesthesiology 2026;145(1):A16.','https://doi.org/10.1097/ALN.0000000000006153','Infografikk på én side (A16) basert på Sikka 2026. Nevnt i Sikka-kortet.'],
  ['Guay CS, Agrawal U, Tseng B, Gallo S, Schreier DR, Brown EN. Clinical electroencephalography for anesthesiologists and intensivists: Part 2. Physiologic signatures and active management. Anesthesiology 2025;143:1595–1618.','','Oversiktsartikkel; grunnlag for kortet om frontal EEG som perfusjonsmarkør i Perfusjon-fanen.'],
@@ -3377,6 +3678,7 @@ $('#refs').innerHTML=REFS.map(r=>`<div class="ref"><div>${r[0]}</div><div class=
 
 
 const CHAPREFS=[
+  ['Opioider (kap. 22)','Fukuda K. Opioids. Miller\'s Anesthesia, 10. utg., kap. 22. Kapitlets egne referanser: Montandon G et al. Anesthesiology 2016;125:889–903 (PMID 27541315); Scott JC, Cooke JE, Stanski DR. Anesthesiology 1991;74:34–42 (PMID 1670913); Streisand JB et al. Anesthesiology 1993;78:629–634 (PMID 8466061); Osman NI, Baghdoyan HA, Lydic R. Anesthesiology 2005;103:779–787 (PMID 16192770); Raehal KM, Walker JK, Bohn LM. J Pharmacol Exp Ther 2005;314:1195–1201 (PMID 15917400); Bachmutsky I et al. eLife 2021;10 (PMID 34002697); Dahan A et al. Anesthesiology 2001;94:824–832 (PMID 11388534); Sarton E et al. Anesth Analg 2001;93:1495–1500 (PMID 11726430); Paronis CA, Woods JH. J Pharmacol Exp Ther 1997;282:355–362 (PMID 9223574); Stucke AG et al. Anesthesiology 2015;122:1288–1298 (PMID 25751234).'],
  ['Søvn, sedasjon og anestesi (kap. 9)','Eikermann M, Fassbender P, Azimaraghi O. Sleep Medicine. Miller\'s Anesthesia, 10. utg., kap. 9. Kapitlets egne referanser: Brown EN, Lydic R, Schiff ND. N Engl J Med 2010;363:2638–2650 (PMID 21190458); Akeju O, Brown EN. Curr Opin Neurobiol 2017;44:178–185 (PMID 28544930); Moore JT et al. Curr Biol 2012;22:2008–2016 (PMID 23103189); Kondili E et al. Intensive Care Med 2012;38:1640–1646 (PMID 22752356); Watson PL et al. Crit Care Med 2013;41:1958–1967 (PMID 23863228); Elbaz M et al. Ann Intensive Care 2017;7:25 (PMID 28255956); Azimaraghi O et al. Crit Care Med 2022;50:e434–e444 (PMID 34982739). Enkeltstudiene er sitert via kapitlet.'],
  ['Hjernens fysiologi og anestesimidlene (kap. 10)','Patel PM, Drummond JC, Lemkuil BP. Kapitlets egne hovedreferanser for autoregulering: Lassen NA. Physiol Rev 1959;39:183–238; Drummond JC. Blood pressure and the brain: how low can you go? Anesth Analg 2019;128:759–771; Claassen JAHR et al. Physiol Rev 2021;101:1487–1559. For CBF-terskler: Astrup/Symon-tradisjonen (ref. 288, 440, 441 i kapitlet, primatdata). For CO og CBF: Meng L et al. Anesthesiology 2015;123:1198–1208.'],
  ['Bevissthet ≠ responsivitet, tilkoblet/frakoblet (kap. 8, 36)','Sanders RD et al. Anesthesiology 2012;116:946–959 (PMID 22314293). Mashour GA, Avidan MS. Intraoperative awareness: controversies and non-controversies. Br J Anaesth 2015;115(suppl 1):i20–i26 (PMID 25735710) (ref. 7 i kap. 8, for bruken av ordet «awareness»). Kapittel 8 sitt utsagn om at minne forutsetter bevissthet har ingen referanse. Kapittel 36 ref. 32 for drømming: Leslie K et al. Anesthesiology 2009;111:547–555 (PMID 19672164). Kapittel 36 ref. 1: Mashour GA. Consciousness and the 21st century operating room. Anesthesiology 2013;119:1003–1005 (PMID 23962968), lederartikkel om Jordan 2013 og tap av frontal-til-parietal tilbakekobling under propofol; den sier ingenting om awareness eller erindring. Figurtekst 36.1 («Occasionally AWR may present absent of conscious experience at the time») har ingen referanse, og ingen av de siterte artiklene i avsnittet støtter setningen direkte.'],
@@ -3394,7 +3696,7 @@ const CHAPREFS=[
  ['CMR og EEG (kap. 10)','Ingen sitat i uttrukket tekst for disse påstandene. Sjekk kapittelets referanseliste.'],
  ['Cochrane: BIS og awareness (kap. 36)','Lewis SR et al. Cochrane Database Syst Rev 2019 (PMID 31557307).'],
  ['Propofol: respons, erindring og BIS (kap. 21)','Glass PS et al. Anesthesiology 1997;86:836–847 (PMID 9105228). Vuyk J et al. Anesthesiology 1992;77:3–9 (PMID 1610007) og 1997;87:1549–1562 (PMID 9416739).'],
- ['Propofol: ekvilibrering og våknekonsentrasjon (kap. 21)','Kazama T et al. Anesthesiology 1999;90:1517–1527 (PMID 10360846). Kazama T et al. Anesth Analg 1998;86:872–879 (PMID 9539618). Sjekk at siste artikkel faktisk støtter påstanden om våknekonsentrasjon.'],
+ ['Propofol: likevekt mellom blod og effektsted, og våknekonsentrasjon (kap. 21)','Kazama T et al. Anesthesiology 1999;90:1517–1527 (PMID 10360846). Kazama T et al. Anesth Analg 1998;86:872–879 (PMID 9539618). Sjekk at siste artikkel faktisk støtter påstanden om våknekonsentrasjon.'],
  ['Flumazenil og amnesi (kap. 21)','Ghoneim MM et al. Anesthesiology 1989;70:899–904 (PMID 2499223). Weinbrum A, Geller E. Acta Anaesthesiol Scand Suppl 1990;92:65–69 (PMID 2109473).'],
  ['Midazolam og alder (kap. 21)','Jacobs JR et al. Anesth Analg 1995;80:143–148 (PMID 7802272).'],
  ['Dexmedetomidin: konsentrasjoner og ICU-erindring (kap. 21)','Ebert TJ et al. Anesthesiology 2000;93:382–394 (PMID 10910487). Venn RM, Grounds RM. Br J Anaesth 2001;87:684–690 (PMID 11878517).'],

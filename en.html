@@ -76,6 +76,8 @@ details.comp[open] summary::after{content:"–"}
 .comp .body{padding:0 14px 14px}
 .comp ul{margin:6px 0 10px;padding-left:20px}
 .comp li{margin-bottom:6px}
+.micro{margin-top:12px;padding:10px 12px 4px;border-radius:8px;background:color-mix(in srgb,var(--hue) 9%,transparent)}
+.micro h4{margin:0 0 4px;font-size:.98rem}
 .tag{display:inline-block;font-size:.8rem;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid var(--hue);color:var(--hue);margin:2px 6px 8px 0}
 .tag.warn{border-color:var(--c-ana);color:var(--c-ana)}
 
@@ -230,7 +232,7 @@ header h1 button:hover{color:var(--accent)}
       <p><strong>Who made it.</strong> Heidi Leona Porskrog-Mjelde, nurse anaesthetist and master’s student. The content has been compiled and written as an independent learning project.</p>
       <p><strong>What it is.</strong> An interactive learning tool about general anaesthesia and the brain as the target organ: which components a general anaesthetic consists of, how they can be assessed, and what the EEG and spectrogram look like under different drugs, at different ages and with changes in cerebral perfusion. The tabs cover the components (consciousness, memory, nociception, immobility and autonomic stability), a schematic spectrogram simulator, the effects of drugs on consciousness and memory, perfusion and positioning, sedation in intensive care, a quiz and a combined list of sources.</p>
       <p><strong>Who it is for.</strong> Nurse anaesthetists and anaesthetists, for teaching and self-study. It assumes basic knowledge of anaesthesia and is designed to give a shared vocabulary and a precise relationship to what the sources actually show. It is not a clinical guideline and gives no dosing advice.</p>
-      <p><strong>What it is based on.</strong> The main sources are Miller's Anesthesia, 10th edition (chapters 8, 9, 10, 16, 17, 21, 27, 30, 36, 61 and 80), Morgan and Mikhail (2022, chapters 8, 9 and 43) for comparison, and Lobo and Lamperti (2025) on EEG during anaesthesia, supplemented by peer-reviewed original articles and reviews listed in the Sources tab. Every claim is tagged with its source. Where the chapters build on original studies, these are listed under “Original references in Miller's”.</p>
+      <p><strong>What it is based on.</strong> The main sources are Miller's Anesthesia, 10th edition (chapters 8, 9, 10, 16, 17, 21, 22, 27, 30, 36, 61 and 80), Morgan and Mikhail (2022, chapters 8, 9 and 43) for comparison, and Lobo and Lamperti (2025) on EEG during anaesthesia, supplemented by peer-reviewed original articles and reviews listed in the Sources tab. Every claim is tagged with its source. Where the chapters build on original studies, these are listed under “Original references in Miller's”.</p>
       <p><strong>What it is not.</strong> The spectrograms in the simulator are schematic models built on the descriptions in the sources, not recordings from patients. Where the sources disagree, or where articles contain internal discrepancies, this has been collected under “Discrepancies and disagreements between sources” in the Sources tab rather than smoothed over. Check the original sources before the content is used in teaching.</p>
       <p><strong>Independence.</strong> This is not product information. Product names (for example BIS, SedLine and nociception monitors) are mentioned only where the sources do so or where it is needed to explain a principle, and no manufacturer or supplier has had any influence on the content. Conflicts of interest declared by the authors of the sources themselves are reproduced on each card.</p>
     </div>
@@ -403,6 +405,21 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Hudetz and Mashour. Anesth Analg 2016;123:1228–1240</span></div>
 
+  <h3>Brain networks and anaesthesia: methods and findings (Liu 2023)</h3>
+  <div class="card">
+  <p>Narrative review (Engineering 2023;20:77–95) from an engineering group in China. It is not systematic and does not assess study quality. The authors searched Web of Science in July 2021 and selected 27 EEG-based and 16 fMRI-based network studies as representative.</p>
+  <ul>
+   <li><strong>Micro level:</strong> the review mentions GABA<sub>A</sub>, NMDA (most inhaled agents inhibit NMDA, to varying degrees) and two-pore potassium channels (mice lacking these channels are less sensitive to inhaled agents).</li>
+   <li><strong>Macro level:</strong> three explanatory models are disrupted connections between thalamus and cortex, effects on the sleep–wake systems, and cortical fragmentation. Propofol and sevoflurane act earlier in the cortex than subcortically (Velly 2007).</li>
+   <li><strong>Three types of connectivity:</strong> structural (physical pathways), functional (statistical co-variation, for example coherence, PLI, wPLI and PLV) and effective (directed influence, for example Granger causality and transfer entropy).</li>
+   <li><strong>Graph theory:</strong> the brain is described as a small-world network balancing local specialisation and global integration. Measures such as clustering coefficient, path length, efficiency, modularity and hubs (rich club) are used to describe how the network changes. Dynamic connectivity is analysed with sliding time windows.</li>
+   <li><strong>Findings:</strong> frontoparietal disconnection under propofol has been shown in several studies. Participants with weaker alpha networks before sedation became unresponsive more easily with the same propofol dose (Chennu 2016). Midazolam and propofol gave similar power changes but different connectivity. Nitrous oxide reduced parietal-to-frontal coupling. Ketamine increased theta coupling.</li>
+   <li><strong>Clinical:</strong> BIS and entropy are frontal measures from one or two channels and vary with the drug. BIS rises with nitrous oxide and ketamine, and is affected by opioids, muscle relaxants and EMG. The authors believe network measures from 25–64 channels could become better clinical tools, but this has not been shown in clinical use, and dynamic analyses require long signals.</li>
+   <li><strong>Unresponsiveness:</strong> the review stresses that unresponsiveness is not the same as unconsciousness (Sanders 2012, see the card above).</li>
+   <li><strong>Caveats:</strong> several citations do not match the claims (see Discrepancies). No conflicts of interest declared, public Chinese funding.</li>
+  </ul>
+  <span class="tag">Liu et al. Engineering 2023;20:77–95</span></div>
+
   <h3>Propofol with 64-channel EEG: what happens as consciousness is lost and returns (Purdon 2013)</h3>
   <div class="card">
   <p>The study on which most of the propofol signatures in the app are based (PNAS 2013;110:E1142–E1151). Ten healthy volunteers received propofol with effect-site targets of 0, 1, 2, 3, 4 and 5 µg/ml for 14 minutes per step, followed by stepwise reduction. Every 4 seconds a sound was played (click or word/own name) to be answered with a button press, so that response could be tracked almost continuously. 64-channel EEG, eyes closed, Laplacian reference. Three anaesthetists present, arterial blood pressure and phenylephrine as needed.</p>
@@ -430,6 +447,31 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Caveats:</strong> ten participants, the subanaesthetic infusion immediately before the bolus may have affected the anaesthetic phase, 86–91 of 128 channels were retained, ondansetron and scopolamine were given, gamma was not analysed for connectivity because of possible EMG, and the spectral and connectivity analyses were based on different artefact cleaning. No conflicts of interest declared, funded by the NIH.</li>
   </ul>
   <span class="tag">Vlisides et al. Anesthesiology 2017;127:58–69</span></div>
+
+  <h3>Ketamine measured inside the brain: frontal gamma, 3 Hz and interaction with propofol (Tian 2023)</h3>
+  <div class="card">
+  <p>Nature Communications 2023;14:1748. Ten epilepsy patients (22–59 years) with depth electrodes received subanaesthetic ketamine (0.5 mg/kg over 14 minutes) before electrode removal, followed by a propofol bolus for induction. 824 bipolar channels from ten patients under ketamine, and 606 channels from seven patients after propofol. Dissociation was measured with an abbreviated CADSS scale with yes/no answers.</p>
+  <ul>
+   <li><strong>Ketamine:</strong> gamma (25–55 Hz) rose most in the anterior and posterior cingulate and frontal areas, and also in the hippocampus/amygdala and striatum among others, but fell occipitally. Alpha (8–15 Hz) fell in almost all areas, most in the postcentral and occipital cortex. Slow and delta fell in most areas. Beta fell in many places but rose in the hippocampus/amygdala.</li>
+   <li><strong>3 Hz rhythm:</strong> increased 3–4 Hz power in the posterior and isthmus cingulate (posteromedial cortex) and pars opercularis, peaking between 3 and 6 Hz. This rhythm has previously been proposed as a mechanism for dissociation, based on experiments in mice.</li>
+   <li><strong>When propofol was added:</strong> the frontal gamma increase (40–55 Hz) was reversed, and the alpha decrease was reversed in most areas, but occipital alpha fell further. Beta, theta, slow and delta rose almost everywhere, and 3–4 Hz rose further.</li>
+   <li><strong>The authors’ interpretation:</strong> effects counteracted by propofol are interpreted as NMDA-mediated disinhibition. Effects that are enhanced are interpreted as shared HCN1 inhibition. Frontal and hippocampal gamma are linked to the antidepressant effect of ketamine, but the study measured neither depression nor antidepressant effect.</li>
+   <li><strong>Caveats:</strong> epilepsy patients with electrodes placed for clinical reasons, and dissociation was assessed only with yes/no. The authors report effect sizes and bootstrap confidence intervals, but no p values and no correction for multiple comparisons. The propofol phase is missing for three patients, and doses of the anaesthetic drugs are given for only five. Some dB values are implausibly high (see Discrepancies). Purdon, Brown and Akeju report patents licensed to Masimo, and Purdon and Brown are co-founders of PASCALL Systems.</li>
+  </ul>
+  <span class="tag">Tian et al. Nat Commun 2023;14:1748</span></div>
+
+  <h3>Ketamine in monkeys: sensory information reaches the cortex but does not pass on (Schroeder 2016)</h3>
+  <div class="card">
+  <p>NeuroImage 2016;134:459–465, from the groups of Mashour and Chestek. Three rhesus monkeys with microelectrodes in the primary somatosensory cortex (S1) and motor cortex (M1). The fingers were stroked twice per second before and after ketamine 10 mg/kg intramuscularly.</p>
+  <ul>
+   <li><strong>Starting point:</strong> ketamine fits poorly with the usual explanations of anaesthesia. The authors write that ketamine does not bind with high affinity to GABA<sub>A</sub>, does not depress thalamic metabolism, does not activate the sleep-promoting preoptic nucleus and does not depress high-frequency EEG.</li>
+   <li><strong>Decoding touch:</strong> which finger was touched could be decoded from neural activity in S1 (89.3% correct) and M1 (68.7%) in awake animals. 10–30 minutes after ketamine, M1 fell to chance level (27.4%, chance 33.3%), while S1 was preserved. After four hours, M1 was back at 54.4%. Overall firing rates did not change.</li>
+   <li><strong>Coupling between neurons:</strong> transfer entropy, a measure of directed information transfer, fell between S1 and M1, and also within S1.</li>
+   <li><strong>Oscillations in S1:</strong> beta fell, while gamma and delta rose, as described in scalp EEG in humans under ketamine anaesthesia.</li>
+   <li><strong>Interpretation:</strong> transfer from the thalamus to S1 appears preserved, while transfer between cortical areas fails. The authors see this as a possible common endpoint for drugs with different molecular targets. They note themselves that subanaesthetic ketamine doses also change coupling in humans, so it is unclear whether the disconnection causes unconsciousness or merely accompanies it.</li>
+   <li><strong>Caveats:</strong> three monkeys, one of which completed only an abbreviated experiment, and the transfer entropy and spectral analyses are based on two of them. Blood concentrations were not measured, and consciousness was judged from reflexes. The study was funded by the NIH.</li>
+  </ul>
+  <span class="tag">Schroeder et al. NeuroImage 2016;134:459–465</span></div>
 
   <h3>Anaesthesia as fragmentation of the sense of self (Sleigh, Warnaby and Tracey 2018)</h3>
   <div class="card">
@@ -845,6 +887,22 @@ header h1 button:hover{color:var(--accent)}
   <h2>Drugs: consciousness and amnesia</h2>
   <p>Different agents affect consciousness, recall, pain and movement to different degrees. The numbers below are population averages from the literature, with large individual variation. They are not dosing advice.</p>
 
+  <details class="comp" style="--hue:var(--c-sta)"><summary>Basic concepts: receptors, ion channels and circuits</summary><div class="body">
+    <span class="tag">Miller's ch. 21 and 8</span> <span class="tag">Purdon 2015</span> <span class="tag">Brown, Lydic and Schiff 2010</span>
+    <p>Each drug below has its own section on the micro level: which receptors the drug binds to, what happens in the nerve cell, and which circuits are affected. Much of this knowledge comes from animal experiments, cell studies and modelling, and the sources describe the mechanisms as probable, not fully mapped.</p>
+    <ul>
+      <li><strong>The GABA<sub>A</sub> receptor:</strong> a chloride channel made of five subunits. Chapter 21 states that the receptor is built from 18 or more different subunits, and that the α subunit exists in six variants (α1–α6). Many combinations occur in different parts of the brain. The binding sites lie at the interfaces between subunits, and the combination determines how well, for example, propofol, etomidate or pentobarbital binds.</li>
+      <li><strong>When the channel opens:</strong> chloride flows in, the cell membrane is hyperpolarised, and the threshold for the nerve cell to fire rises. This is why the GABA system is called inhibitory (ch. 21).</li>
+      <li><strong>Enhancing or activating:</strong> chapter 21 describes that propofol, barbiturates and etomidate at clinical concentrations enhance the action of GABA, so that less GABA is needed. At higher concentrations they can open the channel directly, without GABA. Benzodiazepines are described only as enhancers of the GABA response.</li>
+      <li><strong>Synaptic and tonic inhibition:</strong> the hippocampus has many GABA<sub>A</sub> receptors with the α5 subunit, which is almost absent elsewhere in the cortex. They give sustained (tonic) inhibition of CA1 pyramidal cells and regulate long-term potentiation (LTP) with stimulation in the theta range (ch. 8). This is linked to amnesia, see etomidate and inhaled agents.</li>
+      <li><strong>The NMDA receptor:</strong> a glutamate-gated ion channel. Ketamine is a channel blocker and works only when the channel is open (Purdon 2015).</li>
+      <li><strong>α<sub>2</sub> adrenoceptors:</strong> G-protein-coupled receptors. They inhibit adenylate cyclase and affect calcium and potassium channels (ch. 21).</li>
+      <li><strong>The arousal centres:</strong> wakefulness is maintained by nuclei in the brainstem, hypothalamus and basal forebrain: locus coeruleus (noradrenaline), raphe (serotonin), tuberomammillary nucleus (histamine), ventral tegmental area (dopamine), basal forebrain and the laterodorsal and pedunculopontine tegmental nuclei (acetylcholine), and lateral hypothalamus (orexin). The preoptic area of the hypothalamus sends inhibitory GABA and galanin pathways to these centres. Purdon 2015 writes that activation of these pathways is thought to be a key part of how NREM sleep begins (Brown 2010, Purdon 2015).</li>
+      <li><strong>From receptor to EEG:</strong> Purdon 2015 builds on the idea that EEG signatures arise because the drugs act on specific receptors in specific circuits. For propofol, thalamus and cortex, which are tightly connected, are described as not switching off when inhibited, but instead oscillating in rhythms such as alpha and beta.</li>
+      <li><strong>Interactions as clues:</strong> Hendrickx 2008 uses interactions as hints about the site of action: additivity suggests a shared site, synergy different sites. See the card «Synergy between agents and isoelectric EEG».</li>
+    </ul>
+  </div></details>
+
   <details class="comp" style="--hue:var(--c-hyp)" open><summary>Propofol</summary><div class="body">
     <span class="tag">EEG signature (Purdon 2015)</span> <span class="tag">Miller's ch. 21</span>
     <ul>
@@ -856,6 +914,18 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Age:</strong> Chapter 21 states that patients aged 80 years or more need about half the dose of 20-year-olds. Chapter 16 states that the dose for 80-year-olds should be reduced by 65% (Schnider 1999). The numbers differ.</li>
     </ul>
     <p class="small">The BIS values are from healthy volunteers. Chapter 36 states that individual patients can become conscious at BIS values from 40 to 90.</p>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Binding site:</strong> the hypnotic effect is mainly mediated by the GABA<sub>A</sub> receptor, where propofol binds to the β subunit. Sites on β1, β2 and β3 in the part of the receptor that crosses the cell membrane are crucial, and the α and γ2 subunits also seem to contribute (ch. 21).</li>
+      <li><strong>Two modes of action:</strong> indirectly, by enhancing GABA and shifting the concentration–response curve to the left, and at higher concentrations by direct activation of the channel (ch. 21).</li>
+      <li><strong>Other targets:</strong> chapter 21 mentions widespread inhibition of NMDA receptors through modulation of sodium channel gating, action on GABA<sub>A</sub> and glycine receptors in the dorsal horn of the spinal cord, increased dopamine in the nucleus accumbens (well-being), reduced serotonin in the area postrema (antiemetic) and inhibited release of acetylcholine in the hippocampus and prefrontal cortex. The α2 system seems to play an indirect role in sedation.</li>
+      <li><strong>Circuits:</strong> in the cortex, propofol enhances the inhibition of pyramidal cells by inhibitory interneurons. In the thalamus, propofol enhances GABA inhibition in the reticular nucleus, which controls what the thalamus passes on to the cortex. Because thalamus and cortex are tightly connected, this produces oscillations in beta and alpha. Propofol also enhances the inhibitory GABA pathways from the preoptic area to the arousal centres. Less excitatory input from thalamus and brainstem hyperpolarises the cortex and gives slow-delta (Purdon 2015). Brown 2010 adds inhibited release of histamine from the tuberomammillary nucleus.</li>
+      <li><strong>Bolus:</strong> after a bolus, slow-delta appears within seconds, together with loss of response, loss of the oculocephalic reflex, apnoea and atonia. Purdon interprets this as rapid action in the brainstem: cranial nerve nuclei III, IV and VI (eye movements), the respiratory centres in the medulla and pons (apnoea) and reticular nuclei in the pons and medulla (atonia).</li>
+      <li><strong>Coherent alpha, incoherent slow waves:</strong> frontal alpha is highly coherent and may arise in circuits between thalamus and frontal cortex. The slow waves are not coherent, and recordings with electrodes in the cortex show that they bracket brief periods of firing. Purdon proposes that alpha prevents normal communication between thalamus and cortex, and that the slow waves prevent communication within the cortex.</li>
+      <li><strong>Paradoxical excitation:</strong> Purdon 2015 describes two proposed mechanisms: GABA<sub>A</sub>-mediated inhibition of the inhibitory pathways from the globus pallidus to the thalamus, so that the thalamus drives the cortex more, and (from simulation studies) transient blockade of slow potassium currents in cortical nerve cells.</li>
+      <li><strong>Memory:</strong> propofol inhibits the induction, but not the maintenance, of LTP in the hippocampus, and does not affect long-term depression (LTD). The effect is blocked by the GABA<sub>A</sub> antagonist picrotoxin. One study found LTP inhibition only at anaesthetic, not at amnestic, concentrations. Propofol also causes loss of theta phase locking between cortex and hippocampus, mediated by the β3 subunit (ch. 8).</li>
+      <li><strong>Physostigmine:</strong> Brown 2010 writes that propofol-induced unconsciousness has been reversed with physostigmine in clinical studies, which increases cholinergic activity throughout the cortex.</li>
+      <li><strong>Seizures:</strong> chapter 21 describes that propofol can suppress seizures through GABA, NMDA inhibition and slow calcium channels, but that GABA agonism and glycine antagonism can also produce epileptiform changes, especially at induction and emergence.</li>
+    </ul></div>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-amn)"><summary>Midazolam (benzodiazepines)</summary><div class="body">
@@ -868,6 +938,15 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Mechanism:</strong> Chapter 21 links sedation and anterograde amnesia to GABA-A receptors with the α1 subunit. Chapter 8 describes that amnesia for etomidate in mice is linked to α5 subunits. These concern different agents and are not necessarily contradictions.</li>
       <li><strong>Age:</strong> Older patients need less (Jacobs 1995).</li>
     </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Binding site:</strong> benzodiazepines act selectively at the GABA<sub>A</sub> receptor and enhance the response to GABA by facilitating opening of the chloride channel, resulting in hyperpolarisation (ch. 21). Hendrickx 2008 distinguishes the benzodiazepine site from the site where propofol, barbiturates and etomidate act.</li>
+      <li><strong>Subunits and effects:</strong> α1 is linked to sedation, anterograde amnesia and anticonvulsant effect, α2 to anxiolysis and muscle relaxation. α2 and α3 are linked to the rewarding effects and thus addiction (ch. 21).</li>
+      <li><strong>Where the receptors are:</strong> highest density in the olfactory bulb, cerebral cortex, cerebellum, hippocampus, substantia nigra and inferior colliculus, lower in the striatum, lower brainstem and spinal cord (ch. 21).</li>
+      <li><strong>Potency:</strong> affinity is lorazepam &gt; midazolam &gt; diazepam. Midazolam is about 3–6 and lorazepam 5–10 times as potent as diazepam (ch. 21).</li>
+      <li><strong>Ceiling:</strong> midazolam alone cannot fully abolish movement to noxious stimuli, whereas propofol alone can. Hendrickx 2008 uses this as one argument that propofol and midazolam act differently, even though both act through GABA<sub>A</sub>, and that the combination is therefore synergistic.</li>
+      <li><strong>Flumazenil and receptor occupancy:</strong> flumazenil is a competitive antagonist with high affinity and almost no intrinsic effect. Its effect depends on what fraction of the receptors the agonist occupies. After a very high agonist dose, a small dose of flumazenil attenuates the deep CNS depression (unconsciousness, respiratory depression) without reducing the effects that need only low receptor occupancy (drowsiness, amnesia). Large doses of flumazenil with little agonist reverse everything. Flumazenil is cleared rapidly, so sedation can return (ch. 21).</li>
+      <li><strong>Remimazolam:</strong> described in chapter 21 as an ultra-short-acting GABA<sub>A</sub> agonist.</li>
+    </ul></div>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-ana)"><summary>Ketamine</summary><div class="body">
@@ -877,8 +956,19 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Concentration:</strong> Minimum 0.6–2 µg/ml for general anaesthesia. The pain threshold is raised at 0.1 µg/ml or more, that is, far below the level for unconsciousness.</li>
       <li><strong>Amnesia:</strong> No recall of surgery, but the amnesia is less pronounced than with benzodiazepines.</li>
       <li><strong>Brain metabolism:</strong> Increases CMRO₂ and blood flow (ch. 10 and 21).</li>
-      <li><strong>EEG:</strong> Chapter 21 describes theta and epileptiform activity in the hippocampus, while Akeju describes alternating slow-delta and gamma. The descriptions are not the same.</li>
+      <li><strong>EEG:</strong> Chapter 21 describes generalised theta activity in the EEG and seizure-like (petit mal) activity in the hippocampus, and does not mention gamma or slow-delta. Akeju describes alternating slow-delta and gamma, together with increased theta. Theta appears in both, so the descriptions differ in scope rather than conflict.</li>
     </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Main target:</strong> blockade of the NMDA receptor. Ketamine is a channel blocker, so the channel has to be open for ketamine to act (Purdon 2015).</li>
+      <li><strong>Interneurons first:</strong> NMDA channels on inhibitory interneurons are generally more active than those on pyramidal cells. At low to moderate doses ketamine therefore mainly affects the interneurons, and the pyramidal cells become less inhibited. Purdon 2015 uses this to explain increased metabolism, and that cortex, hippocampus and amygdala keep communicating but without coordination in time and space: hallucinations, dissociation, euphoria and dysphoria. At higher doses the NMDA receptors on the excitatory nerve cells are also blocked, and consciousness is lost. Brown 2010 describes the same.</li>
+      <li><strong>Dopamine:</strong> the hallucinations are probably enhanced by disrupted dopamine transmission in the prefrontal cortex, partly due to increased glutamate activity at glutamate receptors other than NMDA (Purdon 2015).</li>
+      <li><strong>Other receptors:</strong> opioid receptors and monoaminergic receptors. At high concentrations sigma receptors are also affected, muscarinic receptors are blocked and GABA transmission is facilitated. S(+)-ketamine has some μ-opioid activity, and experiments in μ-knockout mice suggest that the μ system contributes to respiratory depression and supraspinal antinociception (ch. 21). Chapter 8 describes increased activity in the locus coeruleus, which appears to contribute to the anaesthetic effect.</li>
+      <li><strong>Analgesia:</strong> chapter 21 links the spinal analgesia to inhibition of wide dynamic range neurons in the dorsal horn, and describes that ketamine inhibits central sensitisation and opioid-induced hyperalgesia. Purdon 2015 places the analgesia at «the dorsal root ganglia, the first synapse of the pain pathway in the spinal cord».</li>
+      <li><strong>Circuits:</strong> chapter 21 describes that ketamine depresses parts of the cortex (especially association areas) and thalamus, but stimulates limbic areas including the hippocampus, and calls this a functional disorganisation. Chapter 8 writes that many anaesthetics reduce metabolism in the thalamus, with ketamine as the exception.</li>
+      <li><strong>To the EEG:</strong> the active EEG fits with the disinhibition. At a low dose given alone, Purdon describes beta–gamma at about 25–32 Hz. No specific antagonist reverses all the effects of ketamine (ch. 21).</li>
+      <li><strong>The HCN1 channel (Tian 2023):</strong> ketamine also inhibits HCN1, a channel activated by hyperpolarisation that is important for rhythmic activity. Mice lacking HCN1 do not lose the righting reflex with ketamine, and propofol also inhibits HCN1. Tian proposes that frontal gamma results from NMDA-mediated disinhibition (counteracted by the GABA effect of propofol), while the shared HCN1 inhibition may explain why occipital alpha falls further when propofol is added. See the card in the Components tab.</li>
+      <li><strong>Communication in the cortex (Schroeder 2016):</strong> in monkeys under ketamine, sensory information reached the primary somatosensory cortex but did not pass on to the motor cortex, and the directed coupling between neurons in the two areas fell.</li>
+    </ul></div>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-aki)"><summary>Dexmedetomidine</summary><div class="body">
@@ -889,15 +979,147 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Recall:</strong> Chapter 21 cites an ICU study in which patients on dexmedetomidine remembered more of their stay than patients on propofol. Chapter 8 describes failure of encoding in an experimental low-dose study. The findings are not directly comparable.</li>
       <li><strong>Hysteresis:</strong> Chapter 36 says that dexmedetomidine increases neural inertia.</li>
     </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Receptor:</strong> α2 agonist at G-protein-coupled α2 adrenoceptors. Inside the cell, adenylate cyclase is inhibited, L- and P-type calcium channels are inhibited, and calcium-activated potassium channels conduct more easily (ch. 21).</li>
+      <li><strong>Subtypes:</strong> α2A, α2B and α2C. Chapter 21 writes that α2A is mainly peripheral and α2B and α2C are in the brain and spinal cord, and links analgesia in the dorsal horn to α2C and α2A. Chapter 8 cites that removing α2A receptors from the locus coeruleus in rodents prevents dexmedetomidine-induced loss of righting reflex (see Discrepancies in the Sources tab).</li>
+      <li><strong>Circuit:</strong> dexmedetomidine binds presynaptically on nerve cells from the locus coeruleus and hyperpolarises them, so that less noradrenaline is released. This removes the inhibition of the preoptic area, and the preoptic area inhibits the arousal centres with GABA and galanin, including histamine release from the tuberomammillary nucleus. In addition, the noradrenaline supply to the basal forebrain, the intralaminar thalamic nuclei and the cortex is lost (Purdon 2015, ch. 21).</li>
+      <li><strong>Animal experiments:</strong> microinjection of dexmedetomidine into the locus coeruleus lowers the level of consciousness, and this is prevented by the α2 antagonist atipamezole. Mice that cannot make noradrenaline are hypersensitive to dexmedetomidine, suggesting that other mechanisms also exist (ch. 8).</li>
+      <li><strong>To the EEG:</strong> the spindles (9–15 Hz) probably arise, like propofol frontal alpha and sleep spindles, in loops between thalamus and cortex, but they are brief and episodic. Slow-delta arises because the cortex receives less excitatory input. Both spindles and slow waves are smaller than under propofol. Purdon interprets this as less disruption of nerve cell activity, and as a possible explanation for why the patient can be roused.</li>
+      <li><strong>Cognition:</strong> chapter 21 mentions data suggesting that reduced expression of α5-GABA<sub>A</sub> receptors after anaesthesia may contribute to better preserved cognition with dexmedetomidine.</li>
+      <li><strong>Reversal:</strong> the α2 antagonist atipamezole reverses the effect, but is not approved for humans (ch. 21).</li>
+      <li><strong>α2A in the locus coeruleus (Mizobe 1996):</strong> in rats, antisense against α2A in the locus coeruleus delayed and shortened loss of righting reflex after dexmedetomidine, while antisense against α2C had no effect. See the card below and Discrepancies.</li>
+      <li><strong>Thalamus (Akeju, Loggia et al. 2014):</strong> during dexmedetomidine-induced loss of consciousness, coupling between cortical areas was preserved, while coupling between the thalamus and the default mode network was disrupted. See the card below.</li>
+      <li><strong>Spindles (Huupponen 2008):</strong> spindles during deep dexmedetomidine sedation had the same density, amplitude and frequency as spindles in normal NREM 2 sleep, but lasted longer. See the card below.</li>
+    </ul></div>
   </div></details>
 
+  <details class="comp" style="--hue:var(--c-aki)"><summary>Clonidine</summary><div class="body">
+    <span class="tag">Miller's ch. 21, 10 and 22</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Hight 2020</span>
+    <ul>
+      <li><strong>What it is:</strong> an α2 agonist like dexmedetomidine, but less selective. The ratio of α2 to α1 binding is about 220:1, versus 1600:1 for dexmedetomidine (ch. 21). Chapter 10 describes clonidine as significantly less specific and less potent.</li>
+      <li><strong>Background:</strong> experience with patients taking clonidine showed that α2 agonists could be used in anaesthesia, and one study found lower halothane MAC in such patients. This led to the development of dexmedetomidine (ch. 21).</li>
+      <li><strong>MAC:</strong> clonidine reduced the MAC of isoflurane by about 30% and of sevoflurane by 17–34%, and MAC-awake by 30% (isoflurane) and 17–21% (sevoflurane) in humans. In children, doubling the dose did not further reduce sevoflurane MAC-awake. Clonidine alone does not produce immobility at clinically used doses, so the effect has a ceiling (Hendrickx 2008).</li>
+      <li><strong>Interactions:</strong> propofol and clonidine were additive for hypnosis in humans. Midazolam and clonidine were synergistic in rats, and fentanyl and clonidine produced hypnosis together in animals even though neither did alone (Hendrickx 2008). Chapter 21 writes that the infusion dose of clonidine, among others, should be reduced when combined with propofol.</li>
+      <li><strong>Respiration and opioids:</strong> clonidine does not enhance the respiratory depression from fentanyl and other opioids. Intravenous clonidine abolished the sympathetic activation from μ blockade in opioid-dependent patients, and α2 agonists can suppress fentanyl cough (ch. 22).</li>
+      <li><strong>EEG:</strong> dexmedetomidine and other α2 agonists such as clonidine produce a slow-wave-dominant EEG with intermittent spindles, sharing features with sleep stages 2 and 3 (Hight 2020). Hight also lists clonidine among the conditions in which hysteresis is more marked, and urges caution when lowering the inhaled agent concentration below that needed for unconsciousness.</li>
+    </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Receptor:</strong> clonidine acts at α2 adrenoceptors, which are G-protein-coupled and inhibit adenylate cyclase (see dexmedetomidine). The sources here describe the circuit mechanism (locus coeruleus and preoptic area) for dexmedetomidine, not specifically for clonidine.</li>
+      <li><strong>Imidazoline receptors:</strong> clonidine and dexmedetomidine both belong to the imidazole subclass (ch. 21). Mizobe 1996 writes that the clinically available α2 agonists have an imidazole ring that also activates imidazoline binding sites, that they do not discriminate between α2 subtypes, and that bradycardia may partly be due to imidazoline receptors in the brainstem.</li>
+      <li><strong>Neuroprotection in animals:</strong> clonidine lowered plasma catecholamines and improved outcome after incomplete ischaemia in rats (ch. 10).</li>
+    </ul></div>
+  </div></details>
   <details class="comp" style="--hue:var(--c-sta)"><summary>Thiopental and etomidate</summary><div class="body">
     <span class="tag">Miller's ch. 21 and 10</span>
     <ul>
       <li><strong>Thiopental:</strong> The amnesia is less pronounced than with benzodiazepines. When the EEG becomes isoelectric, brain metabolism is according to chapter 21 about 50% of baseline.</li>
       <li><strong>Etomidate:</strong> At 0.2–0.3 mg/kg, CBF falls by 34% and CMRO₂ by 45% without change in mean arterial pressure.</li>
     </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Barbiturates:</strong> the GABA<sub>A</sub> receptor is the only proven site of barbiturate anaesthesia. At low concentrations barbiturates slow the dissociation of GABA from the receptor and prolong channel openings, which probably gives sedation and hypnosis. At higher concentrations they open the channel without GABA, which may explain the anaesthesia itself. They also inhibit excitatory transmission (glutamate, acetylcholine), and thiopental reduced glutamate levels and NMDA currents in rat prefrontal cortex (ch. 21).</li>
+      <li><strong>Metabolism and function:</strong> CMRO₂ falls to about 50% when the EEG becomes isoelectric, and no further. Barbiturates reduce the energy used for signalling, not the energy used to keep cells alive. Only hypothermia can reduce that (ch. 21).</li>
+      <li><strong>Etomidate:</strong> acts almost exclusively through GABA<sub>A</sub>: positive modulation at clinical concentrations and direct activation at higher concentrations. Chapter 21 describes two independent binding sites on the α1β2γ2 receptor that contribute equally.</li>
+      <li><strong>Etomidate and amnesia:</strong> in mice, etomidate blocks LTP in CA1, but not in mice lacking the α5 subunit. These mice are resistant to the amnesia but not to the anaesthesia, and the effect is reversed by an α5-selective drug with the opposite action (inverse agonist, L-655,708). The β3 subunit does not appear to be involved in the amnesia from etomidate (ch. 8). Amnesia and hypnosis can thus run through different receptor variants.</li>
+      <li><strong>Seizure foci:</strong> etomidate increases EEG activity in epileptogenic foci and has been used for mapping before epilepsy surgery (ch. 21).</li>
+    </ul></div>
   </div></details>
+
+  <details class="comp" style="--hue:var(--c-hyp)"><summary>Inhaled agents (sevoflurane, isoflurane, desflurane)</summary><div class="body">
+    <span class="tag">Morgan and Mikhail ch. 8</span> <span class="tag">Purdon 2015</span> <span class="tag">Miller's ch. 8 and 22</span> <span class="tag">Hendrickx 2008</span>
+    <ul>
+      <li><strong>MAC:</strong> the alveolar concentration that prevents movement at surgical incision in half of patients. MAC is only one point on the concentration–response curve (equivalent to the EC50). About 1.3 MAC prevents movement in about 95% (Morgan and Mikhail ch. 8).</li>
+      <li><strong>MAC values:</strong> for 30–55-year-olds, Morgan and Mikhail give about 2.0% for sevoflurane, 1.2% for isoflurane and 6.0% for desflurane.</li>
+      <li><strong>Emergence:</strong> 0.3–0.4 MAC is associated with awakening (MAC-awake) when the inhaled agent is the only anaesthetic (Morgan and Mikhail).</li>
+      <li><strong>Combinations:</strong> MAC values for combinations are roughly additive, for example 0.5 MAC nitrous oxide and 0.5 MAC isoflurane give the same effect as 1.0 MAC isoflurane (Morgan and Mikhail). Hendrickx 2008 found no synergy between two inhaled agents, but usually synergy with intravenous agents. Opioids reduce MAC, but with a ceiling (ch. 22).</li>
+      <li><strong>Age:</strong> MAC falls about 6% per decade, regardless of agent (Morgan and Mikhail ch. 8). Chapter 43 of the same book gives a different figure (see Discrepancies).</li>
+      <li><strong>Uptake and elimination:</strong> the effect depends on the brain concentration reaching a therapeutic level, and it follows the alveolar concentration. Low solubility in blood and tissues makes desflurane give very rapid induction and emergence (Morgan and Mikhail).</li>
+      <li><strong>EEG:</strong> below MAC, sevoflurane gives strong alpha and slow-delta resembling propofol. At MAC and above, a theta oscillation fills in between slow-delta and alpha, and when the concentration is lowered, theta disappears first. At emergence, alpha gives way to lower-amplitude beta and gamma, like a zipper opening. Isoflurane and desflurane give the same pattern, and high doses give burst suppression (Purdon 2015). See the Spectrogram tab.</li>
+    </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Many targets:</strong> Purdon 2015 lists enhanced GABA<sub>A</sub> inhibition, blockade of two-pore potassium channels and HCN channels, and inhibited glutamate release via NMDA receptors. Morgan and Mikhail also mention the glycine receptor α1 subunit, which the inhaled agents enhance, and nicotinic acetylcholine receptors. They write that no obligatory site of action has been identified.</li>
+      <li><strong>Meyer–Overton:</strong> potency correlates with lipid solubility, which once supported a shared mechanism for all inhaled agents. The correlation is only approximate (Morgan and Mikhail).</li>
+      <li><strong>Immobility in the spinal cord:</strong> MAC is unchanged after spinal cord transection in rats (Morgan and Mikhail), and Purdon writes that the muscle-relaxing effect results from action on receptors and channels in the spinal cord. Hendrickx 2008 found no synergy between any two inhaled agents for MAC and interprets this as a shared site for immobility despite different receptor effects.</li>
+      <li><strong>Circuits:</strong> noradrenergic nerve cells in the locus coeruleus modulate isoflurane anaesthesia and emergence from it. In the pontine reticular formation, lower GABA levels are linked to isoflurane-induced unconsciousness, an example that GABA does not always inhibit wakefulness (ch. 8).</li>
+      <li><strong>Memory:</strong> isoflurane and sevoflurane inhibit LTP in the hippocampus, and the effect is abolished by GABA<sub>A</sub> antagonists. For isoflurane, the α4β2 nicotinic receptor is also implicated. Low, amnestic concentrations enhance tonic inhibition through α5 receptors. Mice lacking α4, or lacking β3 in the forebrain, are resistant to the amnesia from isoflurane, while α1 and α2 do not appear to be involved. Mice lacking HCN1 channels are resistant to the amnesia from sevoflurane. In rodents, impaired memory 24–48 hours after isoflurane appears to be mediated by α5 (ch. 8).</li>
+      <li><strong>To the EEG:</strong> below MAC, sevoflurane gives alpha and slow-delta resembling propofol, which Purdon interprets as GABA enhancement being the main mechanism. Theta at MAC and above may, according to Purdon, reflect one of the other mechanisms. Chapter 8 mentions that the effect of sevoflurane on hippocampal theta may involve TASK-3 channels. Both are hypotheses.</li>
+    </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-ana)"><summary>Nitrous oxide</summary><div class="body">
+    <span class="tag">Morgan and Mikhail ch. 8</span> <span class="tag">Purdon 2015</span> <span class="tag">Miller's ch. 8 and 22</span> <span class="tag">Hendrickx 2008</span>
+    <ul>
+      <li><strong>Role:</strong> nitrous oxide is used as an adjunct because it is not potent enough on its own for general anaesthesia. Attempts to give enough nitrous oxide alone for unconsciousness cause nausea and vomiting (Purdon 2015). MAC is given as 105%, i.e. above one atmosphere (Morgan and Mikhail ch. 8).</li>
+      <li><strong>Elimination:</strong> nitrous oxide is eliminated so rapidly that alveolar oxygen and CO₂ are diluted. Diffusion hypoxia is prevented with 100% oxygen for 5–10 minutes after nitrous oxide is turned off (Morgan and Mikhail).</li>
+      <li><strong>Side effects with prolonged exposure:</strong> bone marrow depression (megaloblastic anaemia) and peripheral neuropathies (Morgan and Mikhail).</li>
+      <li><strong>EEG:</strong> nitrous oxide typically gives beta and gamma, and BIS can rise even though the patient is unconscious (Liu 2023). When switching from an ether agent to more than 70% nitrous oxide, a transient strong slow-delta can appear (Purdon 2015).</li>
+    </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>Site of action:</strong> Purdon 2015 links the EEG patterns of nitrous oxide to NMDA receptors. Hendrickx 2008 counts nitrous oxide among the inhaled agents with a less clear site of action. Nitrous oxide is not potent enough on its own for general anaesthesia.</li>
+      <li><strong>EEG and possible mechanisms:</strong> nitrous oxide typically gives beta–gamma. When switching from an ether agent to a high concentration of nitrous oxide (above 70%), strong transient slow-delta can appear with loss of power above about 10 Hz. The mechanism is unknown. Purdon proposes blockade of NMDA-mediated excitatory signals from the parabrachial nucleus and the medial pontine reticular formation to the basal forebrain and thalamus, and that the beta–gamma may share its mechanism with ketamine.</li>
+      <li><strong>Memory:</strong> amnestic concentrations of nitrous oxide, isoflurane and halothane suppress hippocampus-dependent fear learning in animals, in proportion to how much the theta peak frequency is slowed (ch. 8).</li>
+      <li><strong>Interaction:</strong> nitrous oxide and isoflurane are possibly infra-additive (Hendrickx 2008).</li>
+      <li><strong>Analgesia (ch. 22):</strong> in mice, the analgesia from nitrous oxide is not mediated by the μ receptor, but by the κ receptor and descending inhibitory pathways in the spinal cord. The hypnotic effect does not depend on κ. Chapter 22 describes 70% nitrous oxide as an effective NMDA antagonist that reduced opioid-induced hyperalgesia.</li>
+    </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-amn)"><summary>Opioids</summary><div class="body">
+    <span class="tag">Miller's ch. 22</span> <span class="tag">Brown, Lydic and Schiff 2010</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Balanza 2022</span>
+    <p>Chapter 22 (Fukuda) describes opioid action from receptor to clinic. Much of the mechanistic knowledge comes from cell studies and animal experiments.</p>
+    <ul>
+      <li><strong>Not complete anaesthetics:</strong> opioids reduce MAC, but with a ceiling, and must be combined with other drugs. Analgesia is not usually accompanied by loss of consciousness. High doses can abolish spontaneous breathing without unconsciousness, and the patient may breathe on command (ch. 22). Brown 2010 uses this to explain awareness in cardiac surgery with high-dose opioids. Hendrickx 2008 describes that fentanyl alone does not give full hypnosis.</li>
+      <li><strong>EEG:</strong> fentanyl, alfentanil, sufentanil and remifentanil give the same pattern. Small doses of fentanyl (2–5 µg/kg) give minimal EEG changes, while high doses (30–70 µg/kg) give high-amplitude slow delta waves, with a ceiling. Isolated transient sharp waves (usually frontotemporal) can be seen after large doses. In children and adolescents, morphine reduced alpha and beta, while delta and theta were unchanged (Montandon 2016). The spectral edge frequency follows remifentanil concentration with almost no delay, while it lags for fentanyl and sufentanil (ch. 22). Balanza 2022 found frontal theta with fentanyl (see the card below and Discrepancies).</li>
+      <li><strong>Respiratory depression:</strong> results from direct μ-receptor action on the brainstem respiratory centres. The preBötzinger complex mediates only part of the effect (timing, not the fall in rate). G-protein-gated potassium channels contribute. Mice lacking the μ receptor do not get respiratory depression from morphine. The A118G gene variant alters analgesia but not respiratory depression from morphine-6-glucuronide, suggesting different signalling pathways. In monkeys, tolerance developed to analgesia but not to respiratory depression (ch. 22).</li>
+      <li><strong>Hyperalgesia and tolerance:</strong> opioid-induced hyperalgesia is linked in animal experiments to sensitisation to glutamate and substance P, NMDA plasticity and AMPA receptors in the dorsal horn. Ketamine, nitrous oxide, magnesium and buprenorphine reduced it in studies cited in the chapter. With long-term use the cAMP system in the locus coeruleus is upregulated (ch. 22).</li>
+      <li><strong>Muscle rigidity:</strong> is not caused by action on the muscle. The nucleus raphe pontis, caudate nucleus and fentanyl action in the locus coeruleus on spinal motor neurons have been proposed. Naloxone reverses the rigidity (ch. 22).</li>
+    </ul>
+    <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
+      <li><strong>The receptor family:</strong> μ, δ, κ and the nociceptin receptor share about 50% amino acid sequence. All are G-protein-coupled receptors with seven segments crossing the cell membrane, and the ligand binds deep within a large pocket. Endogenous ligands are β-endorphin and endomorphins (μ), enkephalins (δ), dynorphins (κ) and nociceptin. The sigma receptor is no longer regarded as an opioid receptor. Morphine, fentanyl, sufentanil, alfentanil and remifentanil are μ agonists (ch. 22).</li>
+      <li><strong>Inside the nerve cell:</strong> the receptor activates Gi/o proteins. Adenylate cyclase is inhibited (less cAMP), voltage-gated calcium channels are inhibited and inwardly rectifying potassium channels are activated. The result is lower excitability of the nerve cell (ch. 22).</li>
+      <li><strong>In the spinal cord:</strong> opioid receptors are abundant in the substantia gelatinosa. Presynaptically, inhibited calcium channels reduce release of glutamate and substance P from primary sensory neurons. Postsynaptically, open potassium channels hyperpolarise the dorsal horn projection neuron, so glutamate excites it less easily (ch. 22). Brown 2010 describes the same.</li>
+      <li><strong>In the brainstem:</strong> in the periaqueductal grey (PAG), opioids inhibit GABA release from tonically active interneurons. This releases descending pathways via the medulla, which release noradrenaline and serotonin that dampen pain signals in the dorsal horn. Opioids thus act partly by inhibiting the inhibition (ch. 22).</li>
+      <li><strong>In the cortex:</strong> PET with remifentanil showed activation in the anterior cingulate, insula, orbitofrontal cortex and brainstem. Action in the amygdala contributes to analgesia in rats (ch. 22).</li>
+      <li><strong>Arousal:</strong> morphine reduced acetylcholine release in the prefrontal cortex of rats, given both intravenously and directly into the basal forebrain. Chapter 22 calls this a possible neurochemical basis for altered consciousness. Brown 2010 describes that fentanyl reduces acetylcholine in the medial pontine reticular formation.</li>
+      <li><strong>Biased agonism:</strong> the theory is that Gi/o signalling gives analgesia, while β-arrestin gives side effects such as respiratory depression, constipation and euphoria. Mice lacking β-arrestin-2 had less respiratory depression from morphine in one study, but not in a newer one. Chapter 22 concludes that it is unresolved whether G-protein-biased opioids have fewer side effects.</li>
+      <li><strong>Reward:</strong> μ and δ agonists are rewarding, κ agonists aversive. Opioids inhibit GABA neurons in the ventral tegmental area and nucleus accumbens, so that more dopamine is released in the nucleus accumbens. Activity in the locus coeruleus is inhibited (ch. 22).</li>
+      <li><strong>Other targets:</strong> buprenorphine blocks sodium channels, d-methadone is an NMDA antagonist, pethidine acts at the α2B adrenoceptor (a possible explanation for its anti-shivering effect), and morphine and hydromorphone inhibit the 5-HT3A receptor. In mice lacking the μ receptor, ketamine-induced respiratory depression and antinociception were reduced, and the MAC of sevoflurane was higher (ch. 22).</li>
+    </ul></div>
+  </div></details>
+
+  <h3>Dexmedetomidine and sleep spindles: like NREM 2 sleep (Huupponen 2008)</h3>
+  <div class="card">
+  <p>Acta Anaesthesiol Scand 2008;52:289–294. Eleven healthy young men (20–28 years) received dexmedetomidine as a target-controlled infusion, first 0.5 ng/ml for 25 minutes and then 3.2 ng/ml for 30 minutes. Measured plasma concentration during deep sedation was 5.1 ng/ml (SD 1.0). EEG was recorded from a single frontal channel with the Entropy Module. The control group was ten other healthy people (seven men, 21–43 years) during normal night sleep, with the first sleep cycle analysed.</p>
+  <ul>
+   <li><strong>Visual:</strong> the EEG during deep dexmedetomidine sedation resembled NREM sleep stage 2, with slight to moderate slow activity and abundant spindles. The low dose (0.5 ng/ml) did not induce sleep in everyone and was excluded from analysis.</li>
+   <li><strong>Quantitative:</strong> spindle density (1.17 vs 1.26 per minute), amplitude and frequency (11.5 vs 12.0 Hz) did not differ between groups. Spindles lasted longer under dexmedetomidine (1.11 vs 0.88 seconds, p = 0.0014). The authors mention that longer spindles might mean stronger sleep protection, but call this only one possible explanation.</li>
+   <li><strong>Frequency and origin:</strong> frontal spindles are slower than central ones (11–12 Hz frontally vs 13–14 Hz centrally in normal sleep). The authors believe the frontal spindles are probably generated in the mediodorsal thalamic nucleus, and that the same pathway is active under dexmedetomidine.</li>
+   <li><strong>Arousal:</strong> in an earlier study by the same group, participants could be roused with verbal commands and possibly light shaking, even at 5.1 ng/ml (see Discrepancies).</li>
+   <li><strong>Caveats:</strong> different people in the two groups, morning versus night recording, a single channel and small groups. The number of spindles per person ranged from 1 to 174. Three of the authors are from GE Healthcare, which makes the Entropy Module, and one author does contract research and consulting for Orion Pharma, which manufactures dexmedetomidine.</li>
+  </ul>
+  <span class="tag">Huupponen et al. Acta Anaesthesiol Scand 2008;52:289–294</span></div>
+
+  <h3>Dexmedetomidine and the thalamus: cortical coupling preserved, thalamocortical disrupted (Akeju, Loggia et al. 2014)</h3>
+  <div class="card">
+  <p>eLife 2014;3:e04499. Healthy volunteers (18–36 years, ASA I) received dexmedetomidine 1 µg/kg over 10 minutes followed by 0.7 µg/kg/h. Loss of consciousness was defined as sustained eye closure and no response to a request to open the eyes. Glucose metabolism was measured with FDG-PET (ten participants, two visits each), and blood flow (ASL) and functional connectivity (BOLD) were measured simultaneously with MRI (17 participants, complete BOLD data in 15). Not the same study as «Akeju 2014» on sevoflurane elsewhere in the app.</p>
+  <ul>
+   <li><strong>Metabolism and blood flow:</strong> glucose metabolism and blood flow fell most in the thalamus, the default mode network (DMN) and both frontoparietal networks. Blood flow and metabolism fell together, so the coupling between them was preserved.</li>
+   <li><strong>Connectivity:</strong> coupling between cortical areas within the DMN and frontoparietal networks was preserved. Coupling between the thalamus and the DMN was disrupted, especially towards the posterior cingulate, precuneus and inferior parietal lobule. The thalamic region corresponded to intralaminar, midline, mediodorsal and ventral anterior nuclei, but the method could not resolve the nuclei precisely.</li>
+   <li><strong>Recovery:</strong> coupling between the thalamus and the DMN, especially the posterior cingulate, returned when participants again responded to commands, while blood flow did not rise. The authors interpret this as coupling being restored before metabolism normalises, and recovery happening gradually.</li>
+   <li><strong>A hierarchy of unconsciousness:</strong> the authors propose that lighter states (NREM 2 sleep, dexmedetomidine) involve disrupted thalamocortical coupling with preserved cortical coupling, while deeper states (propofol anaesthesia, some disorders of consciousness) also disrupt cortical coupling. Preserved cortical coupling may explain why the patient is easily roused.</li>
+   <li><strong>Caveats:</strong> loss of consciousness was defined by failure to open the eyes on request. Functional connectivity in fMRI is co-variation in slow BOLD fluctuations, not directly measured communication between nerve cells. No conflicts of interest declared. Funded by the NIH and FAER.</li>
+  </ul>
+  <span class="tag">Akeju, Loggia et al. eLife 2014;3:e04499</span></div>
+
+  <h3>Which α2 receptor produces hypnosis? α2A in the locus coeruleus (Mizobe 1996)</h3>
+  <div class="card">
+  <p>J Clin Invest 1996;98:1076–1080, from the Maze group. Rats received antisense oligonucleotides (short DNA strands that prevent a specific receptor from being made) against α2A or α2C directly into the locus coeruleus, followed by dexmedetomidine 7 µg into the same area.</p>
+  <ul>
+   <li><strong>Cell studies:</strong> antisense against α2A reduced α2A receptors by about 30%, and antisense against α2C reduced α2C by nearly 40%, without affecting the other subtype.</li>
+   <li><strong>Rats:</strong> after α2A antisense, loss of righting reflex came later and lasted shorter, and the effect was gone eight days after the last dose. α2C antisense, scrambled control sequences and saline had no effect.</li>
+   <li><strong>Conclusion:</strong> α2A is the subtype mediating the hypnotic effect in the locus coeruleus. The authors write that α2A and α2C predominate in the central nervous system, while α2B is sparsely represented.</li>
+   <li><strong>Side effects:</strong> the authors write that the rise in blood pressure after a rapid bolus is probably due to α2B (knockout mouse experiments), and that the bradycardia may partly be due to imidazoline receptors in the brainstem.</li>
+   <li><strong>Caveats:</strong> 4–5 rats per group, and receptor reduction was measured only in cell cultures, not in the locus coeruleus itself. Funded by Veterans Affairs, the NIH and the Uehara Foundation.</li>
+  </ul>
+  <span class="tag">Mizobe et al. J Clin Invest 1996;98:1076–1080</span></div>
 
   <h3>Several effects, different concentrations</h3>
   <div class="card"><p>Chapter 16 describes that each drug has a dynamic range: the concentration at which the effect changes. Below the range little happens, and above it more drug does not give more effect. Different effects of the same agent have different C50 values.</p>
@@ -2246,6 +2468,22 @@ header h1 button:hover{color:var(--accent)}
     <li><strong>Sepúlveda 2020 versus Obert 2020, number of patients:</strong> the Anaesthesia article gives 16 included (8 + 8) in the period August–December 2016, while the Sci Rep article from the same study (NCT03140982) gives 18 randomised (9 + 9), of whom three in the fast group were excluded for burst suppression. Which patients are included in which analysis is not explained in either article. The times to loss of response (10.5 versus 1.4 minutes; 834 versus 90 seconds) and the effect-site concentrations (2.6 versus 4.6 µg/ml) are the same in both.</li>
     <li><strong>Sepúlveda 2026, figures in abstract versus results section:</strong> the abstract gives observed versus predicted BIS 64.5 versus 61.3 before and 38.2 versus 55.5 after the perturbation, while the results section gives 28.9 versus 38.8 from the post-PERT phase and sets up 51.8 versus 38.1 as both “predicted” and “observed” pre- versus post-PERT, which is obviously an error in the text. The direction (observed below predicted after the perturbation) is the same throughout, but the size of the difference is uncertain from the article.</li>
     <li><strong>Two GABAergic hypnotics: additive or synergistic?</strong> Miller's ch. 16 (reproduced in the Agents tab) summarises that combinations of two GABAergic hypnotics are largely additive. Hendrickx 2008 found that propofol + sevoflurane and propofol + thiopental are additive (one study synergistic), while propofol + midazolam is synergistic in all studies, probably because they bind different sites on the GABA<sub>A</sub> receptor. Miller's summary thus holds for hypnotic + volatile agent, but not for benzodiazepine + propofol. Both are reproduced in the app.</li>
+    <li><strong>Dexmedetomidine and the α2A receptor (ch. 21 vs ch. 8):</strong> chapter 21 writes that α2A receptors are mainly peripheral, and α2B and α2C are in the brain and spinal cord. The same chapter links dorsal horn analgesia to α2C and α2A. Chapter 8 cites that selective removal of α2A receptors from the locus coeruleus in rodents prevents the hypnotic effect of dexmedetomidine, i.e. that α2A matters centrally. Mizobe 1996 found that α2A in the locus coeruleus mediates the hypnotic effect in rats, and writes that α2A and α2C predominate in the central nervous system, while α2B is sparsely represented. The description in chapter 21 of α2A as mainly peripheral is thus not supported by the other sources here. The app reports all of them.</li>
+    <li><strong>Dexmedetomidine and arousability (Ebert 2000 in ch. 21 vs Huupponen 2008):</strong> chapter 21 states that unrousable deep sedation is thought to occur above about 1.9 ng/ml. Huupponen 2008 writes that participants in an earlier study by the same group could be roused with verbal commands and possibly light shaking at a measured 5.1 ng/ml. The difference may reflect different definitions of arousability and different stimuli, but the sources do not discuss it.</li>
+    <li><strong>Dexmedetomidine, blood flow and metabolism (ch. 21 vs Akeju, Loggia et al. 2014):</strong> chapter 21 writes that the fall in CBF is not accompanied by lower CMRO₂, but also cites a study of six volunteers in which both fell. Akeju, Loggia et al. 2014 found that blood flow and glucose metabolism fell together in the same areas.</li>
+    <li><strong>Which coupling breaks first? (Akeju, Loggia et al. 2014 vs Schroeder 2016):</strong> Akeju writes that unconsciousness with disrupted cortical coupling but preserved thalamocortical coupling does not appear to occur in sleep and anaesthesia. Schroeder 2016 found in monkeys under ketamine that transfer from the thalamus to the primary somatosensory cortex was preserved, while transfer between cortical areas failed. The studies use different drugs, species and methods (fMRI vs microelectrodes).</li>
+    <li><strong>Akeju, Loggia et al. 2014, figure legend:</strong> the text describes dexmedetomidine acting on locus coeruleus projections to the intralaminar nuclei of the thalamus, while the legend of figure 1 says «hypothalamus».</li>
+    <li><strong>Ketamine and analgesia, where in the spinal cord:</strong> Purdon 2015 writes that analgesia most likely results from NMDA receptors «at the dorsal root ganglia, the first synapse of the pain pathway in the spinal cord». Chapter 21 links the spinal analgesia to inhibition of wide dynamic range neurons in the dorsal horn. The dorsal root ganglion contains the cell bodies of the sensory neurons, while the first synapse lies in the dorsal horn, so the wordings point to different places.</li>
+    <li><strong>Propofol, LTP and amnesia (ch. 8):</strong> chapter 8 describes that propofol inhibits LTP via GABA<sub>A</sub>, but also cites one study in which LTP was inhibited only at anaesthetic, not amnestic, concentrations. Amnesia at low doses therefore cannot simply be explained by LTP inhibition.</li>
+    <li><strong>Flumazenil and amnesia (ch. 21 internally):</strong> chapter 21 writes both that flumazenil «reliably reverses» sedation, respiratory depression and amnesia, and that flumazenil reverses hypnotic and respiratory effects more than amnestic ones. The chapter explains the difference with receptor occupancy: a small dose of flumazenil reduces effects that need high occupancy, but not drowsiness and amnesia, while large doses reverse everything.</li>
+    <li><strong>Opioids and EEG at low doses (ch. 22, ch. 36 and Balanza 2022):</strong> chapter 22 writes that small doses of fentanyl (2–5 µg/kg) give minimal EEG changes, and chapter 36 that opioids change the EEG little. Balanza 2022 found that frontal theta rose with fentanyl concentration at repeated doses of 2 µg/kg. The difference may be due to method (spectral analysis versus reading the raw EEG), but the sources do not explain it.</li>
+    <li><strong>Opioids and consciousness (ch. 22 vs Hendrickx 2008):</strong> chapter 22 cites loss of consciousness in volunteers given fentanyl infused to 15 µg/kg, and high-amplitude delta waves at 30–70 µg/kg «consistent with anaesthesia». The same chapter writes that opioids are not complete anaesthetics and that high doses can abolish breathing without unconsciousness. Hendrickx 2008 writes that fentanyl alone does not give full hypnosis.</li>
+    <li><strong>Biased agonism (ch. 22 internally):</strong> the chapter cites that mice lacking β-arrestin-2 had less respiratory depression from morphine (2005), and a newer study that found no difference (2021). The chapter itself concludes that the question is unresolved.</li>
+    <li><strong>Ketamine, cortex and thalamus (ch. 21, ch. 8 and Schroeder 2016):</strong> chapter 21 writes that ketamine depresses parts of the cortex and thalamus. Schroeder 2016 writes that ketamine does not depress the cortex or thalamic metabolism, and chapter 8 that ketamine is the exception to metabolic depression of the thalamus.</li>
+    <li><strong>Propofol and ketamine: synergy or not? (Tian 2023 vs Hendrickx 2008):</strong> Tian writes that propofol and ketamine appear to work synergistically to maintain unconsciousness, citing Brown 2018. Hendrickx 2008 found additivity and on reanalysis infra-additivity for propofol + ketamine.</li>
+    <li><strong>Tian 2023, dB values:</strong> the article reports changes in mean power of more than 100 dB (for example a 159 dB gamma increase in the cingulate and a 214.9 dB beta increase after propofol). 100 dB corresponds to a ten billion-fold increase in power, which is physiologically implausible, while 3–4 Hz changes of 1–3 dB are described as «dramatic». The article does not explain the scale. The direction of the changes can be used, but the magnitudes should not be interpreted.</li>
+    <li><strong>Tian 2023, HCN1:</strong> the abstract and introduction call HCN1 a «potassium channel», while the discussion describes the current as «cationic» (Ih). Purdon 2015 lists HCN channels as a separate group alongside potassium channels.</li>
+    <li><strong>Liu 2023, citations:</strong> (1) an experiment with transcranial magnetic stimulation and transfer entropy is attributed to Alkire, Hudetz and Tononi 2008, which is a review in Science. (2) Section 3.1 writes that BIS and MAC gave similar awareness (Avidan 2008), while section 5.3 writes that awareness increases when BIS is used, citing Sebel 2004, which is a study of the incidence of awareness. (3) The claim that ketamine disrupts information transfer cites Schroeder 2016 in one place and a propofol study (Lee 2017) in another.</li>
     <li><strong>Miyasaka 2025, how certain is the main finding?</strong> The abstract and “Key Points” say that PAED was significantly reduced by 14%. The discussion itself says the effect was marginal, that the difference is not significant with a PAED cut-off of 12, and that the interim analysis makes the p-value uncertain (0.03–0.05 depending on method). The dose reduction and faster emergence, on the other hand, are robust. The title in Key Points calls it a 14% fall, while the absolute difference of 35 versus 21% corresponds to a 40% relative reduction.</li>
     <li><strong>Aperiodic exponent, different figures:</strong> Widmann 2025 gives α 1.61 awake and 2.60 during maintenance; Leroy 2023 gives 1.6–1.8 before and 1.9–2.2 after loss of consciousness; Connor 2026 mentions β 2.45 for propofol and 2.71 for sevoflurane from Dragovic 2025. The differences are due to different frequency ranges, FOOOF settings (with or without “knee”) and timing (induction versus maintenance), so the values are not interchangeable.</li>
     <li><strong>Hysteresis in humans:</strong> Huang 2021 summarises that Kuizenga 2018 and Warnaby 2017 did not find hysteresis for propofol (Kuizenga found it for sevoflurane), while Ferreira 2020, Nir 2019, Sepúlveda 2019 and Huang themselves found it. Huang points out that by adjusting PK/PD parameters one can get both yes and no out of the same behavioural data, because the concentration is calculated, not measured.</li>
@@ -2443,17 +2681,17 @@ function spec(f,d){
   const aw=Math.max(0,1-d/0.5), an=Math.min(d/0.5,1);
   let v=0.10*Math.exp(-f/12)+0.04;
   v+=aw*(0.10*g(f,10,3)+0.12*g(f,20,6)+0.06*g(f,3,2));
-  const ampAge=age==='old'?0.6:(age==='child'?1.25:1);
-  const alphaAge=age==='old'?(noAlpha?0.04:0.35):(age==='infant'?0.15:1);
+  const ampAge=age==='old'?0.6:(age==='child'?1.05:1);
+  const alphaAge=age==='old'?(noAlpha?0.04:0.55):(age==='infant'?0.15:(age==='child'?1.1:1));
   const slowAge=age==='old'?0.8:1;
   let a=0;
   if(agent==='propofol'){
-    a+=0.9*slowAge*g(f,0.6,0.8)+0.7*slowAge*g(f,2.5,1.3)+0.7*alphaAge*g(f,alphaFreq(),age==='infant'?3:1.6);
+    a+=0.9*slowAge*g(f,0.6,0.8)+0.7*slowAge*g(f,2.5,1.3)+1.0*alphaAge*g(f,alphaFreq(),age==='infant'?3:(age==='old'?1.8:(age==='child'?2.8:2.3)))+0.4*slowAge*g(f,5.5,2.2);
     if(d>0.65) a+=(d-0.65)*0.5*g(f,1.5,2);
   }else if(agent==='sevo'){
     /* Sevofluran: samme alfa-langsom-grunnmønster, men med theta (4-8 Hz) som fyller rommet mellom delta og alfa,
        noe bredere alfa-band og litt mer beta (Akeju 2014, Lobo og Lamperti kap. 3 og 5) */
-    a+=0.9*slowAge*g(f,0.6,0.8)+0.8*slowAge*g(f,2.5,1.3)+0.6*slowAge*g(f,5.5,2.0)+0.7*alphaAge*g(f,alphaFreq(),age==='infant'?3:2.4)+0.16*g(f,17,5);
+    a+=0.9*slowAge*g(f,0.6,0.8)+0.8*slowAge*g(f,2.5,1.3)+0.6*slowAge*g(f,5.5,2.0)+1.0*alphaAge*g(f,alphaFreq(),age==='infant'?3:(age==='old'?2.2:(age==='child'?3.2:2.8)))+0.16*g(f,17,5);
     if(d>0.65) a+=(d-0.65)*0.5*g(f,1.5,2);
     if(age==='child') a+=0.12*g(f,19,6);
   }else if(agent==='ketamine'){
@@ -2467,9 +2705,9 @@ function spec(f,d){
 const inSuppr=(t,d)=>deepOK()&&d>=1.0;
 const burstOn=t=>((t*70)%1)<0.35;
 
-const STOPS=[[0,[16,26,74]],[.22,[31,78,156]],[.42,[31,163,163]],[.62,[155,208,90]],[.78,[245,211,63]],[.9,[240,138,44]],[1,[214,55,43]]];
+const STOPS=[[0,[16,26,74]],[.18,[31,78,156]],[.34,[31,163,163]],[.505,[155,208,90]],[.636,[245,211,63]],[.734,[240,138,44]],[.815,[214,55,43]],[1,[120,14,28]]];
 function cmap(x){
-  x=Math.max(0,Math.min(1,x/1.1));
+  x=Math.max(0,Math.min(1,x/1.35));
   for(let i=0;i<STOPS.length-1;i++){
     const [a,ca]=STOPS[i],[b,cb]=STOPS[i+1];
     if(x>=a&&x<=b){
@@ -3175,6 +3413,63 @@ const QS=[
  {q:'Which agent was the exception to the rule of synergy in Hendrickx 2008?',
   a:['Remifentanil','Midazolam','Ketamine: additive or infra-additive with GABAergic agents in all studies, even though it acts on a different receptor','Sevoflurane'],c:2,
   e:'Propofol + ketamine was additive (Hui 1995) and on reanalysis infra-additive for immobility; midazolam + ketamine infra-additive for hypnosis. The authors propose an active metabolite, sympathetic activation and methodological factors as explanations. Ching 2012 mentions that ketamine increases CMRO₂ and does not produce classic burst suppression at clinical doses.',s:'Hendrickx 2008',t:'drug'},
+ {q:'How much did clonidine reduce isoflurane MAC in humans according to Hendrickx 2008?',
+  a:['About 5%','About 30%','About 70%','Not at all'],c:1,
+  e:'Clonidine reduced isoflurane MAC by about 30% and sevoflurane MAC by 17–34%. The effect has a ceiling, and clonidine alone does not produce immobility.',s:'Hendrickx 2008',t:'drug'},
+ {q:'How did spindles under dexmedetomidine differ from spindles in normal NREM 2 sleep (Huupponen 2008)?',
+  a:['They had higher frequency','They lasted longer','They were much denser','They had much higher amplitude'],c:1,
+  e:'Density, amplitude and frequency were similar. Spindles lasted longer under dexmedetomidine (1.11 vs 0.88 seconds).',s:'Huupponen 2008',t:'spec'},
+ {q:'Which coupling was preserved during dexmedetomidine-induced loss of consciousness (Akeju, Loggia et al. 2014)?',
+  a:['Coupling between the thalamus and the DMN','Coupling between cortical areas within the DMN and the frontoparietal networks','No coupling was preserved','Only coupling to the cerebellum'],c:1,
+  e:'Cortical coupling was preserved, while coupling between the thalamus and the DMN was disrupted. The authors believe preserved cortical coupling may explain why the patient is easily roused.',s:'Akeju, Loggia et al. 2014',t:'comp'},
+ {q:'Which α2 subtype mediates the hypnotic effect of dexmedetomidine in the locus coeruleus of rats (Mizobe 1996)?',
+  a:['α2A','α2B','α2C','None of them'],c:0,
+  e:'Antisense against α2A delayed and shortened loss of righting reflex, while antisense against α2C had no effect.',s:'Mizobe 1996',t:'drug'},
+ {q:'What happens inside the nerve cell when the μ-opioid receptor is activated (Miller chapter 22)?',
+  a:['Sodium channels open and the cell depolarises','Gi/o is activated: adenylate cyclase and calcium channels are inhibited, and inwardly rectifying potassium channels are activated','The chloride channel of the GABA-A receptor opens','The NMDA channel is blocked'],c:1,
+  e:'All opioid receptors are Gi/o-coupled. Less calcium means less transmitter release presynaptically, and potassium current hyperpolarises postsynaptically.',s:'Miller ch. 22',t:'drug'},
+ {q:'How do opioids produce analgesia via the periaqueductal grey (PAG)?',
+  a:['They activate GABA neurons that inhibit the dorsal horn directly','They inhibit GABA release from tonically active interneurons, so that descending pathways release noradrenaline and serotonin in the dorsal horn','They block NMDA receptors in the PAG','They increase acetylcholine in the cortex'],c:1,
+  e:'Opioids inhibit the inhibition. Descending pathways via the medulla then dampen pain signals in the dorsal horn.',s:'Miller ch. 22',t:'drug'},
+ {q:'What is the status of G-protein-biased opioids according to chapter 22?',
+  a:['Proven to cause less respiratory depression','Unresolved: mouse studies conflict, and the chapter calls it controversial','Banned from clinical use','They act only at the κ receptor'],c:1,
+  e:'One mouse study found less respiratory depression without β-arrestin-2, a newer one found no difference. TRV130 gave less respiratory depression in a volunteer study, but the chapter concludes the question is open.',s:'Miller ch. 22',t:'drug'},
+ {q:'What happened to occipital alpha when propofol was given after ketamine (Tian 2023)?',
+  a:['It returned','It fell further','It was unchanged','It moved to the frontal cortex'],c:1,
+  e:'In most areas propofol reversed the ketamine-induced alpha decrease, but occipitally alpha fell further. The authors interpret this as shared HCN1 inhibition.',s:'Tian 2023',t:'comp'},
+ {q:'What did Schroeder 2016 show in monkeys under ketamine?',
+  a:['All sensory information disappeared from the cortex','Touch could still be decoded in S1 but not in M1, and directed coupling between the areas fell','Firing rates fell to zero','Ketamine increased coupling between S1 and M1'],c:1,
+  e:'Transfer from the thalamus to S1 appeared preserved, while transfer between cortical areas failed.',s:'Schroeder 2016',t:'comp'},
+ {q:'What is the difference between functional and effective connectivity (Liu 2023)?',
+  a:['They are the same','Functional is statistical co-variation between areas, effective is directed influence from one area on another','Functional is physical nerve pathways','Effective is measured only with fMRI'],c:1,
+  e:'Structural connectivity is physical pathways, functional is co-variation (for example coherence and wPLI), and effective is directed influence (for example Granger and transfer entropy).',s:'Liu 2023',t:'comp'},
+ {q:'Where on the GABA-A receptor does propofol bind according to Miller chapter 21?',
+  a:['At the benzodiazepine site','At the β subunit, with crucial sites on β1, β2 and β3 in the transmembrane part','In the NMDA receptor channel','Only at the α5 subunit'],c:1,
+  e:'Chapter 21: propofol binds to the β subunit; α and γ2 contribute. At high concentrations propofol can also open the channel directly.',s:'Miller ch. 21',t:'drug'},
+ {q:'Why does ketamine at low doses act mainly on inhibitory interneurons?',
+  a:['Interneurons have no NMDA receptors','Ketamine is a channel blocker that needs an open channel, and NMDA channels on interneurons are more active','Ketamine binds to GABA-A on interneurons','Ketamine acts only in the spinal cord'],c:1,
+  e:'Purdon 2015: ketamine blocks open NMDA channels. Interneurons are inhibited, pyramidal cells are disinhibited, and metabolism and EEG activity increase.',s:'Purdon 2015',t:'drug'},
+ {q:'How does dexmedetomidine produce sedation according to Purdon 2015 and chapter 21?',
+  a:['Direct enhancement of GABA-A in the cortex','Hyperpolarisation of the locus coeruleus, less noradrenaline, and thereby more inhibition from the preoptic area onto the arousal centres','NMDA blockade in the thalamus','Blockade of μ-opioid receptors'],c:1,
+  e:'Less noradrenaline from the locus coeruleus removes inhibition of the preoptic area, which inhibits the arousal centres with GABA and galanin. This resembles the onset of NREM sleep.',s:'Purdon 2015, Miller ch. 21',t:'drug'},
+ {q:'What did experiments in mice lacking the α5 subunit show about etomidate (Miller chapter 8)?',
+  a:['They were resistant to both amnesia and anaesthesia','They were resistant to the amnesia, but not to the anaesthesia','They had stronger amnesia','Etomidate had no effect at all'],c:1,
+  e:'Etomidate did not block CA1 LTP in α5 knockout mice, and the mice were resistant to the amnesia but not to the anaesthesia. Amnesia and hypnosis can run through different receptor variants.',s:'Miller ch. 8',t:'drug'},
+ {q:'Which GABA-A subunit does chapter 21 link to the sedation, anterograde amnesia and anticonvulsant effect of benzodiazepines?',
+  a:['α1','α2','α5','β3'],c:0,
+  e:'Chapter 21: α1 gives sedation, anterograde amnesia and anticonvulsant effect; α2 anxiolysis and muscle relaxation; α2 and α3 rewarding effects. Chapter 8 links the amnesia from etomidate to α5.',s:'Miller ch. 21',t:'drug'},
+ {q:'Where is the effect of inhaled agents on movement (MAC) located according to the sources?',
+  a:['In the frontal cortex','In the spinal cord','In the thalamus','In the hippocampus'],c:1,
+  e:'MAC is unchanged after spinal cord transection in rats (Morgan and Mikhail), and Purdon links the muscle-relaxing effect to receptors and channels in the spinal cord.',s:'Morgan and Mikhail ch. 8, Purdon 2015',t:'drug'},
+ {q:'How do Brown, Lydic and Schiff 2010 explain the high incidence of awareness in cardiac surgery with high-dose opioids?',
+  a:['Opioids increase cortical activity','Opioids act mainly in the nociceptive pathways, not in the cortex','Opioids block GABA-A','Opioids cause burst suppression'],c:1,
+  e:'Opioids bind in the periaqueductal grey, rostral ventral medulla and spinal cord, and reduce arousal through cholinergic pathways, but act little directly in the cortex.',s:'Brown 2010',t:'drug'},
+ {q:'According to chapter 21, what happens when a small dose of flumazenil is given after a very high benzodiazepine dose?',
+  a:['All effects are reversed','Unconsciousness and respiratory depression are attenuated, but drowsiness and amnesia remain','Only the amnesia is reversed','Nothing, flumazenil works only at low doses'],c:1,
+  e:'Flumazenil reduces the fraction of receptors occupied by the agonist. Effects that need high occupancy are attenuated first. Large doses of flumazenil with little agonist reverse everything.',s:'Miller ch. 21',t:'drug'},
+ {q:'What do barbiturates do to the GABA-A channel at low concentrations according to chapter 21?',
+  a:['Block the channel','GABA dissociates more slowly and the channel stays open longer','Open the channel without GABA','Nothing, they act only via NMDA'],c:1,
+  e:'At low concentrations GABA is enhanced, probably responsible for sedation and hypnosis. At higher concentrations barbiturates open the channel directly.',s:'Miller ch. 21',t:'drug'},
  {q:'What did Fritz 2016 (727 patients, mostly cardiac surgery) find about EEG suppression during surgery and delirium?',
   a:['No association','Longer time in suppression gave a higher risk of delirium even after adjustment (OR 1.22 per log-minute), and suppression time predicted delirium slightly better than time with BIS below 20','Only patients with BIS below 20 developed delirium','High opioid dose gave more suppression'],c:1,
   e:'26% developed delirium, 73% hypoactive. More volatile agent and less opioid gave more suppression. The study is observational and cannot separate “too deep” from “vulnerable brain”. ENGAGES from the same group reduced suppression time without reducing delirium.',s:'Fritz 2016',t:'ev'},
@@ -3311,6 +3606,12 @@ const REFS=[
  ['Cornelissen L, Kim SE, Purdon PL, Brown EN, Berde CB. Age-dependent electroencephalogram (EEG) patterns during sevoflurane general anesthesia in infants. eLife 2015;4:e06513.','https://doi.org/10.7554/eLife.06513','36 infants aged 0–6 months, 30 analysed. Purdon and Brown declare patent applications and a licensing agreement with Masimo.'],
  ['Newman D, Maschke C, Mashour GA, Blain-Moraes S. Reframing "paradoxical" excitation: disentangling electroencephalogram complexity and entropy reveals resting-state dynamics associated with propofol susceptibility in healthy adults. Br J Anaesth 2026;137:525–534.','https://doi.org/10.1016/j.bja.2026.03.082','Retrospective analysis of two small datasets (n = 20 and 8).'],
  ['Sikka P, Hu S, Heifets BD. Dreaming during anaesthesia: a scoping review. Br J Anaesth 2026;137:506–524.','https://doi.org/10.1016/j.bja.2026.05.002','157 studies 1921–2024.'],
+ ['Huupponen E, Maksimow A, Lapinlampi P, Särkelä M, Saastamoinen A, Snapir A, et al. Electroencephalogram spindle activity during dexmedetomidine sedation and physiological sleep. Acta Anaesthesiol Scand 2008;52:289–294.','https://doi.org/10.1111/j.1399-6576.2007.01537.x','Eleven volunteers and ten controls with normal sleep.'],
+ ['Akeju O, Loggia ML, Catana C, Pavone KJ, Vazquez R, Rhee J, et al. Disruption of thalamic functional connectivity is a neural correlate of dexmedetomidine-induced unconsciousness. eLife 2014;3:e04499.','https://doi.org/10.7554/eLife.04499','PET and MRI in healthy volunteers.'],
+ ['Mizobe T, Maghsoudi K, Sitwala K, Tianzhi G, Ou J, Maze M. Antisense technology reveals the α2A adrenoceptor to be the subtype mediating the hypnotic response to the highly selective agonist, dexmedetomidine, in the locus coeruleus of the rat. J Clin Invest 1996;98:1076–1080.','','Rat study with antisense.'],
+ ['Tian F, Lewis LD, Zhou DW, Balanza GA, Paulk AC, Zelmann R, et al. Characterizing brain dynamics during ketamine-induced dissociation and subsequent interactions with propofol using human intracranial neurophysiology. Nat Commun 2023;14:1748.','https://doi.org/10.1038/s41467-023-37463-3','Intracranial EEG in ten epilepsy patients.'],
+ ['Schroeder KE, Irwin ZT, Gaidica M, Bentley JN, Patil PG, Mashour GA, Chestek CA. Disruption of corticocortical information transfer during ketamine anesthesia in the primate brain. NeuroImage 2016;134:459–465.','https://doi.org/10.1016/j.neuroimage.2016.04.039','Three rhesus monkeys with microelectrodes.'],
+ ['Liu J, Dong K, Sun Y, Kakkos I, Huang F, Wang G, et al. Progress of brain network studies on anesthesia and consciousness: framework and clinical applications. Engineering 2023;20:77–95.','https://doi.org/10.1016/j.eng.2021.11.013','Narrative review.'],
  ['Palanca BJA, Sleigh JW. Protocolizing Propofol Emergence: Turning “Milk of Amnesia” into Designer Dreams? Anesthesiology 2026 (PMID 42262384).','https://doi.org/10.1097/aln.0000000000006061','Editorial on Sikka 2026.'],
  ['Doyal AS, Wanderer JP, Ende HB. Dream Weaving: How Anesthesiologists Can Encourage Dreaming under Anesthesia. Anesthesiology 2026;145(1):A16.','https://doi.org/10.1097/ALN.0000000000006153','One-page infographic (A16) based on Sikka 2026. Mentioned in the Sikka card.'],
  ['Guay CS, Agrawal U, Tseng B, Gallo S, Schreier DR, Brown EN. Clinical electroencephalography for anesthesiologists and intensivists: Part 2. Physiologic signatures and active management. Anesthesiology 2025;143:1595–1618.','','Review article; basis for the card on frontal EEG as a perfusion marker in the Perfusion tab.'],
@@ -3365,6 +3666,7 @@ $('#refs').innerHTML=REFS.map(r=>`<div class="ref"><div>${r[0]}</div><div class=
 
 
 const CHAPREFS=[
+  ['Opioids (ch. 22)','Fukuda K. Opioids. Miller\'s Anesthesia, 10th ed., ch. 22. The chapter\u2019s own references: Montandon G et al. Anesthesiology 2016;125:889–903 (PMID 27541315); Scott JC, Cooke JE, Stanski DR. Anesthesiology 1991;74:34–42 (PMID 1670913); Streisand JB et al. Anesthesiology 1993;78:629–634 (PMID 8466061); Osman NI, Baghdoyan HA, Lydic R. Anesthesiology 2005;103:779–787 (PMID 16192770); Raehal KM, Walker JK, Bohn LM. J Pharmacol Exp Ther 2005;314:1195–1201 (PMID 15917400); Bachmutsky I et al. eLife 2021;10 (PMID 34002697); Dahan A et al. Anesthesiology 2001;94:824–832 (PMID 11388534); Sarton E et al. Anesth Analg 2001;93:1495–1500 (PMID 11726430); Paronis CA, Woods JH. J Pharmacol Exp Ther 1997;282:355–362 (PMID 9223574); Stucke AG et al. Anesthesiology 2015;122:1288–1298 (PMID 25751234).'],
  ['Sleep, sedation and anaesthesia (ch. 9)','Eikermann M, Fassbender P, Azimaraghi O. Sleep Medicine. Miller\'s Anesthesia, 10th ed., ch. 9. The chapter\'s own references: Brown EN, Lydic R, Schiff ND. N Engl J Med 2010;363:2638–2650 (PMID 21190458); Akeju O, Brown EN. Curr Opin Neurobiol 2017;44:178–185 (PMID 28544930); Moore JT et al. Curr Biol 2012;22:2008–2016 (PMID 23103189); Kondili E et al. Intensive Care Med 2012;38:1640–1646 (PMID 22752356); Watson PL et al. Crit Care Med 2013;41:1958–1967 (PMID 23863228); Elbaz M et al. Ann Intensive Care 2017;7:25 (PMID 28255956); Azimaraghi O et al. Crit Care Med 2022;50:e434–e444 (PMID 34982739). The individual studies are cited via the chapter.'],
  ['Cerebral physiology and the anaesthetic drugs (ch. 10)','Patel PM, Drummond JC, Lemkuil BP. The chapter\'s own main references for autoregulation: Lassen NA. Physiol Rev 1959;39:183–238; Drummond JC. Blood pressure and the brain: how low can you go? Anesth Analg 2019;128:759–771; Claassen JAHR et al. Physiol Rev 2021;101:1487–1559. For CBF thresholds: the Astrup/Symon tradition (refs 288, 440, 441 in the chapter, primate data). For CO and CBF: Meng L et al. Anesthesiology 2015;123:1198–1208.'],
  ['Consciousness ≠ responsiveness, connected/disconnected (ch. 8, 36)','Sanders RD et al. Anesthesiology 2012;116:946–959 (PMID 22314293). Mashour GA, Avidan MS. Intraoperative awareness: controversies and non-controversies. Br J Anaesth 2015;115(suppl 1):i20–i26 (PMID 25735710) (ref. 7 in ch. 8, for the use of the word “awareness”). The statement in chapter 8 that memory presupposes consciousness has no reference. Chapter 36 ref. 32 for dreaming: Leslie K et al. Anesthesiology 2009;111:547–555 (PMID 19672164). Chapter 36 ref. 1: Mashour GA. Consciousness and the 21st century operating room. Anesthesiology 2013;119:1003–1005 (PMID 23962968), editorial on Jordan 2013 and loss of frontal-to-parietal feedback under propofol; it says nothing about awareness or recall. Figure legend 36.1 (“Occasionally AWR may present absent of conscious experience at the time”) has no reference, and none of the articles cited in the section supports the sentence directly.'],
