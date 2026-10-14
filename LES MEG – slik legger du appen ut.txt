@@ -1,0 +1,42 @@
+ANESTESI OG EEG – NETTSIDEPAKKE
+
+Innhold
+  index.html                norsk versjon (åpner på forsiden)
+  en/index.html             engelsk versjon (adresse: …/en/)
+  manifest.webmanifest      gjør appen installerbar på mobil (ikon, navn, fullskjerm)
+  sw.js                     gjør at appen virker uten internett etter første besøk
+  icons/                    app-ikoner
+  .nojekyll                 teknisk fil for GitHub Pages, la den ligge
+
+Mappen skal legges ut som den er. Ikke flytt filene i forhold til hverandre.
+
+ALTERNATIV A: GITHUB PAGES (gratis, fast adresse)
+  1. Lag konto på github.com (gratis).
+  2. Klikk «New repository». Navn: anestesi-eeg. Velg Public. Klikk «Create repository».
+  3. Klikk «uploading an existing file» (eller «Add file» → «Upload files»).
+     Dra inn ALT innholdet i denne mappen (index.html, en-mappen, icons-mappen, manifest.webmanifest,
+     sw.js og .nojekyll). Klikk «Commit changes».
+     Merk: .nojekyll er en skjult fil på Mac. Vis skjulte filer med Cmd + Shift + punktum i Finder.
+  4. Gå til Settings → Pages. Under «Build and deployment» velg Source: «Deploy from a branch»,
+     Branch: main, mappe: / (root). Klikk Save.
+  5. Etter 1–2 minutter står adressen øverst på samme side:
+       https://<brukernavn>.github.io/anestesi-eeg/
+     Engelsk versjon: https://<brukernavn>.github.io/anestesi-eeg/en/
+  6. Oppdatering senere: last opp ny index.html (og en/index.html) på samme måte, så er siden oppdatert.
+
+ALTERNATIV B: NETLIFY DROP (gratis, raskest)
+  1. Gå til app.netlify.com/drop
+  2. Dra hele mappen inn i vinduet. Du får en adresse med en gang (tilfeldig navn, kan endres i Site settings).
+  3. Lag gratis konto for at siden skal bli værende og for å kunne oppdatere.
+
+INSTALLERE PÅ MOBIL (etter at siden ligger ute)
+  iPhone: åpne adressen i Safari → Del-knappen → «Legg til på Hjem-skjerm».
+  Android: åpne i Chrome → meny (⋮) → «Installer app» eller «Legg til på startskjermen».
+  Appen får eget ikon, åpner i fullskjerm og virker uten nett etter første åpning.
+  PC/Mac: Chrome og Edge viser et installeringsikon i adressefeltet.
+
+OPPDATERINGER
+  Når du laster opp en ny versjon, henter appen den automatisk neste gang den åpnes med nett.
+  Hvis noen ser en gammel versjon: lukk appen helt og åpne den på nytt.
+
+Laget av Heidi Leona Porskrog-Mjelde, anestesisykepleier og masterstudent. Privat prosjekt.
