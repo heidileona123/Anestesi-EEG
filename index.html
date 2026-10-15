@@ -63,8 +63,11 @@ nav{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:
   padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;z-index:10}
 .tab{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:.76rem;font-weight:600;
   padding:10px 2px;border-radius:10px;cursor:pointer;min-height:44px}
-@media (max-width:520px){.tab{font-size:.66rem;padding:10px 0}}
+@media (max-width:520px){nav{gap:2px;padding-left:4px;padding-right:4px}.tab{font-size:.62rem;padding:8px 0;line-height:1.15;min-width:0}}
 .tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.tab .ts{display:none}
+@media (max-width:520px){.tab .tl{display:none}.tab .ts{display:inline}}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer}
 .tab:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
 /* components */
@@ -175,7 +178,7 @@ header h1 button:hover{color:var(--accent)}
 .path .arr{color:var(--muted)}
 .card h3{font-size:1.02rem;margin-bottom:6px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-#noAlphaWrap:not([hidden]),#dexHighWrap:not([hidden]){display:block}
+#noAlphaWrap:not([hidden]),#dexHighWrap:not([hidden]),#midaHighWrap:not([hidden]){display:block}
 </style>
 </head>
 <body>
@@ -210,7 +213,8 @@ header h1 button:hover{color:var(--accent)}
     <span class="step">4 Midler</span><span class="arr">→</span>
     <span class="step">5 Perfusjon</span><span class="arr">→</span>
     <span class="step">6 Intensiv</span><span class="arr">→</span>
-    <span class="step">7 Quiz</span>
+    <span class="step">7 Burst suppression</span><span class="arr">→</span>
+    <span class="step">8 Quiz</span>
   </div>
   <p class="small">Har du EEG fra før, kan du hoppe rett til Komponenter. Quizen trekker fra alle fanene, så den fungerer best til slutt.</p>
 
@@ -221,7 +225,8 @@ header h1 button:hover{color:var(--accent)}
     <button class="tile" data-go="p-spec"><span class="n">Spektrogram</span><h3>Simulator og signaturer</h3><p>Propofol, sevofluran, ketamin, dexmedetomidin og alder i en interaktiv modell, pluss artefakter, barn og eldre.</p></button>
     <button class="tile" data-go="p-drug"><span class="n">Midler</span><h3>Legemidler, bevissthet og amnesi</h3><p>Konsentrasjon–effekt, hukommelsestap over tid, benzodiazepiner, opioider og EEG.</p></button>
     <button class="tile" data-go="p-perf"><span class="n">Perfusjon</span><h3>Blodstrøm, trykk og leiring</h3><p>CPP, autoregulering, EEG ved iskemi og ICP, Trendelenburg og beach chair.</p></button>
-    <button class="tile" data-go="p-icu"><span class="n">Intensiv</span><h3>Sedasjon i dager og uker</h3><p>Burst suppression og utfall, PADIS, pEEG-konsensus, nevrointensiv, komamønstre etter hjertestans.</p></button>
+    <button class="tile" data-go="p-icu"><span class="n">Intensiv</span><h3>Sedasjon i dager og uker</h3><p>PADIS, pEEG-konsensus, nevrointensiv, komamønstre, kasuistikker fra intensiv.</p></button>
+    <button class="tile" data-go="p-bs"><span class="n">Burst suppression</span><h3>Ønsket, unødvendig eller et varsel?</h3><p>Mekanismer, dose og alder, utfall, hjertestans og kliniske eksempler samlet på ett sted.</p></button>
     <button class="tile" data-go="p-quiz"><span class="n">Quiz</span><h3>Test deg selv</h3><p>Flervalgsspørsmål med forklaring og kilde, trukket fra alle fanene.</p></button>
     <button class="tile" data-go="p-src"><span class="n">Kilder</span><h3>Referanser og avvik</h3><p>Hva studiene viser, originalreferansene i Miller's, uenigheter mellom kilder, full referanseliste.</p></button>
   </div>
@@ -659,6 +664,7 @@ header h1 button:hover{color:var(--accent)}
     <button data-agent="sevo" aria-pressed="false">Sevofluran</button>
     <button data-agent="ketamine" aria-pressed="false">Ketamin</button>
     <button data-agent="dex" aria-pressed="false">Dexmedetomidin</button>
+    <button data-agent="mida" aria-pressed="false">Midazolam</button>
   </div>
   <div class="ctl-label">Alder</div>
   <div class="seg" id="ageSeg" role="group" aria-label="Alder">
@@ -670,6 +676,7 @@ header h1 button:hover{color:var(--accent)}
   <p class="small" id="ageHint"></p>
   <label class="small" id="noAlphaWrap" hidden style="margin:4px 0 8px"><input type="checkbox" id="noAlpha"> Eldre uten synlig alfa (Purdon 2015 BJA, fig. 3 og 4)</label>
   <label class="small" id="dexHighWrap" hidden style="margin:4px 0 8px"><input type="checkbox" id="dexHigh"> Høyere dose (Purdon 2015 Part I, fig. 11C)</label>
+  <label class="small" id="midaHighWrap" hidden style="margin:4px 0 8px"><input type="checkbox" id="midaHigh"> Høy dose eller forgiftning (Sutter og Kaplan 2012)</label>
 
   <div class="stage"><canvas id="specCanvas" role="img" aria-label="Skjematisk spektrogram"></canvas></div>
   <div class="cbar"></div>
@@ -759,16 +766,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Obert et al. J Clin Anesth 2024;99:111672</span></div>
 
-  <div class="card"><h3>Burstene blir svakere og mer uregelmessige med alder (Kratzer 2020)</h3>
-  <p>Retrospektiv analyse fra TU München og Columbia (Front Syst Neurosci 2020;14:599962) av den første bursten etter at burst suppression oppstod under propofolinduksjon. Dataene er fra Hesse 2019 (Atlanta), tatt opp med SedLine (Legacy) og analysert av et uavhengig universitetsmiljø.</p>
-  <ul>
-   <li><strong>Metode:</strong> 102 av 408 pasienter hadde en tydelig første burst etter et «stille sekund» (minst 1 s under 10 µV). Bare de første 1,5 sekundene av bursten ble analysert, slik at ulik varighet og dose ikke skulle påvirke resultatet. Median alder 56 år; 16 pasienter under 45 år (YOUNG) og en gruppe over 65 år (OLD). Fentanylekvivalenter var ikke forskjellige med alder.</li>
-   <li><strong>Funn:</strong> eldre hadde lavere absolutt effekt i 1–15 Hz og relativt mer effekt over 15 Hz inne i bursten. Absolutt alfa-effekt falt lineært med alder (AUC 0,86 for ung mot gammel), mens normalisert alfa ikke endret seg: det er amplituden, ikke arkitekturen, som forsvinner. Maksimal amplitude var 20,3 µV hos unge mot 13,1 µV hos eldre (AUC 0,84), bratteste stigning 1,22 mot 0,86 µV/ms, og permutasjonsentropien var høyere hos eldre (mer uregelmessig signal). Delanalyse av de 83 som fikk midazolam premedikasjon ga samme resultat.</li>
-   <li><strong>Hvorfor det betyr noe for monitoren:</strong> BIS, PSI og entropi oppdager burst suppression ved å lete etter suppresjon, det vil si EEG under en amplitudeterskel i en viss tid, ikke ved å gjenkjenne burstene. Når burstene hos eldre er lavere og flatere, kan de i seg selv falle under terskelen, og Muhlhofer 2017 viste at suppresjonsraten underestimerer suppresjon sammenlignet med visuell lesing. Forfatterne mener burst-informasjon bør brukes som plausibilitetskontroll, men da aldersjustert. Dette er mekanismen bak bilde 6 og 13 i bildequizen: hos eldre kan både normal EEG og bursts se «svake» ut.</li>
-   <li><strong>Sammenheng i appen:</strong> samme aldersendring som Purdon 2015 (BJA) og Kreuzer 2020 beskrev for vedlikehold uten burst suppression, og som Ching 2012 forutsier: spektralinnholdet i bursten speiler EEG like før suppresjonen startet. Obert 2024 (kortet over) viser at langsom induksjon kan unngå burst suppression hos eldre i utgangspunktet.</li>
-   <li><strong>Begrensninger:</strong> frontal EEG, bare propofol-induserte bursts (Fleischmann 2018 viste at middelet påvirker burstens form), ingen justering for komorbiditet, og midazolam-undergruppen hos eldre var liten. Finansiert av James S. McDonnell Foundation (García); ingen interessekonflikter oppgitt.</li>
-  </ul>
-  <span class="tag">Kratzer et al. Front Syst Neurosci 2020;14:599962</span></div>
+  <p class="note">Kortene om burst suppression er samlet i fanen <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button>.</p>
 
   <div class="card"><h3>Sevofluran-theta som doseringsmål: en hypotese, og hva evidensen faktisk sier</h3>
   <p>Theta «fyller inn» mellom delta og alfa under sevofluran, og mer theta kommer med høyere konsentrasjon (Akeju 2014, Purdon 2015 Part I). En nærliggende klinisk hypotese er at man bør dosere sevofluran til alfa uten theta, og at det kan gi mindre delirium. Her er det viktig å skille hypotese fra evidens.</p>
@@ -826,20 +824,9 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Anestesidybde og delirium, kapittelets ordlyd:</strong> tidlige studier viste mindre delirium med pEEG-styrt anestesi, men store multisenter-RCT-er (ENGAGES, Evered 2021) har ikke vist det konsekvent, delvis fordi dosene ikke skilte seg nok mellom gruppene. «Til tross for denne likevekten» har alvorlig EEG-suppresjon, inkludert burst suppression, konsekvent vært forbundet med delirium (Fritz 2016, 2018). Forfatterne «foreslår å monitorere anestesidybde med enkanals eller prosessert EEG og unngå burst suppression ved lavere induksjons- og vedlikeholdsdoser».</li>
    <li><strong>Legemidler og delirium:</strong> AGS fraråder benzodiazepiner; kronisk bruk og benzodiazepinsedasjon på intensiv gir økt risiko, mens én preoperativ dose er uavklart (Wang 2021). Dexmedetomidin har sprikende studier, men en metaanalyse fant mindre delirium (Duan 2018). Ketamin som multimodal analgesi reduserer ikke delirium (Avidan 2017, PODCAST). Gabapentinoider frarådes sterkt. Spinal mot generell anestesi ga ingen forskjell i delirium (REGAIN, RAGA).</li>
    <li><strong>Blodtrykk:</strong> kapittelet gjengir POQI-konsensus (McEvoy 2019): MAP under 60–70 mmHg er forbundet med myokardskade, nyreskade og død, og skade er en funksjon av dybde og varighet. Konsensusen er ikke spesifikk for eldre, og den nevner ikke hjernen. Se Perfusjon-fanen for hva EEG kan vise ved lavt trykk.</li>
-   <li><strong>Forbehold:</strong> anbefalingen om pEEG og å unngå burst suppression gis som forfatternes forslag («we suggest») på tross av at RCT-ene er inkonklusive, og kapittelet drøfter ikke om burst suppression er årsak eller markør (se Hogan 2020 og Jegarl 2026 i Intensiv-fanen). Kapittelet beskriver ikke rå-EEG eller spektrogram hos eldre.</li>
+   <li><strong>Forbehold:</strong> anbefalingen om pEEG og å unngå burst suppression gis som forfatternes forslag («we suggest») på tross av at RCT-ene er inkonklusive, og kapittelet drøfter ikke om burst suppression er årsak eller markør (se Hogan 2020 og Jegarl 2026 i Burst suppression-fanen). Kapittelet beskriver ikke rå-EEG eller spektrogram hos eldre.</li>
   </ul>
   <span class="tag">Miller's Anesthesia, 10. utg., kap. 61 (Mahanna Gabrielli, Schenning og Deiner)</span></div>
-
-  <div class="card"><h3>Burst suppression-MAC og CP50 (Pilge 2014)</h3>
-  <ul>
-   <li><strong>Hva det er:</strong> en studie som foreslår «stille sekund» (EEG-suppresjon i minst 1 sekund) som mål på anestesimiddelets virkning på hjernen, i stedet for bevegelse ved snitt (MAC, som mest speiler ryggmargen).</li>
-   <li><strong>Design:</strong> 55 ubehandlede ASA I–II-pasienter til elektiv kirurgi ble randomisert til sevofluran (16), isofluran (21) eller propofol (18). Konsentrasjonen ble holdt konstant i 15 minutter og EEG analysert i det 16. minuttet, og neste pasient fikk 10 % lavere konsentrasjon hvis suppresjon forekom og 10 % høyere hvis ikke (Dixons «opp og ned»-metode, seks uavhengige kryssingspar per gruppe). Verdiene ble beregnet med logistisk regresjon.</li>
-   <li><strong>Resultat:</strong> sevofluran 2,93 vol % (95 % KI 2,80–3,15), isofluran 1,51 vol % (1,45–1,60) og propofol 4,85 (KI 4,25–5,40; artikkelen oppgir «mg/ml», trolig mikrogram/ml). Det er over 1,4 ganger MAC for sevofluran (2,05 vol %), over 1,3 ganger MAC for isofluran (1,15 vol %) og under en tredjedel av propofolkonsentrasjonen som hindrer bevegelse ved snitt (15,2 µg/ml, fra Smith 1994).</li>
-   <li><strong>Forbehold:</strong> startkonsentrasjonene lå over populasjonsverdien, og forfatterne skriver at konfidensintervallene derfor kan være for brede, særlig for propofol. Utvalget er lite. Burst suppression kommer ikke ved ketamin, så målet kan ikke brukes for ketamin. Mønsteret er dessuten forskjellig mellom midler, og forfatterne skriver at et «stille sekund» er for dypt til klinisk anestesi.</li>
-   <li><strong>Hva artikkelen ikke sier:</strong> den oppgir ikke at fentanyl reduserer propofolkonsentrasjonen med ca. 80 %. Det tallet kommer fra Smith 1994 via Miller's.</li>
-   <li><strong>Interessekonflikter:</strong> ingen oppgitt. Finansiert av avdelingsmidler.</li>
-  </ul>
-  <span class="tag">Pilge et al. Br J Anaesth 2014;112:1067–1074</span></div>
 
   <div class="card"><h3>Kan effektsted-modeller forklare hysterese? (Proekt og Kelz 2021)</h3>
   <ul>
@@ -1000,7 +987,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Brandt et al. Anesth Analg 2020;131:1043–1056</span></div>
 
-  <div class="note">Dette er en skjematisk modell bygget på beskrevne EEG-signaturer i litteraturen, ikke ekte pasientdata. Den viser kvalitative mønstre og er ikke egnet til klinisk tolkning. Ketamin og dexmedetomidin er bare beskrevet hos yngre voksne i kildene, og eldre, barn og spedbarn er derfor kun tilgjengelig for propofol og sevofluran.</div>
+  <div class="note">Dette er en skjematisk modell bygget på beskrevne EEG-signaturer i litteraturen, ikke ekte pasientdata. Den viser kvalitative mønstre og er ikke egnet til klinisk tolkning. Ketamin og dexmedetomidin er bare beskrevet hos yngre voksne i kildene, og for midazolam beskriver kildene ikke aldersforskjeller. Eldre, barn og spedbarn er derfor kun tilgjengelig for propofol og sevofluran.</div>
 </section>
 
 <!-- ========== MIDLER ========== -->
@@ -1059,6 +1046,7 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Reversering:</strong> Flumazenil reverserer vanligvis hypnotiske og respiratoriske effekter mer enn de amnestiske. Det er et farmakologisk eksempel på at amnesi og sedasjon kan skilles.</li>
       <li><strong>Mekanisme:</strong> Kapittel 21 knytter sedasjon og anterograd amnesi til GABA-A-reseptorer med α1-subenhet. Kapittel 8 beskriver at amnesien for etomidat i mus er knyttet til α5-subenheter. Dette gjelder ulike midler og er ikke nødvendigvis motsigelser.</li>
       <li><strong>Alder:</strong> Eldre trenger mindre (Jacobs 1995).</li>
+      <li><strong>Høy dose eller forgiftning:</strong> Sutter og Kaplan 2012 beskriver «beta-koma» (12–16 Hz, mest frontalt, blandet med spindellignende aktivitet, alfa eller delta) ved forgiftning med og abstinens fra benzodiazepiner og barbiturater. Det er stort sett reversibelt med god prognose. Alfa-koma og spindel-koma kan også ses ved forgiftning. Se simulatoren i Spektrogram-fanen og kasuistikken om alfa-koma i Intensiv-fanen.</li>
       <li><strong>EEG:</strong> midazolam i sedative doser er forbundet med beta-oscillasjoner (Brandt 2020). Beta-bildet kan derfor ligne ketamin. Brandt beskriver et barn som fikk ketamin og midazolam som premedikasjon og hadde beta og gamma i starten, og forfatterne mener det trolig skyldes begge midlene sammen. Hvordan EEG ser ut ved høyere doser midazolam, er ikke beskrevet i kildene i appen.</li>
     </ul>
     <div class="micro"><h4>Mikronivå: reseptorer og nevroner</h4><ul>
@@ -1068,8 +1056,43 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Styrke:</strong> affiniteten er lorazepam &gt; midazolam &gt; diazepam. Midazolam er ca. 3–6 og lorazepam 5–10 ganger så potent som diazepam (kap. 21).</li>
       <li><strong>Tak:</strong> midazolam alene kan ikke helt fjerne bevegelse ved smertestimuli, mens propofol alene kan det. Hendrickx 2008 bruker dette som ett argument for at propofol og midazolam virker forskjellig, selv om begge virker via GABA<sub>A</sub>, og at kombinasjonen derfor er synergistisk.</li>
       <li><strong>Flumazenil og reseptorbelegg:</strong> flumazenil er en kompetitiv antagonist med høy affinitet og nesten ingen egeneffekt. Effekten avhenger av hvor stor andel av reseptorene agonisten opptar. Ved svært høy agonistdose demper en liten dose flumazenil den dype CNS-depresjonen (bevisstløshet, respirasjonsdepresjon) uten å redusere effektene som bare krever lav reseptorandel (døsighet, amnesi). Store doser flumazenil ved lite agonist reverserer alt. Flumazenil elimineres raskt, så sedasjonen kan komme tilbake (kap. 21).</li>
-      <li><strong>Remimazolam:</strong> beskrives i kapittel 21 som en ultrakortvirkende GABA<sub>A</sub>-agonist.</li>
+      <li><strong>Remimazolam:</strong> ligner midazolam og binder selektivt benzodiazepinsetet. En karboksylester-sidekjede brytes raskt ned av vevsesteraser til en inaktiv metabolitt (CNS7054), ikke via CYP. Clearance er ca. 70 l/t, og kapittel 21 skriver at lange infusjoner ikke gir akkumulering. Farmakokinetikken var lik ved terminal nyresvikt, men midlet bør brukes med forsiktighet ved leversvikt, og lavere dose vurderes hos skrøpelige eldre. Flumazenil reverserer på ca. 1 minutt (10,5 minutter med placebo) uten ny sedasjon. Ved endoskopi var sedasjonen like vellykket som med propofol og bedre enn med midazolam (kap. 21).</li>
+      <li><strong>Remimazolam og EEG (Kim 2024):</strong> randomisert delstudie, 52 pasienter over 65 år, innledning med remimazolam 6 mg/kg/t eller propofol TCI 3,5 µg/ml, begge med remifentanil. Remimazolam ga alfa og delta under innledningen, og det var ingen signifikante forskjeller i spektral styrke eller BIS mellom midlene. Begge ga alfa-anteriorisering og redusert frontal-til-parietal tilbakekobling. Vedlikehold og oppvåkning ble ikke målt, og ingen hadde burst suppression. Studien ble delvis finansiert av legemiddelfirmaet Hana Pharmaceutical, som ifølge artikkelen ikke hadde noen rolle i analysen. Appens egen sammenstilling: at remimazolam ga alfa og delta, mens Brandt 2020 knytter midazolam til beta, kan skyldes dosen (anestesi mot sedasjon) og er ikke nødvendigvis en forskjell mellom midlene.</li>
     </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-amn)"><summary>Propofol og midazolam: hver for seg, sammen og ved abstinens</summary><div class="body">
+    <span class="tag">Miller's kap. 21 og 16</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Olsen og Liang 2017</span> <span class="tag">Lorentzen 2014</span> <span class="tag">Shah 2018</span> <span class="tag">Zhou 2014</span>
+    <ul>
+      <li><strong>Midazolam alene:</strong> binder benzodiazepinsetet på GABA<sub>A</sub>-reseptoren og forsterker responsen på GABA ved å lette åpningen av kloridkanalen (kap. 21). Det trenger altså GABA for å virke, og effekten har et tak: midazolam alene kan ikke helt fjerne bevegelse ved smertestimuli (Hendrickx 2008).</li>
+      <li><strong>Propofol alene:</strong> binder β-subenheten, et annet sete. Ved kliniske konsentrasjoner forsterker propofol GABA, ved høyere konsentrasjoner kan det åpne kanalen direkte, uten GABA. Kapittel 21 beskriver i tillegg hemming av NMDA-reseptorer.</li>
+      <li><strong>Sammen, på reseptoren:</strong> fordi midlene binder ulike seter, fant studiene i Hendrickx 2008 synergi for hypnose (Short og Chui 1991, McClune 1992, Short 1992), og kapittel 21 skriver at midazolam ofte virker synergistisk med andre hypnotika. Kapittel 16 kaller derimot interaksjonen «primarily additive», se Avvik.</li>
+      <li><strong>Sammen, i blodet:</strong> en sedativ midazolamkonsentrasjon (200 ng/ml) øker propofolkonsentrasjonen med ca. 25 %, trolig via endret sirkulasjon og leverperfusjon. Propofol øker midazolamkonsentrasjonen med 27 %. Propofol hemmer dessuten CYP3A4 (ca. 37 % lavere aktivitet ved 3 µg/ml), som bryter ned midazolam (kap. 21). Appens egen sammenstilling: både synergi og høyere konsentrasjoner trekker i retning av lavere dosebehov når midlene gis sammen.</li>
+      <li><strong>Hvorfor kombinere på intensiv:</strong> kapittel 21 nevner amnesi og stabil sirkulasjon som fordeler med benzodiazepiner, og akkumulering (aktiv metabolitt, særlig ved nyresvikt) og mer delirium enn med dexmedetomidin som ulemper. Propofol gir rask oppvåkning, men mer blodtrykksfall. I Zhou 2014 (randomisert, åpen, ett senter, n=124 på respirator) var tid til ekstubering 45 timer med midazolam alene, 3 timer med propofol alene og 2 timer når midazolam ble byttet til propofol før vekking. Hypotensjon: 23 %, 52 % og 21 %. Agitasjon etter seponering: 49 % med midazolam alene mot 19 % ved bytte. Forfatterne mener propofol kan dekke over abstinens fra midazolam. Merk at dette var bytte, ikke samtidig bruk, og at pasienter med alkoholisme var ekskludert.</li>
+    </ul>
+    <div class="micro"><h4>Mikronivå: hvorfor benzodiazepiner kan svikte ved alkoholabstinens</h4><ul>
+      <li><strong>Alkohol virker på to systemer:</strong> det forsterker GABA<sub>A</sub> og hemmer NMDA. Ved kronisk bruk svekkes GABA<sub>A</sub>-funksjonen, og når alkoholen forsvinner, står NMDA-systemet uten motvekt (Lorentzen 2014, Shah 2018).</li>
+      <li><strong>Reseptorene bygges om (rotte):</strong> Olsen og Liang 2017 beskriver et «subenhetsbytte» etter gjentatt alkoholeksponering: δ-holdige reseptorer utenfor synapsen (tonisk hemming) og α1 nedreguleres, mens α4, γ2 og α2 oppreguleres. Rottene ble tolerante for den sederende effekten av alkohol, benzodiazepiner og nevrosteroider, mens krampedempende og angstdempende effekt viste lite toleranse. Etter gjentatte runder varte endringene minst 120 dager. Forfatterne overfører dette til mennesker som hypotese.</li>
+      <li><strong>Klinikernes forklaring:</strong> Lorentzen 2014 og Shah 2018 forklarer benzodiazepinresistens med at GABA<sub>A</sub>-reseptorene blir «mettet», og med at benzodiazepiner ikke virker på det overaktive NMDA-systemet.</li>
+      <li><strong>Hva propofol tilfører:</strong> Lorentzen 2014 skriver at propofol har en «dobbel effekt»: GABA<sub>A</sub> via et annet sete og hemming av NMDA. Appens egen sammenstilling: siden propofol ved høyere konsentrasjoner kan åpne kanalen uten GABA, er det biologisk rimelig at det virker der benzodiazepinene har nådd taket. Dette er ikke testet i kildene.</li>
+      <li><strong>Lorentzen 2014:</strong> retrospektiv, n=15 med delirium tremens som ikke svarte på opptil 2000 mg benzodiazepiner. Propofol i snitt 4,22 mg/kg/t i 48 timer (maks 5,65), RASS −4 til −5, på respirator. 12 av 15 ble vellykket behandlet, 7 av 15 fikk pneumoni, ingen fikk propofolinfusjonssyndrom, og liggetiden på intensiv var i snitt 4,67 døgn.</li>
+      <li><strong>Ketamin som alternativ (Shah 2018):</strong> retrospektiv, n=30 med benzodiazepinresistent abstinens (over 40 mg diazepam per time). Ketamin blokkerer NMDA direkte. Lorazepambehovet falt med 4 mg/t etter 24 timer, men 73 % ble intubert.</li>
+      <li><strong>Forbehold:</strong> studiene er små, retrospektive og uten kontrollgruppe. Dypsedasjon med propofol krever sikret luftvei. Kildene i appen handler om alkoholabstinens; andre forgiftninger (blandingsforgiftning, sentralstimulerende midler, GHB) er ikke dekket. EEG ved benzodiazepinforgiftning og -abstinens (beta-koma) er beskrevet i midazolamkortet.</li>
+    </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-ana)"><summary>Ketamin ved refraktær status epilepticus: når GABA-midlene mister grepet</summary><div class="body">
+    <span class="tag">Espinosa 2023</span> <span class="tag">Gaspard 2013</span>
+    <ul>
+      <li><strong>Hva skjer på reseptornivå:</strong> etter noen minutter med vedvarende anfall flyttes GABA<sub>A</sub>-reseptorer fra celleoverflaten inn i cellen («internalisering»), mens flere glutamat- og NMDA-reseptorer flyttes ut til overflaten («eksternalisering»). Hemmingen svekkes og eksitasjonen øker. Dette er vist i dyremodeller (Espinosa 2023).</li>
+      <li><strong>Følgen:</strong> resistensen mot benzodiazepiner øker raskt jo lenger anfallet varer. Det er ikke GABA som mangler, men reseptorene midlene skal virke på. Gaspard 2013 skriver at følsomheten for GABA-agonister faller ved langvarige anfall, mens følsomheten for NMDA-antagonister ikke gjør det.</li>
+      <li><strong>Hvorfor ketamin:</strong> ketamin blokkerer NMDA-reseptoren og angriper dermed den delen av systemet som er oppregulert. Det gir i liten grad respirasjons- og sirkulasjonsdepresjon (Gaspard 2013).</li>
+      <li><strong>Gaspard 2013:</strong> retrospektiv studie fra ti sentre, 58 pasienter (60 episoder, median alder 24 år, sju etter anoksisk hjerneskade), nesten alle med kontinuerlig video-EEG. Ladningsdose median 1,5 mg/kg, infusjon median 2,75 mg/kg/t (opptil 10), startet median 9 døgn etter debut og alltid sammen med andre midler. Varig anfallskontroll i 57 %, sannsynlig effekt av ketamin i 12 % og mulig effekt i 20 %. Sannsynlig effekt krevde minst 0,9 mg/kg/t og ble ikke sett når ketamin ble startet etter 8 døgn eller mer, eller etter 7 eller flere mislykkede midler. Dødeligheten var 43 %, men 16 % når anfallene ble kontrollert innen 24 timer etter ketamin, mot 56 % ellers. ICP steg ikke hos dem som ble målt, unntatt to med anoksisk hjerneødem.</li>
+      <li><strong>Espinosa 2023 (scoping review):</strong> ca. 20 publikasjoner, mest kasuistikker og små serier. Ladningsdoser 0,5–5 mg/kg og infusjoner 0,05–10,5 mg/kg/t. Av 19 kasuistikker fikk 63 % full anfallskontroll, oftest innen 12 timer, men anfallene kom tilbake hos 10–60 % etter seponering. Bivirkninger var arytmier, sirkulasjonskollaps og metabolsk acidose, med uklar årsak hos pasienter som fikk mange legemidler. Forfatterne mener evidensen ikke støtter ketamin som førstevalg eller alene.</li>
+      <li><strong>Sammenheng med abstinens:</strong> appens egen sammenstilling: mønsteret ligner det som er beskrevet ved alkoholabstinens (kortet om propofol og midazolam over), der GABA<sub>A</sub>-funksjonen er svekket og NMDA-systemet overaktivt, og der ketamin og propofol brukes når benzodiazepiner svikter.</li>
+      <li><strong>EEG:</strong> kontinuerlig EEG brukes for å styre behandlingen og for å oppdage ikke-konvulsive anfall (Intensiv-fanen). Ketamin gir et mer aktivert EEG med beta og gamma og gir ikke klassisk burst suppression i kliniske doser (se ketaminkortet). Appens egen sammenstilling: målet for behandlingen bør derfor vurderes på rå-EEG.</li>
+      <li><strong>Forbehold:</strong> ingen randomiserte studier. Gaspard 2013 er retrospektiv og har tilbøyelighet til at bare de alvorligste fikk ketamin. Flere av forfatterne oppgir bindinger til legemiddelindustrien (blant annet UCB, GSK og Pfizer). Espinosa 2023 oppgir ingen interessekonflikter.</li>
+    </ul>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-ana)"><summary>Ketamin</summary><div class="body">
@@ -1258,7 +1281,7 @@ header h1 button:hover{color:var(--accent)}
   <h3>Fentanyl og EEG: frontal theta (Balanza 2022)</h3>
   <div class="card">
   <ul>
-   <li><strong>Design:</strong> 25 pasienter (31–64 år, ASA I–III, BMI under 30) fikk fentanyl 2 µg/kg av ideell kroppsvekt hver 2. minutt, to eller tre doser, <em>før</em> innledning av generell anestesi, mens de utførte en lyd-oppgave og ble overvåket med firekanals frontal EEG, brystbelter for respirasjon og pulsoksymetri. Effekt-sete-konsentrasjonen er modellberegnet (PK/PD i stanpumpR), ikke målt. 31 samtykket, og rekrutteringen stoppet tidlig på grunn av covid-19.</li>
+   <li><strong>Design:</strong> 25 pasienter (31–64 år, ASA I–III, BMI under 30) fikk fentanyl 2 µg/kg av ideell kroppsvekt hver 2. minutt, to eller tre doser, <em>før</em> innledning av generell anestesi, mens de utførte en lyd-oppgave og ble overvåket med firekanals frontal EEG, brystbelter for respirasjon og pulsoksymetri. Effektstedkonsentrasjonen er modellberegnet (PK/PD i stanpumpR), ikke målt. 31 samtykket, og rekrutteringen stoppet tidlig på grunn av covid-19.</li>
    <li><strong>EEG:</strong> økende fentanylkonsentrasjon ga økt effekt i theta (4–8 Hz) og i langsom-delta (under 4 Hz). Theta-effekten er vanskelig å se i rå-EEG, men tydelig i spekter og spektrogram. Theta-effekt var knyttet til konsentrasjon (modell-helning 0,55, 95 % KI 0,25–0,80), men den fikse effektens forklarte andel var lav (marginal R² 0,15) mens hele modellen forklarte 0,74 fordi individene skilte seg mye.</li>
    <li><strong>Respirasjon:</strong> minuttventilasjonsindeksen falt med 30 % etter første dose, 55 % etter andre og 60 % etter tredje, mens SpO₂ lå mellom 95 og 100 % (med preoksygenering). Økt theta-effekt var knyttet til lavere ventilasjon (helning −1,62, marginal R² 0,054).</li>
    <li><strong>Atferd:</strong> reaksjonstiden økte i gjennomsnitt 277 sekunder (95 % KI 220–333) etter at ventilasjonen begynte å falle. Konsentrasjonen som ga 10 % fall i minuttventilasjon var ca. 1750 ganger lavere (KI 839–2854) enn konsentrasjonen da reaksjonstiden økte. 16 av 25 mistet responsen (tre påfølgende uteblitte svar, ca. 12 sekunder). Alle lot seg vekke, og fire trengte kjeveløft. Langsom-delta var mer informativ enn theta for tap av respons.</li>
@@ -1365,9 +1388,9 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Unntaket er ketamin:</strong> ketamin viste ikke synergi med GABAerge midler i noen studie; propofol + ketamin var additivt, og ved reanalyse infra-additivt for immobilitet (Hui 1995). Midazolam + ketamin var infra-additivt for hypnose ved reanalyse. Klonidin + propofol var additivt for hypnose (Higuchi 2002), men klonidin senker MAC<sub>awake</sub> for sevofluran med 17–21 % og MAC med 17–34 % med takeffekt, som regnes som synergi per definisjon. I eksempelet over er det altså sevofluran + fentanyl (+ klonidin) som gir synergien, ikke esketaminet. Forfatterne understreker at gjennomgangen bare gjelder hypnose og immobilitet: synergi for bivirkninger (respirasjonsdepresjon, hypotensjon) er lite undersøkt. Det samme sees hos hund: Mair 2009 (Vet Anaesth Analg, 90 hunder, blindet og randomisert) fant at ketamin 0,25 eller 0,5 mg/kg før propofol-TCI ikke endret propofolmålet for intubasjon (median 3,0 µg/ml i alle grupper) og ikke endret blodtrykk eller puls, men ga mer apné etter induksjon ved den høyeste dosen (4 av 30 mot 0). Forfatterne konkluderer at ketamin ikke er et nyttig ko-induksjonsmiddel med propofol hos hund.</li>
    <li><strong>Tallene fra Short og Chui 1991 (BJA 67:539–545):</strong> 200 kvinner 18–40 år, ikke premedisinert. ED50 for hypnose var 1,01 mg/kg propofol og 0,14 mg/kg midazolam; for «anestesi» (ingen respons på 5 s tetanisk stimulus) 1,93 mg/kg propofol, mens midazolam alene aldri ga det. I kombinasjon oppnådde 85 % hypnose på en samlet dose som ga hypnose hos 50 % med hvert middel alene, og midazolam 0,13 mg/kg halverte propofoldosen for anestesi (1,93 til 0,93 mg/kg, 52 %). Blodtrykksfallet var det samme for kombinasjonen som for hvert middel i ekvipotent dose, altså synergi også for hypotensjonen.</li>
    <li><strong>Hvordan interaksjoner måles:</strong> isobologram (linjer gjennom ekvieffektive dosekombinasjoner; rett linje = Loewe-additivitet, buet mot origo = synergi) og responsflatemodeller som Minto 2000, der effekten vises som en flate over to dosedimensjoner. Lee 2010 (Korean J Anaesthesiol) gjennomgår modellene og påpeker at klassifiseringen avhenger av referansemodellen, og at én interaksjonsparameter ikke kan fange synergi i ett doseområde og antagonisme i et annet.</li>
-   <li><strong>Alder og trykk forsterker:</strong> eldre er mer følsomme for propofol (Schnider 1999, Purdon 2015 BJA), MAC faller med alder, og hypotensjon etter bolus kan i seg selv gi suppresjon (Georgii 2022, Perfusjon-fanen). Ching 2012 (Perfusjon-fanen) knytter suppresjon til redusert cerebral metabolisme, og nevner at ketamin, som øker CMRO₂, ikke gir klassisk burst suppression i kliniske doser.</li>
-   <li><strong>Tilbakekomsten:</strong> når effekten avtar, kommer aktiviteten tilbake, ofte som høyamplitudig langsom aktivitet før alfa-båndet er etablert igjen. Sepúlveda 2026 (Grunnlag-fanen) viser at EEG etter burst suppression ikke går rett tilbake til utgangsmønsteret ved samme beregnede konsentrasjon.</li>
-   <li><strong>Hva som ikke er vist:</strong> at en kort isoelektrisk periode gir dårligere utfall. Suppresjon er assosiert med delirium (Fritz 2016, Intensiv-fanen), men ENGAGES (Wildes 2019) reduserte suppresjonstid uten å redusere delirium. «Kortikal kollaps» er et bilde, ikke et faguttrykk. «Reboot» brukes derimot av Huang 2021 (Neuroimage) om det brå spranget i subkortiko-kortikal konnektivitet ved oppvåkning; se kortet om hysterese og nevral treghet i Grunnlag-fanen.</li>
+   <li><strong>Alder og trykk forsterker:</strong> eldre er mer følsomme for propofol (Schnider 1999, Purdon 2015 BJA), MAC faller med alder, og hypotensjon etter bolus kan i seg selv gi suppresjon (Georgii 2022, Burst suppression-fanen). Ching 2012 (Burst suppression-fanen) knytter suppresjon til redusert cerebral metabolisme, og nevner at ketamin, som øker CMRO₂, ikke gir klassisk burst suppression i kliniske doser.</li>
+   <li><strong>Tilbakekomsten:</strong> når effekten avtar, kommer aktiviteten tilbake, ofte som høyamplitudig langsom aktivitet før alfa-båndet er etablert igjen. Sepúlveda 2026 (Burst suppression-fanen) viser at EEG etter burst suppression ikke går rett tilbake til utgangsmønsteret ved samme beregnede konsentrasjon.</li>
+   <li><strong>Hva som ikke er vist:</strong> at en kort isoelektrisk periode gir dårligere utfall. Suppresjon er assosiert med delirium (Fritz 2016, Burst suppression-fanen), men ENGAGES (Wildes 2019) reduserte suppresjonstid uten å redusere delirium. «Kortikal kollaps» er et bilde, ikke et faguttrykk. «Reboot» brukes derimot av Huang 2021 (Neuroimage) om det brå spranget i subkortiko-kortikal konnektivitet ved oppvåkning; se kortet om hysterese og nevral treghet i Grunnlag-fanen.</li>
    <li><strong>Praktisk:</strong> bevegelse er et spinalt svar på nocisepsjon og betyr ikke at hypnosen er for lett (se Grunnlag-fanen: nocisepsjon). Titrér ett middel om gangen, langsomt hos eldre (Obert 2024, Sepúlveda 2020), og se på rå-EEG og SR etter hver bolus, ikke bare på indeksen. Se bilde 16 i bildequizen.</li>
   </ul>
   <span class="tag">Hendrickx 2008, Short &amp; Chui 1991, Minto 2000, Lee 2010, Ching 2012, Guay 2025</span></div>
@@ -1406,29 +1429,37 @@ header h1 button:hover{color:var(--accent)}
   <h2>Intensiv: sedasjon i dager og uker</h2>
   <p>Det meste i de andre fanene gjelder også intensivpasienten, men tre ting er annerledes: sedasjonen varer i dager til uker, pasientene har ofte encefalopati, organsvikt eller hjerneskade som selv endrer EEG, og målet er sjelden bevisstløshet, men ro, trygg respiratorbehandling og minst mulig legemiddel. Denne fanen samler det kildene sier om EEG og prosessert EEG hos kritisk syke. Kort om perfusjon, ICP og EEG ved iskemi ligger i Perfusjon-fanen (van Putten og Hofmeijer, Foreman og Claassen, Lenstra, Guay, Nycz).</p>
 
-  <h3>Burst suppression under sedasjon og dødelighet (Watson 2008)</h3>
+  <h3>Hva EEG kan gi deg på intensiv: åtte situasjoner</h3>
   <div class="card">
-  <p>Post hoc-analyse av en prospektiv kohort (Crit Care Med 2008;36:3171–3177) fra medisinsk intensiv ved Vanderbilt: 125 voksne respiratorpasienter uten kjent nevrologisk sykdom, APACHE II 27, 98 % fikk sedasjon (lorazepam, midazolam, diazepam, propofol, fentanyl, morfin), titrert etter Ramsay-skala. BIS (A1050, 2-kanals frontal) ble registrert 10–20 minutter daglig sammen med RASS og CAM-ICU. Burst suppression ble definert som BSR over 0.</p>
+  <p>Intensiv bruker EEG lite sammenlignet med operasjonsstuen. Her er situasjonene der kildene i appen viser at en frontal EEG-monitor kan endre det man gjør. Detaljene står på kortene lenger ned i fanen.</p>
   <ul>
-   <li><strong>Hvor vanlig:</strong> burst suppression hos 49 av 125 (39 %), og hos nesten halvparten av de komatøse (46 av 93). 54 % av episodene kom i de første 72 timene. Ingen hadde burst suppression som mål i journalen.</li>
-   <li><strong>Dødelighet:</strong> 59 % (29 av 49) døde innen 6 måneder mot 33 % (25 av 76) uten burst suppression. Justert for alder, komorbiditet, demens, APACHE II, SOFA, koma og delirium: HR 2,04 (95 % KI 1,12–3,70, p = 0,02). Intensivdødelighet 37 % mot 18 % og sykehusdødelighet 49 % mot 24 % var ikke signifikante hver for seg. Liggetid på sengepost etter intensiv var lengre (HR 1,84).</li>
-   <li><strong>Legemidler:</strong> lorazepam-dosen siste døgn var høyere før burst suppression (27,8 mot 7,5 mg/dag, p = 0,004). Propofol, morfin og fentanyl skilte ikke, og ingen av midlene skilte når dosen ble justert for vekt. Gruppene var like ved inklusjon.</li>
-   <li><strong>Forfatternes hovedpoeng:</strong> når pasienten først er uresponsiv, kan ingen sedasjonsskala fange at sedasjonen blir dypere. Burst suppression er et EEG-tegn på dyp sedasjon som kan leses uten EEG-kompetanse, og som trolig påvirkes mindre av encefalopati enn selve indeksverdien. De foreslår at pEEG bør evalueres ved siden av sedasjons- og deliriumskalaer.</li>
-   <li><strong>Feilkilder de beskriver:</strong> EMG kan gi falskt høy indeks hos intensivpasienter, mens lever- og nyreencefalopati gir langsommere, høyere amplitude-EEG som ligner sedasjon og kan gi falskt lav indeks.</li>
-   <li><strong>Forbehold:</strong> post hoc, hypotesegenererende, 125 pasienter, bare 10–20 minutter EEG daglig (burst suppression trolig underestimert), ja/nei-klassifisering uten varighet, og sensoren ble satt på rett før registrering, som kan ha stimulert pasienten. Aspect ga monitorer og delvis lønn til forskningssykepleier; Ely og Watson oppgir honorar eller støtte fra Aspect, Hospira, Pfizer og Lilly. Forfatterne advarer selv mot faste konklusjoner.</li>
+   <li><strong>1. Delirium:</strong> hypoaktivt delirium henger sammen med lav nevronaktivitet og et EEG dominert av langsom-delta. Når deliriet går tilbake, flytter effekten seg mot høyere frekvenser (Guay 2025). I Eskioglou 2021 skilte generell bremsing likevel ikke delirøse fra andre, mens burst suppression, rytmiske eller periodiske mønstre og anfall gjorde det (se Avvik). EEG kan derfor støtte, men ikke erstatte, CAM-ICU.</li>
+   <li><strong>2. Ikke-konvulsive anfall:</strong> periodiske utladninger og anfall er vanlige ved kritisk sykdom. Mer enn 25 utladninger per 10 sekunder gir mistanke om anfall eller status epilepticus, og 11–25 per 10 sekunder (eller 5–10 skarpe) hører til det iktal-interiktale kontinuumet. Begge skal føre til fullt EEG og nevrolog. En frontal monitor kan overse anfall i tinninglapp og bakhode (Guay 2025). I Eskioglou 2021 hadde 7 % av de delirøse anfall eller status epilepticus.</li>
+   <li><strong>3. Muskelrelaksans:</strong> når pasienten er relaksert, er EEG den eneste måten å se hjernen på. Rasulo 2023 anbefaler prosessert EEG som hovedmetode for sedasjonsvurdering ved nevromuskulær blokade. Uventet beta og gamma under blokade bør føre til mer sedasjon. Awareness med erindring er rapportert hos 1,8–7,4 % av pasienter intubert i akuttmottak eller på intensiv, mot 0,07–0,9 % på operasjonsstuen (Guay 2025).</li>
+   <li><strong>4. Reaktivitet:</strong> at EEG endrer seg ved tiltale, berøring eller smerte, er et prognostisk tegn ved koma (Sutter og Kaplan 2012, Miller's kap. 80). Respons på tiltale og fysisk stimulus gir typisk brå beta og gamma oppå langsom-delta (Guay 2025). Det finnes ingen standardisert protokoll ennå (Taccone 2026). Se kasuistikken med pårørende.</li>
+   <li><strong>5. Midlene på intensiv:</strong> propofol gir alfa–delta og burst suppression ved høye doser, dexmedetomidin et søvnlignende mønster med spindler, ketamin beta og gamma, midazolam beta i sedative doser og inhalasjonsmidler propofollignende alfa (Purdon 2015, Brandt 2020, Taccone 2026). Se simulatoren i Spektrogram-fanen og Midler-fanen.</li>
+   <li><strong>6. Burst suppression som mål eller som varsel:</strong> burst suppression bør unngås, unntatt for å kontrollere høyt intrakranielt trykk, og brukes det terapeutisk, anbefaler Rasulo 2023 suppresjonsratio under 5 %. Uventet burst suppression skal først utløse spørsmål om oksygentilførsel, temperatur og glukose, og deretter nedtrapping av sedasjon (Guay 2025). Watson 2008 fant burst suppression hos 39 % av sederte respiratorpasienter, og det var knyttet til høyere 6-månedersdødelighet.</li>
+   <li><strong>7. Hvorfor intensiv ligger etter:</strong> elektrodeplassering, manglende opplæring, ulike monitorer med ulike algoritmer, økonomi og manglende validering ved langvarig sedasjon (Rasulo 2023, Taccone 2026). Taccone foreslår fire nivåer av tolkning, fra et enkelt varsel for sykepleiere til rå-EEG for nevrofysiolog, og sammenligner med ekkokardiografi som intensivleger lærte å bruke uten å være kardiologer.</li>
+   <li><strong>8. Kliniske eksempler:</strong> ensidig suppresjon som avslørte blodpropp hos en ECMO-pasient, reaktivitet ved besøk hos en komatøs pasient alfa-koma ved benzodiazepinforgiftning hos et barn og et flatt EEG ved herniering hos en pasient der burst suppression var målet, står lenger ned i fanen.</li>
   </ul>
-  <span class="tag">Watson et al. Crit Care Med 2008;36:3171–3177</span></div>
+  <span class="tag">Guay 2025 Part 2</span> <span class="tag">Rasulo 2023</span> <span class="tag">Taccone 2026</span> <span class="tag">Eskioglou 2021</span> <span class="tag">Sutter og Kaplan 2012</span> <span class="tag">Watson 2008</span></div>
 
-  <h3>Burst suppression: mekanismer, alder og delirium (Lobo og Lamperti, kap. 5)</h3>
+  <h3>Forvent et mønster: EEG-styrt håndtering av kritisk syke (Guay 2025 Part 2)</h3>
   <div class="card">
+  <p>Del 2 av oversikten fra Brown-gruppen (Anesthesiology 2025;143:1595–1618) gir et rammeverk for frontal EEG på intensiv, bygget på sammenligningen med EKG: periodiske utladninger ligner ekstrasystoler, anfall ligner ventrikkeltakykardi, og tegn på for lite oksygen til hjernen ligner ST-forandringer.</p>
   <ul>
-   <li><strong>Hva det er:</strong> vekslende perioder med nesten fraværende aktivitet og høyamplitude-bursts. Sees aldri i naturlig søvn. Burstene antas å speile korte perioder med thalamisk disinhibisjon.</li>
-   <li><strong>To foreslåtte mekanismer:</strong> kortikal hypereksitabilitet (ekstracellulært kalsium og refraktærperiode etter burst) og en metabolsk teori der fallende ATP åpner ATP-styrte kaliumkanaler.</li>
-   <li><strong>Hvem som får det lettest:</strong> risikoen øker med alder og ved svekket nevrologisk status. Hos eldre er mønsteret mindre tydelig: svakere bursts og grunnere, kortere suppresjon, noe som gjør det vanskeligere å oppdage hos de mest sårbare (fig. 5.2).</li>
-   <li><strong>Terskler:</strong> ketamin i høy dose gir vanligvis ikke burst suppression, men påvirker terskelen; opioider gir det ikke direkte, men smerte og nocisepsjon kan senke terskelen.</li>
-   <li><strong>Delirium:</strong> flere grupper har funnet en sammenheng, men ENGAGES var inkonklusiv og er kritisert for manglende standardisert analgesi og for ikke å ta hensyn til alder og kognitiv skrøpelighet. Se ENGAGES i Komponenter-fanen.</li>
+   <li><strong>Steg 1, forvent et mønster:</strong> ut fra alder, vitale parametere, sykdom, sedativa og nevrologisk undersøkelse. En frisk 40-åring på propofol 50 µg/kg/min som åpner øynene på tiltale, ventes å vise alfa–delta med innslag av beta og gamma når hun blir snakket til. En 78-åring med septisk sjokk på propofol 20 µg/kg/min som ikke reagerer, ventes å vise langsom-delta, burst suppression eller suppresjon.</li>
+   <li><strong>RASS og EEG:</strong> RASS −5 uten nevrologisk sykdom ventes å gi alfa–delta, langsom-delta eller burst suppression. RASS −4 til −1 gir typisk brå beta og gamma oppå langsom-delta når pasienten stimuleres. RASS 0 til +1 gir vedvarende beta og gamma, og RASS +2 til +4 gir mye bevegelses- og EMG-artefakt. Naturlig søvn kan også sees.</li>
+   <li><strong>Steg 2, signalkvalitet:</strong> lav impedans, god gelkontakt, ingen ledninger mot annet elektrisk utstyr, og elektrodene skiftes hver 24. time eller etter produsentens anbefaling. Amplitudeskalaen settes så lavt (følsomt) som mulig uten at toppene kuttes, og effektskalaen tilpasses det man ser etter. Hvilke skalaer som finnes, varierer mellom monitorer. Klinisk erfaring tilsier at en svært følsom skala, for eksempel 1 µV/mm, forstørrer sporet så mye at vanlig aktivitet kan se skarp og epileptiform ut og toppene kuttes. Velg derfor den følsomste skalaen der bølgene fortsatt vises hele, og bytt skala før du tolker noe som epileptiform aktivitet. Rå-EEG viser tilstanden nå, spektrogrammet viser trenden.</li>
+   <li><strong>Steg 3, når mønsteret ikke stemmer:</strong> mistanke om anfall gir fullt EEG, nevrolog og vurdering av antiepileptika og mer sedasjon. Uventet beta og gamma under dyp sedasjon eller relaksans gir mer sedasjon og/eller antinocisepsjon. Uventet lav aktivitet (skifte mot lavere frekvenser, bredbåndet effekttap, burst suppression) skal først vurderes som ubalanse mellom oksygentilførsel og -forbruk: hypoksemi, anemi og lav blodstrøm, samt hypotermi, hypoglykemi og alvorlig hyperkapni. Først deretter trappes sedasjonen ned. Vedvarer mønsteret uten sedasjon, skal primær nevrologisk sykdom utredes.</li>
+   <li><strong>Hvor ofte:</strong> det finnes ingen retningslinje. Som med blodtrykk og SpO₂ kan EEG vurderes hver gang man går inn til pasienten, oftere jo mer ustabil pasienten er.</li>
+   <li><strong>Kasuistikk 1:</strong> 39-åring med respirasjonssvikt i burst suppression på propofol 50 µg/kg/min uten tegn til oksygenmangel. Nedtrapping til 40 og så 20 µg/kg/min ga alfa–delta. To dager senere kom burst suppression hver gang MAP var under 70 mmHg, ved høyre hjertesvikt og stigende CVP, og forsvant med adrenalin.</li>
+   <li><strong>Kasuistikk 2:</strong> eldre pasient etter mitralklaff med fallende amplitude (fra 30–40 til 10–20 µV) før burst suppression, ved hjerteindeks 1,3. Etter mekanisk sirkulasjonsstøtte (hjerteindeks 2,7) kom aktiviteten tilbake. Dagen etter, i sedasjonspause, var hun fortsatt uresponsiv etter 4 timer, og frontal EEG viste trifasiske periodiske utladninger (10–15 per 10 sekunder). Fullt EEG bekreftet ikke-konvulsive anfall, som ble behandlet, og hun våknet uten utfall.</li>
+   <li><strong>Forbehold:</strong> en oversikt med kasuistikker fra én institusjon, ikke en utfallsstudie. Frontal EEG har begrenset sensitivitet for anfall og iskemi utenfor pannelappen. Brown oppgir patenter, royalties fra Masimo og medgrunnleggerskap i et selskap som utvikler styring av fysiologiske tilstander under anestesi. Brown og Guay har et felles patent, og Guay har fått reisestøtte fra Masimo.</li>
   </ul>
-  <span class="tag">Lobo og Lamperti 2025, kap. 5</span></div>
+  <span class="tag">Guay et al. Anesthesiology 2025;143:1595–1618</span></div>
+
+  <p class="note">Kortene om burst suppression er samlet i fanen <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button>.</p>
 
   <h3>Invasiv nevromonitorering på intensiv: ICP, PRx, PbtO2 og mikrodialyse (Lobo og Lamperti, kap. 12)</h3>
   <div class="card">
@@ -1451,9 +1482,9 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Autoregulering:</strong> PRx (korrelasjon ICP mot arterietrykk, −1 til +1) er det etablerte kontinuerlige målet, men TCD-hastighet, PbtO2 eller NIRS kan brukes i stedet for ICP til å regne ut en autoreguleringsindeks. Manglende autoregulering er oftere forbundet med dårlig utfall.</li>
    <li><strong>Oksygenering:</strong> SjvO2 normalt 55–75 %, både under 50 og over 75 er forbundet med dårlig utfall, men metoden er på vei ut. PbtO2 normalt 20–45 mmHg, under 15–20 regnes som iskemi, under 10 alvorlig iskemi; behandling styrt av ICP, CPP og PbtO2 over 20 var bedre enn ICP og CPP alene (Lin 2015, Spiotta 2010, Nangunoori 2012). NIRS normalt 60–75 %, men lav sensitivitet for isolert cerebral hypoperfusjon ved TBI og SAH, god som trendmonitor ved systemiske endringer (hjertekirurgi).</li>
    <li><strong>Kontinuerlig EEG på nevrointensiv:</strong> hos bevisstløse skal EEG brukes kontinuerlig for å oppdage ikke-konvulsive anfall, som er hyppige og gir ICP-stigning og metabolsk krise (Vespa 2007; ESICM-konsensus, Claassen 2013). Automatisk anfallsdeteksjon har mange falske positive og negative og kan ikke erstatte en EEG-trent nevrolog (Schramm 2017). Kapittelet nevner at pEEG-monitorer for anestesidybde bruker de samme frekvensene.</li>
-   <li><strong>EEG som prognose etter anoksi:</strong> burst suppression, alfa-koma og lavamplitudig delta kalles maligne mønstre forbundet med dårlig utfall, mens bevart EEG-reaktivitet taler for godt utfall. Setningen står uten referanse i kapittelet. Bilateralt fravær av N20 (SSEP etter medianusstimulering) er den mest pålitelige prediktoren for ikke å våkne etter anoksisk koma (Zandbergen 2006, Sandroni 2020). Merk at Forgacs 2020 og Jegarl 2026 (over) beskriver burst suppression etter hjertestans som et mønster som kan gå over til god bevissthet; kapittelet bruker begrepet uten å skille mellom spontan og legemiddelindusert burst suppression.</li>
+   <li><strong>EEG som prognose etter anoksi:</strong> burst suppression, alfa-koma og lavamplitudig delta kalles maligne mønstre forbundet med dårlig utfall, mens bevart EEG-reaktivitet taler for godt utfall. Setningen står uten referanse i kapittelet. Bilateralt fravær av N20 (SSEP etter medianusstimulering) er den mest pålitelige prediktoren for ikke å våkne etter anoksisk koma (Zandbergen 2006, Sandroni 2020). Merk at Forgacs 2020 og Jegarl 2026 (Burst suppression-fanen) beskriver burst suppression etter hjertestans som et mønster som kan gå over til god bevissthet; kapittelet bruker begrepet uten å skille mellom spontan og legemiddelindusert burst suppression.</li>
    <li><strong>Sedasjon ved TBI:</strong> midler med kort kontekstsensitiv halveringstid (propofol) for å muliggjøre daglig nevrologisk undersøkelse, med advarsel om propofolinfusjonssyndrom ved høye doser over flere dager (Cremer 2001). Barbiturater og benzodiazepiner har lang halveringstid og er mindre egnet; barbituratbehandling for refraktært ICP «under EEG-monitorering» står som punkt 8 i sjekklisten (boks 80.2), etter sedasjon, CSF-drenasje og osmoterapi. Høydose propofol, profylaktisk hyperventilasjon (PaCO2 under 30), steroider og terapeutisk hypotermi er på listen over tiltak som ikke anbefales. Ketamin regnes ikke lenger som kontraindisert hos intuberte og ventilerte TBI-pasienter (Kolenda 1997). Mål: PaO2 80–120 og PaCO2 35–38 mmHg.</li>
-   <li><strong>Status epilepticus:</strong> tredjelinje er midazolam- eller propofolinfusjon, eventuelt tiopental eller pentobarbital; ved superrefraktær status nevnes inhalasjonsanestetika og ketamin. Kontinuerlig EEG anbefales for å styre behandlingen og for å oppdage ikke-konvulsive anfall hos komatøse, og langvarig muskelrelaksasjon bør unngås fordi den maskerer anfall.</li>
+   <li><strong>Status epilepticus:</strong> tredjelinje er midazolam- eller propofolinfusjon, eventuelt tiopental eller pentobarbital; ved superrefraktær status nevnes inhalasjonsanestetika og ketamin. Kontinuerlig EEG anbefales for å styre behandlingen og for å oppdage ikke-konvulsive anfall hos komatøse, og langvarig muskelrelaksasjon bør unngås fordi den maskerer anfall. Se kortet om ketamin ved refraktær status epilepticus i Midler-fanen.</li>
    <li><strong>Multimodal monitorering:</strong> ICP, autoregulering, PbtO2, kontinuerlig EEG og mikrodialyse sammen for å individualisere behandlingen; kapittelet understreker at klinisk nevrofysiologi bare beskriver nåværende funksjon og ikke kan forutsi komplikasjoner.</li>
   </ul>
   <span class="tag">Miller's Anesthesia, 10. utg., kap. 80 (Ko og Engelhard)</span></div>
@@ -1685,55 +1716,6 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Taccone et al. Crit Care 2026;30:195</span></div>
 
-  <h3>Tid i burst suppression under koma og delirium etterpå (Andresen 2014)</h3>
-  <div class="card">
-  <p>Prospektiv observasjonskohort nestet i BRAIN-ICU (Crit Care Med 2014;42:2244–2251), Vanderbilt, medisinsk, kirurgisk og kardiovaskulær intensiv. 124 respiratorpasienter fikk kontinuerlig BIS i inntil 7 dager; 69 var komatøse (RASS −3 eller dypere) og våknet senere, og inngikk i analysen. RASS to ganger daglig, CAM-ICU to ganger daglig når ikke komatøs. Personalet var blindet for burst suppression med et deksel over monitoren. Ingen fikk relaksantia.</p>
-  <ul>
-   <li><strong>Hovedfunn:</strong> 42 av 69 (61 %) fikk delirium etter koma. De fleste hadde burst suppression, men kort: median 6,4 minutter (IKR 1–58). Justert for tid med BIS under 40 og en komponent av APACHE II og kumulative doser benzodiazepin, opioid og propofol under koma, ga mer tid i burst suppression høyere odds for delirium (OR 4,16, 95 % KI 1,27–13,62, p = 0,02) og senere opphør av delirium (HR 0,78, 95 % KI 0,53–0,98, p = 0,04).</li>
-   <li><strong>I praksis:</strong> ca. 1 time burst suppression (75-prosentilen) mot 1 minutt (25-prosentilen) ga fire ganger høyere odds for delirium og 22 % lavere sannsynlighet for at det gikk over i løpet av oppfølgingen.</li>
-   <li><strong>Hvordan tid ble regnet:</strong> BIS registrerte suppresjonsratio hvert minutt (andel av siste 63 sekunder som var isoelektrisk); snittet ble multiplisert med tid i koma. Minutter med lav signalkvalitet ble utelatt.</li>
-   <li><strong>Forfatternes tolkning:</strong> sedasjonsskalaer «mister nytten» når pasienten er komatøs, og pEEG kan vise den dypeste sedasjonen. Funnene støtter lettere sedasjonsstrategier, men forfatterne sier selv at ingen faste konklusjoner kan trekkes før større studier er gjort.</li>
-   <li><strong>Forbehold:</strong> lite utvalg (69), monitorering startet ikke alltid ved komastart, maks 7 dager, åtte pasienter ville falt ut med RASS −4 som komagrense, og ikke justert for hypoksi, hypotensjon, søvn eller diagnose. Watson oppgir forskningsstøtte fra Aspect; flere forfattere honorar fra Hospira og Orion.</li>
-  </ul>
-  <span class="tag">Andresen et al. Crit Care Med 2014;42:2244–2251</span></div>
-
-  <h3>EEG-suppresjon under kirurgi og delirium etterpå (Fritz 2016)</h3>
-  <div class="card">
-  <p>Observasjonsstudie fra Washington University (Anesth Analg 2016;122:234–242), delstudie av SATISFY-SOS-registeret. Dette er studien som siteres oftest for at burst suppression under anestesi henger sammen med delirium.</p>
-  <ul>
-   <li><strong>Pasienter:</strong> 727 voksne (gjennomsnitt 62 år, 63 % menn) til generell anestesi med planlagt intensivopphold, 86 % hjertekirurgi. Innledning med propofol, vedlikehold med inhalasjonsmiddel. Suppresjonsrate fra én BIS-kanal (Fp1–F7), registrert én gang i minuttet, summert til minutter med suppresjon. Hos 141 pasienter ble verdiene lest av fra skjermfoto hvert 5. minutt og interpolert. Delirium ble vurdert med CAM-ICU to ganger daglig dag 1–5 hos 619 pasienter.</li>
-   <li><strong>Funn:</strong> median suppresjon 4,5 minutter (IQR 0,7–17,4). 162 (26 %) fikk delirium, 73 % av dem hypoaktivt. Flere minutter i suppresjon ga høyere forekomst av delirium på tvers av kvartiler (p &lt; 0,0001), og sammenhengen holdt etter justering for alder, ASA, komorbiditet, kirurgitype, opioid, ketamin, transfusjon og endetidal konsentrasjon: OR 1,22 per log-enhet minutter suppresjon (99 % KI 1,06–1,40). Suppresjonstid predikerte delirium bedre enn tid med BIS under 20 (c-statistikk 0,62 mot 0,57), men begge er svake prediktorer alene.</li>
-   <li><strong>Hva som ga suppresjon:</strong> høyere endetidal konsentrasjon (OR 1,5 per 0,5 MAC) og lavere opioiddose (OR 0,5 per 1 morfinekvivalent/kg). Forfatterne kan ikke si om mindre opioid førte til mer suppresjon, eller om dypt anesteserte pasienter uten nocisepsjonstegn bare fikk mindre opioid.</li>
-   <li><strong>Tolkning, forfatternes to muligheter:</strong> enten for dyp anestesi som årsak, eller at suppresjon lettere oppstår hos pasienter med subklinisk hjernepatologi, slik at anestesi virker som en «nevral stresstest». Studien kan ikke skille de to; se Hogan 2020 og Jegarl 2026 under.</li>
-   <li><strong>Begrensninger:</strong> observasjonsstudie uten kausal slutning, delirium målt som del av rutine (lav sensitivitet), ingen preoperativ Barthel-måling, bare planlagte intensivpasienter, og mest hjertekirurgi. Nesten alle (548 av 619) hadde noe suppresjon, så sammenligningsgruppen uten suppresjon var liten (71). Ingen interessekonflikter oppgitt. Oppfølgeren ENGAGES (Wildes 2019) fra samme gruppe fant at EEG-styrt anestesi reduserte suppresjonstid uten å redusere delirium.</li>
-  </ul>
-  <span class="tag">Fritz et al. Anesth Analg 2016;122:234–242</span></div>
-
-  <h3>Burst suppression: god, dårlig eller likegyldig? Kontekst avgjør (Jegarl 2026)</h3>
-  <div class="card">
-  <p>Narrativ oversikt fra Weill Cornell (Anesth Analg 2026;142:1169–1179) som prøver å forklare hvorfor observasjonsstudier finner sammenheng mellom burst suppression og postoperativt delirium, mens de store randomiserte studiene ikke gjør det.</p>
-  <ul>
-   <li><strong>Definisjonene spriker:</strong> ACNS 2021 skiller attenuering (≥ 10 µV, men under 50 % av bakgrunnen) fra suppresjon (under 10 µV), krever at «burst-suppression» utgjør 50–99 % av registreringen, og at en burst varer ≥ 0,5 s med ≥ 4 faser. Anestesilitteraturen bruker begrepet løsere, kaller suppresjon «isoelektrisk», og måler med 1–4 frontale kanaler og en proprietær suppresjonsratio som underestimerer burst suppression sammenlignet med visuell tolkning. I én studie (41 pasienter) var visuelt bestemt suppresjonsvarighet knyttet til delirium (p = 0,039), men SR-basert varighet var det ikke (p = 0,275).</li>
-   <li><strong>Ching-modellen:</strong> en nevrofysiologisk-metabolsk modell der fallende ATP åpner ATP-styrte kaliumkanaler, hyperpolariserer nevronene og gir burst suppression ved ca. 50 % fall i ATP-produksjon, med suppresjonsvarighet proporsjonal med ATP-mangelen. Modellen forener dyp anestesi, hypoksi/iskemi, hypoglykemi (under 50 mg/dl), postiktal tilstand og hypotermi (CMRO2 faller ca. 6 % per °C, isoelektrisk ved 18–20 °C). Ketamin, dexmedetomidin og xenon gir ikke burst suppression.</li>
-   <li><strong>Studiene:</strong> ENGAGES (n = 1232) og ENGAGES-Canada (n = 1140) ga lavere MAC (0,69 mot 0,8 og 0,66 mot 0,8) og mindre burst suppression (7 mot 13 og 4 mot 12 minutter) i EEG-gruppen, men ingen forskjell i delirium (26,0 mot 23,0 % og 18,2 mot 18,1 %). Balanced (n = 655, BIS 50 mot 35) ga 17 mot 29 % delirium og lengre suppresjon hos de delirøse (7 mot 2 minutter), men med større doseseparasjon og ulik anestesifølsomhet mellom sentre. 27 friske frivillige med 3 timer isofluran ved 1,3 MAC: 93 % fikk burst suppression, ingen fikk delirium.</li>
-   <li><strong>Når burst suppression brukes med vilje:</strong> ved aneurismekirurgi med midlertidig klips er evidensen for barbituratindusert burst suppression blandet, og dyrestudier tyder på at beskyttelsen ikke krever burst suppression. Ved hypotermisk sirkulasjonsstans var temperatur under 12,5 °C og kjøling over 50 minutter de eneste sikre prediktorene for isoelektrisk EEG (bare 60 % var isoelektriske ved 18 °C), og hver grad over temperaturen der EEG ble kontinuerlig igjen ga RR 1,56 for nevrologisk skade.</li>
-   <li><strong>Beskyttende nedregulert tilstand:</strong> den malte skilpadden overlever måneder i anoksi med burst suppression-lignende EEG og 80 ganger høyere GABA. Forfatterne (via Schiff og Brown) foreslår en tilsvarende «protective down-regulated state» hos mennesker ved hjertestans og alvorlig covid-19, der forlenget bevisstløshet uten strukturell skade kan være beskyttelse. Hos 795 intuberte covid-pasienter økte tiden til gjenvunnet bevissthet fra 9 til 22 dager med graden av hypoksemi.</li>
-   <li><strong>Konklusjon:</strong> suppresjonsfasen ser lik ut uansett årsak, så forekomst og varighet alene kan ikke skille oversedasjon fra iskemi, hypotermi eller hypoglykemi. Burst-innholdet (intraburst-spektrum, preburst-aktivitet, romlig fordeling) kan være mer informativt. Uansett kan burst suppression begrenses ikke bare med dosen, men ved å heve blodtrykket, unngå hypotermi og sikre oksygenering.</li>
-   <li><strong>Forbehold:</strong> narrativ oversikt uten systematisk søk. Goldstein er medoppfinner på patenter for alkylfenoler mot nevropatisk smerte.</li>
-  </ul>
-  <span class="tag">Jegarl et al. Anesth Analg 2026;142:1169–1179</span></div>
-
-  <h3>Burst suppression med theta i burstene etter hjertestans: en recovery-markør? (Forgacs 2020)</h3>
-  <div class="card">
-  <p>Ann Neurol 2020;87:618–632 (Forgacs, Devinsky og Schiff). Tre pasienter som våknet fra koma etter hjertestans etter 17–37 dager og ble funksjonelt selvstendige, pluss en prospektiv kohort på 53 hjertestanspasienter der 17 hadde burst suppression på akutt EEG.</p>
-  <ul>
-   <li><strong>De tre:</strong> kort tid til ROSC (10–20 minutter), terapeutisk hypotermi til 33 °C, minimal kortikal skade på CT eller MR, bevart SSEP hos to. Øyeåpning kom 23–26 dager og kommandofølging 37–67 dager etter at all sedasjon var stanset, langt utover legemidlenes halveringstider. Alle hadde fremtredende burst suppression med en theta-topp (ca. 4–7 Hz) i burstene.</li>
-   <li><strong>Kohorten:</strong> av de 17 med burst suppression hadde 3 godt utfall (CPC 2) og 14 dårlig (13 døde). Alle tre med godt utfall hadde vedvarende theta-topp i burstene med økende toppfrekvens over tid. Hos de 14 med dårlig utfall var spektrene enten flate eller uten varige trekk (7), hadde bare forbigående theta eller fallende frekvens (5), eller en grunn topp rundt 4 Hz (2).</li>
-   <li><strong>Hypotesen:</strong> forlenget burst suppression kan speile svekket metabolisme i posthypoksiske nevroner som fortsatt er i live. Forfatterne foreslår å opprettholde ernæring og væske i observasjonsperioden og vurdere tidsavgrenset forsøk med amantadin, og minner om at behandlingsbegrensning etter hjertestans oftest skjer innen 5–7 dager, slik at litteraturen preges av selvoppfyllende profeti.</li>
-   <li><strong>Forbehold:</strong> tre kasuistikker og en liten kohort, analyse av burst-innhold krever fullt EEG og spektralanalyse, og ingen kausal test. Ingen interessekonflikter, NIH-finansiert.</li>
-  </ul>
-  <span class="tag">Forgacs, Devinsky og Schiff. Ann Neurol 2020;87:618–632</span></div>
-
   <h3>Klinisk eksempel: spektrogram som speil av systemisk perfusjon ved septisk sjokk (Fischer 2026)</h3>
   <div class="card">
   <p>Kasuistikk fra Clínica Universidad de los Andes, Chile (Rev Chil Anest 2026;55:234–238). Mann på 70 år uten komorbiditet, septisk sjokk med multiorgansvikt etter tarmperforasjon, APACHE II 29, SOFA 11, tre vasoaktive midler, høyvolum hemofiltrasjon. Avdelingen bruker frontalt 4-kanals pEEG med spektrogram (SedLine) rutinemessig hos alle med kontinuerlig sedasjon eller GCS under 8.</p>
@@ -1745,18 +1727,44 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Fischer et al. Rev Chil Anest 2026;55:234–238</span></div>
 
-  <h3>Er burst suppression årsak eller markør? Kausal analyse (Hogan 2020)</h3>
+  <h3>Klinisk eksempel: ensidig suppresjon hos ECMO-pasient avslørte blodpropp (delt tilfelle)</h3>
   <div class="card">
-  <p>Retrospektiv observasjonsstudie fra Massachusetts General Hospital (Neurocrit Care 2020;33:565–574): 471 respiratorpasienter fra sju intensivavdelinger (2014–2017) med kontinuerlig EEG i minst 18 timer, etter å ha utelukket anoksisk encefalopati etter hjertestans og tilsiktet burst suppression (høyt ICP, status epilepticus, relaksantia). Median alder 61 år, 27 % døde på sykehus, halvparten hadde utilsiktet burst suppression, og 63 % hadde strukturell hjerneskade. Forfatterne brukte prediksjonsmodeller og kausal inferens (kontrafaktisk «randomisert» sammenligning, mediering, E-verdier) på observasjonsdataene.</p>
+  <p>Ett tilfelle fra norsk klinisk praksis, delt med forfatteren av denne appen. Det er ikke publisert og ikke fagfellevurdert. Det er beskrevet ut fra ett skjermbilde av spektrogrammet over ca. 17 minutter og opplysninger fra den som delte det. Skjermbildet er ikke gjengitt i appen.</p>
   <ul>
-   <li><strong>Sykdomsgrad driver begge deler:</strong> å gå fra mild til alvorlig sykdom (10- mot 90-prosentil) ga 39 % (95 % KI 8–66) mer burst suppression-byrde og 35 % (29–41) høyere dødelighet.</li>
-   <li><strong>Burst suppression bidrar, men lite:</strong> 100 % mot 0 % burst suppression-byrde ga 12 % (7–17) høyere dødelighet, og burst suppression medierte 10 % (2–21) av effekten av kritisk sykdom på død.</li>
-   <li><strong>Propofol betyr mindre enn antatt:</strong> høy kumulativ dose (1316 mg/kg) mot lav (284 mg/kg) ga bare 6 % (0,8–12) mer burst suppression, og propofol hadde ingen direkte effekt på dødelighet; hele effekten gikk via burst suppression.</li>
-   <li><strong>Forfatternes tolkning:</strong> utilsiktet burst suppression er «primært en effekt av kritisk sykdom, ikke iatrogen propofolbruk», enten fordi sykdommen selv gir mønsteret (som ved sepsis) eller fordi den endrer hjernens følsomhet slik at vanlige doser gir burst suppression. Burst suppression blir dermed en markør for sårbarhet. Å unngå overdosering vil trolig ha liten effekt på dødelighet, men individuell titrering til laveste nødvendige dose kan fortsatt ha en beskjeden effekt.</li>
-   <li><strong>Mot Watson 2008:</strong> forfatterne mener forskjellen i effektstørrelse kan skyldes ulik metode og ulik populasjon, og at intensiv mot operasjonsstue kan være en effektmodifikator.</li>
-   <li><strong>Forbehold:</strong> seleksjon (kontinuerlig EEG tas ved mistanke om hjernedysfunksjon, derav 63 % hjerneskade), grov byrdeberegning i 8–12-timers vinduer, vilkårlig skille mellom mild og alvorlig sykdom, bare sykehusdødelighet, kumulativ dose uten tidsforløp, binære kliniske variabler, ingen justering for avdeling, og anfallsbyrde som uttalt mulig konfunder. Ingen interessekonflikter oppgitt. Kode er åpent tilgjengelig.</li>
+   <li><strong>Pasienten:</strong> intensivpasient med covid-19 på ECMO, sedert.</li>
+   <li><strong>Hva spektrogrammet viste:</strong> tydelig forskjell mellom hemisfærene. I det øverste panelet var aktiviteten nesten borte, avbrutt bare av korte, spredte utbrudd, altså et bilde som ligner burst suppression. I det nederste panelet var det sammenhengende aktivitet med effekt i delta og jevn, lav effekt opp mot 30 Hz.</li>
+   <li><strong>Forløpet:</strong> ifølge den som delte tilfellet var det en blodpropp i hjernen. Den viste seg ikke på andre måter enn i EEG, og pasienten ble sendt til intervensjon og ble frisk.</li>
+   <li><strong>Hvorfor det er lærerikt:</strong> hos en sedert pasient er den nevrologiske undersøkelsen sterkt begrenset, og et hjerneinfarkt kan bli oversett. Sedasjon virker på begge hemisfærer, så en markert ensidig suppresjon taler mot at sedasjonen alene er forklaringen. Det stemmer med det van Putten og Hofmeijer og Sheorajpanday 2009 beskriver: iskemi gir tap av aktivitet og asymmetri. Nycz 2022 viser en lignende asymmetri ved karotisstenose og lavt blodtrykk.</li>
+   <li><strong>Hva man bør gjøre (appens egen sammenstilling):</strong> ny eller økende asymmetri bør først sjekkes for tekniske årsaker som elektrodekontakt og impedans. Er signalet godt, bør det utløse klinisk vurdering og bildediagnostikk, ikke bare justering av sedasjonen.</li>
+   <li><strong>Forbehold:</strong> ett tilfelle, beskrevet ut fra ett skjermbilde. Det er ikke kjent hvilken side og hvilket kar som var rammet, eller hvilke legemidler og doser pasienten fikk. En frontal monitor dekker bare en liten del av hjernebarken og kan overse infarkter andre steder.</li>
   </ul>
-  <span class="tag">Hogan et al. Neurocrit Care 2020;33:565–574</span></div>
+  <span class="tag">Delt klinisk eksempel</span> <span class="tag">van Putten og Hofmeijer 2016, Sheorajpanday 2009, Nycz 2022</span></div>
+
+  <h3>Klinisk eksempel: komatøs pasient med bare delta reagerer når pårørende er på besøk (delt tilfelle)</h3>
+  <div class="card">
+  <p>Ett tilfelle fra norsk klinisk praksis, delt med forfatteren av denne appen. Det er ikke publisert og ikke fagfellevurdert. Det er beskrevet ut fra to skjermbilder av spektrogrammet og opplysninger fra den som delte det. Skjermbildene er ikke gjengitt i appen.</p>
+  <ul>
+   <li><strong>Pasienten:</strong> komatøs intensivpasient uten sedasjon, med et EEG som i lange perioder bare viste delta.</li>
+   <li><strong>Uten besøk:</strong> i det ene bildet (ca. 20 minutter) lå effekten i begge hemisfærer under ca. 4 Hz, og det var svært lite aktivitet over. Bildet var stabilt uten endringer.</li>
+   <li><strong>Med pårørende til stede:</strong> i det andre bildet økte effekten fra theta opp i beta, ca. 15–30 Hz, i begge hemisfærer i perioder, mens delta besto.</li>
+   <li><strong>Hva det kan bety:</strong> endring i frekvens eller amplitude når pasienten stimuleres, kalles EEG-reaktivitet. Sutter og Kaplan 2012 skriver at reaktiviteten skiller mellom komatilstander bedre enn selve mønsteret, og Miller's kap. 80 skriver at bevart reaktivitet er et tegn på godt utfall etter anoksisk hjerneskade. Hos tre pasienter som til slutt ble selvhjulpne etter langvarig koma etter hjertestans, kom reaktiviteten tilbake etter 3, 8 og 73 dager (Forgacs 2020). Dette tilfellet viser at stimulus i hverdagen, som stemmer og berøring fra pårørende, kan gi en reaksjon som synes på en frontal monitor.</li>
+   <li><strong>Hva man kan gjøre (appens egen sammenstilling):</strong> test reaktivitet bevisst, med tiltale, berøring og eventuelt smertestimulus, og noter tidspunktet slik at endringen kan finnes igjen i spektrogrammet. Gjenta testen over dager, siden reaktiviteten kan komme sent.</li>
+   <li><strong>Forbehold:</strong> økt beta kan også skyldes muskelaktivitet (EMG), bevegelse eller andre artefakter, så rå-EEG og EMG-indikatoren bør sjekkes. Formell vurdering av reaktivitet gjøres med standardiserte stimuli og fullt EEG. Ett tilfelle, og utfallet for pasienten er ikke kjent.</li>
+  </ul>
+  <span class="tag">Delt klinisk eksempel</span> <span class="tag">Sutter og Kaplan 2012, Miller's kap. 80, Forgacs 2020</span></div>
+
+  <h3>Klinisk eksempel: alfa-koma hos et bevisstløst barn viste seg å være benzodiazepinforgiftning (delt tilfelle)</h3>
+  <div class="card">
+  <p>Ett tilfelle fra norsk klinisk praksis, delt med forfatteren av denne appen. Det er ikke publisert og ikke fagfellevurdert. Det er beskrevet ut fra ett skjermbilde og opplysninger fra den som delte det. Skjermbildet er ikke gjengitt i appen.</p>
+  <ul>
+   <li><strong>Pasienten:</strong> et bevisstløst barn på 3 år. Det var først uklart hva som hadde skjedd.</li>
+   <li><strong>Hva EEG viste:</strong> et kraftig, sammenhengende bånd rundt 10–12 Hz i begge hemisfærer, sammen med delta, og lite aktivitet over ca. 20 Hz. Mønsteret var symmetrisk og stabilt gjennom ca. 20 minutter. Rå-EEG viste regelmessige, høyamplitudige bølger i alfa-området. Indeksen var 34.</li>
+   <li><strong>Forklaringen:</strong> det viste seg å være en overdose benzodiazepiner.</li>
+   <li><strong>Kobling til kildene:</strong> Sutter og Kaplan 2012 beskriver alfa-koma som alfa-aktivitet (8–13 Hz) hos en pasient som ikke kan vekkes. Ved forgiftning med blant annet barbiturater, benzodiazepiner og anestesimidler ligger alfa mest frontalt, reaktiviteten er som regel bevart, og opptil 90 % blir friske. Ved hypoksisk-iskemisk skade etter hjertestans er alfa mer diffust, reaktiviteten mangler som regel, og utfallet er oftest dårlig. Samme mønster kan altså bety svært ulike ting, avhengig av årsaken.</li>
+   <li><strong>Hvorfor det er lærerikt (appens egen sammenstilling):</strong> mønsteret ligner alfa–delta under anestesi med propofol eller sevofluran. Benzodiazepiner virker også på GABA<sub>A</sub>-reseptoren (se Midler-fanen), og barn har generelt kraftigere alfa under GABA-erg anestesi enn voksne (Lee 2017, Akeju 2015). Hos en bevisstløs pasient med ukjent årsak kan et slikt bilde derfor gi mistanke om et GABA-ergt middel. Diagnosen stilles likevel klinisk og med prøver, ikke ut fra EEG alene.</li>
+   <li><strong>Forbehold:</strong> ett tilfelle, beskrevet ut fra ett skjermbilde. Sutter og Kaplan omtaler i hovedsak voksne. Det er ikke kjent hvilket benzodiazepin, hvilken dose, om reaktivitet ble testet, eller hvordan det gikk med barnet.</li>
+  </ul>
+  <span class="tag">Delt klinisk eksempel</span> <span class="tag">Sutter og Kaplan 2012, Lee 2017, Akeju 2015</span></div>
 
 </section>
 <!-- ========== GRUNNLAG ========== -->
@@ -1940,17 +1948,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Sepúlveda et al. Acta Anaesthesiol Scand 2010;54:447–452; Coppens et al. Br J Anaesth 2010;104:452–458</span></div>
 
-  <h3>Etter burst suppression er hjernen ikke den samme: ikke-lineær farmakodynamikk (Sepúlveda 2026)</h3>
-  <div class="card">
-  <p>Prospektiv, ikke-randomisert dose–respons-studie fra Osorno (Anesth Analg 2026;143:261–270, NCT06417645): 23 friske pasienter under 60 år fikk langsom induksjon (10 mg/kg/t) til tap av respons, så Eleveld-TCI, remifentanil 4,5 ng/ml og rokuronium. Etter intubasjon ble propofol økt til 15 mg/kg/t til BIS viste 1 % suppresjonsrate («perturbasjon»), og deretter ble effektstedkonsentrasjonen satt tilbake til nivået ved tap av respons. Observert BIS ble sammenlignet med BIS predikert av Eleveld-modellen (TIVA Trainer), og EEG-spektrum og delta–alfa fase-amplitude-kobling ble analysert.</p>
-  <ul>
-   <li><strong>Før perturbasjonen:</strong> observert og predikert BIS var like (ikke signifikant forskjell).</li>
-   <li><strong>Etter perturbasjonen:</strong> med samme beregnede effektstedkonsentrasjon som før lå observert BIS konsekvent under predikert BIS (største bias −17,5 i fasen etter perturbasjonen), og forskjellen varte ut operasjonen. Alfa-effekt (absolutt og relativ) var lavere enn før, og delta–alfa-modulasjonen (Kmod) var sterkere (0,21 mot 0,16, p = 0,01), som forfatterne tolker som dypere thalamokortikal synkronisering. Samme konsentrasjon, dypere effekt.</li>
-   <li><strong>Langsom induksjon gir lavere Ce ved tap av respons:</strong> gjennomsnittlig 2,0 µg/ml, mot EC50 ca. 3 µg/ml i Eleveld-modellen for samme alder. Forfatterne mener modellene ble bygd på bolus- og hurtiginfusjonsdata uten plasma–effekt-likevekt («front-end»-kinetikk), og at ke0 er et matematisk grep for å kollapse hysteresesløyfen.</li>
-   <li><strong>Tolkning:</strong> hjernen under anestesi oppfører seg som et ikke-lineært system (samme dose gir ikke samme effekt, ingen retur til utgangspunktet). Lineære PK/PD-modeller kan derfor ikke forutsi effekten etter en forstyrrelse, enten den er eksperimentell (kort burst suppression) eller klinisk (blødning som krymper V1, endret infusjonshastighet). Konklusjonen er kontinuerlig EEG-monitorering, særlig hos sårbare pasienter. Forfatterne drøfter nocisepsjon som alternativ forklaring på lavere alfa (kirurgien var i gang etter perturbasjonen), men mener den sterkere delta–alfa-koblingen taler mot det.</li>
-   <li><strong>Forbehold:</strong> ingen kontrollgruppe uten perturbasjon, så tid alene kan ikke utelukkes; sirkularitet fordi «samme konsentrasjon» er definert av modellen som testes; ingen plasmamålinger; bare friske under 60; BIS-prediksjonen fra Eleveld er i seg selv omdiskutert (Coetzee 2024). Tallene i sammendraget og resultatdelen stemmer ikke overens (se avvik). Ingen interessekonflikter, offentlig finansiering (ANID).</li>
-  </ul>
-  <span class="tag">Sepúlveda, Barra, Baloian, Gutiérrez. Anesth Analg 2026;143:261–270</span></div>
+  <p class="note">Kortene om burst suppression er samlet i fanen <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button>.</p>
 
   <h3>Oppvåkning er ikke innledning baklengs: hysterese, nevral treghet og «reboot»</h3>
   <div class="card">
@@ -1960,7 +1958,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Dyrestudier, nervekjerner (Zhang og Wei 2025, oversikt):</strong> oreksinnevroner i laterale hypothalamus styrer oppvåkning, men ikke innledning (Kelz 2008: fjerning av oreksin forsinket oppvåkning uten å endre EC50 for tap av «righting»). Det samme gjelder serotonerge nevroner i dorsale raphe, dopaminerge i VTA, oreksinerge terminaler i basal forhjerne og locus coeruleus, PVT, laterale habenula og prefrontal cortex. Andre kjerner (PnO) styrer bare innledning. Hos pasienter stiger oreksin-A i plasma under oppvåkning, ikke under innledning. Forbehold: nesten bare hannmus og -rotter, mest isofluran, og bare 3 av studiene rapporterer EC50; mønstrene varierer mellom midler.</li>
    <li><strong>Oppvåkning kan induseres aktivt (Solt 2011, Anesthesiology):</strong> metylfenidat (dopamin- og noradrenalin-reopptakshemmer) hos rotter halverte tiden til oppvåkning (median 280 til 91 s) og gjenopprettet «righting» hos 11 av 12 dyr under <em>pågående</em> isofluran, med EEG-skifte fra delta til theta innen 30 sekunder og økt ventilasjon; droperidol (D2/α1-antagonist) blokkerte alt. Poenget for EEG: oppvåkning er en aktiv arousal-prosess fra hjernestamme og hypothalamus, ikke bare fravær av middel. Metylfenidat er ikke godkjent for dette hos mennesker.</li>
    <li><strong>Begrepene (Mashour 2022, Anesth Analg):</strong> våkenhet (arousal) og bevissthet (awareness) er ulike ting; respons er ikke det samme som bevissthet, og manglende respons ikke det samme som bevisstløshet («unresponsiveness ≠ unconsciousness», Sanders 2012). Mashour lister dyreforsøk der stimulering av thalamus, parabrachialkjernen, VTA, locus coeruleus, basal forhjerne eller prefrontal cortex reverserer anestesi, og nevner at gjenoppvåkning trolig går fra kaudale til rostrale strukturer. Interessekonflikt: konsulent for TRYP Therapeutics.</li>
-   <li><strong>Hva det betyr klinisk:</strong> (1) at EEG ikke går tilbake til utgangsmønsteret ved samme beregnede konsentrasjon etter burst suppression (Sepúlveda 2026, kortet over) er hysterese sett i EEG; (2) at oppvåkning fra sevofluran ofte går via et delta-dominert stadium (Hesse 2019, Miyasaka 2025) og at forløpet, ikke bare dosen, kan ha betydning for delirium; (3) at «alfa uten theta» eller lav dose ikke garanterer rask oppvåkning, fordi tregheten sitter i nettverket, ikke bare i konsentrasjonen. Hysterese hos mennesker er likevel omdiskutert: Kuizenga 2018 og Warnaby 2017 fant den ikke for propofol, mens Ferreira 2020, Nir 2019, Sepúlveda 2019 og Huang 2021 fant den.</li>
+   <li><strong>Hva det betyr klinisk:</strong> (1) at EEG ikke går tilbake til utgangsmønsteret ved samme beregnede konsentrasjon etter burst suppression (Sepúlveda 2026, Burst suppression-fanen) er hysterese sett i EEG; (2) at oppvåkning fra sevofluran ofte går via et delta-dominert stadium (Hesse 2019, Miyasaka 2025) og at forløpet, ikke bare dosen, kan ha betydning for delirium; (3) at «alfa uten theta» eller lav dose ikke garanterer rask oppvåkning, fordi tregheten sitter i nettverket, ikke bare i konsentrasjonen. Hysterese hos mennesker er likevel omdiskutert: Kuizenga 2018 og Warnaby 2017 fant den ikke for propofol, mens Ferreira 2020, Nir 2019, Sepúlveda 2019 og Huang 2021 fant den.</li>
   </ul>
   <span class="tag">Huang 2021, Zhang og Wei 2025, Solt 2011, Mashour 2022</span></div>
 
@@ -2268,6 +2266,20 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">van Putten og Hofmeijer 2016</span></div>
 
+  <div class="card"><h3>Bevissthet og den døende hjernen (Mashour 2024)</h3>
+  <p>Narrativ oversikt (Anesthesiology 2024;140:1221–1231; Mashour, Lee, Pal og Li) om nær-døden-opplevelser og EEG rundt hjertestans og død.</p>
+  <ul>
+   <li><strong>Forekomst:</strong> 10–20 % av dem som overlever hjertestans på sykehus, rapporterer nær-døden-opplevelser. I AWARE II hadde 21,4 % av 28 intervjuede en «transcendent recalled experience of death».</li>
+   <li><strong>Indeksene rett før døden:</strong> hos sju kritisk syke uten hjerneskade steg BIS- og SedLine-verdier til nivåer forenlig med bevissthet rett før døden, etter at livsforlengende behandling ble avsluttet. I en oppfølging hadde 13 av 28 (46 %) en slik økning, mens ingen av sju hjernedøde hadde det. Andre serier har ikke funnet dette.</li>
+   <li><strong>Hvorfor indeksene ikke kan tolkes som bevissthet:</strong> prosessert EEG skiller ikke uspesifikk aktivering (for eksempel glutamatfrigjøring når hypoksiske nevroner går til grunne) fra organisert aktivitet, skiller ikke våkenhet fra anfall, har bare frontale elektroder, og EMG er vanskelig å utelukke helt.</li>
+   <li><strong>Dyreforsøk:</strong> hos rotter kom en kortvarig økning i gamma og theta med økt kobling mellom hjernebarkområder innen 30 sekunder etter hjertestans. Ved kvelning økte frigjøringen av mange signalstoffer; serotonin steg over 20 ganger innen 2 minutter.</li>
+   <li><strong>Mennesker:</strong> hos 2 av 4 døende komatøse pasienter økte beta og gamma etter at respiratoren ble koblet fra. Begge hadde tidligere hatt anfall, så anfallsaktivitet kan ikke utelukkes. I en studie av 8 pasienter opphørte EEG median 78 sekunder før sirkulasjonsstans. Ingen av funnene er koblet til en faktisk opplevelse.</li>
+   <li><strong>Under HLR:</strong> i AWARE II ga SedLine tolkbart EEG hos 53 av 85 under pågående HLR, og nær normal aktivitet ble sett opptil 35–60 minutter inn i HLR. Detaljert analyse er ikke publisert.</li>
+   <li><strong>Isoelektrisk er ikke alltid endelig:</strong> i dyremodeller kan den isoelektriske fasen reverseres ved rask reoksygenering, og forfatterne utelukker ikke at opplevelser kan oppstå mens hjernen henter seg inn igjen.</li>
+   <li><strong>Relevans og forbehold:</strong> anestesipersonell deltar i HLR, organdonasjon og avslutning av behandling. Forfatterne avviser ikke-nevrobiologiske forklaringer. Finansiert av NIH, ingen interessekonflikter. Merk at kildens funn gjelder døende pasienter, ikke prognose hos dem som overlever.</li>
+  </ul>
+  <span class="tag">Mashour, Lee, Pal og Li. Anesthesiology 2024;140:1221–1231</span></div>
+
   <div class="card"><h3>Kvantitativ EEG, CBF og CPP (Foreman og Claassen 2012)</h3>
   <ul>
    <li><strong>Terskler:</strong> når CBF faller til ca. 25–35 ml/100 g/min, mister EEG først hurtige frekvenser. Ved ca. 17–18 øker langsomme frekvenser gradvis, og forfatterne kaller dette en avgjørende iskemisk terskel der nevronene begynner å miste transmembrane gradienter. Ved 10–12 ml/100 g/min og lavere blir EEG stille, og celleskaden er irreversibel.</li>
@@ -2364,16 +2376,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Eget klinisk eksempel; Guay 2025, Manquat 2022, Nycz 2022</span></div>
 
-  <div class="card"><h3>Klinisk eksempel: burst suppression ved blødning som går tilbake etter transfusjon (delt tilfelle)</h3>
-  <p>Ett tilfelle fra norsk klinisk praksis, delt med forfatteren av denne appen. Det er ikke publisert og ikke fagfellevurdert. Det er beskrevet ut fra to skjermbilder fra en frontal EEG-monitor tatt med ca. 20 minutters mellomrom. Skjermbildene er ikke gjengitt i appen.</p>
-  <ul>
-   <li><strong>Under blødningen:</strong> PSI lå først rundt 35–40 og falt så til 10. Suppresjonsraten (SR) var 44 %, EMG 0 % og artefakter 0 %, og kantfrekvensen (SEF) ble ikke beregnet. I spektrogrammet lå effekten mest under ca. 10–12 Hz uten tydelig alfa-bånd, og deretter kom stadig flere perioder med suppresjon i begge hemisfærer. Rå-EEG var nesten flatt og lavamplitudig. Elektrodeimpedansene var akseptable.</li>
-   <li><strong>Etter transfusjon:</strong> suppresjonsperiodene ble kortere og forsvant, og EEG ble sammenhengende igjen. PSI var 44, SR 0 % og SEF 15,8 Hz til venstre og 16,4 Hz til høyre. Rå-EEG viste høyamplitudige langsomme bølger med raskere aktivitet oppå, og spektrogrammet viste effekt fra langsom-delta opp mot ca. 15 Hz.</li>
-   <li><strong>Hvorfor det er lærerikt:</strong> bildet under blødningen ligner dyp anestesi: effekt mot lavere frekvenser, effekttap og så burst suppression. Guay 2025 beskriver at nedsatt oksygentilførsel til hjernen (CDO₂) gir nettopp dette mønsteret, og at anemiske pasienter tåler mindre fall i blodstrøm. CDO₂ avhenger av blodstrøm, hemoglobin og metning. Blødning kan senke både blodtrykk og hemoglobin, og transfusjon kan bedre begge. Georgii 2022 fant at burst suppression ofte gikk tilbake når MAP ble hevet til pasientens utgangsverdi.</li>
-   <li><strong>Det vi ikke vet ut fra bildene:</strong> blodtrykk, hemoglobin, temperatur, pasientens alder og om dosen av anestesimidlene ble endret. Det kan derfor ikke avgjøres om det var blodtrykket, hemoglobinet eller begge deler som betydde mest, eller om andre forhold bidro. Miller's kapittel 10 og Guay 2025 nevner hypotermi, hypoglykemi og overdosering av hypnotika som andre årsaker til samme mønster.</li>
-   <li><strong>Forbehold:</strong> ett tilfelle uten måling av CBF, NIRS eller Doppler. Poenget er ikke at EEG «beviser» hypoperfusjon, men at uventet suppresjon bør føre til at man leter etter årsaken, inkludert blødning og anemi, før dosen bare reduseres.</li>
-  </ul>
-  <span class="tag">Eget klinisk eksempel; Guay 2025, Georgii 2022, Miller's kap. 10</span></div>
+  <p class="note">Kortene om burst suppression er samlet i fanen <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button>.</p>
 
   <div class="card"><h3>Hemisfære-asymmetri på frontal EEG og blodtrykk (Nycz 2022, kasuistikk)</h3>
   <ul>
@@ -2386,29 +2389,6 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Sammenheng i appen:</strong> mønsteret stemmer med at iskemi først gir tap av hurtig aktivitet (Foreman og Claassen) og med asymmetri som tegn på hemisfærisk påvirkning (BSI, Sheorajpanday). Guay 2025 beskriver andre kasuistikker der trykk og minuttvolum påvirker frontal EEG. Alle er enkeltilfeller eller oversikter, ikke bevis.</li>
   </ul>
   <span class="tag">Nycz et al. Neurol Int 2022;14:1018–1023</span></div>
-
-  <div class="card"><h3>Hvorfor burst suppression? En nevrofysiologisk-metabolsk modell (Ching 2012)</h3>
-  <p>Beregningsmodell fra MGH, MIT og Boston University (PNAS 2012;109:3095–3100; Ching, Purdon, Vijayan, Kopell og Brown). Den prøver å forklare hvorfor anestesi, hypotermi, hypoksisk-iskemisk koma og tidlig infantil encefalopati (Ohtahara) gir samme EEG-mønster.</p>
-  <ul>
-   <li><strong>Idéen:</strong> fellesnevneren er redusert cerebral metabolisme. I modellen (10 pyramidecellenevroner og 4 interneuroner, Hodgkin-Huxley-type) kobles nevronenes fyring til ATP-produksjonen via ATP-styrte kaliumkanaler (K<sub>ATP</sub>). Når ATP-produksjonen settes ned, tømmes ATP under en burst, K<sub>ATP</sub>-kanalene åpner, cellene hyperpolariseres og blir stille; ATP bygges sakte opp igjen, og neste burst kan starte. 50 % av normal ATP-produksjon ga suppresjonsrate ca. 0,5, 30 % ga ca. 0,75; bursts og pauser varte 4–10 sekunder.</li>
-   <li><strong>Et kontinuum:</strong> burst suppression er ikke en egen tilstand, men en gradvis økende suppresjonsrate med dypere inaktivering, til slutt helt isoelektrisk EEG. Forfatterne viser et eksempel på gjenoppvarming etter nedkjøling til 18 °C der suppresjonsraten gradvis faller til EEG er sammenhengende igjen.</li>
-   <li><strong>Burstene bærer det gamle mønsteret:</strong> under propofol-indusert burst suppression lever alfa-rytmen videre inne i hver burst; spektrogrammet ser ut «som om det er ganget med en rekke av nuller og enere». Modellen forutsier at spektralinnholdet i en burst skal være det samme som like før burst suppression startet, uansett middel. Den forutsier også en langsom frekvensdrift inne i hver burst (ca. 11 til 8 Hz) og at hurtig aktivitet er begrenset av metabolismen, ikke av GABA-hemmingen; disse to er ikke bekreftet eksperimentelt.</li>
-   <li><strong>Hvorfor det er relevant for perfusjon:</strong> anestesimidler senker fyring og dermed CMRO₂ sekundært, mens hypotermi og iskemi senker metabolismen direkte uten å endre synapsene. Begge ender i samme K<sub>ATP</sub>-mekanisme. Det er grunnlaget for at suppresjon kan bety enten for mye middel eller for lite energi (Guay 2025, Georgii 2022). Ketamin, som øker CMRO₂, gir ikke klassisk burst suppression i kliniske doser.</li>
-   <li><strong>Forfatternes tolkning:</strong> hver burst er «et forsøk på å gjenopprette basal kortikal dynamikk», og suppresjon er en energisparende beskyttelse. Ved alvorlig iskemi kan selv fullstendig isoelektrisitet ikke bevare ATP, og skade følger. De foreslår at karakteren av burstene kan brukes til å oppdage iskemi under kirurgi og til å skille burst suppression fra anfall, og at forskjellen mellom lav suppresjonsrate og full isoelektrisitet bør avklares før man bruker «burst suppression» som mål ved nevroproteksjon.</li>
-   <li><strong>Begrensninger:</strong> en modell med 14–20 celler, uten romlig utstrekning, og K<sub>ATP</sub>-kanalen er en hypotese; andre kanaler og ekstracellulært kalsium (Kroeger og Amzica 2007) kan virke sammen. Modellen forklarer, men beviser ikke. Ingen interessekonflikter oppgitt.</li>
-  </ul>
-  <span class="tag">Ching et al. PNAS 2012;109:3095–3100</span></div>
-
-  <div class="card"><h3>Burst suppression og blodtrykk (Georgii 2022)</h3>
-  <ul>
-   <li><strong>Design:</strong> randomisert studie ved én klinikk. Pasienter ≥60 år, minst 60 minutters operasjon i narkose, uten nevropsykiatrisk sykdom. 104 ble analysert, og 68 hadde burst suppression ratio (BSR) over 0 (kontroll 32, intervensjon 36).</li>
-   <li><strong>Intervensjon:</strong> når BSR var over 0, ble MAP først hevet til pasientens baseline (lavest målte MAP før anestesi, hovedsakelig med katekolaminer). Hvis BSR fortsatt var positiv, ble anestesikonsentrasjonen redusert. Kontrollgruppen fikk standard anestesi med skjult EEG.</li>
-   <li><strong>Resultat:</strong> kumulativ BSR var 433 mot 1385 (p = 0,002), varighet 5,9 mot 10,1 minutter (p = 0,002) og maksimal BSR 35 mot 50 (p = 0,027). Effekten kom ved induksjon. Under vedlikehold var forskjellen ikke signifikant.</li>
-   <li>MAP ved starten av BSR-episodene var signifikant lavere enn baseline i begge grupper. Da MAP ble hevet til baseline (44 tilfeller), ble BSR redusert, og i 55 % (24 av 44) gikk den til 0 uten andre tiltak. Under vedlikehold skjedde det hos 7 av 11.</li>
-   <li><strong>Delirium:</strong> ingen fikk postoperativt delirium dag 1–3. 28 % fikk delirium på oppvåkningen, uten forskjell mellom gruppene.</li>
-   <li><strong>Forfatternes forbehold:</strong> studien beviser ikke årsakssammenheng mellom hypotensjon, hypoperfusjon og burst suppression. Prosessert BSR kan undervurdere suppresjon, og 57 % hadde maksimal state entropy på 80 eller mer. Utvalget er lite.</li>
-  </ul>
-  <span class="tag">Georgii et al. Front Syst Neurosci 2022;16:786816</span></div>
 
   <div class="card"><h3>Blodtrykksmål og delirium (Xu 2020)</h3>
   <ul>
@@ -2553,6 +2533,227 @@ header h1 button:hover{color:var(--accent)}
   <div class="note">Miller's kapittel 30 beskriver ikke EEG. EEG-delen over bygger på Lobo og Lamperti og studiene. Evidensen for EEG ved forhøyet ICP er sparsom (se kortet om ICP). Foreman og Claassen nevner at gjennomsnittsfrekvensen faller når CPP er under 60 mmHg. Kalmar målte verken ICP eller EEG.</div>
 </section>
 
+<!-- ========== BURST SUPPRESSION ========== -->
+<section class="panel" id="p-bs" hidden>
+  <h2>Burst suppression</h2>
+  <p>Alle kortene om burst suppression er samlet her: hva mønsteret er, når det er ønsket, når det ikke trengs, og hva det betyr for utfall.</p>
+  <div class="card"><h3>Når er burst suppression ønsket, og når er det ikke nødvendig?</h3>
+  <p>En sammenstilling av kortene i denne fanen. Kildene står ved hvert punkt.</p>
+  <ul>
+   <li><strong>Som bevisst valgt behandling:</strong> burst suppression induseres ved refraktær status epilepticus, høyt intrakranielt trykk og aneurismekirurgi med midlertidig klips for å senke metabolisme og ICP. Gruenbaum 2026 skriver at det bør være individuelt og tidsavgrenset, med samtidig oppmerksomhet på perfusjon, oksygenering og temperatur. Ved status epilepticus er det en del av tredjelinjebehandlingen (Intensiv-fanen).</li>
+   <li><strong>Er det nevrobeskyttende?</strong> Begrunnelsen bygger på at oksygenforbruk og blodstrøm faller samtidig. Gruenbaum 2026 påpeker at denne koblingen svekkes med alder, karsykdom og anestesi. Ved aneurismekirurgi er evidensen blandet, og dyrestudier tyder på at beskyttelsen ikke krever burst suppression (Jegarl 2026). Etter hjertestans beskriver Jegarl 2026 og Forgacs 2020 hypotesen om en beskyttende nedregulert tilstand.</li>
+   <li><strong>Ikke nødvendig for narkose:</strong> propofol gir burst suppression ved ca. 4,9 µg/ml, mens bevegelse ved snitt først hindres ved ca. 15 µg/ml (Pilge 2014). Bevisstløshet kommer ved langt lavere konsentrasjoner (Komponenter-fanen). Pilge-forfatterne skriver at et «stille sekund» er for dypt til klinisk anestesi, og Gruenbaum 2026 at overdreven demping av hjernebarken ikke gir ekstra beskyttelse mot awareness, men kan ha en kognitiv kostnad.</li>
+   <li><strong>Ikke nødvendig under sedasjon på intensiv:</strong> i Watson 2008 hadde ingen burst suppression som mål, og burst suppression var knyttet til høyere dødelighet (HR 2,04). I Andresen 2014 ga mer tid i burst suppression høyere odds for delirium (OR 4,16). Hogan 2020 fant at burst suppression mest er en markør for hvor syk pasienten er, men at titrering til laveste nødvendige dose kan ha en beskjeden effekt.</li>
+   <li><strong>Når det kommer uten at det er meningen:</strong> let etter årsaken før dosen økes eller godtas: blodtrykk, oksygenering, hemoglobin, glukose og temperatur (Gruenbaum 2026). I Georgii 2022 forsvant burst suppression i 55 % av tilfellene bare ved å heve MAP til pasientens utgangsverdi.</li>
+   <li><strong>Hvis det er målet, må det kontrolleres:</strong> et flatt EEG er ikke det samme som ønsket burst suppression (kasuistikken om herniering under). Ensidig suppresjon kan bety fokal iskemi eller teknisk feil (Gruenbaum 2026, ECMO-kasuistikken i Intensiv-fanen).</li>
+   <li><strong>Appens egen sammenstilling:</strong> kildene støtter at burst suppression kan ha en plass som bevisst valgt og tidsavgrenset behandling, men at det ikke trengs for bevisstløshet, amnesi eller immobilitet under narkose eller sedasjon. Utilsiktet burst suppression er et signal om å se etter årsaken, ikke et tegn på god anestesidybde.</li>
+  </ul>
+  </div>
+
+  <h2>Hva det er og hvorfor det oppstår</h2>
+
+  <h3>Burst suppression: mekanismer, alder og delirium (Lobo og Lamperti, kap. 5)</h3>
+  <div class="card">
+  <ul>
+   <li><strong>Hva det er:</strong> vekslende perioder med nesten fraværende aktivitet og høyamplitude-bursts. Sees aldri i naturlig søvn. Burstene antas å speile korte perioder med thalamisk disinhibisjon.</li>
+   <li><strong>To foreslåtte mekanismer:</strong> kortikal hypereksitabilitet (ekstracellulært kalsium og refraktærperiode etter burst) og en metabolsk teori der fallende ATP åpner ATP-styrte kaliumkanaler.</li>
+   <li><strong>Hvem som får det lettest:</strong> risikoen øker med alder og ved svekket nevrologisk status. Hos eldre er mønsteret mindre tydelig: svakere bursts og grunnere, kortere suppresjon, noe som gjør det vanskeligere å oppdage hos de mest sårbare (fig. 5.2).</li>
+   <li><strong>Terskler:</strong> ketamin i høy dose gir vanligvis ikke burst suppression, men påvirker terskelen; opioider gir det ikke direkte, men smerte og nocisepsjon kan senke terskelen.</li>
+   <li><strong>Delirium:</strong> flere grupper har funnet en sammenheng, men ENGAGES var inkonklusiv og er kritisert for manglende standardisert analgesi og for ikke å ta hensyn til alder og kognitiv skrøpelighet. Se ENGAGES i Komponenter-fanen.</li>
+  </ul>
+  <span class="tag">Lobo og Lamperti 2025, kap. 5</span></div>
+
+  <div class="card"><h3>Hvorfor burst suppression? En nevrofysiologisk-metabolsk modell (Ching 2012)</h3>
+  <p>Beregningsmodell fra MGH, MIT og Boston University (PNAS 2012;109:3095–3100; Ching, Purdon, Vijayan, Kopell og Brown). Den prøver å forklare hvorfor anestesi, hypotermi, hypoksisk-iskemisk koma og tidlig infantil encefalopati (Ohtahara) gir samme EEG-mønster.</p>
+  <ul>
+   <li><strong>Idéen:</strong> fellesnevneren er redusert cerebral metabolisme. I modellen (10 pyramidecellenevroner og 4 interneuroner, Hodgkin-Huxley-type) kobles nevronenes fyring til ATP-produksjonen via ATP-styrte kaliumkanaler (K<sub>ATP</sub>). Når ATP-produksjonen settes ned, tømmes ATP under en burst, K<sub>ATP</sub>-kanalene åpner, cellene hyperpolariseres og blir stille; ATP bygges sakte opp igjen, og neste burst kan starte. 50 % av normal ATP-produksjon ga suppresjonsrate ca. 0,5, 30 % ga ca. 0,75; bursts og pauser varte 4–10 sekunder.</li>
+   <li><strong>Et kontinuum:</strong> burst suppression er ikke en egen tilstand, men en gradvis økende suppresjonsrate med dypere inaktivering, til slutt helt isoelektrisk EEG. Forfatterne viser et eksempel på gjenoppvarming etter nedkjøling til 18 °C der suppresjonsraten gradvis faller til EEG er sammenhengende igjen.</li>
+   <li><strong>Burstene bærer det gamle mønsteret:</strong> under propofol-indusert burst suppression lever alfa-rytmen videre inne i hver burst; spektrogrammet ser ut «som om det er ganget med en rekke av nuller og enere». Modellen forutsier at spektralinnholdet i en burst skal være det samme som like før burst suppression startet, uansett middel. Den forutsier også en langsom frekvensdrift inne i hver burst (ca. 11 til 8 Hz) og at hurtig aktivitet er begrenset av metabolismen, ikke av GABA-hemmingen; disse to er ikke bekreftet eksperimentelt.</li>
+   <li><strong>Hvorfor det er relevant for perfusjon:</strong> anestesimidler senker fyring og dermed CMRO₂ sekundært, mens hypotermi og iskemi senker metabolismen direkte uten å endre synapsene. Begge ender i samme K<sub>ATP</sub>-mekanisme. Det er grunnlaget for at suppresjon kan bety enten for mye middel eller for lite energi (Guay 2025, Georgii 2022). Ketamin, som øker CMRO₂, gir ikke klassisk burst suppression i kliniske doser.</li>
+   <li><strong>Forfatternes tolkning:</strong> hver burst er «et forsøk på å gjenopprette basal kortikal dynamikk», og suppresjon er en energisparende beskyttelse. Ved alvorlig iskemi kan selv fullstendig isoelektrisitet ikke bevare ATP, og skade følger. De foreslår at karakteren av burstene kan brukes til å oppdage iskemi under kirurgi og til å skille burst suppression fra anfall, og at forskjellen mellom lav suppresjonsrate og full isoelektrisitet bør avklares før man bruker «burst suppression» som mål ved nevroproteksjon.</li>
+   <li><strong>Begrensninger:</strong> en modell med 14–20 celler, uten romlig utstrekning, og K<sub>ATP</sub>-kanalen er en hypotese; andre kanaler og ekstracellulært kalsium (Kroeger og Amzica 2007) kan virke sammen. Modellen forklarer, men beviser ikke. Ingen interessekonflikter oppgitt.</li>
+  </ul>
+  <span class="tag">Ching et al. PNAS 2012;109:3095–3100</span></div>
+
+  <h3>Burst suppression under anestesi: en klinisk fremgangsmåte i fire trinn (Gruenbaum 2026)</h3>
+  <div class="card">
+  <p>Narrativ oversikt (Br J Anaesth 2026;136:1843–1854; Gruenbaum, Safavynia og Bilotta). Forfatterne beskriver burst suppression som en kontekstavhengig markør for energibalansen i hjernebarken, verken som et behandlingsmål eller som et rent dosefenomen.</p>
+  <ul>
+   <li><strong>To prosesser:</strong> nedregulering fra anestesimidler (for høy dose, hypotermi) og metabolsk svikt ved for lite substrat eller oksygen (hypoglykemi, hypoksi, iskemi). Når ATP faller, åpner ATP-styrte kaliumkanaler og nevronene hyperpolariseres. Astrocyttene leverer laktat til nevronene, og dette fungerer dårligere med alder og karsykdom. Lav ATP kan også svekke blod-hjerne-barrieren og slippe inn betennelsesmediatorer; skademarkørene S100B og GFAP er knyttet til delirium. Ved alvorlig hypoperfusjon eller anoksisk skade kan EEG bli isoelektrisk.</li>
+   <li><strong>Hvem tåler det:</strong> burst suppression kan tåles hos unge og friske uten målbare følger, mens gjentatt eller vedvarende burst suppression hos sårbare oftere speiler oppbrukt reserve. Forfatterne mener betydningen avhenger mer av hjernens metabolske reserve enn av varigheten.</li>
+   <li><strong>Rå-EEG framfor indeks:</strong> BIS og PSI påvirkes av suppresjon først når den dominerer analysevinduet, så akseptable indeksverdier kan opptre samtidig med tydelig diskontinuitet. Automatisk deteksjon underestimerte varigheten sammenlignet med visuell skåring og bommet på burst suppression i ca. 14 % av tilfellene. I spektrogrammet gir burst suppression et «sjakkbrettmønster» med mørke vannrette striper. Elektrokauter og dårlig elektrodekontakt kan etterligne burst suppression: ekte bursts har organisert spektralinnhold, mens artefakter gir bredbåndede spisser.</li>
+   <li><strong>Tall:</strong> i en retrospektiv studie av over 38 000 voksne fikk nesten halvparten burst suppression, og både sannsynlighet og varighet økte med alder. Sevofluran gir burst suppression ved ca. 2,9 % (over 1 MAC), propofol ved ca. 4,9 µg/ml, mens det trengs over 15 µg/ml for å hindre bevegelse. Metaanalyser viser ca. 1,5 ganger høyere risiko for postoperativt delirium.</li>
+   <li><strong>Fire trinn:</strong> (1) bekreft på rå-EEG: elektrodekontakt og impedans, artefakter og laveste skala som viser kurven uten at den klippes. (2) Vurder symmetri: ensidig suppresjon kan bety fokal iskemi eller teknisk feil; hold dosen uendret og vurder perfusjon. (3) Ved symmetrisk suppresjon og høy dose: reduser med 0,1–0,2 MAC eller propofol med 10–20 %. (4) Vedvarer det ved lav dose: let etter hypotensjon, hypoksemi, anemi, hypoglykemi, hypotermi og hypokapni.</li>
+   <li><strong>Smerte og opioider:</strong> nocisepsjon kan gi beta- eller delta-arousal som feiltolkes som for lett hypnose, og mer hypnotikum øker da risikoen for burst suppression. Opioider kan avdekke eller forsterke burst suppression sammen med propofol eller gass.</li>
+   <li><strong>Forbehold:</strong> narrativ oversikt uten systematisk søk, med vekt på operasjon og ikke på hjertestans eller intensiv. Ingen interessekonflikter. Forfatterne oppgir at en språkmodell fra OpenAI ble brukt til språkvask. Safavynia er medforfatter både her og i Jegarl 2026.</li>
+  </ul>
+  <span class="tag">Gruenbaum, Safavynia og Bilotta. Br J Anaesth 2026;136:1843–1854</span></div>
+
+  <h2>Dose og alder</h2>
+
+  <div class="card"><h3>Burst suppression-MAC og CP50 (Pilge 2014)</h3>
+  <ul>
+   <li><strong>Hva det er:</strong> en studie som foreslår «stille sekund» (EEG-suppresjon i minst 1 sekund) som mål på anestesimiddelets virkning på hjernen, i stedet for bevegelse ved snitt (MAC, som mest speiler ryggmargen).</li>
+   <li><strong>Design:</strong> 55 ubehandlede ASA I–II-pasienter til elektiv kirurgi ble randomisert til sevofluran (16), isofluran (21) eller propofol (18). Konsentrasjonen ble holdt konstant i 15 minutter og EEG analysert i det 16. minuttet, og neste pasient fikk 10 % lavere konsentrasjon hvis suppresjon forekom og 10 % høyere hvis ikke (Dixons «opp og ned»-metode, seks uavhengige kryssingspar per gruppe). Verdiene ble beregnet med logistisk regresjon.</li>
+   <li><strong>Resultat:</strong> sevofluran 2,93 vol % (95 % KI 2,80–3,15), isofluran 1,51 vol % (1,45–1,60) og propofol 4,85 (KI 4,25–5,40; artikkelen oppgir «mg/ml», trolig mikrogram/ml). Det er over 1,4 ganger MAC for sevofluran (2,05 vol %), over 1,3 ganger MAC for isofluran (1,15 vol %) og under en tredjedel av propofolkonsentrasjonen som hindrer bevegelse ved snitt (15,2 µg/ml, fra Smith 1994).</li>
+   <li><strong>Forbehold:</strong> startkonsentrasjonene lå over populasjonsverdien, og forfatterne skriver at konfidensintervallene derfor kan være for brede, særlig for propofol. Utvalget er lite. Burst suppression kommer ikke ved ketamin, så målet kan ikke brukes for ketamin. Mønsteret er dessuten forskjellig mellom midler, og forfatterne skriver at et «stille sekund» er for dypt til klinisk anestesi.</li>
+   <li><strong>Hva artikkelen ikke sier:</strong> den oppgir ikke at fentanyl reduserer propofolkonsentrasjonen med ca. 80 %. Det tallet kommer fra Smith 1994 via Miller's.</li>
+   <li><strong>Interessekonflikter:</strong> ingen oppgitt. Finansiert av avdelingsmidler.</li>
+  </ul>
+  <span class="tag">Pilge et al. Br J Anaesth 2014;112:1067–1074</span></div>
+
+  <div class="card"><h3>Burstene blir svakere og mer uregelmessige med alder (Kratzer 2020)</h3>
+  <p>Retrospektiv analyse fra TU München og Columbia (Front Syst Neurosci 2020;14:599962) av den første bursten etter at burst suppression oppstod under propofolinduksjon. Dataene er fra Hesse 2019 (Atlanta), tatt opp med SedLine (Legacy) og analysert av et uavhengig universitetsmiljø.</p>
+  <ul>
+   <li><strong>Metode:</strong> 102 av 408 pasienter hadde en tydelig første burst etter et «stille sekund» (minst 1 s under 10 µV). Bare de første 1,5 sekundene av bursten ble analysert, slik at ulik varighet og dose ikke skulle påvirke resultatet. Median alder 56 år; 16 pasienter under 45 år (YOUNG) og en gruppe over 65 år (OLD). Fentanylekvivalenter var ikke forskjellige med alder.</li>
+   <li><strong>Funn:</strong> eldre hadde lavere absolutt effekt i 1–15 Hz og relativt mer effekt over 15 Hz inne i bursten. Absolutt alfa-effekt falt lineært med alder (AUC 0,86 for ung mot gammel), mens normalisert alfa ikke endret seg: det er amplituden, ikke arkitekturen, som forsvinner. Maksimal amplitude var 20,3 µV hos unge mot 13,1 µV hos eldre (AUC 0,84), bratteste stigning 1,22 mot 0,86 µV/ms, og permutasjonsentropien var høyere hos eldre (mer uregelmessig signal). Delanalyse av de 83 som fikk midazolam premedikasjon ga samme resultat.</li>
+   <li><strong>Hvorfor det betyr noe for monitoren:</strong> BIS, PSI og entropi oppdager burst suppression ved å lete etter suppresjon, det vil si EEG under en amplitudeterskel i en viss tid, ikke ved å gjenkjenne burstene. Når burstene hos eldre er lavere og flatere, kan de i seg selv falle under terskelen, og Muhlhofer 2017 viste at suppresjonsraten underestimerer suppresjon sammenlignet med visuell lesing. Forfatterne mener burst-informasjon bør brukes som plausibilitetskontroll, men da aldersjustert. Dette er mekanismen bak bilde 6 og 13 i bildequizen: hos eldre kan både normal EEG og bursts se «svake» ut.</li>
+   <li><strong>Sammenheng i appen:</strong> samme aldersendring som Purdon 2015 (BJA) og Kreuzer 2020 beskrev for vedlikehold uten burst suppression, og som Ching 2012 forutsier: spektralinnholdet i bursten speiler EEG like før suppresjonen startet. Obert 2024 (kortet over) viser at langsom induksjon kan unngå burst suppression hos eldre i utgangspunktet.</li>
+   <li><strong>Begrensninger:</strong> frontal EEG, bare propofol-induserte bursts (Fleischmann 2018 viste at middelet påvirker burstens form), ingen justering for komorbiditet, og midazolam-undergruppen hos eldre var liten. Finansiert av James S. McDonnell Foundation (García); ingen interessekonflikter oppgitt.</li>
+  </ul>
+  <span class="tag">Kratzer et al. Front Syst Neurosci 2020;14:599962</span></div>
+
+  <h3>Etter burst suppression er hjernen ikke den samme: ikke-lineær farmakodynamikk (Sepúlveda 2026)</h3>
+  <div class="card">
+  <p>Prospektiv, ikke-randomisert dose–respons-studie fra Osorno (Anesth Analg 2026;143:261–270, NCT06417645): 23 friske pasienter under 60 år fikk langsom induksjon (10 mg/kg/t) til tap av respons, så Eleveld-TCI, remifentanil 4,5 ng/ml og rokuronium. Etter intubasjon ble propofol økt til 15 mg/kg/t til BIS viste 1 % suppresjonsrate («perturbasjon»), og deretter ble effektstedkonsentrasjonen satt tilbake til nivået ved tap av respons. Observert BIS ble sammenlignet med BIS predikert av Eleveld-modellen (TIVA Trainer), og EEG-spektrum og delta–alfa fase-amplitude-kobling ble analysert.</p>
+  <ul>
+   <li><strong>Før perturbasjonen:</strong> observert og predikert BIS var like (ikke signifikant forskjell).</li>
+   <li><strong>Etter perturbasjonen:</strong> med samme beregnede effektstedkonsentrasjon som før lå observert BIS konsekvent under predikert BIS (største bias −17,5 i fasen etter perturbasjonen), og forskjellen varte ut operasjonen. Alfa-effekt (absolutt og relativ) var lavere enn før, og delta–alfa-modulasjonen (Kmod) var sterkere (0,21 mot 0,16, p = 0,01), som forfatterne tolker som dypere thalamokortikal synkronisering. Samme konsentrasjon, dypere effekt.</li>
+   <li><strong>Langsom induksjon gir lavere Ce ved tap av respons:</strong> gjennomsnittlig 2,0 µg/ml, mot EC50 ca. 3 µg/ml i Eleveld-modellen for samme alder. Forfatterne mener modellene ble bygd på bolus- og hurtiginfusjonsdata uten plasma–effekt-likevekt («front-end»-kinetikk), og at ke0 er et matematisk grep for å kollapse hysteresesløyfen.</li>
+   <li><strong>Tolkning:</strong> hjernen under anestesi oppfører seg som et ikke-lineært system (samme dose gir ikke samme effekt, ingen retur til utgangspunktet). Lineære PK/PD-modeller kan derfor ikke forutsi effekten etter en forstyrrelse, enten den er eksperimentell (kort burst suppression) eller klinisk (blødning som krymper V1, endret infusjonshastighet). Konklusjonen er kontinuerlig EEG-monitorering, særlig hos sårbare pasienter. Forfatterne drøfter nocisepsjon som alternativ forklaring på lavere alfa (kirurgien var i gang etter perturbasjonen), men mener den sterkere delta–alfa-koblingen taler mot det.</li>
+   <li><strong>Forbehold:</strong> ingen kontrollgruppe uten perturbasjon, så tid alene kan ikke utelukkes; sirkularitet fordi «samme konsentrasjon» er definert av modellen som testes; ingen plasmamålinger; bare friske under 60; BIS-prediksjonen fra Eleveld er i seg selv omdiskutert (Coetzee 2024). Tallene i sammendraget og resultatdelen stemmer ikke overens (se avvik). Ingen interessekonflikter, offentlig finansiering (ANID).</li>
+  </ul>
+  <span class="tag">Sepúlveda, Barra, Baloian, Gutiérrez. Anesth Analg 2026;143:261–270</span></div>
+
+  <h2>Burst suppression og utfall</h2>
+
+  <h3>EEG-suppresjon under kirurgi og delirium etterpå (Fritz 2016)</h3>
+  <div class="card">
+  <p>Observasjonsstudie fra Washington University (Anesth Analg 2016;122:234–242), delstudie av SATISFY-SOS-registeret. Dette er studien som siteres oftest for at burst suppression under anestesi henger sammen med delirium.</p>
+  <ul>
+   <li><strong>Pasienter:</strong> 727 voksne (gjennomsnitt 62 år, 63 % menn) til generell anestesi med planlagt intensivopphold, 86 % hjertekirurgi. Innledning med propofol, vedlikehold med inhalasjonsmiddel. Suppresjonsrate fra én BIS-kanal (Fp1–F7), registrert én gang i minuttet, summert til minutter med suppresjon. Hos 141 pasienter ble verdiene lest av fra skjermfoto hvert 5. minutt og interpolert. Delirium ble vurdert med CAM-ICU to ganger daglig dag 1–5 hos 619 pasienter.</li>
+   <li><strong>Funn:</strong> median suppresjon 4,5 minutter (IQR 0,7–17,4). 162 (26 %) fikk delirium, 73 % av dem hypoaktivt. Flere minutter i suppresjon ga høyere forekomst av delirium på tvers av kvartiler (p &lt; 0,0001), og sammenhengen holdt etter justering for alder, ASA, komorbiditet, kirurgitype, opioid, ketamin, transfusjon og endetidal konsentrasjon: OR 1,22 per log-enhet minutter suppresjon (99 % KI 1,06–1,40). Suppresjonstid predikerte delirium bedre enn tid med BIS under 20 (c-statistikk 0,62 mot 0,57), men begge er svake prediktorer alene.</li>
+   <li><strong>Hva som ga suppresjon:</strong> høyere endetidal konsentrasjon (OR 1,5 per 0,5 MAC) og lavere opioiddose (OR 0,5 per 1 morfinekvivalent/kg). Forfatterne kan ikke si om mindre opioid førte til mer suppresjon, eller om dypt anesteserte pasienter uten nocisepsjonstegn bare fikk mindre opioid.</li>
+   <li><strong>Tolkning, forfatternes to muligheter:</strong> enten for dyp anestesi som årsak, eller at suppresjon lettere oppstår hos pasienter med subklinisk hjernepatologi, slik at anestesi virker som en «nevral stresstest». Studien kan ikke skille de to; se Hogan 2020 og Jegarl 2026 under.</li>
+   <li><strong>Begrensninger:</strong> observasjonsstudie uten kausal slutning, delirium målt som del av rutine (lav sensitivitet), ingen preoperativ Barthel-måling, bare planlagte intensivpasienter, og mest hjertekirurgi. Nesten alle (548 av 619) hadde noe suppresjon, så sammenligningsgruppen uten suppresjon var liten (71). Ingen interessekonflikter oppgitt. Oppfølgeren ENGAGES (Wildes 2019) fra samme gruppe fant at EEG-styrt anestesi reduserte suppresjonstid uten å redusere delirium.</li>
+  </ul>
+  <span class="tag">Fritz et al. Anesth Analg 2016;122:234–242</span></div>
+
+  <h3>Burst suppression under sedasjon og dødelighet (Watson 2008)</h3>
+  <div class="card">
+  <p>Post hoc-analyse av en prospektiv kohort (Crit Care Med 2008;36:3171–3177) fra medisinsk intensiv ved Vanderbilt: 125 voksne respiratorpasienter uten kjent nevrologisk sykdom, APACHE II 27, 98 % fikk sedasjon (lorazepam, midazolam, diazepam, propofol, fentanyl, morfin), titrert etter Ramsay-skala. BIS (A1050, 2-kanals frontal) ble registrert 10–20 minutter daglig sammen med RASS og CAM-ICU. Burst suppression ble definert som BSR over 0.</p>
+  <ul>
+   <li><strong>Hvor vanlig:</strong> burst suppression hos 49 av 125 (39 %), og hos nesten halvparten av de komatøse (46 av 93). 54 % av episodene kom i de første 72 timene. Ingen hadde burst suppression som mål i journalen.</li>
+   <li><strong>Dødelighet:</strong> 59 % (29 av 49) døde innen 6 måneder mot 33 % (25 av 76) uten burst suppression. Justert for alder, komorbiditet, demens, APACHE II, SOFA, koma og delirium: HR 2,04 (95 % KI 1,12–3,70, p = 0,02). Intensivdødelighet 37 % mot 18 % og sykehusdødelighet 49 % mot 24 % var ikke signifikante hver for seg. Liggetid på sengepost etter intensiv var lengre (HR 1,84).</li>
+   <li><strong>Legemidler:</strong> lorazepam-dosen siste døgn var høyere før burst suppression (27,8 mot 7,5 mg/dag, p = 0,004). Propofol, morfin og fentanyl skilte ikke, og ingen av midlene skilte når dosen ble justert for vekt. Gruppene var like ved inklusjon.</li>
+   <li><strong>Forfatternes hovedpoeng:</strong> når pasienten først er uresponsiv, kan ingen sedasjonsskala fange at sedasjonen blir dypere. Burst suppression er et EEG-tegn på dyp sedasjon som kan leses uten EEG-kompetanse, og som trolig påvirkes mindre av encefalopati enn selve indeksverdien. De foreslår at pEEG bør evalueres ved siden av sedasjons- og deliriumskalaer.</li>
+   <li><strong>Feilkilder de beskriver:</strong> EMG kan gi falskt høy indeks hos intensivpasienter, mens lever- og nyreencefalopati gir langsommere, høyere amplitude-EEG som ligner sedasjon og kan gi falskt lav indeks.</li>
+   <li><strong>Forbehold:</strong> post hoc, hypotesegenererende, 125 pasienter, bare 10–20 minutter EEG daglig (burst suppression trolig underestimert), ja/nei-klassifisering uten varighet, og sensoren ble satt på rett før registrering, som kan ha stimulert pasienten. Aspect ga monitorer og delvis lønn til forskningssykepleier; Ely og Watson oppgir honorar eller støtte fra Aspect, Hospira, Pfizer og Lilly. Forfatterne advarer selv mot faste konklusjoner.</li>
+  </ul>
+  <span class="tag">Watson et al. Crit Care Med 2008;36:3171–3177</span></div>
+
+  <h3>Tid i burst suppression under koma og delirium etterpå (Andresen 2014)</h3>
+  <div class="card">
+  <p>Prospektiv observasjonskohort nestet i BRAIN-ICU (Crit Care Med 2014;42:2244–2251), Vanderbilt, medisinsk, kirurgisk og kardiovaskulær intensiv. 124 respiratorpasienter fikk kontinuerlig BIS i inntil 7 dager; 69 var komatøse (RASS −3 eller dypere) og våknet senere, og inngikk i analysen. RASS to ganger daglig, CAM-ICU to ganger daglig når ikke komatøs. Personalet var blindet for burst suppression med et deksel over monitoren. Ingen fikk relaksantia.</p>
+  <ul>
+   <li><strong>Hovedfunn:</strong> 42 av 69 (61 %) fikk delirium etter koma. De fleste hadde burst suppression, men kort: median 6,4 minutter (IKR 1–58). Justert for tid med BIS under 40 og en komponent av APACHE II og kumulative doser benzodiazepin, opioid og propofol under koma, ga mer tid i burst suppression høyere odds for delirium (OR 4,16, 95 % KI 1,27–13,62, p = 0,02) og senere opphør av delirium (HR 0,78, 95 % KI 0,53–0,98, p = 0,04).</li>
+   <li><strong>I praksis:</strong> ca. 1 time burst suppression (75-prosentilen) mot 1 minutt (25-prosentilen) ga fire ganger høyere odds for delirium og 22 % lavere sannsynlighet for at det gikk over i løpet av oppfølgingen.</li>
+   <li><strong>Hvordan tid ble regnet:</strong> BIS registrerte suppresjonsratio hvert minutt (andel av siste 63 sekunder som var isoelektrisk); snittet ble multiplisert med tid i koma. Minutter med lav signalkvalitet ble utelatt.</li>
+   <li><strong>Forfatternes tolkning:</strong> sedasjonsskalaer «mister nytten» når pasienten er komatøs, og pEEG kan vise den dypeste sedasjonen. Funnene støtter lettere sedasjonsstrategier, men forfatterne sier selv at ingen faste konklusjoner kan trekkes før større studier er gjort.</li>
+   <li><strong>Forbehold:</strong> lite utvalg (69), monitorering startet ikke alltid ved komastart, maks 7 dager, åtte pasienter ville falt ut med RASS −4 som komagrense, og ikke justert for hypoksi, hypotensjon, søvn eller diagnose. Watson oppgir forskningsstøtte fra Aspect; flere forfattere honorar fra Hospira og Orion.</li>
+  </ul>
+  <span class="tag">Andresen et al. Crit Care Med 2014;42:2244–2251</span></div>
+
+  <h3>Er burst suppression årsak eller markør? Kausal analyse (Hogan 2020)</h3>
+  <div class="card">
+  <p>Retrospektiv observasjonsstudie fra Massachusetts General Hospital (Neurocrit Care 2020;33:565–574): 471 respiratorpasienter fra sju intensivavdelinger (2014–2017) med kontinuerlig EEG i minst 18 timer, etter å ha utelukket anoksisk encefalopati etter hjertestans og tilsiktet burst suppression (høyt ICP, status epilepticus, relaksantia). Median alder 61 år, 27 % døde på sykehus, halvparten hadde utilsiktet burst suppression, og 63 % hadde strukturell hjerneskade. Forfatterne brukte prediksjonsmodeller og kausal inferens (kontrafaktisk «randomisert» sammenligning, mediering, E-verdier) på observasjonsdataene.</p>
+  <ul>
+   <li><strong>Sykdomsgrad driver begge deler:</strong> å gå fra mild til alvorlig sykdom (10- mot 90-prosentil) ga 39 % (95 % KI 8–66) mer burst suppression-byrde og 35 % (29–41) høyere dødelighet.</li>
+   <li><strong>Burst suppression bidrar, men lite:</strong> 100 % mot 0 % burst suppression-byrde ga 12 % (7–17) høyere dødelighet, og burst suppression medierte 10 % (2–21) av effekten av kritisk sykdom på død.</li>
+   <li><strong>Propofol betyr mindre enn antatt:</strong> høy kumulativ dose (1316 mg/kg) mot lav (284 mg/kg) ga bare 6 % (0,8–12) mer burst suppression, og propofol hadde ingen direkte effekt på dødelighet; hele effekten gikk via burst suppression.</li>
+   <li><strong>Forfatternes tolkning:</strong> utilsiktet burst suppression er «primært en effekt av kritisk sykdom, ikke iatrogen propofolbruk», enten fordi sykdommen selv gir mønsteret (som ved sepsis) eller fordi den endrer hjernens følsomhet slik at vanlige doser gir burst suppression. Burst suppression blir dermed en markør for sårbarhet. Å unngå overdosering vil trolig ha liten effekt på dødelighet, men individuell titrering til laveste nødvendige dose kan fortsatt ha en beskjeden effekt.</li>
+   <li><strong>Mot Watson 2008:</strong> forfatterne mener forskjellen i effektstørrelse kan skyldes ulik metode og ulik populasjon, og at intensiv mot operasjonsstue kan være en effektmodifikator.</li>
+   <li><strong>Forbehold:</strong> seleksjon (kontinuerlig EEG tas ved mistanke om hjernedysfunksjon, derav 63 % hjerneskade), grov byrdeberegning i 8–12-timers vinduer, vilkårlig skille mellom mild og alvorlig sykdom, bare sykehusdødelighet, kumulativ dose uten tidsforløp, binære kliniske variabler, ingen justering for avdeling, og anfallsbyrde som uttalt mulig konfunder. Ingen interessekonflikter oppgitt. Kode er åpent tilgjengelig.</li>
+  </ul>
+  <span class="tag">Hogan et al. Neurocrit Care 2020;33:565–574</span></div>
+
+  <h3>Burst suppression: god, dårlig eller likegyldig? Kontekst avgjør (Jegarl 2026)</h3>
+  <div class="card">
+  <p>Narrativ oversikt fra Weill Cornell (Anesth Analg 2026;142:1169–1179) som prøver å forklare hvorfor observasjonsstudier finner sammenheng mellom burst suppression og postoperativt delirium, mens de store randomiserte studiene ikke gjør det.</p>
+  <ul>
+   <li><strong>Definisjonene spriker:</strong> ACNS 2021 skiller attenuering (≥ 10 µV, men under 50 % av bakgrunnen) fra suppresjon (under 10 µV), krever at «burst-suppression» utgjør 50–99 % av registreringen, og at en burst varer ≥ 0,5 s med ≥ 4 faser. Anestesilitteraturen bruker begrepet løsere, kaller suppresjon «isoelektrisk», og måler med 1–4 frontale kanaler og en proprietær suppresjonsratio som underestimerer burst suppression sammenlignet med visuell tolkning. I én studie (41 pasienter) var visuelt bestemt suppresjonsvarighet knyttet til delirium (p = 0,039), men SR-basert varighet var det ikke (p = 0,275).</li>
+   <li><strong>Ching-modellen:</strong> en nevrofysiologisk-metabolsk modell der fallende ATP åpner ATP-styrte kaliumkanaler, hyperpolariserer nevronene og gir burst suppression ved ca. 50 % fall i ATP-produksjon, med suppresjonsvarighet proporsjonal med ATP-mangelen. Modellen forener dyp anestesi, hypoksi/iskemi, hypoglykemi (under 50 mg/dl), postiktal tilstand og hypotermi (CMRO2 faller ca. 6 % per °C, isoelektrisk ved 18–20 °C). Ketamin, dexmedetomidin og xenon gir ikke burst suppression.</li>
+   <li><strong>Studiene:</strong> ENGAGES (n = 1232) og ENGAGES-Canada (n = 1140) ga lavere MAC (0,69 mot 0,8 og 0,66 mot 0,8) og mindre burst suppression (7 mot 13 og 4 mot 12 minutter) i EEG-gruppen, men ingen forskjell i delirium (26,0 mot 23,0 % og 18,2 mot 18,1 %). Balanced (n = 655, BIS 50 mot 35) ga 17 mot 29 % delirium og lengre suppresjon hos de delirøse (7 mot 2 minutter), men med større doseseparasjon og ulik anestesifølsomhet mellom sentre. 27 friske frivillige med 3 timer isofluran ved 1,3 MAC: 93 % fikk burst suppression, ingen fikk delirium.</li>
+   <li><strong>Når burst suppression brukes med vilje:</strong> ved aneurismekirurgi med midlertidig klips er evidensen for barbituratindusert burst suppression blandet, og dyrestudier tyder på at beskyttelsen ikke krever burst suppression. Ved hypotermisk sirkulasjonsstans var temperatur under 12,5 °C og kjøling over 50 minutter de eneste sikre prediktorene for isoelektrisk EEG (bare 60 % var isoelektriske ved 18 °C), og hver grad over temperaturen der EEG ble kontinuerlig igjen ga RR 1,56 for nevrologisk skade.</li>
+   <li><strong>Beskyttende nedregulert tilstand:</strong> den malte skilpadden overlever måneder i anoksi med burst suppression-lignende EEG og 80 ganger høyere GABA. Forfatterne (via Schiff og Brown) foreslår en tilsvarende «protective down-regulated state» hos mennesker ved hjertestans og alvorlig covid-19, der forlenget bevisstløshet uten strukturell skade kan være beskyttelse. Hos 795 intuberte covid-pasienter økte tiden til gjenvunnet bevissthet fra 9 til 22 dager med graden av hypoksemi.</li>
+   <li><strong>Konklusjon:</strong> suppresjonsfasen ser lik ut uansett årsak, så forekomst og varighet alene kan ikke skille oversedasjon fra iskemi, hypotermi eller hypoglykemi. Burst-innholdet (intraburst-spektrum, preburst-aktivitet, romlig fordeling) kan være mer informativt. Uansett kan burst suppression begrenses ikke bare med dosen, men ved å heve blodtrykket, unngå hypotermi og sikre oksygenering.</li>
+   <li><strong>Forbehold:</strong> narrativ oversikt uten systematisk søk. Goldstein er medoppfinner på patenter for alkylfenoler mot nevropatisk smerte.</li>
+  </ul>
+  <span class="tag">Jegarl et al. Anesth Analg 2026;142:1169–1179</span></div>
+
+  <div class="card"><h3>Burst suppression og blodtrykk (Georgii 2022)</h3>
+  <ul>
+   <li><strong>Design:</strong> randomisert studie ved én klinikk. Pasienter ≥60 år, minst 60 minutters operasjon i narkose, uten nevropsykiatrisk sykdom. 104 ble analysert, og 68 hadde burst suppression ratio (BSR) over 0 (kontroll 32, intervensjon 36).</li>
+   <li><strong>Intervensjon:</strong> når BSR var over 0, ble MAP først hevet til pasientens baseline (lavest målte MAP før anestesi, hovedsakelig med katekolaminer). Hvis BSR fortsatt var positiv, ble anestesikonsentrasjonen redusert. Kontrollgruppen fikk standard anestesi med skjult EEG.</li>
+   <li><strong>Resultat:</strong> kumulativ BSR var 433 mot 1385 (p = 0,002), varighet 5,9 mot 10,1 minutter (p = 0,002) og maksimal BSR 35 mot 50 (p = 0,027). Effekten kom ved induksjon. Under vedlikehold var forskjellen ikke signifikant.</li>
+   <li>MAP ved starten av BSR-episodene var signifikant lavere enn baseline i begge grupper. Da MAP ble hevet til baseline (44 tilfeller), ble BSR redusert, og i 55 % (24 av 44) gikk den til 0 uten andre tiltak. Under vedlikehold skjedde det hos 7 av 11.</li>
+   <li><strong>Delirium:</strong> ingen fikk postoperativt delirium dag 1–3. 28 % fikk delirium på oppvåkningen, uten forskjell mellom gruppene.</li>
+   <li><strong>Forfatternes forbehold:</strong> studien beviser ikke årsakssammenheng mellom hypotensjon, hypoperfusjon og burst suppression. Prosessert BSR kan undervurdere suppresjon, og 57 % hadde maksimal state entropy på 80 eller mer. Utvalget er lite.</li>
+  </ul>
+  <span class="tag">Georgii et al. Front Syst Neurosci 2022;16:786816</span></div>
+
+  <h2>Etter hjertestans</h2>
+
+  <h3>Burst suppression med theta i burstene etter hjertestans: en recovery-markør? (Forgacs 2020)</h3>
+  <div class="card">
+  <p>Ann Neurol 2020;87:618–632 (Forgacs, Devinsky og Schiff). Tre pasienter som våknet fra koma etter hjertestans etter 17–37 dager og ble funksjonelt selvstendige, pluss en prospektiv kohort på 53 hjertestanspasienter der 17 hadde burst suppression på akutt EEG.</p>
+  <ul>
+   <li><strong>De tre:</strong> kort tid til ROSC (10–20 minutter), terapeutisk hypotermi til 33 °C, minimal kortikal skade på CT eller MR, bevart SSEP hos to. Øyeåpning kom 23–26 dager og kommandofølging 37–67 dager etter at all sedasjon var stanset, langt utover legemidlenes halveringstider. Alle hadde fremtredende burst suppression med en theta-topp (ca. 4–7 Hz) i burstene.</li>
+   <li><strong>Kohorten:</strong> av de 17 med burst suppression hadde 3 godt utfall (CPC 2) og 14 dårlig (13 døde). Alle tre med godt utfall hadde vedvarende theta-topp i burstene med økende toppfrekvens over tid. Hos de 14 med dårlig utfall var spektrene enten flate eller uten varige trekk (7), hadde bare forbigående theta eller fallende frekvens (5), eller en grunn topp rundt 4 Hz (2).</li>
+   <li><strong>Hypotesen:</strong> forlenget burst suppression kan speile svekket metabolisme i posthypoksiske nevroner som fortsatt er i live. Forfatterne foreslår å opprettholde ernæring og væske i observasjonsperioden og vurdere tidsavgrenset forsøk med amantadin, og minner om at behandlingsbegrensning etter hjertestans oftest skjer innen 5–7 dager, slik at litteraturen preges av selvoppfyllende profeti.</li>
+   <li><strong>Forbehold:</strong> tre kasuistikker og en liten kohort, analyse av burst-innhold krever fullt EEG og spektralanalyse, og ingen kausal test. Ingen interessekonflikter, NIH-finansiert.</li>
+  </ul>
+  <span class="tag">Forgacs, Devinsky og Schiff. Ann Neurol 2020;87:618–632</span></div>
+
+  <h3>Klinisk eksempel: ung pasient med langvarig burst suppression etter hjertestans som våknet med god hjernefunksjon (delt tilfelle)</h3>
+  <div class="card">
+  <p>Delt med forfatteren av denne appen. Ung pasient med kort anoksitid etter hjertestans. EEG viste langvarig burst suppression uten andre kriterier for dårlig prognose. Pasienten overlevde med god hjernefunksjon.</p>
+  <ul>
+   <li><strong>Hva kildene sier om formen:</strong> van Putten og Hofmeijer 2016 (Perfusjon-fanen) regner burst suppression med identiske bursts etter 24 timer som tegn på dårlig prognose, men skiller det fra burst suppression der burstene varierer og kommer og går gradvis. Ordet «burst suppression» er altså ikke nok alene; hvordan burstene ser ut, betyr noe.</li>
+   <li><strong>Forgacs 2020 (over):</strong> de tre som våknet sent og ble selvstendige, hadde kort tid til ROSC (10–20 minutter), lite kortikal skade på bildediagnostikk og fremtredende burst suppression med theta i burstene. Jegarl 2026 beskriver hypotesen om en «beskyttende nedregulert tilstand».</li>
+   <li><strong>Gruenbaum 2026:</strong> burst suppression kan tåles hos unge og friske, og betydningen avhenger av hjernens metabolske reserve.</li>
+   <li><strong>Appens egen sammenstilling:</strong> tilfellet passer med profilen i Forgacs 2020: ung pasient, kort anoksitid og ingen andre tegn på alvorlig skade. Om burstene inneholdt theta, er ikke kjent. Tilfellet illustrerer at burst suppression alene ikke bør leses som dårlig prognose, og at prognosevurdering bør bygge på flere kriterier over tid.</li>
+   <li><strong>Forbehold:</strong> ett tilfelle. Sedasjon, tidspunkt for EEG og burstenes form er ikke beskrevet her.</li>
+  </ul>
+  <span class="tag">Delt tilfelle</span></div>
+
+  <h2>Kliniske eksempler</h2>
+
+  <div class="card"><h3>Klinisk eksempel: burst suppression ved blødning som går tilbake etter transfusjon (delt tilfelle)</h3>
+  <p>Ett tilfelle fra norsk klinisk praksis, delt med forfatteren av denne appen. Det er ikke publisert og ikke fagfellevurdert. Det er beskrevet ut fra to skjermbilder fra en frontal EEG-monitor tatt med ca. 20 minutters mellomrom. Skjermbildene er ikke gjengitt i appen.</p>
+  <ul>
+   <li><strong>Under blødningen:</strong> PSI lå først rundt 35–40 og falt så til 10. Suppresjonsraten (SR) var 44 %, EMG 0 % og artefakter 0 %, og kantfrekvensen (SEF) ble ikke beregnet. I spektrogrammet lå effekten mest under ca. 10–12 Hz uten tydelig alfa-bånd, og deretter kom stadig flere perioder med suppresjon i begge hemisfærer. Rå-EEG var nesten flatt og lavamplitudig. Elektrodeimpedansene var akseptable.</li>
+   <li><strong>Etter transfusjon:</strong> suppresjonsperiodene ble kortere og forsvant, og EEG ble sammenhengende igjen. PSI var 44, SR 0 % og SEF 15,8 Hz til venstre og 16,4 Hz til høyre. Rå-EEG viste høyamplitudige langsomme bølger med raskere aktivitet oppå, og spektrogrammet viste effekt fra langsom-delta opp mot ca. 15 Hz.</li>
+   <li><strong>Hvorfor det er lærerikt:</strong> bildet under blødningen ligner dyp anestesi: effekt mot lavere frekvenser, effekttap og så burst suppression. Guay 2025 beskriver at nedsatt oksygentilførsel til hjernen (CDO₂) gir nettopp dette mønsteret, og at anemiske pasienter tåler mindre fall i blodstrøm. CDO₂ avhenger av blodstrøm, hemoglobin og metning. Blødning kan senke både blodtrykk og hemoglobin, og transfusjon kan bedre begge. Georgii 2022 fant at burst suppression ofte gikk tilbake når MAP ble hevet til pasientens utgangsverdi.</li>
+   <li><strong>Det vi ikke vet ut fra bildene:</strong> blodtrykk, hemoglobin, temperatur, pasientens alder og om dosen av anestesimidlene ble endret. Det kan derfor ikke avgjøres om det var blodtrykket, hemoglobinet eller begge deler som betydde mest, eller om andre forhold bidro. Miller's kapittel 10 og Guay 2025 nevner hypotermi, hypoglykemi og overdosering av hypnotika som andre årsaker til samme mønster.</li>
+   <li><strong>Forbehold:</strong> ett tilfelle uten måling av CBF, NIRS eller Doppler. Poenget er ikke at EEG «beviser» hypoperfusjon, men at uventet suppresjon bør føre til at man leter etter årsaken, inkludert blødning og anemi, før dosen bare reduseres.</li>
+  </ul>
+  <span class="tag">Eget klinisk eksempel; Guay 2025, Georgii 2022, Miller's kap. 10</span></div>
+
+  <h3>Klinisk eksempel: ønsket burst suppression, men EEG var flatt på grunn av herniering (delt tilfelle)</h3>
+  <div class="card">
+  <p>Ett tilfelle fra norsk klinisk praksis, delt med forfatteren av denne appen. Det er ikke publisert og ikke fagfellevurdert, og det er beskrevet ut fra muntlige opplysninger.</p>
+  <ul>
+   <li><strong>Forløpet:</strong> en nevrokirurgisk pasient ble overført fra et annet sykehus, uten at komplikasjoner var ventet. Målet var burst suppression. Da EEG ble koblet til, var det helt flatt, og det viste seg å skyldes herniering.</li>
+   <li><strong>Hvorfor det er lærerikt:</strong> når EEG kobles til først etter at pasienten er dypt sedert, finnes det ingen utgangsverdi å sammenligne med. Et flatt EEG kan da skyldes legemidlene, men også en hjerne som har sluttet å fungere. Guay 2025 skriver at mønstre som vedvarer uten sedasjon skal utredes som primær nevrologisk sykdom. Elektrocerebral inaktivitet er definert som 2 µV eller lavere, mens suppresjonen i burst suppression er under 10 µV. Alsallom 2022 beskriver to pasienter med herniering der økt lavfrekvent effekt og asymmetri i spektrogrammet kom omtrent en time før klinisk forverring.</li>
+   <li><strong>Hva kildene sier om oppstart:</strong> Rasulo 2023 anbefaler å starte prosessert EEG så tidlig som mulig og måle kontinuerlig hos pasienter som trenger dyp sedasjon, og burst suppression skal bare brukes for å kontrollere høyt intrakranielt trykk. Om tidligere EEG ville endret forløpet for denne pasienten, kan ikke ett tilfelle si noe om.</li>
+   <li><strong>Hva det kan bety i praksis (appens egen sammenstilling):</strong> EEG fra ankomst, helst før dyp sedasjon, gir en utgangsverdi og gjør det mulig å se når mønsteret endrer seg. Skal burst suppression være målet, bør man vite at hjernen kan lage burst før man titrerer mot det. Et uventet flatt EEG skal ikke tolkes som at målet er nådd.</li>
+   <li><strong>Forbehold:</strong> ett tilfelle uten skjermbilder. Det er ikke kjent hvilken diagnose, hvilke legemidler eller hvilket tidsforløp det gjaldt. Frontal EEG ser bare en del av hjernebarken.</li>
+  </ul>
+  <span class="tag">Delt klinisk eksempel</span> <span class="tag">Guay 2025, Rasulo 2023, Alsallom 2022</span></div>
+
+</section>
+
 <section class="panel" id="p-quiz" hidden>
   <h2>Quiz</h2>
   <p class="small">Velg tema, eller ta alle. Rekkefølgen er fast, så du kan fortsette der du slapp.</p>
@@ -2647,6 +2848,10 @@ header h1 button:hover{color:var(--accent)}
     <li><strong>Grensene for frekvensbåndene:</strong> Gruenbaum og García (Lobo og Lamperti kap. 5) oppgir alfa 8–12 Hz (utvidet alfa 7–17 Hz), beta 15–30 Hz og gamma over 30 Hz, i teksten 30–80 Hz. Simulatoren i appen bruker alfa 8–13 Hz og beta 13–25 Hz, og García 2021 bruker 12–25 Hz for beta-arousal. Kildene bruker altså ulike grenser, og et mønster kan havne i ulike bånd avhengig av hvilken definisjon som brukes.</li>
     <li><strong>Propofolkonsentrasjon som hindrer bevegelse ved snitt (Aitkenhead kap. 3 mot Miller's kap. 21 og 36):</strong> Aitkenhead oppgir at målkonsentrasjonen med TCI som hindret bevegelse ved snitt hos halvparten av kvinnelige pasienter, var 6 µg/ml med oksygen og 4,5 µg/ml med 67 % lystgass. Miller's oppgir 15–16 µg/ml for propofol alene (Smith 1994). Forskjellen kan skyldes ulike pasientgrupper og at TCI-målet er en predikert, ikke målt, konsentrasjon (Aitkenhead skriver selv at faktisk konsentrasjon kan avvike mer enn 50 %), men Aitkenhead oppgir ikke kilde for tallet. Aitkenhead er dessuten en eldre lærebok (5. utg. 2007), mens Miller's 10. utg. er langt nyere, så der de to er uenige, bør Miller's og nyere studier veie tyngst.</li>
     <li><strong>MAC for sevofluran:</strong> Aitkenhead (kap. 2) oppgir 1,7–2 % hos voksne og 1,48 % hos eldre, Morgan og Mikhail ca. 2,0 % for 30–55-åringer, og Pilge 2014 bruker 2,05 %.</li>
+    <li><strong>Delirium og EEG-bremsing (Guay 2025 mot Eskioglou 2021):</strong> Guay 2025 knytter hypoaktivt delirium til langsom-delta og skriver at effekten flytter seg mot høyere frekvenser når deliriet går tilbake. I Eskioglou 2021 (91 respiratorpasienter) skilte dominerende frekvens ikke mellom delirøse og ikke-delirøse, fordi theta var vanlig hos ca. 70 % i begge grupper. Burst suppression, rytmiske eller periodiske mønstre og anfall skilte derimot. Forskjellen kan skyldes ulike populasjoner, ulik sedasjon og at Eskioglou målte når deliriet allerede forelå.</li>
+    <li><strong>Hvor godt virker ketamin ved refraktær status? (Espinosa 2023 mot Gaspard 2013):</strong> Espinosa 2023 fant full anfallskontroll hos 63 % i 19 kasuistikker, mens Gaspard 2013 bare kunne tilskrive ketamin sannsynlig effekt i 12 % og mulig effekt i 20 % av 60 episoder. Appens egen sammenstilling: kasuistikker publiseres oftere når behandlingen virker, og i Gaspard fikk alle andre midler samtidig, så tallene måler ikke det samme.</li>
+    <li><strong>Burst suppression som varselsignal eller beskyttelse (Gruenbaum 2026 mot Jegarl 2026 og Forgacs 2020):</strong> Gruenbaum 2026 mener burst suppression under rutineanestesi bør ses som et rødt flagg for redusert reserve, ikke som et mål. Jegarl 2026 og Forgacs 2020 beskriver hypotesen om en beskyttende nedregulert tilstand etter hjertestans. Safavynia er medforfatter av begge oversiktene. Appens egen sammenstilling: forskjellen gjenspeiler trolig ulik kontekst (operasjon mot hypoksisk hjerneskade) mer enn motstridende funn.</li>
+    <li><strong>Propofol + midazolam: synergi eller additivt? (Hendrickx 2008 og kap. 21 mot kap. 16):</strong> Hendrickx 2008 gjengir tre studier som fant synergi for hypnose (Short og Chui 1991, McClune 1992, Short 1992), og kapittel 21 skriver at midazolam ofte virker synergistisk med andre hypnotika. Kapittel 16 kaller interaksjonen «primarily additive» og viser til Fidler 2006 og Vinik 1994. Forskjellen kan skyldes modell og endepunkt, men kildene forklarer den ikke.</li>
     <li><strong>Midazolam og beta (Brandt 2020 mot Purdon 2015):</strong> Brandt 2020 skriver at midazolam i sedative doser er forbundet med beta-oscillasjoner, og viser blant annet til Purdon 2015 Part I. Purdon 2015 nevner benzodiazepiner bare i forbifarten og beskriver ingen beta-signatur for midazolam. Den andre kilden Brandt viser til (Brown 2011), er ikke kontrollert.</li>
     <li><strong>Dexmedetomidin, spindler og dybde (Purdon 2015 mot Huupponen 2008):</strong> Purdon 2015 beskriver at spindlene forsvinner og langsom-delta øker når infusjonen økes (0,65 mot 0,85 µg/kg/t, to enkeltpasienter), et bilde som ligner NREM 3. Huupponen 2008 beskrev EEG under dyp sedasjon (målt 5,1 ng/ml) som NREM 2 med mange spindler, hos elleve frivillige som kunne vekkes. Dosene er oppgitt på ulik måte (infusjonshastighet mot plasmakonsentrasjon) og kan ikke sammenlignes direkte. Huupponen brukte én frontal kanal og en annen monitor.</li>
     <li><strong>Dexmedetomidin og vekkbarhet (Ebert 2000 i kap. 21 mot Huupponen 2008):</strong> kapittel 21 oppgir at ikke-vekkbar dyp sedasjon antas å inntre over ca. 1,9 ng/ml. Huupponen 2008 skriver at deltakerne i en tidligere studie fra samme gruppe kunne vekkes med tiltale og eventuelt lett risting ved målt 5,1 ng/ml. Forskjellen kan skyldes ulik definisjon av vekkbarhet og ulik stimulus, men kildene diskuterer det ikke.</li>
@@ -2729,12 +2934,13 @@ header h1 button:hover{color:var(--accent)}
 </div>
 
 <nav aria-label="Hovedmeny">
-  <button class="tab" data-panel="p-basis" aria-selected="false">Grunnlag</button>
-  <button class="tab" data-panel="p-comp" aria-selected="false">Komponenter</button>
-  <button class="tab" data-panel="p-spec" aria-selected="false">Spektrogram</button>
+  <button class="tab" data-panel="p-basis" aria-selected="false">Grunn&shy;lag</button>
+  <button class="tab" data-panel="p-comp" aria-selected="false">Kompo&shy;nenter</button>
+  <button class="tab" data-panel="p-spec" aria-selected="false">Spektro&shy;gram</button>
   <button class="tab" data-panel="p-drug" aria-selected="false">Midler</button>
-  <button class="tab" data-panel="p-perf" aria-selected="false">Perfusjon</button>
-  <button class="tab" data-panel="p-icu" aria-selected="false">Intensiv</button>
+  <button class="tab" data-panel="p-perf" aria-selected="false">Perfu&shy;sjon</button>
+  <button class="tab" data-panel="p-icu" aria-selected="false">Inten&shy;siv</button>
+  <button class="tab" data-panel="p-bs" aria-selected="false" aria-label="Burst suppression"><span class="tl">Burst suppression</span><span class="ts">Burst</span></button>
   <button class="tab" data-panel="p-quiz" aria-selected="false">Quiz</button>
   <button class="tab" data-panel="p-src" aria-selected="false">Kilder</button>
 </nav>
@@ -2753,6 +2959,7 @@ function goTo(id){
 }
 $$('.tab').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.panel)));
 $$('.tile').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.go)));
+$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.goto)));
 $('#homeBtn').addEventListener('click',()=>goTo('p-home'));
 
 
@@ -2843,7 +3050,7 @@ $('#compList').innerHTML=COMPS.map(c=>`
 </details>`).join('');
 
 /* ---------- Spektrogram-modell ---------- */
-let agent='propofol', age='adult', T=0.35, noAlpha=false, dexHigh=false, SPK=1;
+let agent='propofol', age='adult', T=0.35, noAlpha=false, dexHigh=false, midaHigh=false, SPK=1, ALT=0.5;
 const KEYS=[[0,0],[.08,0],[.22,.65],[.50,.65],[.58,1.12],[.68,1.12],[.74,.65],[.79,.65],[.97,0],[1,0]];
 const deepOK=()=>agent==='propofol'||agent==='sevo';
 const g=(f,m,s)=>Math.exp(-0.5*((f-m)/s)**2);
@@ -2884,6 +3091,11 @@ function spec(f,d){
   }else if(agent==='ketamine'){
     /* Ketamin: langsom-delta og bredbåndet beta/gamma, lite alfa (Akeju 2016, Lobo og Lamperti kap. 3) */
     a+=1.1*g(f,0.6,0.9)+0.55*g(f,2.5,1.4)+0.2*g(f,6,1.8)+0.6*g(f,26,5.5)+0.3*g(f,17,11);
+  }else if(agent==='mida'){
+    /* Midazolam: beta i sedative doser (Brandt 2020). Høy dose/forgiftning: beta-koma 12–16 Hz frontalt, blandet med delta (Sutter og Kaplan 2012).
+       Vekslingen mellom beta og delta er skjematisk; mekanismen er ikke beskrevet i kildene. */
+    if(midaHigh) a+=1.2*g(f,0.7,1.0)+0.8*g(f,2.5,1.5)+0.3*g(f,5,2)+ALT*(0.5*g(f,9,4)+0.6*g(f,17,6)+0.35*g(f,26,5));
+    else a+=0.45*g(f,0.6,0.8)+0.35*g(f,2.5,1.3)+0.15*g(f,6,1.8)+0.5*g(f,18,4.5)+0.25*g(f,25,5);
   }else{
     /* Purdon 2015 fig. 11: lav dose gir langsom-delta og spindler (9–15 Hz) som korte striper med mye mindre effekt enn propofol-alfa;
        høyere dose: spindlene forsvinner og langsom-delta blir kraftigere */
@@ -2916,6 +3128,7 @@ function renderSpec(){
   for(let c=0;c<COLS;c++){
     const t=c/(COLS-1), d=depthAt(t), sup=inSuppr(t,d), burst=burstOn(t);
     SPK=hash(c,99)>0.5?1.1:0.35;
+    ALT=Math.pow(Math.max(0,Math.sin(c/1.9+1.5*Math.sin(c/7))),3)*(0.45+0.55*hash(c,5));
     for(let r=0;r<ROWS;r++){
       const f=40*(1-r/(ROWS-1));
       let v=spec(f,d);
@@ -2926,7 +3139,7 @@ function renderSpec(){
     }
   }
   ctx.putImageData(img,0,0);
-  SPK=0.75;
+  SPK=0.75; ALT=0.5;
 }
 
 function phases(){
@@ -2971,7 +3184,7 @@ function drawSpec(){
 
 /* ---------- Tilstand og tekst ---------- */
 const AGENTS={
-  propofol:{name:'propofol'},sevo:{name:'sevofluran'},ketamine:{name:'ketamin'},dex:{name:'dexmedetomidin'}
+  propofol:{name:'propofol'},sevo:{name:'sevofluran'},ketamine:{name:'ketamin'},dex:{name:'dexmedetomidin'},mida:{name:'midazolam'}
 };
 function stateAt(t){
   const d=depthAt(t);
@@ -3004,6 +3217,13 @@ const TXT={
     deep:'',
     emergence:'Gamma- og theta-aktiviteten avtar mot våken tilstand (skjematisk).'
   },
+  mida:{
+    awake:'Lav amplitude og blandede frekvenser. Dette bildet er skjematisk og ikke en kildebeskrevet norm.',
+    induction:'Når midazolam virker, øker beta frontalt, og langsom-delta kommer etter hvert inn (skjematisk).',
+    maint:'Midazolam i sedative doser er forbundet med beta-oscillasjoner (Brandt 2020). Beta-bildet kan ligne ketamin, og indeksen kan være høy selv om pasienten er sedert. Kildene i appen beskriver ikke en egen signatur for midazolam slik Purdon 2015 gjør for propofol, sevofluran, ketamin og dexmedetomidin, men det betyr ikke at EEG er uegnet ved midazolam. Modellen viser beta rundt 15–25 Hz med noe langsom-delta.',
+    deep:'',
+    emergence:'Langsom-delta avtar, og bildet går mot våkent mønster (skjematisk).'
+  },
   dex:{
     awake:'Lav amplitude og blandede frekvenser. Dette bildet er skjematisk og ikke en kildebeskrevet norm.',
     induction:'Langsom-delta øker over hele hodet, og spindler dukker opp frontalt.',
@@ -3012,6 +3232,7 @@ const TXT={
     emergence:'Spindel- og theta-aktiviteten avtar mot våken tilstand (skjematisk).'
   }
 };
+const MIDAHIGH='Høy dose eller forgiftning: Sutter og Kaplan 2012 beskriver «beta-koma» som generalisert aktivitet på 12–16 Hz, mest frontalt, som kan være blandet med spindellignende aktivitet, alfa eller delta. Det ses ved forgiftning med og abstinens fra benzodiazepiner og barbiturater, er stort sett reversibelt og har god prognose. Reaktiviteten kan være bevart, men mangle ved dyp koma. Modellen viser vedvarende langsom-delta med korte, gjentatte utbrudd av bredbåndet aktivitet opp i beta. Det bygger på delte kliniske skjermbilder ved midazolam, som ikke er gjengitt, der EMG-indikatoren var lav. Mønsteret er skjematisk, og kildene i appen beskriver ikke mekanismen for vekslingen. Mulige forklaringer er svingende arousal ved stimulering eller varierende konsentrasjon. Sjekk alltid at beta ikke er EMG eller bevegelse.';
 const DEXHIGH='Høyere dose: når infusjonen økes, forsvinner spindlene og amplituden i langsom-delta øker. Mønsteret ligner NREM-søvnstadium 3 (dyp søvn). Purdon 2015 viser dette hos én pasient (48 år) med vedlikeholdsinfusjon 0,85 µg/kg/t etter bolus 1 µg/kg over 10 minutter. Hun svarte ikke på tiltale, men beveget seg ved smertestimuli. Til sammenligning svarte pasienten med spindler (0,65 µg/kg/t) på tiltale. Begge er enkeltpasienter, og infusjonshastighetene er ikke en dosegrense. Huupponen 2008 fant derimot mange spindler ved dyp sedasjon (se Avvik).';
 function ageNote(){
   if(agent==='propofol'){
@@ -3036,6 +3257,7 @@ function updateInfo(){
   $('#stateTitle').textContent=`${s.title} – ${AGENTS[agent].name}`;
   let txt=TXT[agent][s.k]||TXT[agent].maint;
   if(agent==='dex'&&dexHigh&&s.k!=='awake') txt=DEXHIGH;
+  if(agent==='mida'&&midaHigh&&s.k!=='awake') txt=MIDAHIGH;
   $('#stateText').innerHTML=txt;
   $('#stateAge').innerHTML=ageNote();
   const sup=s.k==='deep';
@@ -3096,12 +3318,14 @@ function syncAge(){
     b.disabled=adultOnly&&a!=='adult';
     b.setAttribute('aria-pressed',String(a===age));
   });
-  $('#ageHint').textContent=adultOnly?'For dette midlet finnes kilder bare for yngre voksne.':'';
+  $('#ageHint').textContent=adultOnly?(agent==='mida'?'Kildene i appen beskriver ikke aldersforskjeller i EEG for midazolam, så modellen vises for voksne.':'For dette midlet finnes kilder bare for yngre voksne.'):'';
   $('#noAlphaWrap').hidden=!(age==='old'&&!adultOnly);
   $('#dexHighWrap').hidden=agent!=='dex';
+  $('#midaHighWrap').hidden=agent!=='mida';
 }
 $('#noAlpha').addEventListener('change',e=>{noAlpha=e.target.checked;renderSpec();drawAll();});
 $('#dexHigh').addEventListener('change',e=>{dexHigh=e.target.checked;renderSpec();drawAll();});
+$('#midaHigh').addEventListener('change',e=>{midaHigh=e.target.checked;renderSpec();drawAll();});
 $$('#agentSeg button').forEach(b=>b.addEventListener('click',()=>{
   agent=b.dataset.agent;
   if(!deepOK()) age='adult';
@@ -3136,7 +3360,7 @@ const QS=[
   e:'Hos barn over 1 år ligner det propofol-induserte mønsteret voksnes, med langsom-delta og frontalt koherent alfa.',s:'Prospektiv studie hos barn 0–21 år (Harvard DASH)',t:'spec'},
  {q:'Hva kjennetegner burst suppression?',
   a:['Isoelektriske perioder avbrutt av høyamplitude-bursts, og det sees også ved koma og hjerneskade, men ikke i søvn','Kontinuerlig høyfrekvent beta-aktivitet','Økt alfa-koherens frontalt','Ensartet gamma-aktivitet over hele hodet'],c:0,
-  e:'Mønsteret regnes som tegn på svært dyp anestesi. Sammenhengen med postoperativt delirium er undersøkt, men årsakssammenheng er ikke påvist.',s:'Wildes 2019, ENGAGES, JAMA',t:'spec'},
+  e:'Mønsteret regnes som tegn på svært dyp anestesi. Sammenhengen med postoperativt delirium er undersøkt, men årsakssammenheng er ikke påvist.',s:'Wildes 2019, ENGAGES, JAMA',t:'bs'},
  {q:'Hva viser fargen i et spektrogram?',
   a:['Effekt (power) i en bestemt frekvens på et bestemt tidspunkt','Pasientens alder','Elektrodeimpedans','Antall bursts per minutt'],c:0,
   e:'Tid ligger på x-aksen, frekvens på y-aksen og effekt i farge. Slik blir mønstre som alfa og langsom-delta lette å se over tid.',s:'Purdon 2015, Anesthesiology',t:'basis'},
@@ -3166,13 +3390,13 @@ const QS=[
   e:'Antognini og Rampil viste at immobilisering ikke avhenger av hjernebarken. Barbiturater virker i større grad supraspinalt.',s:'Miller\'s kap. 17 (Antognini 1993, Rampil 1993)',t:'comp'},
  {q:'Hva skjer med hjernens oksygenforbruk (CMRO₂) ved burst suppression under propofol?',
   a:['Det er redusert med ca. 60 %','Det er uendret','Det er økt','Det er redusert med ca. 10 %'],c:0,
-  e:'Rundt 60 % av hjernens energibruk går til elektrofysiologisk funksjon. Ytterligere dose gir ikke lavere CMRO₂. Ketamin og lystgass er unntak.',s:'Miller\'s kap. 10',t:'drug'},
+  e:'Rundt 60 % av hjernens energibruk går til elektrofysiologisk funksjon. Ytterligere dose gir ikke lavere CMRO₂. Ketamin og lystgass er unntak.',s:'Miller\'s kap. 10',t:'bs'},
  {q:'Hva betyr hysterese i farmakologi?',
   a:['Effekten henger etter plasmakonsentrasjonen når konsentrasjonen endres','Effekten er uavhengig av konsentrasjonen','Legemidlet tas opp raskere ved gjentatte doser','Plasmakonsentrasjonen faller raskere enn effekten ved steady state'],c:0,
   e:'Effektsted-kompartmentet brukes til å modellere forsinkelsen. Det er ikke det samme som nevral treghet, som kapittel 36 beskriver som forskjell mellom induksjon og oppvåkning.',s:'Miller\'s kap. 16',t:'drug'},
  {q:'Hva sier kapittel 36 om burst suppression under propofol?',
   a:['Det sikrer bevisstløshet, men ikke fravær av bevegelse','Det sikrer fravær av bevegelse','Det sees bare ved sevofluran','Det betyr at pasienten er våken'],c:0,
-  e:'Median propofolkonsentrasjon for burst suppression var ca. 5 µg/ml, mens minst 15 µg/ml trengtes for å hindre bevegelse ved snitt. Fentanyl kan redusere dette markant.',s:'Miller\'s kap. 36 (Pilge 2014, Smith 1994)',t:'spec'},
+  e:'Median propofolkonsentrasjon for burst suppression var ca. 5 µg/ml, mens minst 15 µg/ml trengtes for å hindre bevegelse ved snitt. Fentanyl kan redusere dette markant.',s:'Miller\'s kap. 36 (Pilge 2014, Smith 1994)',t:'bs'},
  {q:'Hvor hyppig er awareness med erindring ved systematisk kartlegging, ifølge kapittel 8?',
   a:['Ca. 1–2 per 1000','Ca. 1–2 per 100','Ca. 1 per 100 000','Ca. 1 av 10'],c:0,
   e:'Kapittel 36 oppgir et spenn fra 1:500 til 1:20 000. Forekomsten varierer med populasjon og metode.',s:'Miller\'s kap. 8 og 36 (Sandin 2000, Sebel 2004, Mashour 2012)',t:'comp'},
@@ -3211,7 +3435,7 @@ const QS=[
   e:'Kapittelet beskriver også væske og vasoaktive midler ved sirkulatorisk påvirkning, og venstre sideleie og Trendelenburg hvis mulig.',s:'Miller\'s kap. 30 (Mirski 2007)',t:'perf'},
  {q:'Hva skjedde i 55 % av tilfellene i Georgii 2022 når MAP ble hevet til pasientens baseline under burst suppression?',
   a:['BSR gikk til 0 uten ytterligere tiltak','Pasienten fikk delirium','BSR økte','Anestesien måtte avsluttes'],c:0,
-  e:'I 24 av 44 tilfeller forsvant burst suppression bare med MAP-tiltak. Hos resten ble også anestesikonsentrasjonen redusert. Studien kan ikke bevise årsak, og delirium var ikke påvirket.',s:'Georgii 2022',t:'perf'},
+  e:'I 24 av 44 tilfeller forsvant burst suppression bare med MAP-tiltak. Hos resten ble også anestesikonsentrasjonen redusert. Studien kan ikke bevise årsak, og delirium var ikke påvirket.',s:'Georgii 2022',t:'bs'},
  {q:'Hvilket MAP-mål ga lavest forekomst av delirium dag 1 i Xu 2020?',
   a:['0–10 % over baseline','10–20 % under baseline','0–10 % under baseline','Ingen forskjell'],c:0,
   e:'Forekomsten var 4 % mot 22 % og 16 % i de to andre gruppene (p = 0,031). Det var ingen forskjell dag 2 og 3, og studien var liten og ikke blindet for anestesilegen.',s:'Xu 2020',t:'perf'},
@@ -3226,7 +3450,7 @@ const QS=[
   e:'Ved denne graden av iskemi er det mest synaptisk transmisjon som svikter. Nevronene mister ikke membranpotensialet. Hos noen kan EEG bli isoelektrisk uten at skaden er permanent.',s:'van Putten og Hofmeijer 2016',t:'perf'},
  {q:'Hva skiller sedasjonsindusert burst suppression fra patologisk burst suppression etter hjertestans?',
   a:['Patologisk har identiske bursts, flate intervaller og brå overganger','Patologisk har varierende bursts som kommer gradvis','Sedasjonsindusert har alltid høyere amplitude','Det er ingen forskjell'],c:0,
-  e:'Hos en relativt frisk hjerne er bursts heterogene og kommer og går gradvis. Identiske bursts etter 24 timer predikerte dårlig utfall med spesifisitet 100 %. Pasientgruppen er postanoksisk koma, ikke perioperative pasienter.',s:'van Putten og Hofmeijer 2016',t:'perf'},
+  e:'Hos en relativt frisk hjerne er bursts heterogene og kommer og går gradvis. Identiske bursts etter 24 timer predikerte dårlig utfall med spesifisitet 100 %. Pasientgruppen er postanoksisk koma, ikke perioperative pasienter.',s:'van Putten og Hofmeijer 2016',t:'bs'},
  {q:'Hva skjer med gjennomsnittsfrekvensen i EEG når CPP faller under 60 mmHg, ifølge Foreman og Claassen?',
   a:['Den faller, også hos komatøse eller sederte pasienter','Den stiger','Den påvirkes ikke','Den forsvinner umiddelbart'],c:0,
   e:'Forfatterne viser til Diedler 2009. Samme oversikt sier at endringer i intrakranielt trykk og sedativer også kan endre EEG, så tolkningen krever kontekst.',s:'Foreman og Claassen 2012',t:'perf'},
@@ -3265,7 +3489,7 @@ const QS=[
   e:'Dette er en hypotese og ikke et bevist faktum. Forfatterne understreker at nivå og innhold ikke kan skilles helt.',s:'Mashour og Hudetz 2017 (hypotese)',t:'comp'},
  {q:'Hva fant Purdon 2015 (BJA) om burst suppression og alder under propofol og sevofluran?',
   a:['Sannsynligheten for burst suppression-episoder økte med alder, mest under propofol','Burst suppression var like vanlig i alle aldre','Burst suppression forekom bare hos unge','Burst suppression ble bare sett under sevofluran'],c:0,
-  e:'Episodene var korte (høyst noen få minutter), og analysevinduene for spektrum og koherens inneholdt ikke burst suppression. Studien er retrospektiv og ikke dosekontrollert.',s:'Purdon 2015, Br J Anaesth',t:'spec'},
+  e:'Episodene var korte (høyst noen få minutter), og analysevinduene for spektrum og koherens inneholdt ikke burst suppression. Studien er retrospektiv og ikke dosekontrollert.',s:'Purdon 2015, Br J Anaesth',t:'bs'},
  {q:'Hva sier Purdon 2015 at lavere effekt hos eldre kan bety for indeksstyrt anestesi?',
   a:['Ikke aldersjusterte indekser kan gi forhøyede verdier ved bevisstløshet, og å justere mot en mål-indeks kan gi mer burst suppression','Indekser fungerer likt i alle aldre','Indekser gir alltid lavere verdier hos eldre','Eldre trenger alltid høyere dose'],c:0,
   e:'Dette er forfatternes forslag. Det er ikke testet direkte i denne studien.',s:'Purdon 2015, Br J Anaesth',t:'spec'},
@@ -3355,7 +3579,7 @@ const QS=[
   e:'Rå-EEG så våkent ut hele tiden. SQI steg til 90–100 under blokaden. Studien var liten (10 per legemiddel) og gjaldt BIS-algoritmene som ble brukt.',s:'Schuller 2015',t:'basis'},
  {q:'Hva fant Pilge 2014 om konsentrasjonen som gir burst suppression («stille sekund») sammenlignet med MAC/CP50 for bevegelse?',
   a:['Sevofluran over 1,4 ganger MAC, isofluran over 1,3 ganger MAC, men propofol under en tredjedel av konsentrasjonen som hindrer bevegelse','Alle tre midlene lå på samme multiplum av MAC','Propofol krevde mer enn sevofluran, regnet i MAC','Ketamin ga burst suppression ved lave doser'],c:0,
-  e:'Forfatterne mener at immobilitet og hjerneeffekt er ulike mål. Utvalget var lite og konfidensintervallene brede, og ketamin gir ikke burst suppression.',s:'Pilge 2014',t:'spec'},
+  e:'Forfatterne mener at immobilitet og hjerneeffekt er ulike mål. Utvalget var lite og konfidensintervallene brede, og ketamin gir ikke burst suppression.',s:'Pilge 2014',t:'bs'},
  {q:'Hva fant Murphy 2010 da cerebral oksymetri ble brukt ved skulderartroskopi i «beach chair» og sideleie?',
   a:['Cerebral desaturasjon hos 80 % i «beach chair» mot 0 % i sideleie, selv om målt blodtrykk i overarm ikke skilte gruppene','Ingen forskjell mellom posisjonene','Desaturasjon hos 80 % i sideleie','Alle pasienter fikk nevrologiske utfall'],c:0,
   e:'Studien var ikke randomisert, og blodtrykket ble målt i overarm. Forfatterne regner ut at trykket ved hjernen kan ha vært ca. 52 mmHg ved 80 mmHg i overarmen. Ingen åpenbare nevrologiske skader ble sett, men kognitiv testing ble ikke gjort.',s:'Murphy 2010',t:'perf'},
@@ -3388,7 +3612,7 @@ const QS=[
   e:'Ingen hadde burst suppression som mål. 59 % mot 33 % døde innen 6 måneder. Post hoc-analyse med bare 10–20 minutter EEG daglig, så forekomsten er trolig underestimert.',s:'Watson 2008, Crit Care Med',t:'icu'},
  {q:'Hvorfor mener Watson 2008 at burst suppression kan være en bedre markør for oversedasjon enn selve indeksverdien hos intensivpasienter?',
   a:['Encefalopati gir langsomt EEG som kan gi falskt lav indeks, og EMG kan gi falskt høy, mens flatt EEG påvirkes mindre av dette','Indeksen er ikke tilgjengelig på intensiv','Burst suppression er alltid tilsiktet','Indeksen måler bare EMG'],c:0,
-  e:'Når pasienten er uresponsiv, kan ingen sedasjonsskala fange at sedasjonen blir dypere. Forfatterne foreslår pEEG ved siden av RASS og CAM-ICU.',s:'Watson 2008, Crit Care Med',t:'icu'},
+  e:'Når pasienten er uresponsiv, kan ingen sedasjonsskala fange at sedasjonen blir dypere. Forfatterne foreslår pEEG ved siden av RASS og CAM-ICU.',s:'Watson 2008, Crit Care Med',t:'bs'},
  {q:'Hva betyr en positiv PRx (pressure reactivity index) ifølge Lobo og Lamperti kap. 12?',
   a:['Dårlig cerebrovaskulær reserve: ICP følger MAP, autoreguleringen svikter','God autoregulering','Normalt ICP','At CPP er for høyt'],c:0,
   e:'PRx er korrelasjonen mellom ICP og MAP over tid. Negativ PRx betyr god reserve, rundt 0 kompensert fase. PRx brukes til å finne pasientens optimale CPP.',s:'Lobo og Lamperti 2025, kap. 12',t:'perf'},
@@ -3403,22 +3627,22 @@ const QS=[
   e:'Burst suppression 10 % mot 0 %, periodiske mønstre 43 % mot 22 %, anfall 7 % mot 0 %. Theta var dominerende frekvens i begge grupper. Sedativdosene skilte ikke.',s:'Eskioglou 2021, Acta Neurol Scand',t:'icu'},
  {q:'Hva sier ekspertkonsensusen Rasulo 2023 om burst suppression hos sederte intensivpasienter?',
   a:['Skal unngås i alle situasjoner unntatt for å kontrollere høyt intrakranielt trykk, og brukes det, bør suppresjonsratio holdes under 5 %','Er et godt mål for alle som trenger dyp sedasjon','Har ingen betydning hvis indeksen er i målområdet','Skal brukes rutinemessig ved ECMO'],c:0,
-  e:'Sterk konsensus. Panelet kunne derimot ikke anbefale dimensjonsløse indekser (BIS, PSI, entropi) som tilstrekkelige alene, og krever rå-EEG og spektrogram på skjermen.',s:'Rasulo 2023, Neurocrit Care',t:'icu'},
+  e:'Sterk konsensus. Panelet kunne derimot ikke anbefale dimensjonsløse indekser (BIS, PSI, entropi) som tilstrekkelige alene, og krever rå-EEG og spektrogram på skjermen.',s:'Rasulo 2023, Neurocrit Care',t:'bs'},
  {q:'Hvilke pasienter mener Rasulo 2023 har nytte av pEEG-monitorering av sedasjonsdybde på intensiv?',
   a:['Alle sederte der klinisk vurdering ikke er mulig, alle med behov for dyp sedasjon (RASS ≤ −3), ved nevromuskulær blokade og på ECMO; ikke ved lett sedasjon (RASS 0 til −2)','Alle intensivpasienter uansett sedasjonsnivå','Bare pasienter med hjerneskade','Bare pasienter som får ketamin'],c:0,
   e:'RASS og SAS er fortsatt de mest valide verktøyene; pEEG skal supplere, ikke erstatte. Ved nevromuskulær blokade skal pEEG være hovedmetoden.',s:'Rasulo 2023, Neurocrit Care',t:'icu'},
  {q:'Hva fant Andresen 2014 om tid i burst suppression under koma hos 69 respiratorpasienter?',
   a:['Ca. 1 time burst suppression mot 1 minutt ga fire ganger høyere odds for delirium etter koma (OR 4,16) og senere opphør av delirium','Burst suppression beskyttet mot delirium','Ingen sammenheng','Bare lang burst suppression (over 24 timer) hadde betydning'],c:0,
-  e:'Median tid i burst suppression var bare 6,4 minutter. Justert for tid med BIS under 40, APACHE II og kumulative sedativdoser. Lite utvalg, og forfatterne tar forbehold.',s:'Andresen 2014, Crit Care Med',t:'icu'},
+  e:'Median tid i burst suppression var bare 6,4 minutter. Justert for tid med BIS under 40, APACHE II og kumulative sedativdoser. Lite utvalg, og forfatterne tar forbehold.',s:'Andresen 2014, Crit Care Med',t:'bs'},
  {q:'Hva konkluderte Hogan 2020 (471 respiratorpasienter med kontinuerlig EEG) om årsaken til utilsiktet burst suppression?',
   a:['Den skyldes først og fremst kritisk sykdom, ikke høye propofoldoser; propofol ga bare 6 % mer burst suppression og hadde ingen direkte effekt på dødelighet','Den skyldes nesten bare propofol','Den har ingen sammenheng med dødelighet','Den forekom bare ved hjertestans'],c:0,
-  e:'Burst suppression medierte ca. 10 % av effekten av kritisk sykdom på død. Forfatterne kaller burst suppression en markør for sårbarhet, og minner om seleksjon: 63 % hadde strukturell hjerneskade.',s:'Hogan 2020, Neurocrit Care',t:'icu'},
+  e:'Burst suppression medierte ca. 10 % av effekten av kritisk sykdom på død. Forfatterne kaller burst suppression en markør for sårbarhet, og minner om seleksjon: 63 % hadde strukturell hjerneskade.',s:'Hogan 2020, Neurocrit Care',t:'bs'},
  {q:'Hvorfor kan forekomst og varighet av burst suppression alene ikke skille oversedasjon fra andre årsaker, ifølge Jegarl 2026?',
   a:['Suppresjonsfasen ser identisk ut ved oversedasjon, iskemi/anoksi, hypotermi og hypoglykemi; bare konteksten og burst-innholdet kan skille dem','Burst suppression forekommer bare ved oversedasjon','Indeksen viser alltid årsaken','Burst suppression forekommer aldri ved hypotermi'],c:0,
-  e:'Ching-modellen forener årsakene: fallende ATP åpner ATP-styrte kaliumkanaler og hyperpolariserer nevronene. Burst suppression kan derfor også begrenses ved å heve blodtrykket, unngå hypotermi og sikre oksygenering, ikke bare ved å senke dosen.',s:'Jegarl 2026, Anesth Analg',t:'icu'},
+  e:'Ching-modellen forener årsakene: fallende ATP åpner ATP-styrte kaliumkanaler og hyperpolariserer nevronene. Burst suppression kan derfor også begrenses ved å heve blodtrykket, unngå hypotermi og sikre oksygenering, ikke bare ved å senke dosen.',s:'Jegarl 2026, Anesth Analg',t:'bs'},
  {q:'Hva fant Forgacs 2020 hos pasienter med burst suppression etter hjertestans som senere fikk godt utfall?',
   a:['En vedvarende theta-topp (ca. 4–7 Hz) i burstene med økende frekvens over tid, mens de med dårlig utfall hadde flate spektre eller fallende frekvens','Isoelektrisk EEG i over to uker','Alfa-delta-mønster som ved propofol','Ingen burst suppression i det hele tatt'],c:0,
-  e:'Tre pasienter våknet etter 17–37 dager og ble selvstendige. Forfatterne minner om at behandlingsbegrensning etter hjertestans oftest skjer innen 5–7 dager, slik at litteraturen preges av selvoppfyllende profeti.',s:'Forgacs 2020, Ann Neurol',t:'icu'},
+  e:'Tre pasienter våknet etter 17–37 dager og ble selvstendige. Forfatterne minner om at behandlingsbegrensning etter hjertestans oftest skjer innen 5–7 dager, slik at litteraturen preges av selvoppfyllende profeti.',s:'Forgacs 2020, Ann Neurol',t:'bs'},
  {q:'Hva var den sterkeste prediktoren for blodstrøm i arteria carotis interna under robotassistert prostatektomi i Trendelenburg i Nordum 2024?',
   a:['Minuttvolum (cardiac index); MAP hadde en liten negativ effekt','MAP','CVP','Tidalvolum'],c:0,
   e:'1 l/min/m² høyere cardiac index ga 92 ml/min mer ICA-strøm, mens 10 mmHg høyere MAP ga 29 ml/min mindre. Det største fallet i strøm kom ved innledning, ikke ved tilt. Ingen kognitiv svikt etter 10 eller 180 dager.',s:'Nordum 2024, Front Anesthesiol',t:'perf'},
@@ -3466,7 +3690,7 @@ const QS=[
   e:'Forfatterne tolker rask induksjon som «bottom-up» (hjernestammehemming) og langsom som «top-down» (kortikal). Effektstedkonsentrasjonen ved tap av respons var 2,6 mot 4,6 µg/ml, og alfa kom før tap av respons ved langsom, flere minutter etter ved rask induksjon.',s:'Sepúlveda 2020',t:'comp'},
  {q:'Hva skjedde med observert BIS i Sepúlveda 2026 når effektstedkonsentrasjonen (Eleveld) ble satt tilbake til nivået ved tap av respons etter en kort periode med burst suppression?',
   a:['Den returnerte til samme verdi som før','Den lå konsekvent under predikert BIS resten av operasjonen','Den lå over predikert BIS','BIS kunne ikke måles'],c:1,
-  e:'Samme beregnede konsentrasjon ga dypere effekt: lavere BIS, lavere alfa-effekt og sterkere delta–alfa-kobling. Forfatterne tolker det som ikke-lineær farmakodynamikk som lineære PK/PD-modeller ikke fanger.',s:'Sepúlveda 2026',t:'basis'},
+  e:'Samme beregnede konsentrasjon ga dypere effekt: lavere BIS, lavere alfa-effekt og sterkere delta–alfa-kobling. Forfatterne tolker det som ikke-lineær farmakodynamikk som lineære PK/PD-modeller ikke fanger.',s:'Sepúlveda 2026',t:'bs'},
  {q:'Hva konkluderte Ostertag 2025 om en EEG-basert «skjørhets»-skår (total effekt, alfa-effekt og propofol-Ce)?',
   a:['Den forutsier burst suppression godt','Den er først og fremst drevet av alder, og ingen av de 75 fikk burst suppression ved langsom induksjon','Den er uavhengig av alder','Den bør brukes til å velge TCI-modell'],c:1,
   e:'Skåren og alle delkomponentene korrelerte negativt med alder, alfa- og total effekt var sterkt innbyrdes korrelert, og endepunktet (burst suppression) oppstod ikke. Forfatterne mener skåren «trolig bare oppdager en eldre hjerne».',s:'Ostertag 2025',t:'spec'},
@@ -3607,10 +3831,52 @@ const QS=[
   e:'Hypotesen er forenlig med data, men ikke undersøkt. Theta øker med sevoflurankonsentrasjonen (Akeju 2014), så «alfa uten theta» er et rimelig tegn på moderat dose hos voksne, ikke en dokumentert doseringsregel.',s:'Spektrogram-fanen: sevofluran-theta',t:'spec'},
  {q:'Hva skjer med burstene under propofol-indusert burst suppression når pasienten er eldre (Kratzer 2020)?',
   a:['De blir høyere og mer regelmessige','De blir lavere i amplitude (13 mot 20 µV), flatere og mer uregelmessige, med mindre absolutt alfa men uendret relativ alfa; derfor kan terskelbaserte suppresjonsalgoritmer feilklassifisere dem','De forsvinner helt','De får mer theta'],c:1,
-  e:'Monitorene oppdager suppresjon ved amplitudeterskel og gjenkjenner ikke bursts. Lave bursts hos eldre kan falle under terskelen, og suppresjonsraten underestimerer suppresjon (Muhlhofer 2017). Forfatterne foreslår aldersjusterte algoritmer.',s:'Kratzer 2020',t:'spec'},
+  e:'Monitorene oppdager suppresjon ved amplitudeterskel og gjenkjenner ikke bursts. Lave bursts hos eldre kan falle under terskelen, og suppresjonsraten underestimerer suppresjon (Muhlhofer 2017). Forfatterne foreslår aldersjusterte algoritmer.',s:'Kratzer 2020',t:'bs'},
  {q:'Hvilket middel var unntaket fra regelen om synergi i Hendrickx 2008?',
   a:['Remifentanil','Midazolam','Ketamin: additivt eller infra-additivt med GABAerge midler i alle studier, selv om det virker på en annen reseptor','Sevofluran'],c:2,
   e:'Propofol + ketamin var additivt (Hui 1995) og ved reanalyse infra-additivt for immobilitet; midazolam + ketamin infra-additivt for hypnose. Forfatterne foreslår aktiv metabolitt, sympatikusaktivering og metodiske forhold som forklaringer. Ching 2012 nevner at ketamin øker CMRO₂ og ikke gir klassisk burst suppression i kliniske doser.',s:'Hendrickx 2008',t:'drug'},
+ {q:'Hvorfor mister benzodiazepiner effekt ved langvarig status epilepticus, ifølge Espinosa 2023?',
+  a:['GABA_A-reseptorer trekkes inn i cellen, mens flere NMDA-reseptorer kommer ut på overflaten','Hjernen slutter å produsere GABA','Benzodiazepiner brytes raskere ned under anfall','Blod-hjerne-barrieren stenger for benzodiazepiner'],c:0,
+  e:'Reseptorflyttingen starter etter noen minutter med anfall og er vist i dyremodeller. Ketamin blokkerer NMDA og angriper den oppregulerte delen.',s:'Espinosa 2023',t:'drug'},
+ {q:'Hva kjennetegnet sannsynlig effekt av ketamin i Gaspard 2013?',
+  a:['Minst 0,9 mg/kg/t og oppstart før 8 døgn og før 7 mislykkede midler','Lav dose under 0,5 mg/kg/t','Bruk som eneste middel','Oppstart etter mer enn 2 uker'],c:0,
+  e:'Retrospektiv studie, 60 episoder. Dødeligheten var 16 % når anfallene ble kontrollert innen 24 timer etter ketamin, mot 56 % ellers.',s:'Gaspard 2013',t:'drug'},
+ {q:'Hva er første trinn når burst suppression dukker opp under anestesi, ifølge Gruenbaum 2026?',
+  a:['Bekrefte mønsteret på rå-EEG: elektrodekontakt, artefakter og riktig skala','Øke hypnotikadosen','Gi flumazenil','Se bort fra det hvis indeksen er mellom 40 og 60'],c:0,
+  e:'Deretter vurderes symmetri, så dosen, og til slutt fysiologiske årsaker som hypotensjon, hypoksemi, anemi, hypoglykemi, hypotermi og hypokapni.',s:'Gruenbaum 2026',t:'bs'},
+ {q:'Hvorfor kan BIS eller PSI vise akseptable verdier selv om rå-EEG viser burst suppression?',
+  a:['Indeksen påvirkes av suppresjon først når den dominerer analysevinduet','Indeksene måler bare EMG','Burst suppression gir alltid høy indeks','Indeksene bruker bare alfabåndet'],c:0,
+  e:'Automatisk deteksjon underestimerte varigheten og bommet på burst suppression i ca. 14 % av tilfellene sammenlignet med visuell skåring.',s:'Gruenbaum 2026',t:'bs'},
+ {q:'Hvilke trekk hadde de tre pasientene i Forgacs 2020 som våknet sent etter hjertestans og ble selvstendige?',
+  a:['Kort tid til ROSC, lite kortikal skade og burst suppression med theta i burstene','Lang tid til ROSC og isoelektrisk EEG','Identiske bursts etter 24 timer','Ingen burst suppression'],c:0,
+  e:'Forfatterne foreslår at forlenget burst suppression kan speile svekket metabolisme i nevroner som fortsatt lever. Burst suppression med identiske bursts etter 24 timer regnes derimot som tegn på dårlig prognose (van Putten og Hofmeijer 2016).',s:'Forgacs 2020',t:'icu'},
+ {q:'Hvorfor kan en økning i BIS eller SedLine rett før døden ikke tolkes som bevissthet, ifølge Mashour 2024?',
+  a:['Indeksene skiller ikke uspesifikk aktivering, anfall og EMG fra organisert aktivitet','Fordi indeksen alltid er null ved død','Fordi økningen bare ses hos hjernedøde','Fordi SedLine ikke virker under HLR'],c:0,
+  e:'Økningen kan skyldes glutamatfrigjøring fra døende nevroner, og monitorene har bare frontale elektroder. Ingen funn er koblet til faktisk opplevelse.',s:'Mashour 2024',t:'perf'},
+ {q:'Hvorfor kan propofol virke ved delirium tremens som ikke svarer på benzodiazepiner, ifølge Lorentzen 2014?',
+  a:['Propofol virker via et annet GABA-sete og hemmer i tillegg NMDA','Propofol øker nedbrytningen av alkohol i leveren','Propofol blokkerer benzodiazepinsetet slik at toleransen opphører','Propofol virker bare via α2-reseptorer'],c:0,
+  e:'Forfatterne skriver at propofol har en «dobbel effekt» på GABA_A og NMDA. Retrospektiv studie, n=15, 12 vellykket behandlet, 7 fikk pneumoni.',s:'Lorentzen 2014',t:'drug'},
+ {q:'Hvilken omforming av GABA_A-reseptoren beskriver Olsen og Liang 2017 etter gjentatt alkoholeksponering hos rotter?',
+  a:['δ og α1 nedreguleres, mens α4, γ2 og α2 oppreguleres','Alle subenheter oppreguleres','Bare β-subenheten endres','Ingen endring, bare økt GABA-frigjøring'],c:0,
+  e:'Et «subenhetsbytte» som ga toleranse for den sederende effekten av alkohol og benzodiazepiner, mens krampedempende effekt viste lite toleranse. Funnene er fra rotter, og overføringen til mennesker er en hypotese.',s:'Olsen og Liang 2017',t:'drug'},
+ {q:'Hvorfor akkumulerer remimazolam ikke ved lange infusjoner, ifølge kapittel 21?',
+  a:['Det brytes ned av vevsesteraser til en inaktiv metabolitt, uavhengig av CYP','Det skilles uendret ut i urinen','Det har en aktiv metabolitt med kort halveringstid','Det binder ikke til GABA_A'],c:0,
+  e:'Esterbindingen gir rask nedbrytning til CNS7054. Farmakokinetikken var uendret ved terminal nyresvikt.',s:'Miller kap. 21',t:'drug'},
+ {q:'Hva fant Zhou 2014 om hypotensjon ved sedasjon på respirator?',
+  a:['Mest hypotensjon med propofol alene (52 %), mindre med midazolam alene eller midazolam byttet til propofol','Ingen forskjell mellom gruppene','Mest hypotensjon med midazolam alene','Hypotensjon bare ved byttet regime'],c:0,
+  e:'Propofol alene: 52 %, midazolam: 23 %, bytte: 21 %. Bytte ga også rask ekstubering (2 timer mot 45 med midazolam alene). Åpen studie fra ett senter.',s:'Zhou 2014',t:'drug'},
+ {q:'Hvor mange periodiske utladninger per 10 sekunder gir mistanke om anfall eller status epilepticus, ifølge Guay 2025?',a:['Mer enn 2','5–10','11–25','Mer enn 25'],c:3,
+  e:'Mer enn 25 per 10 sekunder (over 2,5 Hz) gir mistanke om anfall eller status epilepticus. 11–25 per 10 sekunder, eller 5–10 skarpe, hører til det iktal-interiktale kontinuumet. Begge skal føre til fullt EEG og nevrolog.',s:'Guay 2025',t:'icu'},
+ {q:'En relaksert intensivpasient på propofol får plutselig beta og gamma i spektrogrammet. Hva anbefaler Guay 2025?',a:['Ingenting, det er artefakt','Øke sedasjonen og/eller antinocisepsjonen for å unngå awareness','Gi mer muskelrelaksans','Redusere propofol'],c:1,
+  e:'Uventet beta og gamma under dyp sedasjon eller relaksans tyder på arousal. Awareness med erindring er rapportert hos 1,8–7,4 % av pasienter intubert i akuttmottak eller på intensiv.',s:'Guay 2025',t:'icu'},
+ {q:'Uventet burst suppression hos en sedert intensivpasient. Hva bør vurderes først, ifølge Guay 2025?',a:['Øke sedasjonen','Ubalanse mellom oksygentilførsel og -forbruk, samt temperatur, glukose og CO₂','Gi antiepileptika','Ingenting, det er normalt'],c:1,
+  e:'Uventet lav aktivitet skal først vurderes som for lite oksygen til hjernen (hypoksemi, anemi, lav blodstrøm) og som hypotermi, hypoglykemi eller hyperkapni. Først deretter trappes sedasjonen ned.',s:'Guay 2025',t:'icu'},
+ {q:'Hva skiller alfa-koma ved forgiftning fra alfa-koma etter hjertestans, ifølge Sutter og Kaplan 2012?',a:['Frekvensen er alltid høyere ved forgiftning','Ved forgiftning ligger alfa mest frontalt og er som regel reaktiv, med godt utfall; etter hjertestans er alfa diffust og som regel ureaktiv, med dårlig utfall','Det finnes ingen forskjell','Alfa-koma forekommer bare etter hjertestans'],c:1,
+  e:'Reaktiv, frontal alfa ses ved overdose av blant annet benzodiazepiner og barbiturater, og opptil 90 % blir friske. Diffus, ureaktiv alfa etter hjertestans har oftest dårlig utfall. Samme mønster, ulik årsak og prognose.',s:'Sutter og Kaplan 2012',t:'icu'},
+ {q:'Hva menes med EEG-reaktivitet hos en komatøs pasient?',a:['At EEG viser alfa','At frekvens eller amplitude endrer seg når pasienten stimuleres','At pasienten får kramper','At indeksen er over 60'],c:1,
+  e:'Reaktivitet er endring i frekvens, utbredelse eller amplitude ved ytre stimuli (Sutter og Kaplan 2012). Bevart reaktivitet er et tegn på bedre utfall (Miller\'s kap. 80). Sjekk alltid at endringen ikke er EMG eller bevegelse.',s:'Sutter og Kaplan 2012',t:'icu'},
+ {q:'En sedert intensivpasient får markert suppresjon i bare den ene hemisfæren, mens den andre har sammenhengende aktivitet. Hva bør man tenke først når signalet er teknisk godt?',a:['At sedasjonen er for dyp, og redusere den','Mulig iskemi eller annen fokal skade som krever klinisk vurdering og bildediagnostikk','At pasienten er i ferd med å våkne','At det er normalt under ECMO'],c:1,
+  e:'Sedasjon virker på begge hemisfærer. Ny ensidig suppresjon eller asymmetri med godt signal taler for en fokal årsak, som iskemi (van Putten og Hofmeijer, Sheorajpanday 2009). Sjekk først elektroder og impedans.',s:'Delt klinisk eksempel, Sheorajpanday 2009',t:'bs'},
  {q:'Pasienten beveger armen ved snitt. Hvordan anbefaler kapittel 36 (boks 36.2) å håndtere dette?',a:['Alltid øke hypnotikum','Finne ut om bevegelsen er styrt: styrt respons gis mer hypnotikum, refleksrespons mer analgesi','Alltid gi muskelrelaksans','Ignorere bevegelsen hvis indeksen er under 60'],c:1,
   e:'Kapittel 36 anbefaler å spørre pasienten for å avklare om bevegelsen er styrt. Styrte responser håndteres med mer hypnotikum og reflekser med mer analgesi. Ved samme EEG-mønster er somatisk respons vanligere under propofol enn sevofluran, og minst vanlig med opioid.',s:'Miller\'s kap. 36',t:'comp'},
  {q:'Hvilken komponent dekker ketamin dårlig, ifølge Aitkenhead?',a:['Somatisk smerte','Respons på visceral stimulering','Amnesi','Bevissthet'],c:1,
@@ -3700,16 +3966,16 @@ const QS=[
   e:'Ved lave konsentrasjoner forsterkes GABA, trolig ansvarlig for sedasjon og hypnose. Ved høyere konsentrasjoner åpner barbituratene kanalen direkte.',s:'Millers kap. 21',t:'drug'},
  {q:'Hva fant Fritz 2016 (727 pasienter, mest hjertekirurgi) om EEG-suppresjon under kirurgi og delirium?',
   a:['Ingen sammenheng','Lengre tid i suppresjon ga høyere risiko for delirium også etter justering (OR 1,22 per log-minutt), og suppresjonstid predikerte delirium litt bedre enn tid med BIS under 20','Bare pasienter med BIS under 20 fikk delirium','Høy opioiddose ga mer suppresjon'],c:1,
-  e:'26 % fikk delirium, 73 % hypoaktivt. Mer inhalasjonsmiddel og mindre opioid ga mer suppresjon. Studien er observasjonell og kan ikke skille «for dypt» fra «sårbar hjerne». ENGAGES fra samme gruppe reduserte suppresjonstid uten å redusere delirium.',s:'Fritz 2016',t:'ev'},
+  e:'26 % fikk delirium, 73 % hypoaktivt. Mer inhalasjonsmiddel og mindre opioid ga mer suppresjon. Studien er observasjonell og kan ikke skille «for dypt» fra «sårbar hjerne». ENGAGES fra samme gruppe reduserte suppresjonstid uten å redusere delirium.',s:'Fritz 2016',t:'bs'},
  {q:'Hva skjer med alfa-rytmen inne i burstene under propofol-indusert burst suppression, ifølge Ching 2012?',
   a:['Den forsvinner helt','Den lever videre inne i hver burst, som om spektrogrammet er «ganget med nuller og enere»; mekanismene for alfa overlever suppresjonen','Den erstattes av gamma','Den blir til theta'],c:1,
-  e:'Modellen forklarer dette med at K<sub>ATP</sub>-kanalene er nær normalnivå under en burst, slik at nettverket kjører som før, og at suppresjon kommer når ATP tømmes. Burst suppression er et kontinuum som ender i isoelektrisk EEG, felles for anestesi, hypotermi og iskemi.',s:'Ching 2012',t:'spec'},
+  e:'Modellen forklarer dette med at K<sub>ATP</sub>-kanalene er nær normalnivå under en burst, slik at nettverket kjører som før, og at suppresjon kommer når ATP tømmes. Burst suppression er et kontinuum som ender i isoelektrisk EEG, felles for anestesi, hypotermi og iskemi.',s:'Ching 2012',t:'bs'},
  {q:'Hvilke kombinasjoner er synergistiske for hypnose ifølge Hendrickx 2008 og de primære interaksjonsstudiene?',
   a:['Bare inhalasjonsmidler seg imellom','Midler med ulike virkesteder: propofol + midazolam (Short 1991), hypnotikum + opioid (Mertens 2003, Manyam 2006); inhalasjonsmidler seg imellom er additive','Ingen; alle anestesimidler er additive','Bare opioid + opioid'],c:1,
   e:'Hendrickx, Eger, Sonner og Shafer fant additivitet når midlene har samme virkested og synergi når de har ulike, med ketamin som unntak (additivt eller infra-additivt med GABAerge midler). Minto 2000 beskrev trippelinteraksjonen med en responsflate. Det forklarer hvorfor flere midler gitt samtidig kan gi brått isoelektrisk EEG hos eldre.',s:'Hendrickx 2008',t:'drug'},
 ];
 let qi=0,score=0,answered=false,order=[];
-const QT=[['all','Alle'],['basis','Grunnlag'],['comp','Bevissthet og hukommelse'],['spec','Spektrogram og signaturer'],['drug','Midler og farmakologi'],['perf','Perfusjon og leiring'],['icu','Intensiv og søvn'],['ev','Store studier og utfall']];
+const QT=[['all','Alle'],['basis','Grunnlag'],['comp','Bevissthet og hukommelse'],['spec','Spektrogram og signaturer'],['drug','Midler og farmakologi'],['perf','Perfusjon og leiring'],['icu','Intensiv og søvn'],['bs','Burst suppression'],['ev','Store studier og utfall']];
 let qtopic='all';try{qtopic=localStorage.getItem('qtopic')||'all'}catch(e){}
 if(!QT.some(t=>t[0]===qtopic))qtopic='all';
 let QF=[];
@@ -3836,6 +4102,15 @@ const REFS=[
  ['Gruenbaum BF, García PS. Applied electroencephalography. I: Lobo FA, Lamperti M, red. Peri-operative Brain Monitoring. Springer 2025:89–111.','https://doi.org/10.1007/978-981-96-6178-7_5','Bokkapittel (oversikt). Kilde for ddSWA, sdSWA og NSWA, utvidet alfa og burst suppression.'],
  ['Chander D, García PS, MacColl JN, Illing S, Sleigh JW. Electroencephalographic variation during end maintenance and emergence from surgical anesthesia. PLoS One 2014;9:e106291.','https://doi.org/10.1371/journal.pone.0106291','Gjengitt via Gruenbaum og García; ikke lest i fulltekst.'],
  ['Aitkenhead AR, Smith G, Rowbotham DJ, red. Textbook of Anaesthesia. 5. utg. Edinburgh: Churchill Livingstone/Elsevier 2007. Kap. 2 (Mushambi og Smith: inhalasjonsmidler), kap. 3 (Aitkenhead: intravenøse anestesimidler) og kap. 18 (Byrne: monitorering).','','Lærebok. Komponenter per middel, lystgass og awareness, dybdemonitorering slik den ble beskrevet i 2007.'],
+ ['Olsen RW, Liang J. Role of GABAA receptors in alcohol use disorders suggested by chronic intermittent ethanol (CIE) rodent model. Mol Brain 2017;10:45.','https://doi.org/10.1186/s13041-017-0325-8','Oversikt over rottemodell. Finansiert av NIH.'],
+ ['Lorentzen K, Øberg Lauritsen A, Bendtsen AO. Use of propofol infusion in alcohol withdrawal-induced refractory delirium tremens. Dan Med J 2014;61(5):A4807.','','Retrospektiv, n=15.'],
+ ['Shah P, et al. Adjunctive use of ketamine for benzodiazepine-resistant severe alcohol withdrawal: a retrospective evaluation. J Med Toxicol 2018;14(3):229–236.','https://doi.org/10.1007/s13181-018-0662-8','Retrospektiv, n=30.'],
+ ['Zhou Y, Jin X, Kang Y, et al. Midazolam and propofol used alone or sequentially for long-term sedation in critically ill, mechanically ventilated patients: a prospective, randomized study. Crit Care 2014;18:R122.','https://doi.org/10.1186/cc13922','Randomisert, åpen, ett senter, n=124.'],
+ ['Kim H, Min BK, Lee U, et al. Electroencephalographic features of elderly patients during anesthesia induction with remimazolam: a substudy of a randomized controlled trial. Anesthesiology 2024;141(4):681–692.','https://doi.org/10.1097/ALN.0000000000004904','n=52, over 65 år. Delvis finansiert av Hana Pharmaceutical.'],
+ ['Gruenbaum BF, Safavynia SA, Bilotta F. Intraoperative electroencephalographic burst suppression: a narrative review and clinical framework for interpretation and management. Br J Anaesth 2026;136:1843–1854.','https://doi.org/10.1016/j.bja.2026.03.003','Narrativ oversikt. Ingen interessekonflikter.'],
+ ['Mashour GA, Lee U, Pal D, Li D. Consciousness and the dying brain. Anesthesiology 2024;140:1221–1231.','https://doi.org/10.1097/ALN.0000000000004970','Narrativ oversikt. NIH-finansiert.'],
+ ['Espinosa L, Gomez M, Zamora A, Molano-Franco D. Refractory and super-refractory status epilepticus and evidence for the use of ketamine: a scope review. J Neurocrit Care 2023;16(1):1–9.','https://doi.org/10.18700/jnc.230003','Scoping review. Ingen interessekonflikter.'],
+ ['Gaspard N, Foreman B, Judd LM, et al. Intravenous ketamine for the treatment of refractory status epilepticus: a retrospective multicenter study. Epilepsia 2013;54(8):1498–1503.','https://doi.org/10.1111/epi.12247','Retrospektiv, ti sentre, 60 episoder. Flere forfattere med industribindinger.'],
  ['Sikka P, Hu S, Heifets BD. Dreaming during anaesthesia: a scoping review. Br J Anaesth 2026;137:506–524.','https://doi.org/10.1016/j.bja.2026.05.002','157 studier 1921–2024.'],
  ['Sarasso S, Boly M, Napolitani M, Gosseries O, Charland-Verville V, Casarotto S, et al. Consciousness and complexity during unresponsiveness induced by propofol, xenon, and ketamine. Curr Biol 2015;25:3099–3105.','https://doi.org/10.1016/j.cub.2015.10.014','TMS-EEG hos 18 friske frivillige.'],
  ['Brown CH (understudie), Hogue CW (hovedstudie). Targeting mean arterial pressure during cardiopulmonary bypass using cerebral autoregulation monitoring to reduce postoperative delirium: a nested substudy. Protokoll versjon 2, 2014. NCT00981474.','','Protokoll uten resultater.'],
@@ -3983,7 +4258,7 @@ const IQ=(()=>{
   {title:'Bilde 3',ctx:'Voksen under vedlikehold. Indeks 16, SR 38 % (trenden svinger mellom 0 og 50), EMG 0 %, ARTF 0 %, SEF vises som «--», og en teller for suppresjonstid har startet. Rå-EEG med 5 µV/mm: lange flate strekk avbrutt av høye, langsomme bølger. Spektrogrammet er mørkt med smale, loddrette «flammer».',
    P:(f,t)=>base(f)*0.6+0.9*sl(f)+0.35*th(f)+0.4*al(f,1,10,2.5)+0.15*be(f,1,16,5),sup:t=>env(t,21,1.9)<0.64, raw:{comps:[[0.6,1.3],[1.3,1.0],[2.5,0.6],[9,0.25]],amp:0.32,sup:true,burstFrac:0.3},
    q:'Hva viser bildet, og hvorfor står SEF som «--»?',a:['Elektrodene har løsnet; ARTF burde vært høy','Burst suppression: de smale flammene er bursts med bredbåndet effekt, det mørke er suppresjon. EMG 0 og ARTF 0 betyr at de flate strekkene er ekte. SEF kan ikke beregnes meningsfullt når EEG er supprimert mesteparten av tiden, og SR-trenden svinger fordi raten regnes over et glidende vindu','Pasienten sover naturlig','Normal variasjon under propofol'],c:1,
-   e:'Burstene inneholder hele det gamle mønsteret (langsomt, theta og alfa) i noen sekunder før neste suppresjon (Ching 2012), og hos eldre er de lavere og flatere (Kratzer 2020). Dette er mer enn pasienten trenger: Fritz 2016, Watson 2008 og Andresen 2014 viser sammenheng med delirium og dødelighet, mens Hogan 2020 og Jegarl 2026 mener mønsteret først og fremst markerer sårbarhet. Reduser hypnotikum og sjekk blodtrykk og temperatur (Georgii 2022, Guay 2025). Sammenlign med bilde 16, der burstene er helt borte.',s:'Ching 2012, Kratzer 2020, Fritz 2016, Intensiv-fanen'},
+   e:'Burstene inneholder hele det gamle mønsteret (langsomt, theta og alfa) i noen sekunder før neste suppresjon (Ching 2012), og hos eldre er de lavere og flatere (Kratzer 2020). Dette er mer enn pasienten trenger: Fritz 2016, Watson 2008 og Andresen 2014 viser sammenheng med delirium og dødelighet, mens Hogan 2020 og Jegarl 2026 mener mønsteret først og fremst markerer sårbarhet. Reduser hypnotikum og sjekk blodtrykk og temperatur (Georgii 2022, Guay 2025). Sammenlign med bilde 16, der burstene er helt borte.',s:'Ching 2012, Kratzer 2020, Fritz 2016, Burst suppression-fanen'},
   {title:'Bilde 4',ctx:'Voksen, indeks stiger fra 45 til 70, EMG 11 %, SR 0 %. Alfa- og delta-båndet løser seg opp mot slutten.',
    P:(f,t)=>{const k=t<0.78?1:Math.max(0,1-(t-0.78)/0.12);return base(f)+(0.9*sl(f)+0.9*al(f,1,10,1.8))*k+(1-k)*(0.35*be(f,1,20,10)+emgN(f,0.2))}, raw:{comps:[[2.5,0.15],[10,0.1],[22,0.25]],amp:0.45,emg:0.4},
    q:'Hva skjer ved overgangen?',a:['Burst suppression','Oppvåkning: alfa-delta-mønsteret løser seg opp, høyere frekvenser og EMG kommer inn, og indeksen stiger','Nociseptiv alfa-bortfall','Sensoren har løsnet'],c:1,
@@ -4116,7 +4391,7 @@ function iqRender(){
 /* ---------- Søk ---------- */
 const SEARCH=(()=>{
   let idx=null;
-  const TAB={'p-home':'Forside','p-basis':'Grunnlag','p-comp':'Komponenter','p-spec':'Spektrogram','p-drug':'Midler','p-perf':'Perfusjon','p-icu':'Intensiv','p-quiz':'Quiz','p-src':'Kilder'};
+  const TAB={'p-home':'Forside','p-basis':'Grunnlag','p-comp':'Komponenter','p-spec':'Spektrogram','p-drug':'Midler','p-perf':'Perfusjon','p-icu':'Intensiv','p-bs':'Burst suppression','p-quiz':'Quiz','p-src':'Kilder'};
   const norm=t=>t.toLowerCase().replace(/[«»"'’]/g,'').replace(/\s+/g,' ').trim();
   function build(){
     idx=[];

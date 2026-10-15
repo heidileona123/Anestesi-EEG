@@ -63,8 +63,11 @@ nav{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:
   padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;z-index:10}
 .tab{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:.76rem;font-weight:600;
   padding:10px 2px;border-radius:10px;cursor:pointer;min-height:44px}
-@media (max-width:520px){.tab{font-size:.66rem;padding:10px 0}}
+@media (max-width:520px){nav{gap:2px;padding-left:4px;padding-right:4px}.tab{font-size:.62rem;padding:8px 0;line-height:1.15;min-width:0}}
 .tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
+.tab .ts{display:none}
+@media (max-width:520px){.tab .tl{display:none}.tab .ts{display:inline}}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer}
 .tab:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
 /* components */
@@ -175,7 +178,7 @@ header h1 button:hover{color:var(--accent)}
 .path .arr{color:var(--muted)}
 .card h3{font-size:1.02rem;margin-bottom:6px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-#noAlphaWrap:not([hidden]),#dexHighWrap:not([hidden]){display:block}
+#noAlphaWrap:not([hidden]),#dexHighWrap:not([hidden]),#midaHighWrap:not([hidden]){display:block}
 </style>
 </head>
 <body>
@@ -210,7 +213,8 @@ header h1 button:hover{color:var(--accent)}
     <span class="step">4 Agents</span><span class="arr">→</span>
     <span class="step">5 Perfusion</span><span class="arr">→</span>
     <span class="step">6 Intensive care</span><span class="arr">→</span>
-    <span class="step">7 Quiz</span>
+    <span class="step">7 Burst suppression</span><span class="arr">→</span>
+    <span class="step">8 Quiz</span>
   </div>
   <p class="small">If you already know EEG, you can skip straight to Components. The quiz draws from all the tabs, so it works best at the end.</p>
 
@@ -221,7 +225,8 @@ header h1 button:hover{color:var(--accent)}
     <button class="tile" data-go="p-spec"><span class="n">Spectrogram</span><h3>Simulator and signatures</h3><p>Propofol, sevoflurane, ketamine, dexmedetomidine and age in an interactive model, plus artefacts, children and older patients.</p></button>
     <button class="tile" data-go="p-drug"><span class="n">Agents</span><h3>Drugs, consciousness and amnesia</h3><p>Concentration–effect, memory loss over time, benzodiazepines, opioids and EEG.</p></button>
     <button class="tile" data-go="p-perf"><span class="n">Perfusion</span><h3>Blood flow, pressure and positioning</h3><p>CPP, autoregulation, EEG in ischaemia and raised ICP, Trendelenburg and beach chair.</p></button>
-    <button class="tile" data-go="p-icu"><span class="n">Intensive care</span><h3>Sedation over days and weeks</h3><p>Burst suppression and outcomes, PADIS, pEEG consensus, neurointensive care, coma patterns after cardiac arrest.</p></button>
+    <button class="tile" data-go="p-icu"><span class="n">Intensive care</span><h3>Sedation over days and weeks</h3><p>PADIS, pEEG consensus, neurointensive care, coma patterns, ICU case reports.</p></button>
+    <button class="tile" data-go="p-bs"><span class="n">Burst suppression</span><h3>Wanted, unnecessary or a warning?</h3><p>Mechanisms, dose and age, outcomes, cardiac arrest and clinical examples in one place.</p></button>
     <button class="tile" data-go="p-quiz"><span class="n">Quiz</span><h3>Test yourself</h3><p>Multiple-choice questions with explanation and source, drawn from all the tabs.</p></button>
     <button class="tile" data-go="p-src"><span class="n">Sources</span><h3>References and discrepancies</h3><p>What the studies show, the original references in Miller's, disagreements between sources, full reference list.</p></button>
   </div>
@@ -658,6 +663,7 @@ header h1 button:hover{color:var(--accent)}
     <button data-agent="sevo" aria-pressed="false">Sevoflurane</button>
     <button data-agent="ketamine" aria-pressed="false">Ketamine</button>
     <button data-agent="dex" aria-pressed="false">Dexmedetomidine</button>
+    <button data-agent="mida" aria-pressed="false">Midazolam</button>
   </div>
   <div class="ctl-label">Age</div>
   <div class="seg" id="ageSeg" role="group" aria-label="Age">
@@ -669,6 +675,7 @@ header h1 button:hover{color:var(--accent)}
   <p class="small" id="ageHint"></p>
   <label class="small" id="noAlphaWrap" hidden style="margin:4px 0 8px"><input type="checkbox" id="noAlpha"> Older patient without visible alpha (Purdon 2015 BJA, figs. 3 and 4)</label>
   <label class="small" id="dexHighWrap" hidden style="margin:4px 0 8px"><input type="checkbox" id="dexHigh"> Higher dose (Purdon 2015 Part I, fig. 11C)</label>
+  <label class="small" id="midaHighWrap" hidden style="margin:4px 0 8px"><input type="checkbox" id="midaHigh"> High dose or poisoning (Sutter and Kaplan 2012)</label>
 
   <div class="stage"><canvas id="specCanvas" role="img" aria-label="Schematic spectrogram"></canvas></div>
   <div class="cbar"></div>
@@ -757,16 +764,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Caveats:</strong> small retrospective study without a power calculation, arbitrary age cut-off (65), propofol only (not examined for sevoflurane induction), only five minutes after LOR without neuromuscular blockers and surgery, one hospital and one population, and no test of whether slow induction actually improves cognitive outcome. The conflict of interest statement in the article reads only “The other authors declare no competing interests”, without any author being named before it.</li>
   </ul>
   <span class="tag">Obert et al. J Clin Anesth 2024;99:111672</span></div>
-  <div class="card"><h3>The bursts become weaker and more irregular with age (Kratzer 2020)</h3>
-  <p>Retrospective analysis from TU Munich and Columbia (Front Syst Neurosci 2020;14:599962) of the first burst after burst suppression appeared during propofol induction. The data are from Hesse 2019 (Atlanta), recorded with SedLine (Legacy) and analysed by an independent university group.</p>
-  <ul>
-   <li><strong>Method:</strong> 102 of 408 patients had a distinct first burst after a “silent second” (at least 1 s below 10 µV). Only the first 1.5 seconds of the burst were analysed, so that differing duration and dose would not affect the result. Median age 56 years; 16 patients under 45 years (YOUNG) and a group over 65 years (OLD). Fentanyl equivalents did not differ with age.</li>
-   <li><strong>Findings:</strong> older patients had lower absolute power in 1–15 Hz and relatively more power above 15 Hz within the burst. Absolute alpha power fell linearly with age (AUC 0.86 for young versus old), while normalised alpha did not change: it is the amplitude, not the architecture, that disappears. Maximum amplitude was 20.3 µV in the young versus 13.1 µV in the older patients (AUC 0.84), steepest slope 1.22 versus 0.86 µV/ms, and permutation entropy was higher in the older patients (more irregular signal). Subanalysis of the 83 who received midazolam premedication gave the same result.</li>
-   <li><strong>Why it matters for the monitor:</strong> BIS, PSI and entropy detect burst suppression by looking for suppression, that is EEG below an amplitude threshold for a certain time, not by recognising the bursts. When the bursts in older patients are lower and flatter, they can themselves fall below the threshold, and Muhlhofer 2017 showed that the suppression ratio underestimates suppression compared with visual reading. The authors argue that burst information should be used as a plausibility check, but then age-adjusted. This is the mechanism behind Image 6 and 13 in the image quiz: in older patients both normal EEG and bursts can look “weak”.</li>
-   <li><strong>Connection in the app:</strong> the same age-related change that Purdon 2015 (BJA) and Kreuzer 2020 described for maintenance without burst suppression, and which Ching 2012 predicts: the spectral content of the burst mirrors the EEG just before the suppression started. Obert 2024 (the card above) shows that slow induction can avoid burst suppression in older patients in the first place.</li>
-   <li><strong>Limitations:</strong> frontal EEG, only propofol-induced bursts (Fleischmann 2018 showed that the agent affects the shape of the burst), no adjustment for comorbidity, and the midazolam subgroup among the older patients was small. Funded by the James S. McDonnell Foundation (García); no conflicts of interest declared.</li>
-  </ul>
-  <span class="tag">Kratzer et al. Front Syst Neurosci 2020;14:599962</span></div>
+  <p class="note">The cards on burst suppression are collected in the <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button> tab.</p>
 
   <div class="card"><h3>Sevoflurane theta as a dosing target: a hypothesis, and what the evidence actually says</h3>
   <p>Theta “fills in” between delta and alpha under sevoflurane, and more theta comes with higher concentration (Akeju 2014, Purdon 2015 Part I). An obvious clinical hypothesis is that sevoflurane should be dosed to alpha without theta, and that this may give less delirium. Here it is important to separate hypothesis from evidence.</p>
@@ -824,20 +822,9 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Depth of anaesthesia and delirium, in the chapter's wording:</strong> early studies showed less delirium with pEEG-guided anaesthesia, but large multicentre RCTs (ENGAGES, Evered 2021) have not shown this consistently, partly because the doses did not differ enough between the groups. “Despite this equipoise”, severe EEG suppression, including burst suppression, has consistently been associated with delirium (Fritz 2016, 2018). The authors “suggest monitoring depth of anaesthesia with single-channel or processed EEG and avoiding burst suppression with lower induction and maintenance doses”.</li>
    <li><strong>Drugs and delirium:</strong> the AGS advises against benzodiazepines; chronic use and benzodiazepine sedation in intensive care increase the risk, while a single preoperative dose is unresolved (Wang 2021). Dexmedetomidine has conflicting studies, but a meta-analysis found less delirium (Duan 2018). Ketamine as multimodal analgesia does not reduce delirium (Avidan 2017, PODCAST). Gabapentinoids are strongly discouraged. Spinal versus general anaesthesia gave no difference in delirium (REGAIN, RAGA).</li>
    <li><strong>Blood pressure:</strong> the chapter reproduces the POQI consensus (McEvoy 2019): MAP below 60–70 mmHg is associated with myocardial injury, kidney injury and death, and injury is a function of depth and duration. The consensus is not specific to older patients, and it does not mention the brain. See the Perfusion tab for what EEG can show at low pressure.</li>
-   <li><strong>Reservations:</strong> the recommendation on pEEG and avoiding burst suppression is given as the authors' suggestion (“we suggest”) despite the RCTs being inconclusive, and the chapter does not discuss whether burst suppression is cause or marker (see Hogan 2020 and Jegarl 2026 in the Intensive care tab). The chapter does not describe raw EEG or spectrogram in older patients.</li>
+   <li><strong>Reservations:</strong> the recommendation on pEEG and avoiding burst suppression is given as the authors' suggestion (“we suggest”) despite the RCTs being inconclusive, and the chapter does not discuss whether burst suppression is cause or marker (see Hogan 2020 and Jegarl 2026 in the Burst suppression tab). The chapter does not describe raw EEG or spectrogram in older patients.</li>
   </ul>
   <span class="tag">Miller's Anesthesia, 10th ed., ch. 61 (Mahanna Gabrielli, Schenning and Deiner)</span></div>
-
-  <div class="card"><h3>Burst suppression MAC and CP50 (Pilge 2014)</h3>
-  <ul>
-   <li><strong>What it is:</strong> a study proposing the “silent second” (EEG suppression for at least 1 second) as a measure of the anaesthetic agent's effect on the brain, instead of movement at incision (MAC, which mostly reflects the spinal cord).</li>
-   <li><strong>Design:</strong> 55 unpremedicated ASA I–II patients for elective surgery were randomised to sevoflurane (16), isoflurane (21) or propofol (18). The concentration was held constant for 15 minutes and EEG analysed in the 16th minute, and the next patient received a 10% lower concentration if suppression occurred and 10% higher if not (Dixon's “up-and-down” method, six independent crossover pairs per group). The values were calculated with logistic regression.</li>
-   <li><strong>Result:</strong> sevoflurane 2.93 vol% (95% CI 2.80–3.15), isoflurane 1.51 vol% (1.45–1.60) and propofol 4.85 (CI 4.25–5.40; the article states “mg/ml”, probably micrograms/ml). That is over 1.4 times MAC for sevoflurane (2.05 vol%), over 1.3 times MAC for isoflurane (1.15 vol%) and under a third of the propofol concentration that prevents movement at incision (15.2 µg/ml, from Smith 1994).</li>
-   <li><strong>Reservations:</strong> the starting concentrations were above the population value, and the authors write that the confidence intervals may therefore be too wide, particularly for propofol. The sample is small. Burst suppression does not occur with ketamine, so the measure cannot be used for ketamine. The pattern also differs between agents, and the authors write that a “silent second” is too deep for clinical anaesthesia.</li>
-   <li><strong>What the article does not say:</strong> it does not state that fentanyl reduces the propofol concentration by about 80%. That figure comes from Smith 1994 via Miller's.</li>
-   <li><strong>Conflicts of interest:</strong> none declared. Funded by departmental funds.</li>
-  </ul>
-  <span class="tag">Pilge et al. Br J Anaesth 2014;112:1067–1074</span></div>
 
   <div class="card"><h3>Can effect-site models explain hysteresis? (Proekt and Kelz 2021)</h3>
   <ul>
@@ -997,7 +984,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Brandt et al. Anesth Analg 2020;131:1043–1056</span></div>
 
-  <div class="note">This is a schematic model built on EEG signatures described in the literature, not real patient data. It shows qualitative patterns and is not suitable for clinical interpretation. Ketamine and dexmedetomidine are only described in younger adults in the sources, and older patients, children and infants are therefore only available for propofol and sevoflurane.</div>
+  <div class="note">This is a schematic model built on EEG signatures described in the literature, not real patient data. It shows qualitative patterns and is not suitable for clinical interpretation. Ketamine and dexmedetomidine are only described in younger adults in the sources, and for midazolam the sources do not describe age differences. Older patients, children and infants are therefore only available for propofol and sevoflurane.</div>
 </section>
 
 <!-- ========== MIDLER ========== -->
@@ -1056,6 +1043,7 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Reversal:</strong> Flumazenil usually reverses the hypnotic and respiratory effects more than the amnestic ones. This is a pharmacological example of how amnesia and sedation can be separated.</li>
       <li><strong>Mechanism:</strong> Chapter 21 links sedation and anterograde amnesia to GABA-A receptors with the α1 subunit. Chapter 8 describes that amnesia for etomidate in mice is linked to α5 subunits. These concern different agents and are not necessarily contradictions.</li>
       <li><strong>Age:</strong> Older patients need less (Jacobs 1995).</li>
+      <li><strong>High dose or poisoning:</strong> Sutter and Kaplan 2012 describe “beta coma” (12–16 Hz, mostly frontal, mixed with spindle-like activity, alpha or delta) in poisoning with and withdrawal from benzodiazepines and barbiturates. It is largely reversible with a good prognosis. Alpha coma and spindle coma can also be seen in poisoning. See the simulator in the Spectrogram tab and the alpha coma case in the Intensive care tab.</li>
       <li><strong>EEG:</strong> midazolam at sedative doses is associated with beta oscillations (Brandt 2020), so the beta picture can resemble ketamine. Brandt describes a child who received ketamine and midazolam as premedication and had beta and gamma at the start, and the authors think this probably reflects both drugs together. What the EEG looks like at higher doses of midazolam is not described in the sources in the app.</li>
     </ul>
     <div class="micro"><h4>Micro level: receptors and neurons</h4><ul>
@@ -1065,8 +1053,43 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Potency:</strong> affinity is lorazepam &gt; midazolam &gt; diazepam. Midazolam is about 3–6 and lorazepam 5–10 times as potent as diazepam (ch. 21).</li>
       <li><strong>Ceiling:</strong> midazolam alone cannot fully abolish movement to noxious stimuli, whereas propofol alone can. Hendrickx 2008 uses this as one argument that propofol and midazolam act differently, even though both act through GABA<sub>A</sub>, and that the combination is therefore synergistic.</li>
       <li><strong>Flumazenil and receptor occupancy:</strong> flumazenil is a competitive antagonist with high affinity and almost no intrinsic effect. Its effect depends on what fraction of the receptors the agonist occupies. After a very high agonist dose, a small dose of flumazenil attenuates the deep CNS depression (unconsciousness, respiratory depression) without reducing the effects that need only low receptor occupancy (drowsiness, amnesia). Large doses of flumazenil with little agonist reverse everything. Flumazenil is cleared rapidly, so sedation can return (ch. 21).</li>
-      <li><strong>Remimazolam:</strong> described in chapter 21 as an ultra-short-acting GABA<sub>A</sub> agonist.</li>
+      <li><strong>Remimazolam:</strong> resembles midazolam and binds selectively to the benzodiazepine site. A carboxylic ester side chain is rapidly broken down by tissue esterases to an inactive metabolite (CNS7054), not via CYP. Clearance is about 70 l/h, and chapter 21 states that long infusions do not cause accumulation. Pharmacokinetics were unchanged in end-stage renal failure, but caution is advised in hepatic failure, and lower doses should be considered in the frail elderly. Flumazenil reverses it in about 1 minute (10.5 minutes with placebo) without resedation. For endoscopy, sedation success was comparable to propofol and better than midazolam (ch. 21).</li>
+      <li><strong>Remimazolam and EEG (Kim 2024):</strong> randomised substudy, 52 patients over 65, induction with remimazolam 6 mg/kg/h or propofol TCI 3.5 µg/ml, both with remifentanil. Remimazolam produced alpha and delta during induction, and there were no significant differences in spectral power or BIS between the drugs. Both produced alpha anteriorisation and reduced frontal-to-parietal feedback connectivity. Maintenance and emergence were not measured, and no patient had burst suppression. The study was partly funded by the pharmaceutical company Hana Pharmaceutical, which according to the article had no role in the analysis. The app's own synthesis: that remimazolam produced alpha and delta, whereas Brandt 2020 links midazolam to beta, may reflect dose (anaesthesia vs sedation) and is not necessarily a difference between the drugs.</li>
     </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-amn)"><summary>Propofol and midazolam: alone, together and in withdrawal</summary><div class="body">
+    <span class="tag">Miller's ch. 21 and 16</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Olsen and Liang 2017</span> <span class="tag">Lorentzen 2014</span> <span class="tag">Shah 2018</span> <span class="tag">Zhou 2014</span>
+    <ul>
+      <li><strong>Midazolam alone:</strong> binds the benzodiazepine site on the GABA<sub>A</sub> receptor and enhances the response to GABA by facilitating chloride channel opening (ch. 21). It therefore needs GABA to work, and its effect has a ceiling: midazolam alone cannot fully abolish movement to noxious stimuli (Hendrickx 2008).</li>
+      <li><strong>Propofol alone:</strong> binds the β subunit, a different site. At clinical concentrations propofol enhances GABA; at higher concentrations it can open the channel directly, without GABA. Chapter 21 also describes inhibition of NMDA receptors.</li>
+      <li><strong>Together, at the receptor:</strong> because the drugs bind different sites, the studies in Hendrickx 2008 found synergy for hypnosis (Short and Chui 1991, McClune 1992, Short 1992), and chapter 21 states that midazolam often acts synergistically with other hypnotics. Chapter 16 instead calls the interaction «primarily additive», see Discrepancies.</li>
+      <li><strong>Together, in the blood:</strong> a sedative midazolam concentration (200 ng/ml) raises propofol concentration by about 25 %, probably via altered circulation and hepatic perfusion. Propofol raises midazolam concentration by 27 %. Propofol also inhibits CYP3A4 (about 37 % lower activity at 3 µg/ml), which metabolises midazolam (ch. 21). The app's own synthesis: both synergy and higher concentrations point towards lower dose requirements when the drugs are given together.</li>
+      <li><strong>Why combine in the ICU:</strong> chapter 21 lists amnesia and haemodynamic stability as advantages of benzodiazepines, and accumulation (active metabolite, especially in renal failure) and more delirium than with dexmedetomidine as drawbacks. Propofol gives fast awakening but more hypotension. In Zhou 2014 (randomised, open-label, single centre, n=124 ventilated patients) time to extubation was 45 hours with midazolam alone, 3 hours with propofol alone and 2 hours when midazolam was switched to propofol before waking. Hypotension: 23 %, 52 % and 21 %. Agitation after stopping: 49 % with midazolam alone vs 19 % after switching. The authors suggest propofol may mask midazolam withdrawal. Note that this was switching, not simultaneous use, and that patients with alcoholism were excluded.</li>
+    </ul>
+    <div class="micro"><h4>Micro level: why benzodiazepines can fail in alcohol withdrawal</h4><ul>
+      <li><strong>Alcohol acts on two systems:</strong> it enhances GABA<sub>A</sub> and inhibits NMDA. With chronic use GABA<sub>A</sub> function weakens, and when alcohol is withdrawn the NMDA system is left unopposed (Lorentzen 2014, Shah 2018).</li>
+      <li><strong>The receptors are remodelled (rat):</strong> Olsen and Liang 2017 describe a «subunit switch» after repeated alcohol exposure: extrasynaptic δ-containing receptors (tonic inhibition) and α1 are down-regulated, while α4, γ2 and α2 are up-regulated. The rats became tolerant to the sedative effect of alcohol, benzodiazepines and neurosteroids, while anticonvulsant and anxiolytic effects showed little tolerance. After repeated cycles the changes lasted at least 120 days. The authors extend this to humans as a hypothesis.</li>
+      <li><strong>The clinicians' explanation:</strong> Lorentzen 2014 and Shah 2018 explain benzodiazepine resistance by «saturation» of GABA<sub>A</sub> receptors and by benzodiazepines having no effect on the overactive NMDA system.</li>
+      <li><strong>What propofol adds:</strong> Lorentzen 2014 writes that propofol has a «dual effect»: GABA<sub>A</sub> via a different site and NMDA inhibition. The app's own synthesis: since propofol at higher concentrations can open the channel without GABA, it is biologically plausible that it works where benzodiazepines have reached their ceiling. This is not tested in the sources.</li>
+      <li><strong>Lorentzen 2014:</strong> retrospective, n=15 with delirium tremens refractory to up to 2000 mg benzodiazepines. Propofol a mean 4.22 mg/kg/h over 48 hours (max 5.65), RASS −4 to −5, ventilated. 12 of 15 were treated successfully, 7 of 15 developed pneumonia, none developed propofol infusion syndrome, and mean ICU stay was 4.67 days.</li>
+      <li><strong>Ketamine as an alternative (Shah 2018):</strong> retrospective, n=30 with benzodiazepine-resistant withdrawal (more than 40 mg diazepam per hour). Ketamine blocks NMDA directly. Lorazepam requirement fell by 4 mg/h at 24 hours, but 73 % were intubated.</li>
+      <li><strong>Caveats:</strong> the studies are small, retrospective and uncontrolled. Deep sedation with propofol requires a secured airway. The sources in the app concern alcohol withdrawal; other poisonings (mixed overdose, stimulants, GHB) are not covered. EEG in benzodiazepine poisoning and withdrawal (beta coma) is described in the midazolam card.</li>
+    </ul></div>
+  </div></details>
+
+  <details class="comp" style="--hue:var(--c-ana)"><summary>Ketamine in refractory status epilepticus: when GABAergic drugs lose their grip</summary><div class="body">
+    <span class="tag">Espinosa 2023</span> <span class="tag">Gaspard 2013</span>
+    <ul>
+      <li><strong>What happens at the receptor:</strong> after a few minutes of continuous seizures, GABA<sub>A</sub> receptors move from the cell surface into the cell («internalisation»), while more glutamate and NMDA receptors move out to the surface («externalisation»). Inhibition weakens and excitation increases. This has been shown in animal models (Espinosa 2023).</li>
+      <li><strong>The consequence:</strong> resistance to benzodiazepines rises quickly the longer the seizure lasts. It is not GABA that is missing, but the receptors the drugs act on. Gaspard 2013 writes that sensitivity to GABA agonists declines with prolonged seizures, whereas sensitivity to NMDA antagonists does not.</li>
+      <li><strong>Why ketamine:</strong> ketamine blocks the NMDA receptor and so targets the part of the system that is up-regulated. It causes little respiratory or cardiovascular depression (Gaspard 2013).</li>
+      <li><strong>Gaspard 2013:</strong> retrospective study from ten centres, 58 patients (60 episodes, median age 24, seven after anoxic brain injury), almost all with continuous video-EEG. Loading dose median 1.5 mg/kg, infusion median 2.75 mg/kg/h (up to 10), started a median 9 days after onset and always with other drugs. Permanent seizure control in 57 %, likely ketamine response in 12 % and possible response in 20 %. Likely responses required at least 0.9 mg/kg/h and were not seen when ketamine was started 8 days or more after onset, or after 7 or more failed drugs. Mortality was 43 %, but 16 % when seizures were controlled within 24 hours of ketamine vs 56 % otherwise. ICP did not rise in monitored patients, except two with anoxic cerebral oedema.</li>
+      <li><strong>Espinosa 2023 (scoping review):</strong> about 20 publications, mostly case reports and small series. Loading doses 0.5–5 mg/kg and infusions 0.05–10.5 mg/kg/h. Of 19 case reports, 63 % achieved complete seizure control, usually within 12 hours, but seizures recurred in 10–60 % after withdrawal. Adverse effects were arrhythmias, cardiovascular collapse and metabolic acidosis, with unclear causality in patients on many drugs. The authors consider the evidence insufficient for ketamine as first choice or monotherapy.</li>
+      <li><strong>Link to withdrawal:</strong> the app's own synthesis: the pattern resembles that described in alcohol withdrawal (the propofol and midazolam card above), where GABA<sub>A</sub> function is weakened and the NMDA system overactive, and where ketamine and propofol are used when benzodiazepines fail.</li>
+      <li><strong>EEG:</strong> continuous EEG is used to guide treatment and to detect non-convulsive seizures (Intensive care tab). Ketamine produces a more activated EEG with beta and gamma and does not cause classic burst suppression at clinical doses (see the ketamine card). The app's own synthesis: the treatment target should therefore be judged on the raw EEG.</li>
+      <li><strong>Caveats:</strong> no randomised trials. Gaspard 2013 is retrospective and biased towards only the most severe cases receiving ketamine. Several authors disclose ties to the pharmaceutical industry (including UCB, GSK and Pfizer). Espinosa 2023 reports no conflicts of interest.</li>
+    </ul>
   </div></details>
 
   <details class="comp" style="--hue:var(--c-ana)"><summary>Ketamine</summary><div class="body">
@@ -1362,9 +1385,9 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>The exception is ketamine:</strong> ketamine showed no synergy with GABAergic agents in any study; propofol + ketamine was additive, and on reanalysis infra-additive for immobility (Hui 1995). Midazolam + ketamine was infra-additive for hypnosis on reanalysis. Clonidine + propofol was additive for hypnosis (Higuchi 2002), but clonidine lowers MAC<sub>awake</sub> for sevoflurane by 17–21% and MAC by 17–34% with a ceiling effect, which counts as synergy by definition. In the example above it is therefore sevoflurane + fentanyl (+ clonidine) that produces the synergy, not the esketamine. The authors stress that the review concerns only hypnosis and immobility: synergy for side effects (respiratory depression, hypotension) is little studied. The same is seen in dogs: Mair 2009 (Vet Anaesth Analg, 90 dogs, blinded and randomised) found that ketamine 0.25 or 0.5 mg/kg before propofol TCI did not change the propofol target for intubation (median 3.0 µg/ml in all groups) and did not change blood pressure or heart rate, but gave more apnoea after induction at the highest dose (4 of 30 versus 0). The authors conclude that ketamine is not a useful co-induction agent with propofol in dogs.</li>
    <li><strong>The numbers from Short and Chui 1991 (BJA 67:539–545):</strong> 200 women aged 18–40 years, not premedicated. ED50 for hypnosis was 1.01 mg/kg propofol and 0.14 mg/kg midazolam; for “anaesthesia” (no response to a 5 s tetanic stimulus) 1.93 mg/kg propofol, while midazolam alone never achieved it. In combination, 85% achieved hypnosis on a combined dose that gave hypnosis in 50% with each agent alone, and midazolam 0.13 mg/kg halved the propofol dose for anaesthesia (1.93 to 0.93 mg/kg, 52%). The fall in blood pressure was the same for the combination as for each agent at equipotent dose, that is, synergy for the hypotension too.</li>
    <li><strong>How interactions are measured:</strong> isobologram (lines through equieffective dose combinations; straight line = Loewe additivity, curved towards the origin = synergy) and response surface models such as Minto 2000, where the effect is shown as a surface over two dose dimensions. Lee 2010 (Korean J Anaesthesiol) reviews the models and points out that the classification depends on the reference model, and that a single interaction parameter cannot capture synergy in one dose range and antagonism in another.</li>
-   <li><strong>Age and pressure amplify:</strong> older patients are more sensitive to propofol (Schnider 1999, Purdon 2015 BJA), MAC falls with age, and hypotension after a bolus can in itself produce suppression (Georgii 2022, Perfusion tab). Ching 2012 (Perfusion tab) links suppression to reduced cerebral metabolism, and notes that ketamine, which increases CMRO₂, does not produce classic burst suppression at clinical doses.</li>
-   <li><strong>The return:</strong> when the effect wears off, activity returns, often as high-amplitude slow activity before the alpha band is re-established. Sepúlveda 2026 (Fundamentals tab) shows that the EEG after burst suppression does not go straight back to the baseline pattern at the same calculated concentration.</li>
-   <li><strong>What has not been shown:</strong> that a brief isoelectric period gives a worse outcome. Suppression is associated with delirium (Fritz 2016, Intensive care tab), but ENGAGES (Wildes 2019) reduced suppression time without reducing delirium. “Cortical collapse” is an image, not a technical term. “Reboot”, on the other hand, is used by Huang 2021 (Neuroimage) for the abrupt jump in subcortico-cortical connectivity at emergence; see the card on hysteresis and neural inertia in the Fundamentals tab.</li>
+   <li><strong>Age and pressure amplify:</strong> older patients are more sensitive to propofol (Schnider 1999, Purdon 2015 BJA), MAC falls with age, and hypotension after a bolus can in itself produce suppression (Georgii 2022, Burst suppression tab). Ching 2012 (Burst suppression tab) links suppression to reduced cerebral metabolism, and notes that ketamine, which increases CMRO₂, does not produce classic burst suppression at clinical doses.</li>
+   <li><strong>The return:</strong> when the effect wears off, activity returns, often as high-amplitude slow activity before the alpha band is re-established. Sepúlveda 2026 (Burst suppression tab) shows that the EEG after burst suppression does not go straight back to the baseline pattern at the same calculated concentration.</li>
+   <li><strong>What has not been shown:</strong> that a brief isoelectric period gives a worse outcome. Suppression is associated with delirium (Fritz 2016, Burst suppression tab), but ENGAGES (Wildes 2019) reduced suppression time without reducing delirium. “Cortical collapse” is an image, not a technical term. “Reboot”, on the other hand, is used by Huang 2021 (Neuroimage) for the abrupt jump in subcortico-cortical connectivity at emergence; see the card on hysteresis and neural inertia in the Fundamentals tab.</li>
    <li><strong>Practical:</strong> movement is a spinal response to nociception and does not mean that the hypnosis is too light (see the Fundamentals tab: nociception). Titrate one agent at a time, slowly in older patients (Obert 2024, Sepúlveda 2020), and look at the raw EEG and SR after each bolus, not only at the index. See image 16 in the image quiz.</li>
   </ul>
   <span class="tag">Hendrickx 2008, Short &amp; Chui 1991, Minto 2000, Lee 2010, Ching 2012, Guay 2025</span></div>
@@ -1402,29 +1425,37 @@ header h1 button:hover{color:var(--accent)}
   <h2>Intensive care: sedation for days and weeks</h2>
   <p>Most of what is in the other tabs also applies to the intensive care patient, but three things are different: the sedation lasts for days to weeks, the patients often have encephalopathy, organ failure or brain injury that itself alters the EEG, and the goal is seldom unconsciousness, but calm, safe ventilator treatment and as little drug as possible. This tab collects what the sources say about EEG and processed EEG in the critically ill. Brief notes on perfusion, ICP and EEG in ischaemia are in the Perfusion tab (van Putten and Hofmeijer, Foreman and Claassen, Lenstra, Guay, Nycz).</p>
 
-  <h3>Burst suppression during sedation and mortality (Watson 2008)</h3>
+  <h3>What the EEG can give you in intensive care: eight situations</h3>
   <div class="card">
-  <p>Post hoc analysis of a prospective cohort (Crit Care Med 2008;36:3171–3177) from the medical ICU at Vanderbilt: 125 adult ventilated patients without known neurological disease, APACHE II 27, 98% received sedation (lorazepam, midazolam, diazepam, propofol, fentanyl, morphine), titrated to the Ramsay scale. BIS (A1050, 2-channel frontal) was recorded for 10–20 minutes daily together with RASS and CAM-ICU. Burst suppression was defined as BSR above 0.</p>
+  <p>Intensive care uses EEG little compared with the operating room. Here are the situations where the sources in the app show that a frontal EEG monitor can change what you do. The details are on the cards further down the tab.</p>
   <ul>
-   <li><strong>How common:</strong> burst suppression in 49 of 125 (39%), and in almost half of the comatose patients (46 of 93). 54% of the episodes occurred in the first 72 hours. None had burst suppression as a goal in the chart.</li>
-   <li><strong>Mortality:</strong> 59% (29 of 49) died within 6 months versus 33% (25 of 76) without burst suppression. Adjusted for age, comorbidity, dementia, APACHE II, SOFA, coma and delirium: HR 2.04 (95% CI 1.12–3.70, p = 0.02). ICU mortality 37% versus 18% and hospital mortality 49% versus 24% were not significant individually. Length of stay on the ward after the ICU was longer (HR 1.84).</li>
-   <li><strong>Drugs:</strong> the lorazepam dose in the preceding 24 hours was higher before burst suppression (27.8 versus 7.5 mg/day, p = 0.004). Propofol, morphine and fentanyl did not differ, and none of the agents differed when the dose was adjusted for weight. The groups were similar at inclusion.</li>
-   <li><strong>The authors' main point:</strong> once the patient is unresponsive, no sedation scale can capture that the sedation is becoming deeper. Burst suppression is an EEG sign of deep sedation that can be read without EEG expertise, and which is probably less affected by encephalopathy than the index value itself. They propose that pEEG should be evaluated alongside sedation and delirium scales.</li>
-   <li><strong>Sources of error they describe:</strong> EMG can give a falsely high index in intensive care patients, while hepatic and renal encephalopathy give slower, higher-amplitude EEG that resembles sedation and can give a falsely low index.</li>
-   <li><strong>Caveats:</strong> post hoc, hypothesis-generating, 125 patients, only 10–20 minutes of EEG daily (burst suppression probably underestimated), yes/no classification without duration, and the sensor was applied just before recording, which may have stimulated the patient. Aspect provided monitors and partial salary for a research nurse; Ely and Watson report honoraria or support from Aspect, Hospira, Pfizer and Lilly. The authors themselves warn against firm conclusions.</li>
+   <li><strong>1. Delirium:</strong> hypoactive delirium is associated with low neuronal activity and an EEG dominated by slow-delta. As the delirium resolves, power shifts towards higher frequencies (Guay 2025). In Eskioglou 2021, however, general slowing did not distinguish delirious patients from others, whereas burst suppression, rhythmic or periodic patterns and seizures did (see Discrepancies). The EEG can therefore support, but not replace, CAM-ICU.</li>
+   <li><strong>2. Nonconvulsive seizures:</strong> periodic discharges and seizures are common in critical illness. More than 25 discharges per 10 seconds suggests a seizure or status epilepticus, and 11–25 per 10 seconds (or 5–10 sharp ones) belong to the ictal–interictal continuum. Both should prompt a full EEG and a neurologist. A frontal monitor can miss seizures in the temporal and occipital lobes (Guay 2025). In Eskioglou 2021, 7% of delirious patients had seizures or status epilepticus.</li>
+   <li><strong>3. Neuromuscular blockade:</strong> when the patient is paralysed, the EEG is the only way to see the brain. Rasulo 2023 recommends processed EEG as the main method of assessing sedation during neuromuscular blockade. Unexpected beta and gamma during blockade should prompt more sedation. Awareness with recall has been reported in 1.8–7.4% of patients intubated in the emergency department or ICU, versus 0.07–0.9% in the operating room (Guay 2025).</li>
+   <li><strong>4. Reactivity:</strong> that the EEG changes with speech, touch or pain is a prognostic sign in coma (Sutter and Kaplan 2012, Miller's ch. 80). Response to voice and physical stimuli typically gives abrupt beta and gamma on top of slow-delta (Guay 2025). There is no standardised protocol yet (Taccone 2026). See the case with relatives.</li>
+   <li><strong>5. The drugs in intensive care:</strong> propofol gives alpha–delta and burst suppression at high doses, dexmedetomidine a sleep-like pattern with spindles, ketamine beta and gamma, midazolam beta at sedative doses, and inhaled agents propofol-like alpha (Purdon 2015, Brandt 2020, Taccone 2026). See the simulator in the Spectrogram tab and the Drugs tab.</li>
+   <li><strong>6. Burst suppression as a goal or as a warning:</strong> burst suppression should be avoided, except to control raised intracranial pressure, and if it is used therapeutically, Rasulo 2023 recommends a suppression ratio below 5%. Unexpected burst suppression should first prompt questions about oxygen delivery, temperature and glucose, and then a reduction of sedation (Guay 2025). Watson 2008 found burst suppression in 39% of sedated ventilated patients, and it was associated with higher 6-month mortality.</li>
+   <li><strong>7. Why intensive care lags behind:</strong> electrode placement, lack of training, different monitors with different algorithms, cost and lack of validation in prolonged sedation (Rasulo 2023, Taccone 2026). Taccone proposes four levels of interpretation, from a simple alert for nurses to raw EEG for the neurophysiologist, and compares it with echocardiography, which intensivists learned to use without being cardiologists.</li>
+   <li><strong>8. Clinical examples:</strong> unilateral suppression that revealed a clot in an ECMO patient, reactivity during a visit in a comatose patient alpha coma from benzodiazepine poisoning in a child, and a flat EEG from herniation in a patient where burst suppression was the goal, are further down the tab.</li>
   </ul>
-  <span class="tag">Watson et al. Crit Care Med 2008;36:3171–3177</span></div>
+  <span class="tag">Guay 2025 Part 2</span> <span class="tag">Rasulo 2023</span> <span class="tag">Taccone 2026</span> <span class="tag">Eskioglou 2021</span> <span class="tag">Sutter and Kaplan 2012</span> <span class="tag">Watson 2008</span></div>
 
-  <h3>Burst suppression: mechanisms, age and delirium (Lobo and Lamperti, ch. 5)</h3>
+  <h3>Expect a pattern: EEG-guided management of the critically ill (Guay 2025 Part 2)</h3>
   <div class="card">
+  <p>Part 2 of the review from the Brown group (Anesthesiology 2025;143:1595–1618) gives a framework for frontal EEG in intensive care, built on the comparison with the ECG: periodic discharges resemble extrasystoles, seizures resemble ventricular tachycardia, and signs of too little oxygen to the brain resemble ST changes.</p>
   <ul>
-   <li><strong>What it is:</strong> alternating periods of almost absent activity and high-amplitude bursts. Never seen in natural sleep. The bursts are thought to reflect brief periods of thalamic disinhibition.</li>
-   <li><strong>Two proposed mechanisms:</strong> cortical hyperexcitability (extracellular calcium and a refractory period after the burst) and a metabolic theory in which falling ATP opens ATP-sensitive potassium channels.</li>
-   <li><strong>Who gets it most easily:</strong> the risk increases with age and with impaired neurological status. In older patients the pattern is less distinct: weaker bursts and shallower, shorter suppression, which makes it harder to detect in the most vulnerable (fig. 5.2).</li>
-   <li><strong>Thresholds:</strong> high-dose ketamine does not usually produce burst suppression, but affects the threshold; opioids do not produce it directly, but pain and nociception can lower the threshold.</li>
-   <li><strong>Delirium:</strong> several groups have found an association, but ENGAGES was inconclusive and has been criticised for the lack of standardised analgesia and for not taking age and cognitive frailty into account. See ENGAGES in the Components tab.</li>
+   <li><strong>Step 1, expect a pattern:</strong> based on age, vital signs, disease, sedatives and neurological examination. A healthy 40-year-old on propofol 50 µg/kg/min who opens her eyes to voice is expected to show alpha–delta with bursts of beta and gamma when spoken to. A 78-year-old in septic shock on propofol 20 µg/kg/min who does not respond is expected to show slow-delta, burst suppression or suppression.</li>
+   <li><strong>RASS and EEG:</strong> RASS −5 without neurological disease is expected to give alpha–delta, slow-delta or burst suppression. RASS −4 to −1 typically gives abrupt beta and gamma on top of slow-delta when the patient is stimulated. RASS 0 to +1 gives sustained beta and gamma, and RASS +2 to +4 gives a lot of movement and EMG artefact. Natural sleep may also be seen.</li>
+   <li><strong>Step 2, signal quality:</strong> low impedance, good gel contact, no leads touching other electrical equipment, and electrodes replaced every 24 hours or as recommended by the manufacturer. The amplitude scale is set as low (sensitive) as possible without clipping the peaks, and the power scale is adapted to what you are looking for. Which scales are available varies between monitors. Clinical experience suggests that a very sensitive scale, for example 1 µV/mm, magnifies the trace so much that ordinary activity can look sharp and epileptiform and the peaks are clipped. Choose the most sensitive scale at which the waves are still shown in full, and change the scale before interpreting anything as epileptiform activity. The raw EEG shows the current state, the spectrogram shows the trend.</li>
+   <li><strong>Step 3, when the pattern does not fit:</strong> suspected seizures prompt a full EEG, a neurologist and consideration of antiseizure drugs and more sedation. Unexpected beta and gamma during deep sedation or paralysis prompt more sedation and/or antinociception. Unexpected low activity (shift to lower frequencies, broadband power loss, burst suppression) should first be assessed as an imbalance between oxygen delivery and consumption: hypoxaemia, anaemia and low blood flow, as well as hypothermia, hypoglycaemia and severe hypercapnia. Only then is sedation reduced. If the pattern persists without sedation, primary neurological disease should be investigated.</li>
+   <li><strong>How often:</strong> there is no guideline. As with blood pressure and SpO₂, the EEG can be assessed every time you enter the patient's room, more often the more unstable the patient.</li>
+   <li><strong>Case 1:</strong> a 39-year-old with respiratory failure in burst suppression on propofol 50 µg/kg/min without signs of oxygen deficit. Reduction to 40 and then 20 µg/kg/min gave alpha–delta. Two days later, burst suppression appeared every time MAP was below 70 mmHg, with right heart failure and rising CVP, and disappeared with adrenaline.</li>
+   <li><strong>Case 2:</strong> an elderly patient after mitral valve surgery with falling amplitude (from 30–40 to 10–20 µV) before burst suppression, at a cardiac index of 1.3. After mechanical circulatory support (cardiac index 2.7) the activity returned. The next day, during a sedation hold, she was still unresponsive after 4 hours, and the frontal EEG showed triphasic periodic discharges (10–15 per 10 seconds). A full EEG confirmed nonconvulsive seizures, which were treated, and she woke without deficits.</li>
+   <li><strong>Caveats:</strong> a review with cases from a single institution, not an outcome study. Frontal EEG has limited sensitivity for seizures and ischaemia outside the frontal lobe. Brown reports patents, royalties from Masimo and co-founding a company developing control of physiological states during anaesthesia. Brown and Guay hold a joint patent, and Guay has received travel support from Masimo.</li>
   </ul>
-  <span class="tag">Lobo and Lamperti 2025, ch. 5</span></div>
+  <span class="tag">Guay et al. Anesthesiology 2025;143:1595–1618</span></div>
+
+  <p class="note">The cards on burst suppression are collected in the <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button> tab.</p>
 
   <h3>Invasive neuromonitoring in intensive care: ICP, PRx, PbtO2 and microdialysis (Lobo and Lamperti, ch. 12)</h3>
   <div class="card">
@@ -1447,9 +1478,9 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Autoregulation:</strong> PRx (correlation of ICP against arterial pressure, −1 to +1) is the established continuous measure, but TCD velocity, PbtO2 or NIRS can be used instead of ICP to calculate an autoregulation index. Absent autoregulation is more often associated with poor outcome.</li>
    <li><strong>Oxygenation:</strong> SjvO2 normally 55–75%, both below 50 and above 75 are associated with poor outcome, but the method is on its way out. PbtO2 normally 20–45 mmHg, below 15–20 is regarded as ischaemia, below 10 severe ischaemia; treatment guided by ICP, CPP and PbtO2 above 20 was better than ICP and CPP alone (Lin 2015, Spiotta 2010, Nangunoori 2012). NIRS normally 60–75%, but low sensitivity for isolated cerebral hypoperfusion in TBI and SAH, good as a trend monitor during systemic changes (cardiac surgery).</li>
    <li><strong>Continuous EEG in neurointensive care:</strong> in unconscious patients EEG should be used continuously to detect non-convulsive seizures, which are frequent and cause ICP rises and metabolic crisis (Vespa 2007; ESICM consensus, Claassen 2013). Automatic seizure detection has many false positives and negatives and cannot replace an EEG-trained neurologist (Schramm 2017). The chapter mentions that pEEG monitors for depth of anaesthesia use the same frequencies.</li>
-   <li><strong>EEG as prognosis after anoxia:</strong> burst suppression, alpha coma and low-voltage delta are called malignant patterns associated with poor outcome, while preserved EEG reactivity favours good outcome. The sentence stands without a reference in the chapter. Bilateral absence of N20 (SSEP after median nerve stimulation) is the most reliable predictor of not waking after anoxic coma (Zandbergen 2006, Sandroni 2020). Note that Forgacs 2020 and Jegarl 2026 (above) describe burst suppression after cardiac arrest as a pattern that can progress to good consciousness; the chapter uses the term without distinguishing between spontaneous and drug-induced burst suppression.</li>
+   <li><strong>EEG as prognosis after anoxia:</strong> burst suppression, alpha coma and low-voltage delta are called malignant patterns associated with poor outcome, while preserved EEG reactivity favours good outcome. The sentence stands without a reference in the chapter. Bilateral absence of N20 (SSEP after median nerve stimulation) is the most reliable predictor of not waking after anoxic coma (Zandbergen 2006, Sandroni 2020). Note that Forgacs 2020 and Jegarl 2026 (Burst suppression tab) describe burst suppression after cardiac arrest as a pattern that can progress to good consciousness; the chapter uses the term without distinguishing between spontaneous and drug-induced burst suppression.</li>
    <li><strong>Sedation in TBI:</strong> agents with a short context-sensitive half-time (propofol) to allow daily neurological examination, with a warning about propofol infusion syndrome at high doses over several days (Cremer 2001). Barbiturates and benzodiazepines have long half-lives and are less suitable; barbiturate treatment for refractory ICP “under EEG monitoring” appears as item 8 in the checklist (box 80.2), after sedation, CSF drainage and osmotherapy. High-dose propofol, prophylactic hyperventilation (PaCO2 below 30), steroids and therapeutic hypothermia are on the list of measures that are not recommended. Ketamine is no longer regarded as contraindicated in intubated and ventilated TBI patients (Kolenda 1997). Targets: PaO2 80–120 and PaCO2 35–38 mmHg.</li>
-   <li><strong>Status epilepticus:</strong> third line is midazolam or propofol infusion, possibly thiopental or pentobarbital; in super-refractory status, volatile anaesthetics and ketamine are mentioned. Continuous EEG is recommended to guide treatment and to detect non-convulsive seizures in comatose patients, and prolonged neuromuscular blockade should be avoided because it masks seizures.</li>
+   <li><strong>Status epilepticus:</strong> third line is midazolam or propofol infusion, possibly thiopental or pentobarbital; in super-refractory status, volatile anaesthetics and ketamine are mentioned. Continuous EEG is recommended to guide treatment and to detect non-convulsive seizures in comatose patients, and prolonged neuromuscular blockade should be avoided because it masks seizures. See the card on ketamine in refractory status epilepticus in the Agents tab.</li>
    <li><strong>Multimodal monitoring:</strong> ICP, autoregulation, PbtO2, continuous EEG and microdialysis together to individualise treatment; the chapter stresses that clinical neurophysiology only describes current function and cannot predict complications.</li>
   </ul>
   <span class="tag">Miller's Anesthesia, 10th ed., ch. 80 (Ko and Engelhard)</span></div>
@@ -1679,55 +1710,6 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Taccone et al. Crit Care 2026;30:195</span></div>
 
-  <h3>Time in burst suppression during coma and subsequent delirium (Andresen 2014)</h3>
-  <div class="card">
-  <p>Prospective observational cohort nested in BRAIN-ICU (Crit Care Med 2014;42:2244–2251), Vanderbilt, medical, surgical and cardiovascular intensive care. 124 ventilated patients had continuous BIS for up to 7 days; 69 were comatose (RASS −3 or deeper) and later awoke, and were included in the analysis. RASS twice daily, CAM-ICU twice daily when not comatose. Staff were blinded to burst suppression with a cover over the monitor. None received neuromuscular blocking agents.</p>
-  <ul>
-   <li><strong>Main finding:</strong> 42 of 69 (61%) developed delirium after coma. Most had burst suppression, but briefly: median 6.4 minutes (IQR 1–58). Adjusted for time with BIS below 40 and a component of APACHE II and cumulative doses of benzodiazepine, opioid and propofol during coma, more time in burst suppression gave higher odds of delirium (OR 4.16, 95% CI 1.27–13.62, p = 0.02) and later resolution of delirium (HR 0.78, 95% CI 0.53–0.98, p = 0.04).</li>
-   <li><strong>In practice:</strong> about 1 hour of burst suppression (75th percentile) versus 1 minute (25th percentile) gave four times higher odds of delirium and a 22% lower probability of it resolving during follow-up.</li>
-   <li><strong>How time was calculated:</strong> BIS recorded the suppression ratio every minute (proportion of the last 63 seconds that was isoelectric); the mean was multiplied by time in coma. Minutes with low signal quality were excluded.</li>
-   <li><strong>The authors' interpretation:</strong> sedation scales “lose their usefulness” when the patient is comatose, and pEEG can reveal the deepest sedation. The findings support lighter sedation strategies, but the authors themselves say that no firm conclusions can be drawn until larger studies have been done.</li>
-   <li><strong>Caveats:</strong> small sample (69), monitoring did not always start at the onset of coma, maximum 7 days, eight patients would have dropped out with RASS −4 as the coma threshold, and no adjustment for hypoxia, hypotension, sleep or diagnosis. Watson reports research support from Aspect; several authors fees from Hospira and Orion.</li>
-  </ul>
-  <span class="tag">Andresen et al. Crit Care Med 2014;42:2244–2251</span></div>
-
-  <h3>EEG suppression during surgery and subsequent delirium (Fritz 2016)</h3>
-  <div class="card">
-  <p>Observational study from Washington University (Anesth Analg 2016;122:234–242), a sub-study of the SATISFY-SOS registry. This is the study most often cited for the association between burst suppression during anaesthesia and delirium.</p>
-  <ul>
-   <li><strong>Patients:</strong> 727 adults (mean 62 years, 63% men) for general anaesthesia with planned intensive care stay, 86% cardiac surgery. Induction with propofol, maintenance with a volatile agent. Suppression ratio from one BIS channel (Fp1–F7), recorded once a minute, summed to minutes with suppression. In 141 patients the values were read from screenshots every 5 minutes and interpolated. Delirium was assessed with CAM-ICU twice daily on days 1–5 in 619 patients.</li>
-   <li><strong>Findings:</strong> median suppression 4.5 minutes (IQR 0.7–17.4). 162 (26%) developed delirium, 73% of them hypoactive. More minutes in suppression gave a higher incidence of delirium across quartiles (p &lt; 0.0001), and the association held after adjustment for age, ASA, comorbidity, type of surgery, opioid, ketamine, transfusion and end-tidal concentration: OR 1.22 per log unit of minutes of suppression (99% CI 1.06–1.40). Suppression time predicted delirium better than time with BIS below 20 (c-statistic 0.62 versus 0.57), but both are weak predictors on their own.</li>
-   <li><strong>What produced suppression:</strong> higher end-tidal concentration (OR 1.5 per 0.5 MAC) and lower opioid dose (OR 0.5 per 1 morphine equivalent/kg). The authors cannot say whether less opioid led to more suppression, or whether deeply anaesthetised patients without signs of nociception simply received less opioid.</li>
-   <li><strong>Interpretation, the authors' two possibilities:</strong> either too deep anaesthesia as the cause, or that suppression arises more readily in patients with subclinical brain pathology, so that anaesthesia acts as a “neural stress test”. The study cannot separate the two; see Hogan 2020 and Jegarl 2026 below.</li>
-   <li><strong>Limitations:</strong> observational study without causal inference, delirium measured as part of routine care (low sensitivity), no preoperative Barthel measurement, only planned intensive care patients, and mostly cardiac surgery. Almost all (548 of 619) had some suppression, so the comparison group without suppression was small (71). No conflicts of interest reported. The follow-up ENGAGES (Wildes 2019) from the same group found that EEG-guided anaesthesia reduced suppression time without reducing delirium.</li>
-  </ul>
-  <span class="tag">Fritz et al. Anesth Analg 2016;122:234–242</span></div>
-
-  <h3>Burst suppression: good, bad or indifferent? Context decides (Jegarl 2026)</h3>
-  <div class="card">
-  <p>Narrative review from Weill Cornell (Anesth Analg 2026;142:1169–1179) that attempts to explain why observational studies find an association between burst suppression and postoperative delirium, while the large randomised trials do not.</p>
-  <ul>
-   <li><strong>The definitions diverge:</strong> ACNS 2021 distinguishes attenuation (≥ 10 µV, but below 50% of background) from suppression (below 10 µV), requires that “burst-suppression” makes up 50–99% of the recording, and that a burst lasts ≥ 0.5 s with ≥ 4 phases. The anaesthesia literature uses the term more loosely, calls suppression “isoelectric”, and measures with 1–4 frontal channels and a proprietary suppression ratio that underestimates burst suppression compared with visual interpretation. In one study (41 patients), visually determined suppression duration was associated with delirium (p = 0.039), but SR-based duration was not (p = 0.275).</li>
-   <li><strong>The Ching model:</strong> a neurophysiological-metabolic model in which falling ATP opens ATP-gated potassium channels, hyperpolarises the neurons and produces burst suppression at about a 50% fall in ATP production, with suppression duration proportional to the ATP deficit. The model unifies deep anaesthesia, hypoxia/ischaemia, hypoglycaemia (below 50 mg/dl), the postictal state and hypothermia (CMRO2 falls about 6% per °C, isoelectric at 18–20 °C). Ketamine, dexmedetomidine and xenon do not produce burst suppression.</li>
-   <li><strong>The trials:</strong> ENGAGES (n = 1232) and ENGAGES-Canada (n = 1140) gave lower MAC (0.69 versus 0.8 and 0.66 versus 0.8) and less burst suppression (7 versus 13 and 4 versus 12 minutes) in the EEG group, but no difference in delirium (26.0 versus 23.0% and 18.2 versus 18.1%). Balanced (n = 655, BIS 50 versus 35) gave 17 versus 29% delirium and longer suppression in the delirious (7 versus 2 minutes), but with greater dose separation and differing anaesthetic sensitivity between centres. 27 healthy volunteers with 3 hours of isoflurane at 1.3 MAC: 93% developed burst suppression, none developed delirium.</li>
-   <li><strong>When burst suppression is used deliberately:</strong> in aneurysm surgery with temporary clipping the evidence for barbiturate-induced burst suppression is mixed, and animal studies suggest that protection does not require burst suppression. In hypothermic circulatory arrest, temperature below 12.5 °C and cooling for more than 50 minutes were the only reliable predictors of isoelectric EEG (only 60% were isoelectric at 18 °C), and each degree above the temperature at which the EEG became continuous again gave RR 1.56 for neurological injury.</li>
-   <li><strong>Protective down-regulated state:</strong> the painted turtle survives months of anoxia with burst suppression-like EEG and 80 times higher GABA. The authors (via Schiff and Brown) propose a corresponding “protective down-regulated state” in humans after cardiac arrest and severe covid-19, where prolonged unconsciousness without structural injury may be protective. In 795 intubated covid patients, time to recovery of consciousness increased from 9 to 22 days with the degree of hypoxaemia.</li>
-   <li><strong>Conclusion:</strong> the suppression phase looks the same regardless of cause, so incidence and duration alone cannot distinguish oversedation from ischaemia, hypothermia or hypoglycaemia. The burst content (intraburst spectrum, preburst activity, spatial distribution) may be more informative. In any case, burst suppression can be limited not only by the dose, but by raising the blood pressure, avoiding hypothermia and ensuring oxygenation.</li>
-   <li><strong>Caveats:</strong> narrative review without a systematic search. Goldstein is a co-inventor on patents for alkylphenols against neuropathic pain.</li>
-  </ul>
-  <span class="tag">Jegarl et al. Anesth Analg 2026;142:1169–1179</span></div>
-
-  <h3>Burst suppression with theta in the bursts after cardiac arrest: a recovery marker? (Forgacs 2020)</h3>
-  <div class="card">
-  <p>Ann Neurol 2020;87:618–632 (Forgacs, Devinsky and Schiff). Three patients who awoke from coma after cardiac arrest after 17–37 days and became functionally independent, plus a prospective cohort of 53 cardiac arrest patients of whom 17 had burst suppression on the acute EEG.</p>
-  <ul>
-   <li><strong>The three:</strong> short time to ROSC (10–20 minutes), therapeutic hypothermia to 33 °C, minimal cortical injury on CT or MRI, preserved SSEP in two. Eye opening came 23–26 days and command following 37–67 days after all sedation had been stopped, far beyond the half-lives of the drugs. All had prominent burst suppression with a theta peak (about 4–7 Hz) in the bursts.</li>
-   <li><strong>The cohort:</strong> of the 17 with burst suppression, 3 had a good outcome (CPC 2) and 14 a poor one (13 died). All three with a good outcome had a persistent theta peak in the bursts with increasing peak frequency over time. In the 14 with a poor outcome, the spectra were either flat or without lasting features (7), had only transient theta or falling frequency (5), or a shallow peak around 4 Hz (2).</li>
-   <li><strong>The hypothesis:</strong> prolonged burst suppression may reflect impaired metabolism in post-hypoxic neurons that are still alive. The authors propose maintaining nutrition and fluids during the observation period and considering a time-limited trial of amantadine, and point out that withdrawal of treatment after cardiac arrest usually occurs within 5–7 days, so that the literature is marked by self-fulfilling prophecy.</li>
-   <li><strong>Caveats:</strong> three case reports and a small cohort, analysis of burst content requires full EEG and spectral analysis, and no causal test. No conflicts of interest, NIH-funded.</li>
-  </ul>
-  <span class="tag">Forgacs, Devinsky and Schiff. Ann Neurol 2020;87:618–632</span></div>
-
   <h3>Clinical example: the spectrogram as a mirror of systemic perfusion in septic shock (Fischer 2026)</h3>
   <div class="card">
   <p>Case report from Clínica Universidad de los Andes, Chile (Rev Chil Anest 2026;55:234–238). A 70-year-old man without comorbidity, septic shock with multi-organ failure after bowel perforation, APACHE II 29, SOFA 11, three vasoactive agents, high-volume haemofiltration. The unit uses frontal 4-channel pEEG with spectrogram (SedLine) routinely in all patients with continuous sedation or GCS below 8.</p>
@@ -1739,18 +1721,44 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Fischer et al. Rev Chil Anest 2026;55:234–238</span></div>
 
-  <h3>Is burst suppression cause or marker? Causal analysis (Hogan 2020)</h3>
+  <h3>Clinical example: unilateral suppression in an ECMO patient revealed a blood clot (shared case)</h3>
   <div class="card">
-  <p>Retrospective observational study from Massachusetts General Hospital (Neurocrit Care 2020;33:565–574): 471 ventilated patients from seven intensive care units (2014–2017) with continuous EEG for at least 18 hours, after excluding anoxic encephalopathy after cardiac arrest and intentional burst suppression (raised ICP, status epilepticus, neuromuscular blockers). Median age 61 years, 27% died in hospital, half had unintentional burst suppression, and 63% had structural brain injury. The authors applied prediction models and causal inference (counterfactual “randomised” comparison, mediation, E-values) to the observational data.</p>
+  <p>One case from Norwegian clinical practice, shared with the author of this app. It is not published and not peer reviewed. It is described from one screenshot of the spectrogram over about 17 minutes and information from the person who shared it. The screenshot is not reproduced in the app.</p>
   <ul>
-   <li><strong>Severity of illness drives both:</strong> going from mild to severe illness (10th versus 90th percentile) gave 39% (95% CI 8–66) more burst suppression burden and 35% (29–41) higher mortality.</li>
-   <li><strong>Burst suppression contributes, but little:</strong> 100% versus 0% burst suppression burden gave 12% (7–17) higher mortality, and burst suppression mediated 10% (2–21) of the effect of critical illness on death.</li>
-   <li><strong>Propofol matters less than assumed:</strong> high cumulative dose (1316 mg/kg) versus low (284 mg/kg) gave only 6% (0.8–12) more burst suppression, and propofol had no direct effect on mortality; the whole effect went via burst suppression.</li>
-   <li><strong>The authors' interpretation:</strong> unintentional burst suppression is “primarily an effect of critical illness, not iatrogenic propofol use”, either because the illness itself produces the pattern (as in sepsis) or because it alters the brain's sensitivity so that ordinary doses produce burst suppression. Burst suppression thus becomes a marker of vulnerability. Avoiding overdosing will probably have little effect on mortality, but individual titration to the lowest necessary dose may still have a modest effect.</li>
-   <li><strong>Versus Watson 2008:</strong> the authors consider that the difference in effect size may be due to differing methods and differing populations, and that intensive care versus operating theatre may be an effect modifier.</li>
-   <li><strong>Caveats:</strong> selection (continuous EEG is obtained when brain dysfunction is suspected, hence 63% brain injury), coarse burden calculation in 8–12-hour windows, arbitrary distinction between mild and severe illness, in-hospital mortality only, cumulative dose without time course, binary clinical variables, no adjustment for unit, and seizure burden as an explicitly stated possible confounder. No conflicts of interest reported. Code is openly available.</li>
+   <li><strong>The patient:</strong> an ICU patient with COVID-19 on ECMO, sedated.</li>
+   <li><strong>What the spectrogram showed:</strong> a clear difference between the hemispheres. In the upper panel activity was almost absent, interrupted only by short, scattered bursts, a picture resembling burst suppression. In the lower panel there was continuous activity with power in delta and even, low power up towards 30 Hz.</li>
+   <li><strong>The course:</strong> according to the person who shared the case, there was a blood clot in the brain. It showed up nowhere other than in the EEG, and the patient was sent for intervention and recovered.</li>
+   <li><strong>Why it is instructive:</strong> in a sedated patient the neurological examination is severely limited, and a stroke can be missed. Sedation acts on both hemispheres, so marked unilateral suppression argues against sedation alone being the explanation. This fits what van Putten and Hofmeijer and Sheorajpanday 2009 describe: ischaemia causes loss of activity and asymmetry. Nycz 2022 shows a similar asymmetry with carotid stenosis and low blood pressure.</li>
+   <li><strong>What to do (the app's own synthesis):</strong> new or increasing asymmetry should first be checked for technical causes such as electrode contact and impedance. If the signal is good, it should prompt clinical assessment and imaging, not just adjustment of sedation.</li>
+   <li><strong>Caveats:</strong> one case, described from one screenshot. It is not known which side and which vessel were affected, or which drugs and doses the patient received. A frontal monitor covers only a small part of the cortex and can miss infarcts elsewhere.</li>
   </ul>
-  <span class="tag">Hogan et al. Neurocrit Care 2020;33:565–574</span></div>
+  <span class="tag">Shared clinical example</span> <span class="tag">van Putten and Hofmeijer 2016, Sheorajpanday 2009, Nycz 2022</span></div>
+
+  <h3>Clinical example: comatose patient with only delta reacts when relatives visit (shared case)</h3>
+  <div class="card">
+  <p>One case from Norwegian clinical practice, shared with the author of this app. It is not published and not peer reviewed. It is described from two screenshots of the spectrogram and information from the person who shared it. The screenshots are not reproduced in the app.</p>
+  <ul>
+   <li><strong>The patient:</strong> a comatose ICU patient without sedation, with an EEG that for long periods showed only delta.</li>
+   <li><strong>Without visitors:</strong> in one picture (about 20 minutes) the power in both hemispheres lay below about 4 Hz, with very little activity above. The picture was stable without changes.</li>
+   <li><strong>With relatives present:</strong> in the other picture, power from theta up into beta, about 15–30 Hz, increased in both hemispheres in periods, while delta persisted.</li>
+   <li><strong>What it may mean:</strong> a change in frequency or amplitude when the patient is stimulated is called EEG reactivity. Sutter and Kaplan 2012 write that reactivity distinguishes between coma states better than the pattern itself, and Miller's ch. 80 writes that preserved reactivity indicates a good outcome after anoxic brain injury. In three patients who eventually became independent after prolonged coma following cardiac arrest, reactivity returned after 3, 8 and 73 days (Forgacs 2020). This case shows that everyday stimuli, such as relatives' voices and touch, can produce a reaction visible on a frontal monitor.</li>
+   <li><strong>What can be done (the app's own synthesis):</strong> test reactivity deliberately, with speech, touch and possibly a noxious stimulus, and note the time so the change can be found in the spectrogram. Repeat the test over days, since reactivity may return late.</li>
+   <li><strong>Caveats:</strong> increased beta can also come from muscle activity (EMG), movement or other artefacts, so the raw EEG and the EMG indicator should be checked. Formal assessment of reactivity is done with standardised stimuli and a full EEG. One case, and the patient's outcome is not known.</li>
+  </ul>
+  <span class="tag">Shared clinical example</span> <span class="tag">Sutter and Kaplan 2012, Miller's ch. 80, Forgacs 2020</span></div>
+
+  <h3>Clinical example: alpha coma in an unconscious child turned out to be benzodiazepine poisoning (shared case)</h3>
+  <div class="card">
+  <p>One case from Norwegian clinical practice, shared with the author of this app. It is not published and not peer reviewed. It is described from one screenshot and information from the person who shared it. The screenshot is not reproduced in the app.</p>
+  <ul>
+   <li><strong>The patient:</strong> an unconscious 3-year-old child. At first it was unclear what had happened.</li>
+   <li><strong>What the EEG showed:</strong> a strong, continuous band around 10–12 Hz in both hemispheres, together with delta, and little activity above about 20 Hz. The pattern was symmetrical and stable over about 20 minutes. The raw EEG showed regular, high-amplitude waves in the alpha range. The index was 34.</li>
+   <li><strong>The explanation:</strong> it turned out to be a benzodiazepine overdose.</li>
+   <li><strong>Link to the sources:</strong> Sutter and Kaplan 2012 describe alpha coma as alpha activity (8–13 Hz) in a patient who cannot be roused. In poisoning with barbiturates, benzodiazepines and anaesthetics among others, alpha is mostly frontal, reactivity is usually preserved and up to 90% recover. In hypoxic-ischaemic injury after cardiac arrest, alpha is more diffuse, reactivity is usually absent and the outcome is mostly poor. The same pattern can thus mean very different things depending on the cause.</li>
+   <li><strong>Why it is instructive (the app's own synthesis):</strong> the pattern resembles alpha–delta under anaesthesia with propofol or sevoflurane. Benzodiazepines also act on the GABA<sub>A</sub> receptor (see the Drugs tab), and children generally have stronger alpha under GABAergic anaesthesia than adults (Lee 2017, Akeju 2015). In an unconscious patient of unknown cause, such a picture may therefore raise suspicion of a GABAergic drug. The diagnosis is nevertheless made clinically and with tests, not from the EEG alone.</li>
+   <li><strong>Caveats:</strong> one case, described from one screenshot. Sutter and Kaplan mainly discuss adults. It is not known which benzodiazepine or dose, whether reactivity was tested, or how the child fared.</li>
+  </ul>
+  <span class="tag">Shared clinical example</span> <span class="tag">Sutter and Kaplan 2012, Lee 2017, Akeju 2015</span></div>
 
 </section>
 <!-- ========== GRUNNLAG ========== -->
@@ -1933,17 +1941,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Sepúlveda et al. Acta Anaesthesiol Scand 2010;54:447–452; Coppens et al. Br J Anaesth 2010;104:452–458</span></div>
 
-  <h3>After burst suppression the brain is not the same: non-linear pharmacodynamics (Sepúlveda 2026)</h3>
-  <div class="card">
-  <p>Prospective, non-randomised dose–response study from Osorno (Anesth Analg 2026;143:261–270, NCT06417645): 23 healthy patients under 60 years received slow induction (10 mg/kg/h) to loss of response, then Eleveld TCI, remifentanil 4.5 ng/ml and rocuronium. After intubation, propofol was increased to 15 mg/kg/h until BIS showed a 1% suppression ratio (“perturbation”), and the effect-site concentration was then set back to the level at loss of response. Observed BIS was compared with BIS predicted by the Eleveld model (TIVA Trainer), and the EEG spectrum and delta–alpha phase-amplitude coupling were analysed.</p>
-  <ul>
-   <li><strong>Before the perturbation:</strong> observed and predicted BIS were the same (no significant difference).</li>
-   <li><strong>After the perturbation:</strong> with the same calculated effect-site concentration as before, observed BIS lay consistently below predicted BIS (largest bias −17.5 in the phase after the perturbation), and the difference persisted for the rest of the operation. Alpha power (absolute and relative) was lower than before, and the delta–alpha modulation (Kmod) was stronger (0.21 versus 0.16, p = 0.01), which the authors interpret as deeper thalamocortical synchronisation. Same concentration, deeper effect.</li>
-   <li><strong>Slow induction gives a lower Ce at loss of response:</strong> on average 2.0 µg/ml, versus an EC50 of about 3 µg/ml in the Eleveld model for the same age. The authors believe the models were built on bolus and rapid-infusion data without plasma–effect equilibrium (“front-end” kinetics), and that ke0 is a mathematical device to collapse the hysteresis loop.</li>
-   <li><strong>Interpretation:</strong> the brain under anaesthesia behaves as a non-linear system (the same dose does not give the same effect, no return to the starting point). Linear PK/PD models therefore cannot predict the effect after a disturbance, whether experimental (brief burst suppression) or clinical (haemorrhage shrinking V1, altered infusion rate). The conclusion is continuous EEG monitoring, especially in vulnerable patients. The authors discuss nociception as an alternative explanation for the lower alpha (surgery was under way after the perturbation), but consider that the stronger delta–alpha coupling argues against it.</li>
-   <li><strong>Caveats:</strong> no control group without perturbation, so time alone cannot be excluded; circularity because “the same concentration” is defined by the model being tested; no plasma measurements; only healthy subjects under 60; the BIS prediction from Eleveld is itself debated (Coetzee 2024). The numbers in the abstract and the results section do not agree (see discrepancies). No conflicts of interest, public funding (ANID).</li>
-  </ul>
-  <span class="tag">Sepúlveda, Barra, Baloian, Gutiérrez. Anesth Analg 2026;143:261–270</span></div>
+  <p class="note">The cards on burst suppression are collected in the <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button> tab.</p>
 
   <h3>Emergence is not induction in reverse: hysteresis, neural inertia and “reboot”</h3>
   <div class="card">
@@ -1953,7 +1951,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Animal studies, nuclei (Zhang and Wei 2025, review):</strong> orexin neurons in the lateral hypothalamus control emergence, but not induction (Kelz 2008: removal of orexin delayed emergence without altering the EC50 for loss of righting). The same applies to serotonergic neurons in the dorsal raphe, dopaminergic neurons in the VTA, orexinergic terminals in the basal forebrain and locus coeruleus, PVT, lateral habenula and prefrontal cortex. Other nuclei (PnO) control only induction. In patients, plasma orexin-A rises during emergence, not during induction. Caveats: almost exclusively male mice and rats, mostly isoflurane, and only 3 of the studies report EC50; the patterns vary between agents.</li>
    <li><strong>Emergence can be actively induced (Solt 2011, Anesthesiology):</strong> methylphenidate (dopamine and noradrenaline reuptake inhibitor) in rats halved the time to emergence (median 280 to 91 s) and restored righting in 11 of 12 animals during <em>ongoing</em> isoflurane, with an EEG shift from delta to theta within 30 seconds and increased ventilation; droperidol (D2/α1 antagonist) blocked everything. The point for EEG: emergence is an active arousal process from the brainstem and hypothalamus, not merely the absence of agent. Methylphenidate is not approved for this in humans.</li>
    <li><strong>The concepts (Mashour 2022, Anesth Analg):</strong> wakefulness (arousal) and consciousness (awareness) are different things; response is not the same as consciousness, and lack of response is not the same as unconsciousness (“unresponsiveness ≠ unconsciousness”, Sanders 2012). Mashour lists animal experiments in which stimulation of the thalamus, parabrachial nucleus, VTA, locus coeruleus, basal forebrain or prefrontal cortex reverses anaesthesia, and notes that recovery probably proceeds from caudal to rostral structures. Conflict of interest: consultant for TRYP Therapeutics.</li>
-   <li><strong>What it means clinically:</strong> (1) that the EEG does not return to the baseline pattern at the same calculated concentration after burst suppression (Sepúlveda 2026, card above) is hysteresis seen in the EEG; (2) that emergence from sevoflurane often passes through a delta-dominated stage (Hesse 2019, Miyasaka 2025) and that the course, not just the dose, may matter for delirium; (3) that “alpha without theta” or a low dose does not guarantee rapid emergence, because the inertia resides in the network, not only in the concentration. Hysteresis in humans is nevertheless debated: Kuizenga 2018 and Warnaby 2017 did not find it for propofol, while Ferreira 2020, Nir 2019, Sepúlveda 2019 and Huang 2021 did.</li>
+   <li><strong>What it means clinically:</strong> (1) that the EEG does not return to the baseline pattern at the same calculated concentration after burst suppression (Sepúlveda 2026, Burst suppression tab) is hysteresis seen in the EEG; (2) that emergence from sevoflurane often passes through a delta-dominated stage (Hesse 2019, Miyasaka 2025) and that the course, not just the dose, may matter for delirium; (3) that “alpha without theta” or a low dose does not guarantee rapid emergence, because the inertia resides in the network, not only in the concentration. Hysteresis in humans is nevertheless debated: Kuizenga 2018 and Warnaby 2017 did not find it for propofol, while Ferreira 2020, Nir 2019, Sepúlveda 2019 and Huang 2021 did.</li>
   </ul>
   <span class="tag">Huang 2021, Zhang and Wei 2025, Solt 2011, Mashour 2022</span></div>
 
@@ -2260,6 +2258,20 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">van Putten and Hofmeijer 2016</span></div>
 
+  <div class="card"><h3>Consciousness and the dying brain (Mashour 2024)</h3>
+  <p>Narrative review (Anesthesiology 2024;140:1221–1231; Mashour, Lee, Pal and Li) on near-death experiences and EEG around cardiac arrest and death.</p>
+  <ul>
+   <li><strong>Incidence:</strong> 10–20 % of survivors of in-hospital cardiac arrest report near-death experiences. In AWARE II, 21.4 % of 28 interviewed patients had a «transcendent recalled experience of death».</li>
+   <li><strong>The indices just before death:</strong> in seven critically ill patients without brain injury, BIS and SedLine values rose to levels consistent with consciousness just before death, after withdrawal of life-sustaining treatment. In a follow-up, 13 of 28 (46 %) had such a surge, while none of seven brain-dead patients did. Other series have not found this.</li>
+   <li><strong>Why the indices cannot be read as consciousness:</strong> processed EEG cannot distinguish non-specific activation (for example glutamate release as hypoxic neurones die) from organised activity, cannot distinguish wakefulness from seizures, has only frontal electrodes, and EMG is hard to exclude completely.</li>
+   <li><strong>Animal studies:</strong> in rats, a brief surge of gamma and theta with increased coupling between cortical regions occurred within 30 seconds of cardiac arrest. During asphyxia, release of many neurotransmitters increased; serotonin rose more than 20-fold within 2 minutes.</li>
+   <li><strong>Humans:</strong> in 2 of 4 dying comatose patients, beta and gamma increased after the ventilator was disconnected. Both had a history of seizures, so seizure activity cannot be excluded. In a study of 8 patients, EEG ceased a median 78 seconds before circulatory arrest. None of the findings is linked to an actual experience.</li>
+   <li><strong>During CPR:</strong> in AWARE II, SedLine gave interpretable EEG in 53 of 85 during ongoing CPR, and near-normal activity was seen up to 35–60 minutes into CPR. Detailed analysis has not been published.</li>
+   <li><strong>Isoelectric is not always final:</strong> in animal models the isoelectric phase can be reversed by rapid reoxygenation, and the authors do not exclude that experiences may arise while the brain recovers.</li>
+   <li><strong>Relevance and caveats:</strong> anaesthesia staff take part in CPR, organ donation and withdrawal of treatment. The authors reject non-neurobiological explanations. Funded by NIH, no competing interests. Note that the findings concern dying patients, not prognosis in survivors.</li>
+  </ul>
+  <span class="tag">Mashour, Lee, Pal and Li. Anesthesiology 2024;140:1221–1231</span></div>
+
   <div class="card"><h3>Quantitative EEG, CBF and CPP (Foreman and Claassen 2012)</h3>
   <ul>
    <li><strong>Thresholds:</strong> when CBF falls to about 25–35 ml/100 g/min, the EEG first loses fast frequencies. At about 17–18 slow frequencies increase gradually, and the authors call this a critical ischaemic threshold at which neurons begin to lose transmembrane gradients. At 10–12 ml/100 g/min and below the EEG becomes silent, and the cell injury is irreversible.</li>
@@ -2356,16 +2368,7 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Own clinical example; Guay 2025, Manquat 2022, Nycz 2022</span></div>
 
-  <div class="card"><h3>Clinical example: burst suppression during bleeding that resolves after transfusion (shared case)</h3>
-  <p>One case from Norwegian clinical practice, shared with the author of this app. It is not published and not peer reviewed. It is described from two screenshots of a frontal EEG monitor taken about 20 minutes apart. The screenshots are not reproduced in the app.</p>
-  <ul>
-   <li><strong>During the bleeding:</strong> PSI was first around 35–40 and then fell to 10. The suppression ratio (SR) was 44%, EMG 0% and artefacts 0%, and the spectral edge frequency (SEF) was not calculated. In the spectrogram, power lay mostly below about 10–12 Hz without a clear alpha band, followed by increasingly frequent suppression periods in both hemispheres. The raw EEG was almost flat and low-amplitude. Electrode impedances were acceptable.</li>
-   <li><strong>After transfusion:</strong> the suppression periods became shorter and disappeared, and the EEG became continuous again. PSI was 44, SR 0% and SEF 15.8 Hz on the left and 16.4 Hz on the right. The raw EEG showed high-amplitude slow waves with faster activity superimposed, and the spectrogram showed power from slow-delta up to about 15 Hz.</li>
-   <li><strong>Why it is instructive:</strong> the picture during the bleeding resembles deep anaesthesia: power shifting to lower frequencies, power loss and then burst suppression. Guay 2025 describes that reduced cerebral oxygen delivery (CDO₂) produces exactly this pattern, and that anaemic patients tolerate falls in blood flow less well. CDO₂ depends on blood flow, haemoglobin and saturation. Bleeding can lower both blood pressure and haemoglobin, and transfusion can improve both. Georgii 2022 found that burst suppression often resolved when MAP was raised to the patient’s baseline.</li>
-   <li><strong>What we cannot tell from the screenshots:</strong> blood pressure, haemoglobin, temperature, the patient’s age and whether anaesthetic doses were changed. It therefore cannot be determined whether blood pressure, haemoglobin or both mattered most, or whether other factors contributed. Miller’s chapter 10 and Guay 2025 mention hypothermia, hypoglycaemia and hypnotic overdose as other causes of the same pattern.</li>
-   <li><strong>Caveats:</strong> a single case without measurement of CBF, NIRS or Doppler. The point is not that the EEG «proves» hypoperfusion, but that unexpected suppression should prompt a search for the cause, including bleeding and anaemia, before the dose is simply reduced.</li>
-  </ul>
-  <span class="tag">Own clinical example; Guay 2025, Georgii 2022, Miller’s ch. 10</span></div>
+  <p class="note">The cards on burst suppression are collected in the <button type="button" class="linkbtn" data-goto="p-bs">Burst suppression</button> tab.</p>
 
   <div class="card"><h3>Hemispheric asymmetry on frontal EEG and blood pressure (Nycz 2022, case report)</h3>
   <ul>
@@ -2378,29 +2381,6 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Connection within the app:</strong> the pattern agrees with ischaemia first producing loss of fast activity (Foreman and Claassen) and with asymmetry as a sign of hemispheric involvement (BSI, Sheorajpanday). Guay 2025 describes other case reports in which pressure and cardiac output affect frontal EEG. All are single cases or reviews, not proof.</li>
   </ul>
   <span class="tag">Nycz et al. Neurol Int 2022;14:1018–1023</span></div>
-
-  <div class="card"><h3>Why burst suppression? A neurophysiological-metabolic model (Ching 2012)</h3>
-  <p>Computational model from MGH, MIT and Boston University (PNAS 2012;109:3095–3100; Ching, Purdon, Vijayan, Kopell and Brown). It attempts to explain why anaesthesia, hypothermia, hypoxic-ischaemic coma and early infantile encephalopathy (Ohtahara) produce the same EEG pattern.</p>
-  <ul>
-   <li><strong>The idea:</strong> the common denominator is reduced cerebral metabolism. In the model (10 pyramidal neurons and 4 interneurons, Hodgkin-Huxley type), neuronal firing is coupled to ATP production via ATP-gated potassium channels (K<sub>ATP</sub>). When ATP production is reduced, ATP is depleted during a burst, the K<sub>ATP</sub> channels open, the cells hyperpolarise and fall silent; ATP slowly builds up again, and the next burst can start. 50% of normal ATP production gave a suppression ratio of about 0.5, 30% gave about 0.75; bursts and pauses lasted 4–10 seconds.</li>
-   <li><strong>A continuum:</strong> burst suppression is not a separate state, but a gradually increasing suppression ratio with deeper inactivation, ending in a completely isoelectric EEG. The authors show an example of rewarming after cooling to 18 °C in which the suppression ratio gradually falls until the EEG is continuous again.</li>
-   <li><strong>The bursts carry the old pattern:</strong> during propofol-induced burst suppression the alpha rhythm lives on inside each burst; the spectrogram looks “as if it has been multiplied by a sequence of zeros and ones”. The model predicts that the spectral content of a burst should be the same as just before burst suppression started, regardless of agent. It also predicts a slow frequency drift within each burst (about 11 to 8 Hz) and that fast activity is limited by metabolism, not by GABA inhibition; these two have not been confirmed experimentally.</li>
-   <li><strong>Why it is relevant to perfusion:</strong> anaesthetic agents reduce firing and thereby CMRO₂ secondarily, whereas hypothermia and ischaemia reduce metabolism directly without changing the synapses. Both end in the same K<sub>ATP</sub> mechanism. This is the basis for suppression being able to mean either too much agent or too little energy (Guay 2025, Georgii 2022). Ketamine, which increases CMRO₂, does not produce classic burst suppression at clinical doses.</li>
-   <li><strong>The authors' interpretation:</strong> each burst is “an attempt to restore basal cortical dynamics”, and suppression is an energy-saving protection. In severe ischaemia even complete isoelectricity cannot preserve ATP, and injury follows. They suggest that the character of the bursts could be used to detect ischaemia during surgery and to distinguish burst suppression from seizures, and that the difference between a low suppression ratio and full isoelectricity should be clarified before “burst suppression” is used as a target in neuroprotection.</li>
-   <li><strong>Limitations:</strong> a model with 14–20 cells, without spatial extent, and the K<sub>ATP</sub> channel is a hypothesis; other channels and extracellular calcium (Kroeger and Amzica 2007) may act together. The model explains, but does not prove. No conflicts of interest declared.</li>
-  </ul>
-  <span class="tag">Ching et al. PNAS 2012;109:3095–3100</span></div>
-
-  <div class="card"><h3>Burst suppression and blood pressure (Georgii 2022)</h3>
-  <ul>
-   <li><strong>Design:</strong> randomised trial at a single clinic. Patients ≥60 years, at least 60 minutes of surgery under general anaesthesia, without neuropsychiatric disease. 104 were analysed, and 68 had a burst suppression ratio (BSR) above 0 (control 32, intervention 36).</li>
-   <li><strong>Intervention:</strong> when BSR was above 0, MAP was first raised to the patient's baseline (lowest measured MAP before anaesthesia, mainly with catecholamines). If BSR was still positive, the anaesthetic concentration was reduced. The control group received standard anaesthesia with the EEG concealed.</li>
-   <li><strong>Result:</strong> cumulative BSR was 433 versus 1385 (p = 0.002), duration 5.9 versus 10.1 minutes (p = 0.002) and maximum BSR 35 versus 50 (p = 0.027). The effect occurred at induction. During maintenance the difference was not significant.</li>
-   <li>MAP at the start of the BSR episodes was significantly lower than baseline in both groups. When MAP was raised to baseline (44 cases), BSR was reduced, and in 55% (24 of 44) it went to 0 without other measures. During maintenance this happened in 7 of 11.</li>
-   <li><strong>Delirium:</strong> no one developed postoperative delirium on days 1–3. 28% developed delirium in the recovery room, with no difference between the groups.</li>
-   <li><strong>The authors' caveats:</strong> the study does not prove a causal relationship between hypotension, hypoperfusion and burst suppression. Processed BSR may underestimate suppression, and 57% had a maximum state entropy of 80 or more. The sample is small.</li>
-  </ul>
-  <span class="tag">Georgii et al. Front Syst Neurosci 2022;16:786816</span></div>
 
   <div class="card"><h3>Blood pressure targets and delirium (Xu 2020)</h3>
   <ul>
@@ -2544,6 +2524,227 @@ header h1 button:hover{color:var(--accent)}
   <div class="note">Miller's chapter 30 does not describe EEG. The EEG section above is based on Lobo and Lamperti and the studies. The evidence for EEG in raised ICP is sparse (see the card on ICP). Foreman and Claassen mention that the mean frequency falls when CPP is below 60 mmHg. Kalmar measured neither ICP nor EEG.</div>
 </section>
 
+<!-- ========== BURST SUPPRESSION ========== -->
+<section class="panel" id="p-bs" hidden>
+  <h2>Burst suppression</h2>
+  <p>All the cards on burst suppression are collected here: what the pattern is, when it is wanted, when it is not needed, and what it means for outcomes.</p>
+  <div class="card"><h3>When is burst suppression wanted, and when is it not needed?</h3>
+  <p>A synthesis of the cards in this tab. Sources are given with each point.</p>
+  <ul>
+   <li><strong>As a deliberate treatment:</strong> burst suppression is induced in refractory status epilepticus, raised intracranial pressure and aneurysm surgery with temporary clipping to lower metabolism and ICP. Gruenbaum 2026 writes that it should be individualised and time-limited, with concurrent attention to perfusion, oxygenation and temperature. In status epilepticus it is part of third-line treatment (Intensive care tab).</li>
+   <li><strong>Is it neuroprotective?</strong> The rationale rests on oxygen consumption and blood flow falling together. Gruenbaum 2026 points out that this coupling weakens with age, vascular disease and anaesthesia. In aneurysm surgery the evidence is mixed, and animal studies suggest that protection does not require burst suppression (Jegarl 2026). After cardiac arrest, Jegarl 2026 and Forgacs 2020 describe the hypothesis of a protective down-regulated state.</li>
+   <li><strong>Not needed for general anaesthesia:</strong> propofol produces burst suppression at about 4.9 µg/ml, whereas movement to incision is prevented only at about 15 µg/ml (Pilge 2014). Unconsciousness occurs at much lower concentrations (Components tab). The Pilge authors write that a «silent second» is too deep for clinical anaesthesia, and Gruenbaum 2026 that excessive cortical silencing gives no additional protection against awareness but may carry a cognitive cost.</li>
+   <li><strong>Not needed during ICU sedation:</strong> in Watson 2008 nobody had burst suppression as a goal, and burst suppression was associated with higher mortality (HR 2.04). In Andresen 2014 more time in burst suppression gave higher odds of delirium (OR 4.16). Hogan 2020 found that burst suppression is mostly a marker of how ill the patient is, but that titrating to the lowest necessary dose may have a modest effect.</li>
+   <li><strong>When it appears unintentionally:</strong> look for the cause before increasing or accepting the dose: blood pressure, oxygenation, haemoglobin, glucose and temperature (Gruenbaum 2026). In Georgii 2022 burst suppression disappeared in 55 % of cases simply by raising MAP to the patient's baseline.</li>
+   <li><strong>If it is the goal, it must be verified:</strong> a flat EEG is not the same as the intended burst suppression (the herniation case below). Unilateral suppression may mean focal ischaemia or a technical fault (Gruenbaum 2026, the ECMO case in the Intensive care tab).</li>
+   <li><strong>The app's own synthesis:</strong> the sources support that burst suppression can have a place as a deliberate, time-limited treatment, but that it is not needed for unconsciousness, amnesia or immobility during anaesthesia or sedation. Unintended burst suppression is a signal to look for the cause, not a sign of adequate anaesthetic depth.</li>
+  </ul>
+  </div>
+
+  <h2>What it is and why it occurs</h2>
+
+  <h3>Burst suppression: mechanisms, age and delirium (Lobo and Lamperti, ch. 5)</h3>
+  <div class="card">
+  <ul>
+   <li><strong>What it is:</strong> alternating periods of almost absent activity and high-amplitude bursts. Never seen in natural sleep. The bursts are thought to reflect brief periods of thalamic disinhibition.</li>
+   <li><strong>Two proposed mechanisms:</strong> cortical hyperexcitability (extracellular calcium and a refractory period after the burst) and a metabolic theory in which falling ATP opens ATP-sensitive potassium channels.</li>
+   <li><strong>Who gets it most easily:</strong> the risk increases with age and with impaired neurological status. In older patients the pattern is less distinct: weaker bursts and shallower, shorter suppression, which makes it harder to detect in the most vulnerable (fig. 5.2).</li>
+   <li><strong>Thresholds:</strong> high-dose ketamine does not usually produce burst suppression, but affects the threshold; opioids do not produce it directly, but pain and nociception can lower the threshold.</li>
+   <li><strong>Delirium:</strong> several groups have found an association, but ENGAGES was inconclusive and has been criticised for the lack of standardised analgesia and for not taking age and cognitive frailty into account. See ENGAGES in the Components tab.</li>
+  </ul>
+  <span class="tag">Lobo and Lamperti 2025, ch. 5</span></div>
+
+  <div class="card"><h3>Why burst suppression? A neurophysiological-metabolic model (Ching 2012)</h3>
+  <p>Computational model from MGH, MIT and Boston University (PNAS 2012;109:3095–3100; Ching, Purdon, Vijayan, Kopell and Brown). It attempts to explain why anaesthesia, hypothermia, hypoxic-ischaemic coma and early infantile encephalopathy (Ohtahara) produce the same EEG pattern.</p>
+  <ul>
+   <li><strong>The idea:</strong> the common denominator is reduced cerebral metabolism. In the model (10 pyramidal neurons and 4 interneurons, Hodgkin-Huxley type), neuronal firing is coupled to ATP production via ATP-gated potassium channels (K<sub>ATP</sub>). When ATP production is reduced, ATP is depleted during a burst, the K<sub>ATP</sub> channels open, the cells hyperpolarise and fall silent; ATP slowly builds up again, and the next burst can start. 50% of normal ATP production gave a suppression ratio of about 0.5, 30% gave about 0.75; bursts and pauses lasted 4–10 seconds.</li>
+   <li><strong>A continuum:</strong> burst suppression is not a separate state, but a gradually increasing suppression ratio with deeper inactivation, ending in a completely isoelectric EEG. The authors show an example of rewarming after cooling to 18 °C in which the suppression ratio gradually falls until the EEG is continuous again.</li>
+   <li><strong>The bursts carry the old pattern:</strong> during propofol-induced burst suppression the alpha rhythm lives on inside each burst; the spectrogram looks “as if it has been multiplied by a sequence of zeros and ones”. The model predicts that the spectral content of a burst should be the same as just before burst suppression started, regardless of agent. It also predicts a slow frequency drift within each burst (about 11 to 8 Hz) and that fast activity is limited by metabolism, not by GABA inhibition; these two have not been confirmed experimentally.</li>
+   <li><strong>Why it is relevant to perfusion:</strong> anaesthetic agents reduce firing and thereby CMRO₂ secondarily, whereas hypothermia and ischaemia reduce metabolism directly without changing the synapses. Both end in the same K<sub>ATP</sub> mechanism. This is the basis for suppression being able to mean either too much agent or too little energy (Guay 2025, Georgii 2022). Ketamine, which increases CMRO₂, does not produce classic burst suppression at clinical doses.</li>
+   <li><strong>The authors' interpretation:</strong> each burst is “an attempt to restore basal cortical dynamics”, and suppression is an energy-saving protection. In severe ischaemia even complete isoelectricity cannot preserve ATP, and injury follows. They suggest that the character of the bursts could be used to detect ischaemia during surgery and to distinguish burst suppression from seizures, and that the difference between a low suppression ratio and full isoelectricity should be clarified before “burst suppression” is used as a target in neuroprotection.</li>
+   <li><strong>Limitations:</strong> a model with 14–20 cells, without spatial extent, and the K<sub>ATP</sub> channel is a hypothesis; other channels and extracellular calcium (Kroeger and Amzica 2007) may act together. The model explains, but does not prove. No conflicts of interest declared.</li>
+  </ul>
+  <span class="tag">Ching et al. PNAS 2012;109:3095–3100</span></div>
+
+  <h3>Burst suppression during anaesthesia: a four-step clinical approach (Gruenbaum 2026)</h3>
+  <div class="card">
+  <p>Narrative review (Br J Anaesth 2026;136:1843–1854; Gruenbaum, Safavynia and Bilotta). The authors describe burst suppression as a context-dependent marker of cortical energy balance, neither a therapeutic target nor a pure dose phenomenon.</p>
+  <ul>
+   <li><strong>Two processes:</strong> down-regulation by anaesthetics (excessive dose, hypothermia) and metabolic failure from insufficient substrate or oxygen (hypoglycaemia, hypoxia, ischaemia). When ATP falls, ATP-gated potassium channels open and neurones hyperpolarise. Astrocytes supply lactate to neurones, and this works less well with age and vascular disease. Low ATP can also weaken the blood–brain barrier and admit inflammatory mediators; the injury markers S100B and GFAP are linked to delirium. With severe hypoperfusion or anoxic injury the EEG can become isoelectric.</li>
+   <li><strong>Who tolerates it:</strong> burst suppression may be tolerated in young, healthy people without measurable consequences, whereas recurrent or persistent burst suppression in vulnerable patients more often reflects exhausted reserve. The authors argue that its meaning depends more on the brain's metabolic reserve than on its duration.</li>
+   <li><strong>Raw EEG over the index:</strong> BIS and PSI are affected by suppression only when it dominates the analysis window, so acceptable index values can coexist with clear discontinuity. Automated detection underestimated duration compared with visual scoring and missed burst suppression in about 14 % of cases. On the spectrogram, burst suppression produces a «checkerboard» pattern with dark horizontal stripes. Electrocautery and poor electrode contact can mimic burst suppression: true bursts have organised spectral content, whereas artefacts give broadband spikes.</li>
+   <li><strong>Numbers:</strong> in a retrospective study of more than 38,000 adults nearly half had burst suppression, and both likelihood and duration increased with age. Sevoflurane produces burst suppression at about 2.9 % (above 1 MAC), propofol at about 4.9 µg/ml, whereas more than 15 µg/ml is needed to prevent movement. Meta-analyses show about 1.5 times higher risk of postoperative delirium.</li>
+   <li><strong>Four steps:</strong> (1) confirm on the raw EEG: electrode contact and impedance, artefacts, and the lowest scale that shows the trace without clipping. (2) Assess symmetry: unilateral suppression may mean focal ischaemia or a technical fault; keep the dose unchanged and assess perfusion. (3) With symmetric suppression and a high dose: reduce by 0.1–0.2 MAC or propofol by 10–20 %. (4) If it persists at a low dose: look for hypotension, hypoxaemia, anaemia, hypoglycaemia, hypothermia and hypocapnia.</li>
+   <li><strong>Pain and opioids:</strong> nociception can produce beta or delta arousal that is misread as too-light hypnosis, and more hypnotic then increases the risk of burst suppression. Opioids can unmask or accentuate burst suppression together with propofol or volatile agents.</li>
+   <li><strong>Caveats:</strong> narrative review without a systematic search, focused on surgery rather than cardiac arrest or intensive care. No conflicts of interest. The authors state that a language model from OpenAI was used for editing. Safavynia is a co-author both here and of Jegarl 2026.</li>
+  </ul>
+  <span class="tag">Gruenbaum, Safavynia and Bilotta. Br J Anaesth 2026;136:1843–1854</span></div>
+
+  <h2>Dose and age</h2>
+
+  <div class="card"><h3>Burst suppression MAC and CP50 (Pilge 2014)</h3>
+  <ul>
+   <li><strong>What it is:</strong> a study proposing the “silent second” (EEG suppression for at least 1 second) as a measure of the anaesthetic agent's effect on the brain, instead of movement at incision (MAC, which mostly reflects the spinal cord).</li>
+   <li><strong>Design:</strong> 55 unpremedicated ASA I–II patients for elective surgery were randomised to sevoflurane (16), isoflurane (21) or propofol (18). The concentration was held constant for 15 minutes and EEG analysed in the 16th minute, and the next patient received a 10% lower concentration if suppression occurred and 10% higher if not (Dixon's “up-and-down” method, six independent crossover pairs per group). The values were calculated with logistic regression.</li>
+   <li><strong>Result:</strong> sevoflurane 2.93 vol% (95% CI 2.80–3.15), isoflurane 1.51 vol% (1.45–1.60) and propofol 4.85 (CI 4.25–5.40; the article states “mg/ml”, probably micrograms/ml). That is over 1.4 times MAC for sevoflurane (2.05 vol%), over 1.3 times MAC for isoflurane (1.15 vol%) and under a third of the propofol concentration that prevents movement at incision (15.2 µg/ml, from Smith 1994).</li>
+   <li><strong>Reservations:</strong> the starting concentrations were above the population value, and the authors write that the confidence intervals may therefore be too wide, particularly for propofol. The sample is small. Burst suppression does not occur with ketamine, so the measure cannot be used for ketamine. The pattern also differs between agents, and the authors write that a “silent second” is too deep for clinical anaesthesia.</li>
+   <li><strong>What the article does not say:</strong> it does not state that fentanyl reduces the propofol concentration by about 80%. That figure comes from Smith 1994 via Miller's.</li>
+   <li><strong>Conflicts of interest:</strong> none declared. Funded by departmental funds.</li>
+  </ul>
+  <span class="tag">Pilge et al. Br J Anaesth 2014;112:1067–1074</span></div>
+
+  <div class="card"><h3>The bursts become weaker and more irregular with age (Kratzer 2020)</h3>
+  <p>Retrospective analysis from TU Munich and Columbia (Front Syst Neurosci 2020;14:599962) of the first burst after burst suppression appeared during propofol induction. The data are from Hesse 2019 (Atlanta), recorded with SedLine (Legacy) and analysed by an independent university group.</p>
+  <ul>
+   <li><strong>Method:</strong> 102 of 408 patients had a distinct first burst after a “silent second” (at least 1 s below 10 µV). Only the first 1.5 seconds of the burst were analysed, so that differing duration and dose would not affect the result. Median age 56 years; 16 patients under 45 years (YOUNG) and a group over 65 years (OLD). Fentanyl equivalents did not differ with age.</li>
+   <li><strong>Findings:</strong> older patients had lower absolute power in 1–15 Hz and relatively more power above 15 Hz within the burst. Absolute alpha power fell linearly with age (AUC 0.86 for young versus old), while normalised alpha did not change: it is the amplitude, not the architecture, that disappears. Maximum amplitude was 20.3 µV in the young versus 13.1 µV in the older patients (AUC 0.84), steepest slope 1.22 versus 0.86 µV/ms, and permutation entropy was higher in the older patients (more irregular signal). Subanalysis of the 83 who received midazolam premedication gave the same result.</li>
+   <li><strong>Why it matters for the monitor:</strong> BIS, PSI and entropy detect burst suppression by looking for suppression, that is EEG below an amplitude threshold for a certain time, not by recognising the bursts. When the bursts in older patients are lower and flatter, they can themselves fall below the threshold, and Muhlhofer 2017 showed that the suppression ratio underestimates suppression compared with visual reading. The authors argue that burst information should be used as a plausibility check, but then age-adjusted. This is the mechanism behind Image 6 and 13 in the image quiz: in older patients both normal EEG and bursts can look “weak”.</li>
+   <li><strong>Connection in the app:</strong> the same age-related change that Purdon 2015 (BJA) and Kreuzer 2020 described for maintenance without burst suppression, and which Ching 2012 predicts: the spectral content of the burst mirrors the EEG just before the suppression started. Obert 2024 (the card above) shows that slow induction can avoid burst suppression in older patients in the first place.</li>
+   <li><strong>Limitations:</strong> frontal EEG, only propofol-induced bursts (Fleischmann 2018 showed that the agent affects the shape of the burst), no adjustment for comorbidity, and the midazolam subgroup among the older patients was small. Funded by the James S. McDonnell Foundation (García); no conflicts of interest declared.</li>
+  </ul>
+  <span class="tag">Kratzer et al. Front Syst Neurosci 2020;14:599962</span></div>
+
+  <h3>After burst suppression the brain is not the same: non-linear pharmacodynamics (Sepúlveda 2026)</h3>
+  <div class="card">
+  <p>Prospective, non-randomised dose–response study from Osorno (Anesth Analg 2026;143:261–270, NCT06417645): 23 healthy patients under 60 years received slow induction (10 mg/kg/h) to loss of response, then Eleveld TCI, remifentanil 4.5 ng/ml and rocuronium. After intubation, propofol was increased to 15 mg/kg/h until BIS showed a 1% suppression ratio (“perturbation”), and the effect-site concentration was then set back to the level at loss of response. Observed BIS was compared with BIS predicted by the Eleveld model (TIVA Trainer), and the EEG spectrum and delta–alpha phase-amplitude coupling were analysed.</p>
+  <ul>
+   <li><strong>Before the perturbation:</strong> observed and predicted BIS were the same (no significant difference).</li>
+   <li><strong>After the perturbation:</strong> with the same calculated effect-site concentration as before, observed BIS lay consistently below predicted BIS (largest bias −17.5 in the phase after the perturbation), and the difference persisted for the rest of the operation. Alpha power (absolute and relative) was lower than before, and the delta–alpha modulation (Kmod) was stronger (0.21 versus 0.16, p = 0.01), which the authors interpret as deeper thalamocortical synchronisation. Same concentration, deeper effect.</li>
+   <li><strong>Slow induction gives a lower Ce at loss of response:</strong> on average 2.0 µg/ml, versus an EC50 of about 3 µg/ml in the Eleveld model for the same age. The authors believe the models were built on bolus and rapid-infusion data without plasma–effect equilibrium (“front-end” kinetics), and that ke0 is a mathematical device to collapse the hysteresis loop.</li>
+   <li><strong>Interpretation:</strong> the brain under anaesthesia behaves as a non-linear system (the same dose does not give the same effect, no return to the starting point). Linear PK/PD models therefore cannot predict the effect after a disturbance, whether experimental (brief burst suppression) or clinical (haemorrhage shrinking V1, altered infusion rate). The conclusion is continuous EEG monitoring, especially in vulnerable patients. The authors discuss nociception as an alternative explanation for the lower alpha (surgery was under way after the perturbation), but consider that the stronger delta–alpha coupling argues against it.</li>
+   <li><strong>Caveats:</strong> no control group without perturbation, so time alone cannot be excluded; circularity because “the same concentration” is defined by the model being tested; no plasma measurements; only healthy subjects under 60; the BIS prediction from Eleveld is itself debated (Coetzee 2024). The numbers in the abstract and the results section do not agree (see discrepancies). No conflicts of interest, public funding (ANID).</li>
+  </ul>
+  <span class="tag">Sepúlveda, Barra, Baloian, Gutiérrez. Anesth Analg 2026;143:261–270</span></div>
+
+  <h2>Burst suppression and outcomes</h2>
+
+  <h3>EEG suppression during surgery and subsequent delirium (Fritz 2016)</h3>
+  <div class="card">
+  <p>Observational study from Washington University (Anesth Analg 2016;122:234–242), a sub-study of the SATISFY-SOS registry. This is the study most often cited for the association between burst suppression during anaesthesia and delirium.</p>
+  <ul>
+   <li><strong>Patients:</strong> 727 adults (mean 62 years, 63% men) for general anaesthesia with planned intensive care stay, 86% cardiac surgery. Induction with propofol, maintenance with a volatile agent. Suppression ratio from one BIS channel (Fp1–F7), recorded once a minute, summed to minutes with suppression. In 141 patients the values were read from screenshots every 5 minutes and interpolated. Delirium was assessed with CAM-ICU twice daily on days 1–5 in 619 patients.</li>
+   <li><strong>Findings:</strong> median suppression 4.5 minutes (IQR 0.7–17.4). 162 (26%) developed delirium, 73% of them hypoactive. More minutes in suppression gave a higher incidence of delirium across quartiles (p &lt; 0.0001), and the association held after adjustment for age, ASA, comorbidity, type of surgery, opioid, ketamine, transfusion and end-tidal concentration: OR 1.22 per log unit of minutes of suppression (99% CI 1.06–1.40). Suppression time predicted delirium better than time with BIS below 20 (c-statistic 0.62 versus 0.57), but both are weak predictors on their own.</li>
+   <li><strong>What produced suppression:</strong> higher end-tidal concentration (OR 1.5 per 0.5 MAC) and lower opioid dose (OR 0.5 per 1 morphine equivalent/kg). The authors cannot say whether less opioid led to more suppression, or whether deeply anaesthetised patients without signs of nociception simply received less opioid.</li>
+   <li><strong>Interpretation, the authors' two possibilities:</strong> either too deep anaesthesia as the cause, or that suppression arises more readily in patients with subclinical brain pathology, so that anaesthesia acts as a “neural stress test”. The study cannot separate the two; see Hogan 2020 and Jegarl 2026 below.</li>
+   <li><strong>Limitations:</strong> observational study without causal inference, delirium measured as part of routine care (low sensitivity), no preoperative Barthel measurement, only planned intensive care patients, and mostly cardiac surgery. Almost all (548 of 619) had some suppression, so the comparison group without suppression was small (71). No conflicts of interest reported. The follow-up ENGAGES (Wildes 2019) from the same group found that EEG-guided anaesthesia reduced suppression time without reducing delirium.</li>
+  </ul>
+  <span class="tag">Fritz et al. Anesth Analg 2016;122:234–242</span></div>
+
+  <h3>Burst suppression during sedation and mortality (Watson 2008)</h3>
+  <div class="card">
+  <p>Post hoc analysis of a prospective cohort (Crit Care Med 2008;36:3171–3177) from the medical ICU at Vanderbilt: 125 adult ventilated patients without known neurological disease, APACHE II 27, 98% received sedation (lorazepam, midazolam, diazepam, propofol, fentanyl, morphine), titrated to the Ramsay scale. BIS (A1050, 2-channel frontal) was recorded for 10–20 minutes daily together with RASS and CAM-ICU. Burst suppression was defined as BSR above 0.</p>
+  <ul>
+   <li><strong>How common:</strong> burst suppression in 49 of 125 (39%), and in almost half of the comatose patients (46 of 93). 54% of the episodes occurred in the first 72 hours. None had burst suppression as a goal in the chart.</li>
+   <li><strong>Mortality:</strong> 59% (29 of 49) died within 6 months versus 33% (25 of 76) without burst suppression. Adjusted for age, comorbidity, dementia, APACHE II, SOFA, coma and delirium: HR 2.04 (95% CI 1.12–3.70, p = 0.02). ICU mortality 37% versus 18% and hospital mortality 49% versus 24% were not significant individually. Length of stay on the ward after the ICU was longer (HR 1.84).</li>
+   <li><strong>Drugs:</strong> the lorazepam dose in the preceding 24 hours was higher before burst suppression (27.8 versus 7.5 mg/day, p = 0.004). Propofol, morphine and fentanyl did not differ, and none of the agents differed when the dose was adjusted for weight. The groups were similar at inclusion.</li>
+   <li><strong>The authors' main point:</strong> once the patient is unresponsive, no sedation scale can capture that the sedation is becoming deeper. Burst suppression is an EEG sign of deep sedation that can be read without EEG expertise, and which is probably less affected by encephalopathy than the index value itself. They propose that pEEG should be evaluated alongside sedation and delirium scales.</li>
+   <li><strong>Sources of error they describe:</strong> EMG can give a falsely high index in intensive care patients, while hepatic and renal encephalopathy give slower, higher-amplitude EEG that resembles sedation and can give a falsely low index.</li>
+   <li><strong>Caveats:</strong> post hoc, hypothesis-generating, 125 patients, only 10–20 minutes of EEG daily (burst suppression probably underestimated), yes/no classification without duration, and the sensor was applied just before recording, which may have stimulated the patient. Aspect provided monitors and partial salary for a research nurse; Ely and Watson report honoraria or support from Aspect, Hospira, Pfizer and Lilly. The authors themselves warn against firm conclusions.</li>
+  </ul>
+  <span class="tag">Watson et al. Crit Care Med 2008;36:3171–3177</span></div>
+
+  <h3>Time in burst suppression during coma and subsequent delirium (Andresen 2014)</h3>
+  <div class="card">
+  <p>Prospective observational cohort nested in BRAIN-ICU (Crit Care Med 2014;42:2244–2251), Vanderbilt, medical, surgical and cardiovascular intensive care. 124 ventilated patients had continuous BIS for up to 7 days; 69 were comatose (RASS −3 or deeper) and later awoke, and were included in the analysis. RASS twice daily, CAM-ICU twice daily when not comatose. Staff were blinded to burst suppression with a cover over the monitor. None received neuromuscular blocking agents.</p>
+  <ul>
+   <li><strong>Main finding:</strong> 42 of 69 (61%) developed delirium after coma. Most had burst suppression, but briefly: median 6.4 minutes (IQR 1–58). Adjusted for time with BIS below 40 and a component of APACHE II and cumulative doses of benzodiazepine, opioid and propofol during coma, more time in burst suppression gave higher odds of delirium (OR 4.16, 95% CI 1.27–13.62, p = 0.02) and later resolution of delirium (HR 0.78, 95% CI 0.53–0.98, p = 0.04).</li>
+   <li><strong>In practice:</strong> about 1 hour of burst suppression (75th percentile) versus 1 minute (25th percentile) gave four times higher odds of delirium and a 22% lower probability of it resolving during follow-up.</li>
+   <li><strong>How time was calculated:</strong> BIS recorded the suppression ratio every minute (proportion of the last 63 seconds that was isoelectric); the mean was multiplied by time in coma. Minutes with low signal quality were excluded.</li>
+   <li><strong>The authors' interpretation:</strong> sedation scales “lose their usefulness” when the patient is comatose, and pEEG can reveal the deepest sedation. The findings support lighter sedation strategies, but the authors themselves say that no firm conclusions can be drawn until larger studies have been done.</li>
+   <li><strong>Caveats:</strong> small sample (69), monitoring did not always start at the onset of coma, maximum 7 days, eight patients would have dropped out with RASS −4 as the coma threshold, and no adjustment for hypoxia, hypotension, sleep or diagnosis. Watson reports research support from Aspect; several authors fees from Hospira and Orion.</li>
+  </ul>
+  <span class="tag">Andresen et al. Crit Care Med 2014;42:2244–2251</span></div>
+
+  <h3>Is burst suppression cause or marker? Causal analysis (Hogan 2020)</h3>
+  <div class="card">
+  <p>Retrospective observational study from Massachusetts General Hospital (Neurocrit Care 2020;33:565–574): 471 ventilated patients from seven intensive care units (2014–2017) with continuous EEG for at least 18 hours, after excluding anoxic encephalopathy after cardiac arrest and intentional burst suppression (raised ICP, status epilepticus, neuromuscular blockers). Median age 61 years, 27% died in hospital, half had unintentional burst suppression, and 63% had structural brain injury. The authors applied prediction models and causal inference (counterfactual “randomised” comparison, mediation, E-values) to the observational data.</p>
+  <ul>
+   <li><strong>Severity of illness drives both:</strong> going from mild to severe illness (10th versus 90th percentile) gave 39% (95% CI 8–66) more burst suppression burden and 35% (29–41) higher mortality.</li>
+   <li><strong>Burst suppression contributes, but little:</strong> 100% versus 0% burst suppression burden gave 12% (7–17) higher mortality, and burst suppression mediated 10% (2–21) of the effect of critical illness on death.</li>
+   <li><strong>Propofol matters less than assumed:</strong> high cumulative dose (1316 mg/kg) versus low (284 mg/kg) gave only 6% (0.8–12) more burst suppression, and propofol had no direct effect on mortality; the whole effect went via burst suppression.</li>
+   <li><strong>The authors' interpretation:</strong> unintentional burst suppression is “primarily an effect of critical illness, not iatrogenic propofol use”, either because the illness itself produces the pattern (as in sepsis) or because it alters the brain's sensitivity so that ordinary doses produce burst suppression. Burst suppression thus becomes a marker of vulnerability. Avoiding overdosing will probably have little effect on mortality, but individual titration to the lowest necessary dose may still have a modest effect.</li>
+   <li><strong>Versus Watson 2008:</strong> the authors consider that the difference in effect size may be due to differing methods and differing populations, and that intensive care versus operating theatre may be an effect modifier.</li>
+   <li><strong>Caveats:</strong> selection (continuous EEG is obtained when brain dysfunction is suspected, hence 63% brain injury), coarse burden calculation in 8–12-hour windows, arbitrary distinction between mild and severe illness, in-hospital mortality only, cumulative dose without time course, binary clinical variables, no adjustment for unit, and seizure burden as an explicitly stated possible confounder. No conflicts of interest reported. Code is openly available.</li>
+  </ul>
+  <span class="tag">Hogan et al. Neurocrit Care 2020;33:565–574</span></div>
+
+  <h3>Burst suppression: good, bad or indifferent? Context decides (Jegarl 2026)</h3>
+  <div class="card">
+  <p>Narrative review from Weill Cornell (Anesth Analg 2026;142:1169–1179) that attempts to explain why observational studies find an association between burst suppression and postoperative delirium, while the large randomised trials do not.</p>
+  <ul>
+   <li><strong>The definitions diverge:</strong> ACNS 2021 distinguishes attenuation (≥ 10 µV, but below 50% of background) from suppression (below 10 µV), requires that “burst-suppression” makes up 50–99% of the recording, and that a burst lasts ≥ 0.5 s with ≥ 4 phases. The anaesthesia literature uses the term more loosely, calls suppression “isoelectric”, and measures with 1–4 frontal channels and a proprietary suppression ratio that underestimates burst suppression compared with visual interpretation. In one study (41 patients), visually determined suppression duration was associated with delirium (p = 0.039), but SR-based duration was not (p = 0.275).</li>
+   <li><strong>The Ching model:</strong> a neurophysiological-metabolic model in which falling ATP opens ATP-gated potassium channels, hyperpolarises the neurons and produces burst suppression at about a 50% fall in ATP production, with suppression duration proportional to the ATP deficit. The model unifies deep anaesthesia, hypoxia/ischaemia, hypoglycaemia (below 50 mg/dl), the postictal state and hypothermia (CMRO2 falls about 6% per °C, isoelectric at 18–20 °C). Ketamine, dexmedetomidine and xenon do not produce burst suppression.</li>
+   <li><strong>The trials:</strong> ENGAGES (n = 1232) and ENGAGES-Canada (n = 1140) gave lower MAC (0.69 versus 0.8 and 0.66 versus 0.8) and less burst suppression (7 versus 13 and 4 versus 12 minutes) in the EEG group, but no difference in delirium (26.0 versus 23.0% and 18.2 versus 18.1%). Balanced (n = 655, BIS 50 versus 35) gave 17 versus 29% delirium and longer suppression in the delirious (7 versus 2 minutes), but with greater dose separation and differing anaesthetic sensitivity between centres. 27 healthy volunteers with 3 hours of isoflurane at 1.3 MAC: 93% developed burst suppression, none developed delirium.</li>
+   <li><strong>When burst suppression is used deliberately:</strong> in aneurysm surgery with temporary clipping the evidence for barbiturate-induced burst suppression is mixed, and animal studies suggest that protection does not require burst suppression. In hypothermic circulatory arrest, temperature below 12.5 °C and cooling for more than 50 minutes were the only reliable predictors of isoelectric EEG (only 60% were isoelectric at 18 °C), and each degree above the temperature at which the EEG became continuous again gave RR 1.56 for neurological injury.</li>
+   <li><strong>Protective down-regulated state:</strong> the painted turtle survives months of anoxia with burst suppression-like EEG and 80 times higher GABA. The authors (via Schiff and Brown) propose a corresponding “protective down-regulated state” in humans after cardiac arrest and severe covid-19, where prolonged unconsciousness without structural injury may be protective. In 795 intubated covid patients, time to recovery of consciousness increased from 9 to 22 days with the degree of hypoxaemia.</li>
+   <li><strong>Conclusion:</strong> the suppression phase looks the same regardless of cause, so incidence and duration alone cannot distinguish oversedation from ischaemia, hypothermia or hypoglycaemia. The burst content (intraburst spectrum, preburst activity, spatial distribution) may be more informative. In any case, burst suppression can be limited not only by the dose, but by raising the blood pressure, avoiding hypothermia and ensuring oxygenation.</li>
+   <li><strong>Caveats:</strong> narrative review without a systematic search. Goldstein is a co-inventor on patents for alkylphenols against neuropathic pain.</li>
+  </ul>
+  <span class="tag">Jegarl et al. Anesth Analg 2026;142:1169–1179</span></div>
+
+  <div class="card"><h3>Burst suppression and blood pressure (Georgii 2022)</h3>
+  <ul>
+   <li><strong>Design:</strong> randomised trial at a single clinic. Patients ≥60 years, at least 60 minutes of surgery under general anaesthesia, without neuropsychiatric disease. 104 were analysed, and 68 had a burst suppression ratio (BSR) above 0 (control 32, intervention 36).</li>
+   <li><strong>Intervention:</strong> when BSR was above 0, MAP was first raised to the patient's baseline (lowest measured MAP before anaesthesia, mainly with catecholamines). If BSR was still positive, the anaesthetic concentration was reduced. The control group received standard anaesthesia with the EEG concealed.</li>
+   <li><strong>Result:</strong> cumulative BSR was 433 versus 1385 (p = 0.002), duration 5.9 versus 10.1 minutes (p = 0.002) and maximum BSR 35 versus 50 (p = 0.027). The effect occurred at induction. During maintenance the difference was not significant.</li>
+   <li>MAP at the start of the BSR episodes was significantly lower than baseline in both groups. When MAP was raised to baseline (44 cases), BSR was reduced, and in 55% (24 of 44) it went to 0 without other measures. During maintenance this happened in 7 of 11.</li>
+   <li><strong>Delirium:</strong> no one developed postoperative delirium on days 1–3. 28% developed delirium in the recovery room, with no difference between the groups.</li>
+   <li><strong>The authors' caveats:</strong> the study does not prove a causal relationship between hypotension, hypoperfusion and burst suppression. Processed BSR may underestimate suppression, and 57% had a maximum state entropy of 80 or more. The sample is small.</li>
+  </ul>
+  <span class="tag">Georgii et al. Front Syst Neurosci 2022;16:786816</span></div>
+
+  <h2>After cardiac arrest</h2>
+
+  <h3>Burst suppression with theta in the bursts after cardiac arrest: a recovery marker? (Forgacs 2020)</h3>
+  <div class="card">
+  <p>Ann Neurol 2020;87:618–632 (Forgacs, Devinsky and Schiff). Three patients who awoke from coma after cardiac arrest after 17–37 days and became functionally independent, plus a prospective cohort of 53 cardiac arrest patients of whom 17 had burst suppression on the acute EEG.</p>
+  <ul>
+   <li><strong>The three:</strong> short time to ROSC (10–20 minutes), therapeutic hypothermia to 33 °C, minimal cortical injury on CT or MRI, preserved SSEP in two. Eye opening came 23–26 days and command following 37–67 days after all sedation had been stopped, far beyond the half-lives of the drugs. All had prominent burst suppression with a theta peak (about 4–7 Hz) in the bursts.</li>
+   <li><strong>The cohort:</strong> of the 17 with burst suppression, 3 had a good outcome (CPC 2) and 14 a poor one (13 died). All three with a good outcome had a persistent theta peak in the bursts with increasing peak frequency over time. In the 14 with a poor outcome, the spectra were either flat or without lasting features (7), had only transient theta or falling frequency (5), or a shallow peak around 4 Hz (2).</li>
+   <li><strong>The hypothesis:</strong> prolonged burst suppression may reflect impaired metabolism in post-hypoxic neurons that are still alive. The authors propose maintaining nutrition and fluids during the observation period and considering a time-limited trial of amantadine, and point out that withdrawal of treatment after cardiac arrest usually occurs within 5–7 days, so that the literature is marked by self-fulfilling prophecy.</li>
+   <li><strong>Caveats:</strong> three case reports and a small cohort, analysis of burst content requires full EEG and spectral analysis, and no causal test. No conflicts of interest, NIH-funded.</li>
+  </ul>
+  <span class="tag">Forgacs, Devinsky and Schiff. Ann Neurol 2020;87:618–632</span></div>
+
+  <h3>Clinical example: young patient with prolonged burst suppression after cardiac arrest who woke up with good brain function (shared case)</h3>
+  <div class="card">
+  <p>Shared with the author of this app. Young patient with a short anoxic time after cardiac arrest. The EEG showed prolonged burst suppression without other criteria for a poor prognosis. The patient survived with good brain function.</p>
+  <ul>
+   <li><strong>What the sources say about morphology:</strong> van Putten and Hofmeijer 2016 (Perfusion tab) regard burst suppression with identical bursts after 24 hours as a sign of poor prognosis, but distinguish it from burst suppression where the bursts vary and come and go gradually. The term «burst suppression» is therefore not enough on its own; what the bursts look like matters.</li>
+   <li><strong>Forgacs 2020 (above):</strong> the three who woke late and became independent had a short time to ROSC (10–20 minutes), little cortical injury on imaging and prominent burst suppression with theta in the bursts. Jegarl 2026 describes the hypothesis of a «protective down-regulated state».</li>
+   <li><strong>Gruenbaum 2026:</strong> burst suppression may be tolerated in young, healthy people, and its meaning depends on the brain's metabolic reserve.</li>
+   <li><strong>The app's own synthesis:</strong> the case fits the profile in Forgacs 2020: young patient, short anoxic time and no other signs of severe injury. Whether the bursts contained theta is not known. The case illustrates that burst suppression alone should not be read as a poor prognosis, and that prognostication should rest on several criteria over time.</li>
+   <li><strong>Caveats:</strong> a single case. Sedation, timing of the EEG and burst morphology are not described here.</li>
+  </ul>
+  <span class="tag">Shared case</span></div>
+
+  <h2>Clinical examples</h2>
+
+  <div class="card"><h3>Clinical example: burst suppression during bleeding that resolves after transfusion (shared case)</h3>
+  <p>One case from Norwegian clinical practice, shared with the author of this app. It is not published and not peer reviewed. It is described from two screenshots of a frontal EEG monitor taken about 20 minutes apart. The screenshots are not reproduced in the app.</p>
+  <ul>
+   <li><strong>During the bleeding:</strong> PSI was first around 35–40 and then fell to 10. The suppression ratio (SR) was 44%, EMG 0% and artefacts 0%, and the spectral edge frequency (SEF) was not calculated. In the spectrogram, power lay mostly below about 10–12 Hz without a clear alpha band, followed by increasingly frequent suppression periods in both hemispheres. The raw EEG was almost flat and low-amplitude. Electrode impedances were acceptable.</li>
+   <li><strong>After transfusion:</strong> the suppression periods became shorter and disappeared, and the EEG became continuous again. PSI was 44, SR 0% and SEF 15.8 Hz on the left and 16.4 Hz on the right. The raw EEG showed high-amplitude slow waves with faster activity superimposed, and the spectrogram showed power from slow-delta up to about 15 Hz.</li>
+   <li><strong>Why it is instructive:</strong> the picture during the bleeding resembles deep anaesthesia: power shifting to lower frequencies, power loss and then burst suppression. Guay 2025 describes that reduced cerebral oxygen delivery (CDO₂) produces exactly this pattern, and that anaemic patients tolerate falls in blood flow less well. CDO₂ depends on blood flow, haemoglobin and saturation. Bleeding can lower both blood pressure and haemoglobin, and transfusion can improve both. Georgii 2022 found that burst suppression often resolved when MAP was raised to the patient’s baseline.</li>
+   <li><strong>What we cannot tell from the screenshots:</strong> blood pressure, haemoglobin, temperature, the patient’s age and whether anaesthetic doses were changed. It therefore cannot be determined whether blood pressure, haemoglobin or both mattered most, or whether other factors contributed. Miller’s chapter 10 and Guay 2025 mention hypothermia, hypoglycaemia and hypnotic overdose as other causes of the same pattern.</li>
+   <li><strong>Caveats:</strong> a single case without measurement of CBF, NIRS or Doppler. The point is not that the EEG «proves» hypoperfusion, but that unexpected suppression should prompt a search for the cause, including bleeding and anaemia, before the dose is simply reduced.</li>
+  </ul>
+  <span class="tag">Own clinical example; Guay 2025, Georgii 2022, Miller’s ch. 10</span></div>
+
+  <h3>Clinical example: burst suppression was the goal, but the EEG was flat because of herniation (shared case)</h3>
+  <div class="card">
+  <p>One case from Norwegian clinical practice, shared with the author of this app. It is not published and not peer reviewed, and it is described from verbal information.</p>
+  <ul>
+   <li><strong>The course:</strong> a neurosurgical patient was transferred from another hospital, with no complications expected. The goal was burst suppression. When the EEG was connected, it was completely flat, and this turned out to be due to herniation.</li>
+   <li><strong>Why it is instructive:</strong> when the EEG is connected only after the patient is deeply sedated, there is no baseline to compare with. A flat EEG may then be due to the drugs, but also to a brain that has stopped functioning. Guay 2025 writes that patterns persisting without sedation should be investigated as primary neurological disease. Electrocerebral inactivity is defined as 2 µV or lower, whereas the suppression in burst suppression is below 10 µV. Alsallom 2022 describes two patients with herniation in whom increased low-frequency power and asymmetry in the spectrogram appeared roughly an hour before clinical deterioration.</li>
+   <li><strong>What the sources say about starting:</strong> Rasulo 2023 recommends starting processed EEG as early as possible and monitoring continuously in patients who need deep sedation, and burst suppression should only be used to control raised intracranial pressure. Whether earlier EEG would have changed the course for this patient, one case cannot say.</li>
+   <li><strong>What it may mean in practice (the app's own synthesis):</strong> EEG from arrival, preferably before deep sedation, gives a baseline and makes it possible to see when the pattern changes. If burst suppression is the goal, you should know that the brain can produce bursts before titrating towards it. An unexpectedly flat EEG should not be read as the goal having been reached.</li>
+   <li><strong>Caveats:</strong> one case without screenshots. The diagnosis, drugs and time course are not known. Frontal EEG sees only part of the cortex.</li>
+  </ul>
+  <span class="tag">Shared clinical example</span> <span class="tag">Guay 2025, Rasulo 2023, Alsallom 2022</span></div>
+
+</section>
+
 <section class="panel" id="p-quiz" hidden>
   <h2>Quiz</h2>
   <p class="small">Pick a topic, or take all of them. The order is fixed, so you can carry on where you left off.</p>
@@ -2638,6 +2839,10 @@ header h1 button:hover{color:var(--accent)}
     <li><strong>Frequency band boundaries:</strong> Gruenbaum and García (Lobo and Lamperti ch. 5) give alpha 8–12 Hz (extended alpha 7–17 Hz), beta 15–30 Hz and gamma above 30 Hz, in the text 30–80 Hz. The simulator in the app uses alpha 8–13 Hz and beta 13–25 Hz, and García 2021 uses 12–25 Hz for beta arousal. The sources thus use different boundaries, and a pattern can fall into different bands depending on the definition used.</li>
     <li><strong>Propofol concentration preventing movement at incision (Aitkenhead ch. 3 vs Miller's ch. 21 and 36):</strong> Aitkenhead states that the TCI target concentration that prevented movement at incision in half of female patients was 6 µg/ml with oxygen and 4.5 µg/ml with 67% nitrous oxide. Miller's gives 15–16 µg/ml for propofol alone (Smith 1994). The difference may reflect different patient groups and the fact that the TCI target is a predicted, not measured, concentration (Aitkenhead himself writes that the actual concentration may differ by more than 50%), but Aitkenhead gives no source for the figure. Aitkenhead is also an older textbook (5th ed. 2007), whereas Miller's 10th ed. is much newer, so where the two disagree, Miller's and newer studies should carry more weight.</li>
     <li><strong>MAC of sevoflurane:</strong> Aitkenhead (ch. 2) gives 1.7–2% in adults and 1.48% in the elderly, Morgan and Mikhail about 2.0% for 30–55-year-olds, and Pilge 2014 uses 2.05%.</li>
+    <li><strong>Delirium and EEG slowing (Guay 2025 vs Eskioglou 2021):</strong> Guay 2025 links hypoactive delirium to slow-delta and writes that power shifts towards higher frequencies as the delirium resolves. In Eskioglou 2021 (91 ventilated patients), the dominant frequency did not distinguish delirious from non-delirious patients, because theta was common in about 70% of both groups. Burst suppression, rhythmic or periodic patterns and seizures did distinguish them. The difference may reflect different populations, different sedation and the fact that Eskioglou measured when delirium was already present.</li>
+    <li><strong>How well does ketamine work in refractory status? (Espinosa 2023 vs Gaspard 2013):</strong> Espinosa 2023 found complete seizure control in 63 % of 19 case reports, whereas Gaspard 2013 could attribute only a likely response in 12 % and a possible response in 20 % of 60 episodes to ketamine. The app's own synthesis: case reports are more often published when treatment works, and in Gaspard all patients received other drugs at the same time, so the numbers do not measure the same thing.</li>
+    <li><strong>Burst suppression as a warning sign or protection (Gruenbaum 2026 vs Jegarl 2026 and Forgacs 2020):</strong> Gruenbaum 2026 argues that burst suppression during routine anaesthesia should be seen as a red flag of reduced reserve, not a target. Jegarl 2026 and Forgacs 2020 describe the hypothesis of a protective down-regulated state after cardiac arrest. Safavynia is a co-author of both reviews. The app's own synthesis: the difference probably reflects different contexts (surgery vs hypoxic brain injury) more than conflicting findings.</li>
+    <li><strong>Propofol + midazolam: synergistic or additive? (Hendrickx 2008 and ch. 21 vs ch. 16):</strong> Hendrickx 2008 reports three studies that found synergy for hypnosis (Short and Chui 1991, McClune 1992, Short 1992), and chapter 21 states that midazolam often acts synergistically with other hypnotics. Chapter 16 calls the interaction «primarily additive», citing Fidler 2006 and Vinik 1994. The difference may reflect model and endpoint, but the sources do not explain it.</li>
     <li><strong>Midazolam and beta (Brandt 2020 vs Purdon 2015):</strong> Brandt 2020 writes that midazolam at sedative doses is associated with beta oscillations, citing among others Purdon 2015 Part I. Purdon 2015 mentions benzodiazepines only in passing and describes no beta signature for midazolam. The other source Brandt cites (Brown 2011) has not been checked.</li>
     <li><strong>Dexmedetomidine, spindles and depth (Purdon 2015 vs Huupponen 2008):</strong> Purdon 2015 describes the spindles disappearing and slow-delta increasing when the infusion is increased (0.65 vs 0.85 µg/kg/h, two single patients), a picture resembling NREM 3. Huupponen 2008 described the EEG during deep sedation (measured 5.1 ng/ml) as NREM 2 with many spindles, in eleven volunteers who could be roused. The doses are given in different ways (infusion rate vs plasma concentration) and cannot be compared directly. Huupponen used one frontal channel and a different monitor.</li>
     <li><strong>Dexmedetomidine and arousability (Ebert 2000 in ch. 21 vs Huupponen 2008):</strong> chapter 21 states that unrousable deep sedation is thought to occur above about 1.9 ng/ml. Huupponen 2008 writes that participants in an earlier study by the same group could be roused with verbal commands and possibly light shaking at a measured 5.1 ng/ml. The difference may reflect different definitions of arousability and different stimuli, but the sources do not discuss it.</li>
@@ -2719,12 +2924,13 @@ header h1 button:hover{color:var(--accent)}
 </div>
 
 <nav aria-label="Main menu">
-  <button class="tab" data-panel="p-basis" aria-selected="false">Fundamentals</button>
-  <button class="tab" data-panel="p-comp" aria-selected="false">Components</button>
-  <button class="tab" data-panel="p-spec" aria-selected="false">Spectrogram</button>
+  <button class="tab" data-panel="p-basis" aria-selected="false">Funda&shy;mentals</button>
+  <button class="tab" data-panel="p-comp" aria-selected="false">Compo&shy;nents</button>
+  <button class="tab" data-panel="p-spec" aria-selected="false">Spectro&shy;gram</button>
   <button class="tab" data-panel="p-drug" aria-selected="false">Agents</button>
-  <button class="tab" data-panel="p-perf" aria-selected="false">Perfusion</button>
+  <button class="tab" data-panel="p-perf" aria-selected="false">Perfu&shy;sion</button>
   <button class="tab" data-panel="p-icu" aria-selected="false">Intensive care</button>
+  <button class="tab" data-panel="p-bs" aria-selected="false" aria-label="Burst suppression"><span class="tl">Burst suppression</span><span class="ts">Burst</span></button>
   <button class="tab" data-panel="p-quiz" aria-selected="false">Quiz</button>
   <button class="tab" data-panel="p-src" aria-selected="false">Sources</button>
 </nav>
@@ -2743,6 +2949,7 @@ function goTo(id){
 }
 $$('.tab').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.panel)));
 $$('.tile').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.go)));
+$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>goTo(b.dataset.goto)));
 $('#homeBtn').addEventListener('click',()=>goTo('p-home'));
 
 
@@ -2833,7 +3040,7 @@ $('#compList').innerHTML=COMPS.map(c=>`
 </details>`).join('');
 
 /* ---------- Spektrogram-modell ---------- */
-let agent='propofol', age='adult', T=0.35, noAlpha=false, dexHigh=false, SPK=1;
+let agent='propofol', age='adult', T=0.35, noAlpha=false, dexHigh=false, midaHigh=false, SPK=1, ALT=0.5;
 const KEYS=[[0,0],[.08,0],[.22,.65],[.50,.65],[.58,1.12],[.68,1.12],[.74,.65],[.79,.65],[.97,0],[1,0]];
 const deepOK=()=>agent==='propofol'||agent==='sevo';
 const g=(f,m,s)=>Math.exp(-0.5*((f-m)/s)**2);
@@ -2874,6 +3081,11 @@ function spec(f,d){
   }else if(agent==='ketamine'){
     /* Ketamin: langsom-delta og bredbåndet beta/gamma, lite alfa (Akeju 2016, Lobo og Lamperti kap. 3) */
     a+=1.1*g(f,0.6,0.9)+0.55*g(f,2.5,1.4)+0.2*g(f,6,1.8)+0.6*g(f,26,5.5)+0.3*g(f,17,11);
+  }else if(agent==='mida'){
+    /* Midazolam: beta i sedative doser (Brandt 2020). Høy dose/forgiftning: beta-koma 12–16 Hz frontalt, blandet med delta (Sutter og Kaplan 2012).
+       Vekslingen mellom beta og delta er skjematisk; mekanismen er ikke beskrevet i kildene. */
+    if(midaHigh) a+=1.2*g(f,0.7,1.0)+0.8*g(f,2.5,1.5)+0.3*g(f,5,2)+ALT*(0.5*g(f,9,4)+0.6*g(f,17,6)+0.35*g(f,26,5));
+    else a+=0.45*g(f,0.6,0.8)+0.35*g(f,2.5,1.3)+0.15*g(f,6,1.8)+0.5*g(f,18,4.5)+0.25*g(f,25,5);
   }else{
     /* Purdon 2015 fig. 11: lav dose gir langsom-delta og spindler (9–15 Hz) som korte striper med mye mindre effekt enn propofol-alfa;
        høyere dose: spindlene forsvinner og langsom-delta blir kraftigere */
@@ -2906,6 +3118,7 @@ function renderSpec(){
   for(let c=0;c<COLS;c++){
     const t=c/(COLS-1), d=depthAt(t), sup=inSuppr(t,d), burst=burstOn(t);
     SPK=hash(c,99)>0.5?1.1:0.35;
+    ALT=Math.pow(Math.max(0,Math.sin(c/1.9+1.5*Math.sin(c/7))),3)*(0.45+0.55*hash(c,5));
     for(let r=0;r<ROWS;r++){
       const f=40*(1-r/(ROWS-1));
       let v=spec(f,d);
@@ -2916,7 +3129,7 @@ function renderSpec(){
     }
   }
   ctx.putImageData(img,0,0);
-  SPK=0.75;
+  SPK=0.75; ALT=0.5;
 }
 
 function phases(){
@@ -2961,7 +3174,7 @@ function drawSpec(){
 
 /* ---------- Tilstand og tekst ---------- */
 const AGENTS={
-  propofol:{name:'propofol'},sevo:{name:'sevoflurane'},ketamine:{name:'ketamine'},dex:{name:'dexmedetomidine'}
+  propofol:{name:'propofol'},sevo:{name:'sevoflurane'},ketamine:{name:'ketamine'},dex:{name:'dexmedetomidine'},mida:{name:'midazolam'}
 };
 function stateAt(t){
   const d=depthAt(t);
@@ -2994,6 +3207,13 @@ const TXT={
     deep:'',
     emergence:'Gamma and theta activity decline towards the awake state (schematic).'
   },
+  mida:{
+    awake:'Low amplitude and mixed frequencies. This picture is schematic and not a source-described norm.',
+    induction:'As midazolam takes effect, frontal beta increases, and slow-delta gradually appears (schematic).',
+    maint:'Midazolam at sedative doses is associated with beta oscillations (Brandt 2020). The beta picture can resemble ketamine, and the index can be high even though the patient is sedated. The sources in the app do not describe a separate signature for midazolam as Purdon 2015 does for propofol, sevoflurane, ketamine and dexmedetomidine, but that does not mean EEG is unsuitable with midazolam. The model shows beta around 15–25 Hz with some slow-delta.',
+    deep:'',
+    emergence:'Slow-delta declines, and the picture moves towards an awake pattern (schematic).'
+  },
   dex:{
     awake:'Low amplitude and mixed frequencies. This picture is schematic and not a source-described norm.',
     induction:'Slow-delta increases across the whole head, and spindles appear frontally.',
@@ -3002,6 +3222,7 @@ const TXT={
     emergence:'Spindle and theta activity decline towards the awake state (schematic).'
   }
 };
+const MIDAHIGH='High dose or poisoning: Sutter and Kaplan 2012 describe “beta coma” as generalised activity at 12–16 Hz, mostly frontal, which may be mixed with spindle-like activity, alpha or delta. It is seen in poisoning with and withdrawal from benzodiazepines and barbiturates, is largely reversible and has a good prognosis. Reactivity may be preserved, but absent in deep coma. The model shows persistent slow-delta with short, repeated bursts of broadband activity up into beta. This is based on shared clinical screenshots with midazolam, which are not reproduced, where the EMG indicator was low. The pattern is schematic, and the sources in the app do not describe the mechanism of the alternation. Possible explanations are fluctuating arousal with stimulation or varying concentration. Always check that the beta is not EMG or movement.';
 const DEXHIGH='Higher dose: when the infusion is increased, the spindles disappear and the amplitude of slow-delta increases. The pattern resembles NREM sleep stage 3 (slow-wave sleep). Purdon 2015 shows this in one patient (48 years) on a maintenance infusion of 0.85 µg/kg/h after a bolus of 1 µg/kg over 10 minutes. She did not respond to verbal queries but moved in response to noxious stimuli. By comparison, the patient with spindles (0.65 µg/kg/h) responded to verbal queries. Both are single patients, and the infusion rates are not a dose threshold. Huupponen 2008, in contrast, found many spindles during deep sedation (see Discrepancies).';
 function ageNote(){
   if(agent==='propofol'){
@@ -3026,6 +3247,7 @@ function updateInfo(){
   $('#stateTitle').textContent=`${s.title} – ${AGENTS[agent].name}`;
   let txt=TXT[agent][s.k]||TXT[agent].maint;
   if(agent==='dex'&&dexHigh&&s.k!=='awake') txt=DEXHIGH;
+  if(agent==='mida'&&midaHigh&&s.k!=='awake') txt=MIDAHIGH;
   $('#stateText').innerHTML=txt;
   $('#stateAge').innerHTML=ageNote();
   const sup=s.k==='deep';
@@ -3086,12 +3308,14 @@ function syncAge(){
     b.disabled=adultOnly&&a!=='adult';
     b.setAttribute('aria-pressed',String(a===age));
   });
-  $('#ageHint').textContent=adultOnly?'For this agent, sources exist only for younger adults.':'';
+  $('#ageHint').textContent=adultOnly?(agent==='mida'?'The sources in the app do not describe age differences in the EEG for midazolam, so the model is shown for adults.':'For this agent, sources exist only for younger adults.'):'';
   $('#noAlphaWrap').hidden=!(age==='old'&&!adultOnly);
   $('#dexHighWrap').hidden=agent!=='dex';
+  $('#midaHighWrap').hidden=agent!=='mida';
 }
 $('#noAlpha').addEventListener('change',e=>{noAlpha=e.target.checked;renderSpec();drawAll();});
 $('#dexHigh').addEventListener('change',e=>{dexHigh=e.target.checked;renderSpec();drawAll();});
+$('#midaHigh').addEventListener('change',e=>{midaHigh=e.target.checked;renderSpec();drawAll();});
 $$('#agentSeg button').forEach(b=>b.addEventListener('click',()=>{
   agent=b.dataset.agent;
   if(!deepOK()) age='adult';
@@ -3126,7 +3350,7 @@ const QS=[
   e:'In children over 1 year, the propofol-induced pattern resembles that of adults, with slow-delta and frontally coherent alpha.',s:'Prospective study in children 0–21 years (Harvard DASH)',t:'spec'},
  {q:'What characterises burst suppression?',
   a:['Isoelectric periods interrupted by high-amplitude bursts, and it is also seen in coma and brain injury, but not in sleep','Continuous high-frequency beta activity','Increased alpha coherence frontally','Uniform gamma activity across the whole head'],c:0,
-  e:'The pattern is regarded as a sign of very deep anaesthesia. The association with postoperative delirium has been studied, but causation has not been demonstrated.',s:'Wildes 2019, ENGAGES, JAMA',t:'spec'},
+  e:'The pattern is regarded as a sign of very deep anaesthesia. The association with postoperative delirium has been studied, but causation has not been demonstrated.',s:'Wildes 2019, ENGAGES, JAMA',t:'bs'},
  {q:'What does the colour in a spectrogram show?',
   a:['Power at a specific frequency at a specific point in time','The patient\'s age','Electrode impedance','Number of bursts per minute'],c:0,
   e:'Time is on the x-axis, frequency on the y-axis and power in colour. This makes patterns such as alpha and slow-delta easy to see over time.',s:'Purdon 2015, Anesthesiology',t:'basis'},
@@ -3156,13 +3380,13 @@ const QS=[
   e:'Antognini and Rampil showed that immobilisation does not depend on the cerebral cortex. Barbiturates act to a greater extent supraspinally.',s:'Miller\'s ch. 17 (Antognini 1993, Rampil 1993)',t:'comp'},
  {q:'What happens to the brain\'s oxygen consumption (CMRO₂) at burst suppression under propofol?',
   a:['It is reduced by approx. 60%','It is unchanged','It is increased','It is reduced by approx. 10%'],c:0,
-  e:'Around 60% of the brain\'s energy use goes to electrophysiological function. Further dose does not lower CMRO₂ further. Ketamine and nitrous oxide are exceptions.',s:'Miller\'s ch. 10',t:'drug'},
+  e:'Around 60% of the brain\'s energy use goes to electrophysiological function. Further dose does not lower CMRO₂ further. Ketamine and nitrous oxide are exceptions.',s:'Miller\'s ch. 10',t:'bs'},
  {q:'What does hysteresis mean in pharmacology?',
   a:['The effect lags behind the plasma concentration when the concentration changes','The effect is independent of the concentration','The drug is absorbed faster with repeated doses','The plasma concentration falls faster than the effect at steady state'],c:0,
   e:'The effect-site compartment is used to model the delay. It is not the same as neural inertia, which chapter 36 describes as the difference between induction and emergence.',s:'Miller\'s ch. 16',t:'drug'},
  {q:'What does chapter 36 say about burst suppression under propofol?',
   a:['It ensures unconsciousness, but not absence of movement','It ensures absence of movement','It is seen only with sevoflurane','It means that the patient is awake'],c:0,
-  e:'The median propofol concentration for burst suppression was approx. 5 µg/ml, whereas at least 15 µg/ml was needed to prevent movement at incision. Fentanyl can reduce this markedly.',s:'Miller\'s ch. 36 (Pilge 2014, Smith 1994)',t:'spec'},
+  e:'The median propofol concentration for burst suppression was approx. 5 µg/ml, whereas at least 15 µg/ml was needed to prevent movement at incision. Fentanyl can reduce this markedly.',s:'Miller\'s ch. 36 (Pilge 2014, Smith 1994)',t:'bs'},
  {q:'How frequent is awareness with recall with systematic screening, according to chapter 8?',
   a:['Approx. 1–2 per 1000','Approx. 1–2 per 100','Approx. 1 per 100,000','Approx. 1 in 10'],c:0,
   e:'Chapter 36 gives a range from 1:500 to 1:20,000. The incidence varies with population and method.',s:'Miller\'s ch. 8 and 36 (Sandin 2000, Sebel 2004, Mashour 2012)',t:'comp'},
@@ -3201,7 +3425,7 @@ const QS=[
   e:'The chapter also describes fluids and vasoactive agents for circulatory compromise, and left lateral position and Trendelenburg if possible.',s:'Miller\'s ch. 30 (Mirski 2007)',t:'perf'},
  {q:'What happened in 55% of cases in Georgii 2022 when MAP was raised to the patient\'s baseline during burst suppression?',
   a:['BSR went to 0 without further measures','The patient developed delirium','BSR increased','The anaesthetic had to be terminated'],c:0,
-  e:'In 24 of 44 cases, burst suppression disappeared with MAP measures alone. In the rest, the anaesthetic concentration was also reduced. The study cannot prove causation, and delirium was not affected.',s:'Georgii 2022',t:'perf'},
+  e:'In 24 of 44 cases, burst suppression disappeared with MAP measures alone. In the rest, the anaesthetic concentration was also reduced. The study cannot prove causation, and delirium was not affected.',s:'Georgii 2022',t:'bs'},
  {q:'Which MAP target gave the lowest incidence of delirium on day 1 in Xu 2020?',
   a:['0–10% above baseline','10–20% below baseline','0–10% below baseline','No difference'],c:0,
   e:'The incidence was 4% versus 22% and 16% in the two other groups (p = 0.031). There was no difference on days 2 and 3, and the study was small and not blinded to the anaesthetist.',s:'Xu 2020',t:'perf'},
@@ -3215,7 +3439,7 @@ const QS=[
   e:'At this degree of ischaemia it is mainly synaptic transmission that fails. The neurons do not lose their membrane potential. In some patients the EEG may become isoelectric without the damage being permanent.',s:'van Putten and Hofmeijer 2016',t:'perf'},
  {q:'What distinguishes sedation-induced burst suppression from pathological burst suppression after cardiac arrest?',
   a:['Pathological has identical bursts, flat intervals and abrupt transitions','Pathological has varying bursts that appear gradually','Sedation-induced always has higher amplitude','There is no difference'],c:0,
-  e:'In a relatively healthy brain the bursts are heterogeneous and come and go gradually. Identical bursts after 24 hours predicted poor outcome with a specificity of 100%. The patient group is post-anoxic coma, not perioperative patients.',s:'van Putten and Hofmeijer 2016',t:'perf'},
+  e:'In a relatively healthy brain the bursts are heterogeneous and come and go gradually. Identical bursts after 24 hours predicted poor outcome with a specificity of 100%. The patient group is post-anoxic coma, not perioperative patients.',s:'van Putten and Hofmeijer 2016',t:'bs'},
  {q:'What happens to the mean EEG frequency when CPP falls below 60 mmHg, according to Foreman and Claassen?',
   a:['It falls, also in comatose or sedated patients','It rises','It is not affected','It disappears immediately'],c:0,
   e:'The authors refer to Diedler 2009. The same review states that changes in intracranial pressure and sedatives can also alter the EEG, so interpretation requires context.',s:'Foreman and Claassen 2012',t:'perf'},
@@ -3254,7 +3478,7 @@ const QS=[
   e:'This is a hypothesis and not a proven fact. The authors stress that level and content cannot be fully separated.',s:'Mashour and Hudetz 2017 (hypothesis)',t:'comp'},
  {q:'What did Purdon 2015 (BJA) find about burst suppression and age under propofol and sevoflurane?',
   a:['The probability of burst suppression episodes increased with age, most under propofol','Burst suppression was equally common at all ages','Burst suppression occurred only in the young','Burst suppression was seen only under sevoflurane'],c:0,
-  e:'The episodes were brief (at most a few minutes), and the analysis windows for spectrum and coherence did not contain burst suppression. The study is retrospective and not dose-controlled.',s:'Purdon 2015, Br J Anaesth',t:'spec'},
+  e:'The episodes were brief (at most a few minutes), and the analysis windows for spectrum and coherence did not contain burst suppression. The study is retrospective and not dose-controlled.',s:'Purdon 2015, Br J Anaesth',t:'bs'},
  {q:'What does Purdon 2015 say that lower power in older patients may mean for index-guided anaesthesia?',
   a:['Indices that are not age-adjusted may give elevated values during unconsciousness, and titrating to a target index may give more burst suppression','Indices work the same at all ages','Indices always give lower values in older patients','Older patients always need a higher dose'],c:0,
   e:'This is the authors\' suggestion. It is not tested directly in this study.',s:'Purdon 2015, Br J Anaesth',t:'spec'},
@@ -3344,7 +3568,7 @@ const QS=[
   e:'The raw EEG looked awake throughout. SQI rose to 90–100 during the block. The study was small (10 per drug) and concerned the BIS algorithms in use at the time.',s:'Schuller 2015',t:'basis'},
  {q:'What did Pilge 2014 find about the concentration that produces burst suppression (“silent second”) compared with MAC/CP50 for movement?',
   a:['Sevoflurane above 1.4 times MAC, isoflurane above 1.3 times MAC, but propofol below one third of the concentration that prevents movement','All three agents were at the same multiple of MAC','Propofol required more than sevoflurane, in MAC terms','Ketamine gave burst suppression at low doses'],c:0,
-  e:'The authors think immobility and brain effect are different endpoints. The sample was small and the confidence intervals wide, and ketamine does not produce burst suppression.',s:'Pilge 2014',t:'spec'},
+  e:'The authors think immobility and brain effect are different endpoints. The sample was small and the confidence intervals wide, and ketamine does not produce burst suppression.',s:'Pilge 2014',t:'bs'},
  {q:'What did Murphy 2010 find when cerebral oximetry was used during shoulder arthroscopy in the “beach chair” and lateral decubitus positions?',
   a:['Cerebral desaturation in 80% in “beach chair” versus 0% in lateral decubitus, even though measured upper-arm blood pressure did not differ between the groups','No difference between the positions','Desaturation in 80% in lateral decubitus','All patients had neurological deficits'],c:0,
   e:'The study was not randomised, and blood pressure was measured in the upper arm. The authors calculate that the pressure at the brain may have been approx. 52 mmHg at 80 mmHg in the upper arm. No obvious neurological injuries were seen, but cognitive testing was not done.',s:'Murphy 2010',t:'perf'},
@@ -3377,7 +3601,7 @@ const QS=[
   e:'No one had burst suppression as a target. 59% versus 33% died within 6 months. Post hoc analysis with only 10–20 minutes of EEG daily, so the incidence is probably underestimated.',s:'Watson 2008, Crit Care Med',t:'icu'},
  {q:'Why does Watson 2008 think burst suppression may be a better marker of oversedation than the index value itself in intensive care patients?',
   a:['Encephalopathy gives a slow EEG that can give a falsely low index, and EMG can give a falsely high one, while a flat EEG is less affected by this','The index is not available in intensive care','Burst suppression is always intentional','The index measures only EMG'],c:0,
-  e:'When the patient is unresponsive, no sedation scale can capture that sedation is becoming deeper. The authors propose pEEG alongside RASS and CAM-ICU.',s:'Watson 2008, Crit Care Med',t:'icu'},
+  e:'When the patient is unresponsive, no sedation scale can capture that sedation is becoming deeper. The authors propose pEEG alongside RASS and CAM-ICU.',s:'Watson 2008, Crit Care Med',t:'bs'},
  {q:'What does a positive PRx (pressure reactivity index) mean according to Lobo and Lamperti ch. 12?',
   a:['Poor cerebrovascular reserve: ICP follows MAP, autoregulation is failing','Good autoregulation','Normal ICP','That CPP is too high'],c:0,
   e:'PRx is the correlation between ICP and MAP over time. A negative PRx means good reserve, around 0 a compensated phase. PRx is used to find the patient\'s optimal CPP.',s:'Lobo and Lamperti 2025, ch. 12',t:'perf'},
@@ -3392,22 +3616,22 @@ const QS=[
   e:'Burst suppression 10% versus 0%, periodic patterns 43% versus 22%, seizures 7% versus 0%. Theta was the dominant frequency in both groups. Sedative doses did not differ.',s:'Eskioglou 2021, Acta Neurol Scand',t:'icu'},
  {q:'What does the expert consensus Rasulo 2023 say about burst suppression in sedated intensive care patients?',
   a:['Should be avoided in all situations except to control high intracranial pressure, and if used, the suppression ratio should be kept below 5%','Is a good target for everyone who needs deep sedation','Is of no significance if the index is in the target range','Should be used routinely on ECMO'],c:0,
-  e:'Strong consensus. The panel could not, however, recommend dimensionless indices (BIS, PSI, entropy) as sufficient alone, and requires raw EEG and spectrogram on the screen.',s:'Rasulo 2023, Neurocrit Care',t:'icu'},
+  e:'Strong consensus. The panel could not, however, recommend dimensionless indices (BIS, PSI, entropy) as sufficient alone, and requires raw EEG and spectrogram on the screen.',s:'Rasulo 2023, Neurocrit Care',t:'bs'},
  {q:'Which patients does Rasulo 2023 consider to benefit from pEEG monitoring of sedation depth in intensive care?',
   a:['All sedated patients in whom clinical assessment is not possible, all who need deep sedation (RASS ≤ −3), during neuromuscular blockade and on ECMO; not at light sedation (RASS 0 to −2)','All intensive care patients regardless of sedation level','Only patients with brain injury','Only patients receiving ketamine'],c:0,
   e:'RASS and SAS remain the most valid tools; pEEG should supplement, not replace. During neuromuscular blockade pEEG should be the main method.',s:'Rasulo 2023, Neurocrit Care',t:'icu'},
  {q:'What did Andresen 2014 find about time in burst suppression during coma in 69 ventilated patients?',
   a:['Approx. 1 hour of burst suppression versus 1 minute gave four times higher odds of delirium after coma (OR 4.16) and later resolution of delirium','Burst suppression protected against delirium','No association','Only prolonged burst suppression (over 24 hours) mattered'],c:0,
-  e:'Median time in burst suppression was only 6.4 minutes. Adjusted for time with BIS below 40, APACHE II and cumulative sedative doses. Small sample, and the authors express reservations.',s:'Andresen 2014, Crit Care Med',t:'icu'},
+  e:'Median time in burst suppression was only 6.4 minutes. Adjusted for time with BIS below 40, APACHE II and cumulative sedative doses. Small sample, and the authors express reservations.',s:'Andresen 2014, Crit Care Med',t:'bs'},
  {q:'What did Hogan 2020 (471 ventilated patients with continuous EEG) conclude about the cause of unintended burst suppression?',
   a:['It is primarily due to critical illness, not high propofol doses; propofol gave only 6% more burst suppression and had no direct effect on mortality','It is almost entirely due to propofol','It has no association with mortality','It occurred only after cardiac arrest'],c:0,
-  e:'Burst suppression mediated approx. 10% of the effect of critical illness on death. The authors call burst suppression a marker of vulnerability, and point out the selection: 63% had structural brain injury.',s:'Hogan 2020, Neurocrit Care',t:'icu'},
+  e:'Burst suppression mediated approx. 10% of the effect of critical illness on death. The authors call burst suppression a marker of vulnerability, and point out the selection: 63% had structural brain injury.',s:'Hogan 2020, Neurocrit Care',t:'bs'},
  {q:'Why can the incidence and duration of burst suppression alone not distinguish oversedation from other causes, according to Jegarl 2026?',
   a:['The suppression phase looks identical in oversedation, ischaemia/anoxia, hypothermia and hypoglycaemia; only the context and the burst content can distinguish them','Burst suppression occurs only in oversedation','The index always shows the cause','Burst suppression never occurs in hypothermia'],c:0,
-  e:'The Ching model unifies the causes: falling ATP opens ATP-gated potassium channels and hyperpolarises the neurons. Burst suppression can therefore also be limited by raising blood pressure, avoiding hypothermia and ensuring oxygenation, not only by lowering the dose.',s:'Jegarl 2026, Anesth Analg',t:'icu'},
+  e:'The Ching model unifies the causes: falling ATP opens ATP-gated potassium channels and hyperpolarises the neurons. Burst suppression can therefore also be limited by raising blood pressure, avoiding hypothermia and ensuring oxygenation, not only by lowering the dose.',s:'Jegarl 2026, Anesth Analg',t:'bs'},
  {q:'What did Forgacs 2020 find in patients with burst suppression after cardiac arrest who later had a good outcome?',
   a:['A persistent theta peak (approx. 4–7 Hz) within the bursts with increasing frequency over time, while those with poor outcome had flat spectra or falling frequency','Isoelectric EEG for over two weeks','Alpha-delta pattern as with propofol','No burst suppression at all'],c:0,
-  e:'Three patients woke after 17–37 days and became independent. The authors point out that withdrawal of treatment after cardiac arrest usually happens within 5–7 days, so the literature is coloured by self-fulfilling prophecy.',s:'Forgacs 2020, Ann Neurol',t:'icu'},
+  e:'Three patients woke after 17–37 days and became independent. The authors point out that withdrawal of treatment after cardiac arrest usually happens within 5–7 days, so the literature is coloured by self-fulfilling prophecy.',s:'Forgacs 2020, Ann Neurol',t:'bs'},
  {q:'What was the strongest predictor of blood flow in the internal carotid artery during robot-assisted prostatectomy in Trendelenburg in Nordum 2024?',
   a:['Cardiac output (cardiac index); MAP had a small negative effect','MAP','CVP','Tidal volume'],c:0,
   e:'A 1 l/min/m² higher cardiac index gave 92 ml/min more ICA flow, while a 10 mmHg higher MAP gave 29 ml/min less. The largest fall in flow came at induction, not at tilt. No cognitive impairment after 10 or 180 days.',s:'Nordum 2024, Front Anesthesiol',t:'perf'},
@@ -3454,7 +3678,7 @@ const QS=[
   e:'The authors interpret fast induction as “bottom-up” (brainstem inhibition) and slow as “top-down” (cortical). The effect-site concentration at loss of response was 2.6 versus 4.6 µg/ml, and alpha appeared before loss of response with slow induction, several minutes after with fast induction.',s:'Sepúlveda 2020',t:'comp'},
  {q:'What happened to observed BIS in Sepúlveda 2026 when the effect-site concentration (Eleveld) was set back to the level at loss of response after a short period of burst suppression?',
   a:['It returned to the same value as before','It remained consistently below predicted BIS for the rest of the operation','It remained above predicted BIS','BIS could not be measured'],c:1,
-  e:'The same calculated concentration produced a deeper effect: lower BIS, lower alpha power and stronger delta–alpha coupling. The authors interpret this as non-linear pharmacodynamics that linear PK/PD models do not capture.',s:'Sepúlveda 2026',t:'basis'},
+  e:'The same calculated concentration produced a deeper effect: lower BIS, lower alpha power and stronger delta–alpha coupling. The authors interpret this as non-linear pharmacodynamics that linear PK/PD models do not capture.',s:'Sepúlveda 2026',t:'bs'},
  {q:'What did Ostertag 2025 conclude about an EEG-based “frailty” score (total power, alpha power and propofol Ce)?',
   a:['It predicts burst suppression well','It is primarily driven by age, and none of the 75 developed burst suppression with slow induction','It is independent of age','It should be used to choose the TCI model'],c:1,
   e:'The score and all of its components correlated negatively with age, alpha and total power were strongly intercorrelated, and the endpoint (burst suppression) did not occur. The authors believe the score “probably only detects an older brain”.',s:'Ostertag 2025',t:'spec'},
@@ -3595,10 +3819,52 @@ const QS=[
   e:'The hypothesis is consistent with the data, but not investigated. Theta increases with sevoflurane concentration (Akeju 2014), so “alpha without theta” is a reasonable sign of a moderate dose in adults, not a documented dosing rule.',s:'Spectrogram tab: sevoflurane theta',t:'spec'},
  {q:'What happens to the bursts during propofol-induced burst suppression when the patient is older (Kratzer 2020)?',
   a:['They become higher and more regular','They become lower in amplitude (13 versus 20 µV), flatter and more irregular, with less absolute alpha but unchanged relative alpha; threshold-based suppression algorithms can therefore misclassify them','They disappear completely','They get more theta'],c:1,
-  e:'The monitors detect suppression by an amplitude threshold and do not recognise bursts. Low bursts in older patients can fall below the threshold, and the suppression ratio underestimates suppression (Muhlhofer 2017). The authors propose age-adjusted algorithms.',s:'Kratzer 2020',t:'spec'},
+  e:'The monitors detect suppression by an amplitude threshold and do not recognise bursts. Low bursts in older patients can fall below the threshold, and the suppression ratio underestimates suppression (Muhlhofer 2017). The authors propose age-adjusted algorithms.',s:'Kratzer 2020',t:'bs'},
  {q:'Which agent was the exception to the rule of synergy in Hendrickx 2008?',
   a:['Remifentanil','Midazolam','Ketamine: additive or infra-additive with GABAergic agents in all studies, even though it acts on a different receptor','Sevoflurane'],c:2,
   e:'Propofol + ketamine was additive (Hui 1995) and on reanalysis infra-additive for immobility; midazolam + ketamine infra-additive for hypnosis. The authors propose an active metabolite, sympathetic activation and methodological factors as explanations. Ching 2012 mentions that ketamine increases CMRO₂ and does not produce classic burst suppression at clinical doses.',s:'Hendrickx 2008',t:'drug'},
+ {q:'Why do benzodiazepines lose their effect in prolonged status epilepticus, according to Espinosa 2023?',
+  a:['GABA_A receptors are drawn into the cell, while more NMDA receptors appear on the surface','The brain stops producing GABA','Benzodiazepines are metabolised faster during seizures','The blood–brain barrier closes to benzodiazepines'],c:0,
+  e:'The receptor trafficking starts after a few minutes of seizures and has been shown in animal models. Ketamine blocks NMDA and targets the up-regulated part.',s:'Espinosa 2023',t:'drug'},
+ {q:'What characterised a likely ketamine response in Gaspard 2013?',
+  a:['At least 0.9 mg/kg/h and starting before 8 days and before 7 failed drugs','A low dose below 0.5 mg/kg/h','Use as the only drug','Starting after more than 2 weeks'],c:0,
+  e:'Retrospective study, 60 episodes. Mortality was 16 % when seizures were controlled within 24 hours of ketamine, vs 56 % otherwise.',s:'Gaspard 2013',t:'drug'},
+ {q:'What is the first step when burst suppression appears during anaesthesia, according to Gruenbaum 2026?',
+  a:['Confirm the pattern on the raw EEG: electrode contact, artefacts and correct scale','Increase the hypnotic dose','Give flumazenil','Ignore it if the index is between 40 and 60'],c:0,
+  e:'Then assess symmetry, then the dose, and finally physiological causes such as hypotension, hypoxaemia, anaemia, hypoglycaemia, hypothermia and hypocapnia.',s:'Gruenbaum 2026',t:'bs'},
+ {q:'Why can BIS or PSI show acceptable values even when the raw EEG shows burst suppression?',
+  a:['The index is affected by suppression only when it dominates the analysis window','The indices measure only EMG','Burst suppression always gives a high index','The indices use only the alpha band'],c:0,
+  e:'Automated detection underestimated duration and missed burst suppression in about 14 % of cases compared with visual scoring.',s:'Gruenbaum 2026',t:'bs'},
+ {q:'Which features did the three patients in Forgacs 2020 who woke late after cardiac arrest and became independent have?',
+  a:['Short time to ROSC, little cortical injury and burst suppression with theta in the bursts','Long time to ROSC and isoelectric EEG','Identical bursts after 24 hours','No burst suppression'],c:0,
+  e:'The authors suggest prolonged burst suppression may reflect impaired metabolism in neurones that are still alive. Burst suppression with identical bursts after 24 hours is, by contrast, regarded as a sign of poor prognosis (van Putten and Hofmeijer 2016).',s:'Forgacs 2020',t:'icu'},
+ {q:'Why can a rise in BIS or SedLine just before death not be read as consciousness, according to Mashour 2024?',
+  a:['The indices cannot distinguish non-specific activation, seizures and EMG from organised activity','Because the index is always zero at death','Because the rise is seen only in brain-dead patients','Because SedLine does not work during CPR'],c:0,
+  e:'The rise may reflect glutamate release from dying neurones, and the monitors have only frontal electrodes. None of the findings is linked to an actual experience.',s:'Mashour 2024',t:'perf'},
+ {q:'Why may propofol work in delirium tremens refractory to benzodiazepines, according to Lorentzen 2014?',
+  a:['Propofol acts via a different GABA site and also inhibits NMDA','Propofol speeds hepatic alcohol metabolism','Propofol blocks the benzodiazepine site so tolerance ends','Propofol acts only via α2 receptors'],c:0,
+  e:'The authors write that propofol has a «dual effect» on GABA_A and NMDA. Retrospective study, n=15, 12 treated successfully, 7 developed pneumonia.',s:'Lorentzen 2014',t:'drug'},
+ {q:'Which GABA_A receptor remodelling do Olsen and Liang 2017 describe after repeated alcohol exposure in rats?',
+  a:['δ and α1 are down-regulated, while α4, γ2 and α2 are up-regulated','All subunits are up-regulated','Only the β subunit changes','No change, only increased GABA release'],c:0,
+  e:'A «subunit switch» giving tolerance to the sedative effect of alcohol and benzodiazepines, while anticonvulsant effects showed little tolerance. The findings are from rats; extension to humans is a hypothesis.',s:'Olsen and Liang 2017',t:'drug'},
+ {q:'Why does remimazolam not accumulate with long infusions, according to chapter 21?',
+  a:['It is broken down by tissue esterases to an inactive metabolite, independent of CYP','It is excreted unchanged in urine','It has an active metabolite with a short half-life','It does not bind GABA_A'],c:0,
+  e:'The ester bond gives rapid breakdown to CNS7054. Pharmacokinetics were unchanged in end-stage renal failure.',s:'Miller ch. 21',t:'drug'},
+ {q:'What did Zhou 2014 find about hypotension during sedation on the ventilator?',
+  a:['Most hypotension with propofol alone (52 %), less with midazolam alone or midazolam switched to propofol','No difference between groups','Most hypotension with midazolam alone','Hypotension only with the switched regimen'],c:0,
+  e:'Propofol alone: 52 %, midazolam: 23 %, switch: 21 %. Switching also gave fast extubation (2 hours vs 45 with midazolam alone). Open-label, single-centre study.',s:'Zhou 2014',t:'drug'},
+ {q:'How many periodic discharges per 10 seconds suggest a seizure or status epilepticus, according to Guay 2025?',a:['More than 2','5–10','11–25','More than 25'],c:3,
+  e:'More than 25 per 10 seconds (above 2.5 Hz) suggests a seizure or status epilepticus. 11–25 per 10 seconds, or 5–10 sharp ones, belong to the ictal–interictal continuum. Both should prompt a full EEG and a neurologist.',s:'Guay 2025',t:'icu'},
+ {q:'A paralysed ICU patient on propofol suddenly shows beta and gamma in the spectrogram. What does Guay 2025 recommend?',a:['Nothing, it is artefact','Increase sedation and/or antinociception to avoid awareness','Give more neuromuscular blocker','Reduce propofol'],c:1,
+  e:'Unexpected beta and gamma during deep sedation or paralysis suggest arousal. Awareness with recall has been reported in 1.8–7.4% of patients intubated in the emergency department or ICU.',s:'Guay 2025',t:'icu'},
+ {q:'Unexpected burst suppression in a sedated ICU patient. What should be considered first, according to Guay 2025?',a:['Increase sedation','Imbalance between oxygen delivery and consumption, as well as temperature, glucose and CO₂','Give antiseizure drugs','Nothing, it is normal'],c:1,
+  e:'Unexpected low activity should first be assessed as too little oxygen to the brain (hypoxaemia, anaemia, low blood flow) and as hypothermia, hypoglycaemia or hypercapnia. Only then is sedation reduced.',s:'Guay 2025',t:'icu'},
+ {q:'What distinguishes alpha coma in poisoning from alpha coma after cardiac arrest, according to Sutter and Kaplan 2012?',a:['The frequency is always higher in poisoning','In poisoning alpha is mostly frontal and usually reactive, with good outcome; after cardiac arrest alpha is diffuse and usually non-reactive, with poor outcome','There is no difference','Alpha coma occurs only after cardiac arrest'],c:1,
+  e:'Reactive, frontal alpha is seen in overdose of benzodiazepines and barbiturates among others, and up to 90% recover. Diffuse, non-reactive alpha after cardiac arrest mostly has a poor outcome. Same pattern, different cause and prognosis.',s:'Sutter and Kaplan 2012',t:'icu'},
+ {q:'What is meant by EEG reactivity in a comatose patient?',a:['That the EEG shows alpha','That frequency or amplitude changes when the patient is stimulated','That the patient has seizures','That the index is above 60'],c:1,
+  e:'Reactivity is a change in frequency, distribution or amplitude in response to external stimuli (Sutter and Kaplan 2012). Preserved reactivity indicates a better outcome (Miller\'s ch. 80). Always check that the change is not EMG or movement.',s:'Sutter and Kaplan 2012',t:'icu'},
+ {q:'A sedated ICU patient develops marked suppression in only one hemisphere, while the other has continuous activity. What should you think first when the signal is technically good?',a:['That sedation is too deep, and reduce it','Possible ischaemia or other focal injury requiring clinical assessment and imaging','That the patient is about to wake up','That this is normal on ECMO'],c:1,
+  e:'Sedation acts on both hemispheres. New unilateral suppression or asymmetry with a good signal suggests a focal cause, such as ischaemia (van Putten and Hofmeijer, Sheorajpanday 2009). Check electrodes and impedance first.',s:'Shared clinical example, Sheorajpanday 2009',t:'bs'},
  {q:'The patient moves an arm at incision. How does chapter 36 (box 36.2) recommend managing this?',a:['Always increase the hypnotic','Find out whether the movement is purposeful: a purposeful response gets more hypnotic, a reflex response more analgesia','Always give a neuromuscular blocking agent','Ignore the movement if the index is below 60'],c:1,
   e:'Chapter 36 recommends questioning the patient to clarify whether the movement is purposeful. Purposeful responses are managed with more hypnotic and reflexes with more analgesia. For the same EEG pattern, a somatic response is more common under propofol than sevoflurane, and least common with an opioid.',s:'Miller\'s ch. 36',t:'comp'},
  {q:'Which component does ketamine cover poorly, according to Aitkenhead?',a:['Somatic pain','The response to visceral stimulation','Amnesia','Consciousness'],c:1,
@@ -3688,16 +3954,16 @@ const QS=[
   e:'At low concentrations GABA is enhanced, probably responsible for sedation and hypnosis. At higher concentrations barbiturates open the channel directly.',s:'Miller ch. 21',t:'drug'},
  {q:'What did Fritz 2016 (727 patients, mostly cardiac surgery) find about EEG suppression during surgery and delirium?',
   a:['No association','Longer time in suppression gave a higher risk of delirium even after adjustment (OR 1.22 per log-minute), and suppression time predicted delirium slightly better than time with BIS below 20','Only patients with BIS below 20 developed delirium','High opioid dose gave more suppression'],c:1,
-  e:'26% developed delirium, 73% hypoactive. More volatile agent and less opioid gave more suppression. The study is observational and cannot separate “too deep” from “vulnerable brain”. ENGAGES from the same group reduced suppression time without reducing delirium.',s:'Fritz 2016',t:'ev'},
+  e:'26% developed delirium, 73% hypoactive. More volatile agent and less opioid gave more suppression. The study is observational and cannot separate “too deep” from “vulnerable brain”. ENGAGES from the same group reduced suppression time without reducing delirium.',s:'Fritz 2016',t:'bs'},
  {q:'What happens to the alpha rhythm inside the bursts during propofol-induced burst suppression, according to Ching 2012?',
   a:['It disappears completely','It lives on inside each burst, as if the spectrogram were “multiplied by zeros and ones”; the mechanisms for alpha survive the suppression','It is replaced by gamma','It turns into theta'],c:1,
-  e:'The model explains this by the K<sub>ATP</sub> channels being near normal levels during a burst, so that the network runs as before, and suppression occurring when ATP is depleted. Burst suppression is a continuum that ends in isoelectric EEG, common to anaesthesia, hypothermia and ischaemia.',s:'Ching 2012',t:'spec'},
+  e:'The model explains this by the K<sub>ATP</sub> channels being near normal levels during a burst, so that the network runs as before, and suppression occurring when ATP is depleted. Burst suppression is a continuum that ends in isoelectric EEG, common to anaesthesia, hypothermia and ischaemia.',s:'Ching 2012',t:'bs'},
  {q:'Which combinations are synergistic for hypnosis according to Hendrickx 2008 and the primary interaction studies?',
   a:['Only volatile agents among themselves','Agents with different sites of action: propofol + midazolam (Short 1991), hypnotic + opioid (Mertens 2003, Manyam 2006); volatile agents among themselves are additive','None; all anaesthetic agents are additive','Only opioid + opioid'],c:1,
   e:'Hendrickx, Eger, Sonner and Shafer found additivity when the agents share the same site of action and synergy when they have different ones, with ketamine as the exception (additive or infra-additive with GABAergic agents). Minto 2000 described the triple interaction with a response surface. This explains why several agents given simultaneously can produce an abruptly isoelectric EEG in older patients.',s:'Hendrickx 2008',t:'drug'},
 ];
 let qi=0,score=0,answered=false,order=[];
-const QT=[['all','All'],['basis','Fundamentals'],['comp','Consciousness and memory'],['spec','Spectrogram and signatures'],['drug','Agents and pharmacology'],['perf','Perfusion and positioning'],['icu','Intensive care and sleep'],['ev','Large trials and outcomes']];
+const QT=[['all','All'],['basis','Fundamentals'],['comp','Consciousness and memory'],['spec','Spectrogram and signatures'],['drug','Agents and pharmacology'],['perf','Perfusion and positioning'],['icu','Intensive care and sleep'],['bs','Burst suppression'],['ev','Large trials and outcomes']];
 let qtopic='all';try{qtopic=localStorage.getItem('qtopic')||'all'}catch(e){}
 if(!QT.some(t=>t[0]===qtopic))qtopic='all';
 let QF=[];
@@ -3824,6 +4090,15 @@ const REFS=[
  ['Gruenbaum BF, García PS. Applied electroencephalography. In: Lobo FA, Lamperti M, eds. Peri-operative Brain Monitoring. Springer 2025:89–111.','https://doi.org/10.1007/978-981-96-6178-7_5','Book chapter (overview). Source for ddSWA, sdSWA and NSWA, extended alpha and burst suppression.'],
  ['Chander D, García PS, MacColl JN, Illing S, Sleigh JW. Electroencephalographic variation during end maintenance and emergence from surgical anesthesia. PLoS One 2014;9:e106291.','https://doi.org/10.1371/journal.pone.0106291','As cited by Gruenbaum and García; not read in full text.'],
  ['Aitkenhead AR, Smith G, Rowbotham DJ, eds. Textbook of Anaesthesia. 5th ed. Edinburgh: Churchill Livingstone/Elsevier 2007. Ch. 2 (Mushambi and Smith: inhaled agents), ch. 3 (Aitkenhead: intravenous anaesthetic agents) and ch. 18 (Byrne: monitoring).','','Textbook. Components per drug, nitrous oxide and awareness, depth monitoring as described in 2007.'],
+ ['Olsen RW, Liang J. Role of GABAA receptors in alcohol use disorders suggested by chronic intermittent ethanol (CIE) rodent model. Mol Brain 2017;10:45.','https://doi.org/10.1186/s13041-017-0325-8','Review of a rat model. Funded by NIH.'],
+ ['Lorentzen K, Øberg Lauritsen A, Bendtsen AO. Use of propofol infusion in alcohol withdrawal-induced refractory delirium tremens. Dan Med J 2014;61(5):A4807.','','Retrospective, n=15.'],
+ ['Shah P, et al. Adjunctive use of ketamine for benzodiazepine-resistant severe alcohol withdrawal: a retrospective evaluation. J Med Toxicol 2018;14(3):229–236.','https://doi.org/10.1007/s13181-018-0662-8','Retrospective, n=30.'],
+ ['Zhou Y, Jin X, Kang Y, et al. Midazolam and propofol used alone or sequentially for long-term sedation in critically ill, mechanically ventilated patients: a prospective, randomized study. Crit Care 2014;18:R122.','https://doi.org/10.1186/cc13922','Randomised, open-label, single centre, n=124.'],
+ ['Kim H, Min BK, Lee U, et al. Electroencephalographic features of elderly patients during anesthesia induction with remimazolam: a substudy of a randomized controlled trial. Anesthesiology 2024;141(4):681–692.','https://doi.org/10.1097/ALN.0000000000004904','n=52, over 65. Partly funded by Hana Pharmaceutical.'],
+ ['Gruenbaum BF, Safavynia SA, Bilotta F. Intraoperative electroencephalographic burst suppression: a narrative review and clinical framework for interpretation and management. Br J Anaesth 2026;136:1843–1854.','https://doi.org/10.1016/j.bja.2026.03.003','Narrative review. No conflicts of interest.'],
+ ['Mashour GA, Lee U, Pal D, Li D. Consciousness and the dying brain. Anesthesiology 2024;140:1221–1231.','https://doi.org/10.1097/ALN.0000000000004970','Narrative review. NIH-funded.'],
+ ['Espinosa L, Gomez M, Zamora A, Molano-Franco D. Refractory and super-refractory status epilepticus and evidence for the use of ketamine: a scope review. J Neurocrit Care 2023;16(1):1–9.','https://doi.org/10.18700/jnc.230003','Scoping review. No conflicts of interest.'],
+ ['Gaspard N, Foreman B, Judd LM, et al. Intravenous ketamine for the treatment of refractory status epilepticus: a retrospective multicenter study. Epilepsia 2013;54(8):1498–1503.','https://doi.org/10.1111/epi.12247','Retrospective, ten centres, 60 episodes. Several authors with industry ties.'],
  ['Sikka P, Hu S, Heifets BD. Dreaming during anaesthesia: a scoping review. Br J Anaesth 2026;137:506–524.','https://doi.org/10.1016/j.bja.2026.05.002','157 studies 1921–2024.'],
  ['Sarasso S, Boly M, Napolitani M, Gosseries O, Charland-Verville V, Casarotto S, et al. Consciousness and complexity during unresponsiveness induced by propofol, xenon, and ketamine. Curr Biol 2015;25:3099–3105.','https://doi.org/10.1016/j.cub.2015.10.014','TMS-EEG in 18 healthy volunteers.'],
  ['Brown CH (substudy), Hogue CW (parent trial). Targeting mean arterial pressure during cardiopulmonary bypass using cerebral autoregulation monitoring to reduce postoperative delirium: a nested substudy. Protocol version 2, 2014. NCT00981474.','','Protocol without results.'],
@@ -3971,7 +4246,7 @@ const IQ=(()=>{
   {title:'Image 3',ctx:'Adult during maintenance. Index 16, SR 38% (the trend swings between 0 and 50), EMG 0%, ARTF 0%, SEF shown as “--”, and a suppression-time counter has started. Raw EEG at 5 µV/mm: long flat stretches interrupted by high, slow waves. The spectrogram is dark with narrow, vertical “flames”.',
    P:(f,t)=>base(f)*0.6+0.9*sl(f)+0.35*th(f)+0.4*al(f,1,10,2.5)+0.15*be(f,1,16,5),sup:t=>env(t,21,1.9)<0.64, raw:{comps:[[0.6,1.3],[1.3,1.0],[2.5,0.6],[9,0.25]],amp:0.32,sup:true,burstFrac:0.3},
    q:'What does the image show, and why is SEF shown as “--”?',a:['The electrodes have come loose; ARTF should have been high','Burst suppression: the narrow flames are bursts with broadband power, the dark part is suppression. EMG 0 and ARTF 0 mean that the flat stretches are real. SEF cannot be calculated meaningfully when the EEG is suppressed most of the time, and the SR trend swings because the ratio is calculated over a moving window','The patient is sleeping naturally','Normal variation under propofol'],c:1,
-   e:'The bursts contain the whole previous pattern (slow, theta and alpha) for a few seconds before the next suppression (Ching 2012), and in older patients they are lower and flatter (Kratzer 2020). This is more than the patient needs: Fritz 2016, Watson 2008 and Andresen 2014 show an association with delirium and mortality, while Hogan 2020 and Jegarl 2026 argue that the pattern primarily marks vulnerability. Reduce the hypnotic and check blood pressure and temperature (Georgii 2022, Guay 2025). Compare with image 16, where the bursts are completely absent.',s:'Ching 2012, Kratzer 2020, Fritz 2016, Intensive care tab'},
+   e:'The bursts contain the whole previous pattern (slow, theta and alpha) for a few seconds before the next suppression (Ching 2012), and in older patients they are lower and flatter (Kratzer 2020). This is more than the patient needs: Fritz 2016, Watson 2008 and Andresen 2014 show an association with delirium and mortality, while Hogan 2020 and Jegarl 2026 argue that the pattern primarily marks vulnerability. Reduce the hypnotic and check blood pressure and temperature (Georgii 2022, Guay 2025). Compare with image 16, where the bursts are completely absent.',s:'Ching 2012, Kratzer 2020, Fritz 2016, Burst suppression tab'},
   {title:'Image 4',ctx:'Adult, index rising from 45 to 70, EMG 11%, SR 0%. The alpha and delta bands dissolve towards the end.',
    P:(f,t)=>{const k=t<0.78?1:Math.max(0,1-(t-0.78)/0.12);return base(f)+(0.9*sl(f)+0.9*al(f,1,10,1.8))*k+(1-k)*(0.35*be(f,1,20,10)+emgN(f,0.2))}, raw:{comps:[[2.5,0.15],[10,0.1],[22,0.25]],amp:0.45,emg:0.4},
    q:'What happens at the transition?',a:['Burst suppression','Emergence: the alpha-delta pattern dissolves, higher frequencies and EMG come in, and the index rises','Nociceptive alpha dropout','The sensor has come loose'],c:1,
@@ -4103,7 +4378,7 @@ function iqRender(){
 /* ---------- Search ---------- */
 const SEARCH=(()=>{
   let idx=null;
-  const TAB={'p-home':'Home','p-basis':'Fundamentals','p-comp':'Components','p-spec':'Spectrogram','p-drug':'Agents','p-perf':'Perfusion','p-icu':'Intensive care','p-quiz':'Quiz','p-src':'Sources'};
+  const TAB={'p-home':'Home','p-basis':'Fundamentals','p-comp':'Components','p-spec':'Spectrogram','p-drug':'Agents','p-perf':'Perfusion','p-icu':'Intensive care','p-bs':'Burst suppression','p-quiz':'Quiz','p-src':'Sources'};
   const norm=t=>t.toLowerCase().replace(/[«»"'’]/g,'').replace(/\s+/g,' ').trim();
   function build(){
     idx=[];
