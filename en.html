@@ -632,6 +632,21 @@ header h1 button:hover{color:var(--accent)}
   <div class="ctl-label">Schematic raw EEG at this time point (8 seconds)</div>
   <div class="rawwrap"><canvas id="rawCanvas" role="img" aria-label="Schematic raw EEG"></canvas></div>
 
+  <div class="card"><h3>Raw EEG: seven patterns side by side</h3>
+  <p>Schematic raw EEG traces (10 seconds, same scale for all) built on Purdon 2015 Part I, figure 2, which shows raw EEG from the same patient in different states under propofol. Awake with EMG has been added to show what muscle activity looks like. The traces are synthetic, not patient data, and the amplitudes are only approximate ratios between the patterns.</p>
+  <div class="seg" id="rawDemoSeg" role="group" aria-label="Raw EEG pattern">
+    <button data-k="awakeEmg" aria-pressed="true">Awake with EMG</button>
+    <button data-k="awake" aria-pressed="false">Awake without EMG</button>
+    <button data-k="beta" aria-pressed="false">Fast beta, not awake</button>
+    <button data-k="alphaDelta" aria-pressed="false">Alpha–delta</button>
+    <button data-k="slow" aria-pressed="false">Slow-delta</button>
+    <button data-k="bs" aria-pressed="false">Burst suppression</button>
+    <button data-k="iso" aria-pressed="false">Isoelectric</button>
+  </div>
+  <div class="rawwrap"><canvas id="rawDemo" data-sec="10 s" data-label="Schematic raw EEG" role="img" aria-label="Schematic raw EEG"></canvas></div>
+  <p id="rawDemoText" style="margin-top:10px"></p>
+  <span class="tag">Purdon 2015 Part I, fig. 2</span> <span class="tag">Schematic, not patient data</span></div>
+
   <div class="card"><h3>Why do EEG and the brain's energy use track each other?</h3>
     <p>Around 60% of the brain's energy use goes to electrophysiological function, which is what the EEG shows. When the EEG is suppressed with barbiturates, isoflurane, sevoflurane, desflurane, propofol or etomidate, the brain's oxygen consumption (CMRO₂) falls. At burst suppression it is reduced by about 60%. More anaesthetic than is needed for complete suppression gives no further reduction, because the “housekeeping” portion is not affected. Ketamine and nitrous oxide are exceptions, and ketamine can increase CMR. Chapter 21 gives about 50% of baseline at isoelectric EEG with thiopental, whereas chapter 10 gives about 60% at burst suppression.</p>
     <span class="tag">Miller's ch. 10</span></div>
@@ -2742,7 +2757,7 @@ $('#compList').innerHTML=COMPS.map(c=>`
 
 /* ---------- Spektrogram-modell ---------- */
 let agent='propofol', age='adult', T=0.35, noAlpha=false, dexHigh=false, SPK=1;
-const KEYS=[[0,0],[.10,0],[.17,.65],[.50,.65],[.58,1.12],[.68,1.12],[.76,.65],[.82,.65],[.90,.2],[1,0]];
+const KEYS=[[0,0],[.08,0],[.22,.65],[.50,.65],[.58,1.12],[.68,1.12],[.74,.65],[.79,.65],[.97,0],[1,0]];
 const deepOK=()=>agent==='propofol'||agent==='sevo';
 const g=(f,m,s)=>Math.exp(-0.5*((f-m)/s)**2);
 const hash=(i,j)=>{const x=Math.sin(i*12.9898+j*78.233)*43758.5453;return x-Math.floor(x)};
@@ -2764,13 +2779,19 @@ function spec(f,d){
   const alphaAge=age==='old'?(noAlpha?0.04:0.55):(age==='infant'?0.15:(age==='child'?1.1:1));
   const slowAge=age==='old'?0.8:1;
   let a=0;
+  /* Vandrende topp ved induksjon og oppvåkning (Purdon 2013): på vei mot tap av bevissthet faller toppfrekvensen fra ca. 23 til ca. 12 Hz
+     og båndet blir smalere (paradoks eksitasjon i beta/gamma); ved oppvåkning omvendt (11,8 til 21,9 Hz). x=1 er vanlig vedlikehold. */
+  const x=Math.min(d/0.65,1), fc=alphaFreq()+(22-alphaFreq())*(1-x)**1.3, wid=1+3.2*(1-x);
+  const pkAmp=(0.9*x**1.8+0.1*x+0.3*Math.sin(Math.PI*x))*alphaAge;
   if(agent==='propofol'){
-    a+=0.9*slowAge*g(f,0.6,0.8)+0.7*slowAge*g(f,2.5,1.3)+1.0*alphaAge*g(f,alphaFreq(),age==='infant'?3:(age==='old'?1.8:(age==='child'?2.8:2.3)))+0.4*slowAge*g(f,5.5,2.2);
+    v+=pkAmp*ampAge*g(f,fc,(age==='infant'?3:(age==='old'?1.8:(age==='child'?2.8:2.3)))*wid)*(an>0?1:0);
+    a+=0.9*slowAge*g(f,0.6,0.8)+0.7*slowAge*g(f,2.5,1.3)+0.4*slowAge*g(f,5.5,2.2);
     if(d>0.65) a+=(d-0.65)*0.5*g(f,1.5,2);
   }else if(agent==='sevo'){
     /* Sevofluran: samme alfa-langsom-grunnmønster, men med theta (4-8 Hz) som fyller rommet mellom delta og alfa,
        noe bredere alfa-band og litt mer beta (Akeju 2014, Lobo og Lamperti kap. 3 og 5) */
-    a+=0.9*slowAge*g(f,0.6,0.8)+0.8*slowAge*g(f,2.5,1.3)+0.6*slowAge*g(f,5.5,2.0)+1.0*alphaAge*g(f,alphaFreq(),age==='infant'?3:(age==='old'?2.2:(age==='child'?3.2:2.8)))+0.16*g(f,17,5);
+    v+=pkAmp*ampAge*g(f,fc,(age==='infant'?3:(age==='old'?2.2:(age==='child'?3.2:2.8)))*wid)*(an>0?1:0);
+    a+=0.9*slowAge*g(f,0.6,0.8)+0.8*slowAge*g(f,2.5,1.3)+0.6*slowAge*g(f,5.5,2.0)+0.16*g(f,17,5);
     if(d>0.65) a+=(d-0.65)*0.5*g(f,1.5,2);
     if(age==='child') a+=0.12*g(f,19,6);
   }else if(agent==='ketamine'){
@@ -2823,8 +2844,8 @@ function renderSpec(){
 
 function phases(){
   return deepOK()
-   ?[[0,.10,'Awake'],[.10,.17,'Ind.'],[.17,.52,'Maintenance'],[.52,.72,'Deep'],[.72,.82,'Maint.'],[.82,1,'Emergence']]
-   :[[0,.10,'Awake'],[.10,.17,'Ind.'],[.17,.82,'Maintenance'],[.82,1,'Emergence']];
+   ?[[0,.08,'Awake'],[.08,.22,'Induction'],[.22,.52,'Maintenance'],[.52,.72,'Deep'],[.72,.79,'Maint.'],[.79,1,'Emergence']]
+   :[[0,.08,'Awake'],[.08,.22,'Induction'],[.22,.79,'Maintenance'],[.79,1,'Emergence']];
 }
 function sizeCanvas(cv,hFn){
   const dpr=window.devicePixelRatio||1, w=cv.parentElement.clientWidth, h=hFn(w);
@@ -2867,27 +2888,27 @@ const AGENTS={
 };
 function stateAt(t){
   const d=depthAt(t);
-  if(t<.10) return {k:'awake',title:'Awake',d};
-  if(t<.17) return {k:'induction',title:'Induction',d};
+  if(t<.08) return {k:'awake',title:'Awake',d};
+  if(t<.22) return {k:'induction',title:'Induction',d};
   if(inSuppr(t,d)) return {k:'deep',title:'Deep anaesthesia with suppression',d};
-  if(t>=.82&&t<.92) return {k:'emergence',title:'Emergence',d};
-  if(t>=.92) return {k:'awake',title:'Awake again',d};
+  if(t>=.79&&t<.97) return {k:'emergence',title:'Emergence',d};
+  if(t>=.97) return {k:'awake',title:'Awake again',d};
   return {k:'maint',title:'Maintenance',d};
 }
 const TXT={
   propofol:{
     awake:'Low amplitude and mixed frequencies. This picture is schematic and not a source-described norm.',
-    induction:'As consciousness is lost, slow (&lt;1 Hz) and delta oscillations appear, and alpha (8–12 Hz) becomes prominent frontally.',
+    induction:'On the way to loss of consciousness, broad frontal beta–gamma power first increases (paradoxical excitation). The peak then “travels” downwards and becomes narrower: in Purdon 2013 the median frequency fell from 23.1 to 12.0 Hz towards loss of consciousness. As consciousness is lost, slow (&lt;1 Hz) and delta oscillations appear, and alpha (8–12 Hz) becomes prominent frontally. In ten volunteers with slow, stepwise dosing the transition took a median of 24 minutes. With an ordinary bolus induction it is much faster.',
     maint:'Typical “alpha–slow” pattern: slow/delta oscillations with frontally coherent alpha oscillations (8–12 Hz). This is regarded as the signature of propofol-induced unconsciousness in adults.',
     deep:'Suppression: periods without EEG activity interrupted by high-amplitude bursts. The pattern is also seen in coma and brain injury, but not in sleep.',
-    emergence:'Alpha and slow activity decline towards the awake state.'
+    emergence:'The reverse of induction: the alpha peak travels upwards to beta and becomes broader and weaker, and slow-delta declines. In Purdon 2013 the median frequency rose from 11.8 to 21.9 Hz during emergence. The index rises at the same time.'
   },
   sevo:{
     awake:'Low amplitude and mixed frequencies. This picture is schematic and not a source-described norm.',
-    induction:'Slow-delta and alpha appear as consciousness is lost, as with propofol.',
+    induction:'Slow-delta and alpha appear as consciousness is lost, as with propofol. The model shows the same travelling peak from beta down to alpha as for propofol. It is described for propofol (Purdon 2013), and the sources in the app do not describe it specifically for sevoflurane induction.',
     maint:'In adults, sevoflurane produces the same basic pattern as propofol: slow-delta with frontal alpha (both with an alpha peak near 10 Hz). In addition, sevoflurane produces more theta (4–8 Hz), so that the power becomes continuous from delta up to alpha, and somewhat more beta (in the figure in Purdon 2015 the power extends up towards approx. 20 Hz). Akeju 2014 (30 + 30 patients) found higher power under sevoflurane than propofol in 0.4–11.2 Hz and 14.7–40 Hz, and a distinct theta coherence.',
     deep:'Suppression: periods without EEG activity interrupted by high-amplitude bursts. The pattern is also seen in coma and brain injury, but not in sleep.',
-    emergence:'Alpha and slow activity decline as the concentration falls.'
+    emergence:'As the concentration falls, theta disappears first. Then alpha gives way to lower-amplitude beta and gamma, like a zipper opening (Purdon 2015), and slow-delta declines.'
   },
   ketamine:{
     awake:'Low amplitude and mixed frequencies. This picture is schematic and not a source-described norm.',
@@ -4046,6 +4067,89 @@ const SEARCH=(()=>{
 if('serviceWorker' in navigator && location.protocol==='https:' && !/claude\.ai$/.test(location.hostname)){
   window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(()=>{});});
 }
+</script>
+<script>const RAWTXT={
+awakeEmg:'<strong>Awake with EMG:</strong> low-amplitude, fast activity with a “hairy”, thick trace. The thick trace is muscle activity (EMG) from the forehead muscles, which lies above the EEG bands. BIS calculates EMG in 70–110 Hz. Large, slow deflections come from blinking and eye movements and can be mistaken for strong delta activity. EMG, blinking and eye movements together with low amplitude and fast activity characterise an awake EEG. EMG makes the indices rise and can hide the EEG underneath. Neuromuscular blocking agents remove EMG, but not EEG.',
+awake:'<strong>Awake without EMG (Purdon fig. 2A, eyes open):</strong> high-frequency, low-amplitude gamma and beta activity. This is the baseline the amplitudes under anaesthesia are compared with.',
+beta:'<strong>Fast beta, not awake (Purdon fig. 2B and 2C):</strong> organised, regular beta–gamma oscillations with larger amplitude than the fast activity of an awake patient, but with very low amplitude compared with alpha–delta and slow-delta (switch between the buttons to see the difference on the same scale). Seen during sedation and during paradoxical excitation, where a dose intended to sedate causes agitation and movement. The same beta pattern can be seen after extubation while the patient lies quietly. The index can be high even though the patient is not awake. Midazolam and ketamine can also give beta.',
+alphaDelta:'<strong>Alpha–delta (Purdon fig. 2D):</strong> large slow waves with alpha (about 10 Hz) “riding” on top. Typical of unconsciousness during maintenance with propofol or sevoflurane.',
+slow:'<strong>Slow-delta (Purdon fig. 2E):</strong> high-amplitude slow and delta oscillations without clear alpha. Seen right after bolus induction with propofol, where the amplitudes can be 5–20 times larger than in an awake patient, with higher-dose dexmedetomidine and with nitrous oxide. Delta arousal during noxious stimulation can give a similar picture (García 2021).',
+bs:'<strong>Burst suppression (Purdon fig. 2F):</strong> short, irregular periods of high-amplitude activity with sharp waves (bursts) interrupted by low-amplitude periods. The suppression is rarely completely flat. Purdon uses ±5 µV as the threshold between burst and suppression. A sign of very deep anaesthesia, more common in older patients, and also seen in coma and hypothermia.',
+iso:'<strong>Isoelectric (Purdon fig. 2G):</strong> flat EEG without activity. Seen in anaesthetic-induced coma and deep hypothermia.'
+};</script>
+<script>
+(function(){
+/* Skjematiske rå-EEG-mønstre etter Purdon 2015 Part I, fig. 2. Syntetiske signaler, ikke pasientdata. */
+const cv=document.getElementById('rawDemo'); if(!cv) return;
+let cur='awakeEmg';
+function rnd(i){const x=Math.sin(i*12.9898+7.233)*43758.5453;return x-Math.floor(x)}
+const FS=250, NS=10*FS;
+function band(f0,f1,n,seed,amp,mod){
+  /* Smalbåndet «støy»: sum av n sinuser med tilfeldige frekvenser og faser, langsomt amplitudemodulert */
+  const out=new Float32Array(NS), comps=[];
+  for(let j=0;j<n;j++) comps.push([f0+(f1-f0)*rnd(seed+j*7.1),6.283*rnd(seed+j*3.3),0.15+0.5*rnd(seed+j*5.7),6.283*rnd(seed+j*9.9)]);
+  for(let i=0;i<NS;i++){const t=i/FS;let y=0;
+    for(const [f,p,mf,mp] of comps){const m=mod?(0.55+0.45*Math.sin(6.283*mf*t+mp)):1;y+=m*Math.sin(6.283*f*t+p)}
+    out[i]=amp*y/Math.sqrt(n);}
+  return out;
+}
+function noise(seed,amp){const o=new Float32Array(NS);for(let i=0;i<NS;i++)o[i]=amp*(rnd(seed+i)-0.5);return o}
+function add(...a){const o=new Float32Array(NS);for(const x of a)for(let i=0;i<NS;i++)o[i]+=x[i];return o}
+const CACHE={};
+function build(k){
+  if(CACHE[k]) return CACHE[k];
+  let y;
+  if(k==='awakeEmg'){
+    /* lav, rask EEG + kraftig EMG-«lo» + store langsomme utslag fra øyebevegelser og blunking */
+    const eye=new Float32Array(NS);
+    for(let i=0;i<NS;i++){const t=i/FS;eye[i]=0.32*Math.sin(6.283*0.12*t+0.5)+0.18*Math.sin(6.283*0.31*t+2.1);
+      const bp=(t+0.6)%3.7; if(bp<0.4) eye[i]+=0.45*Math.sin(Math.PI*bp/0.4)**2;}
+    y=add(band(14,35,14,11,0.05,true),noise(77,0.22),eye);
+  }else if(k==='awake'){
+    y=add(band(15,40,14,21,0.035,true),noise(31,0.02));
+  }else if(k==='beta'){
+    /* svært lav amplitude sammenlignet med alfa–delta og delta */
+    y=add(band(14,28,12,41,0.06,true),band(1,4,4,43,0.02,true),noise(45,0.015));
+  }else if(k==='alphaDelta'){
+    y=add(band(8.5,12,8,51,0.32,true),band(0.4,3.5,6,53,0.2,true),band(4,7,4,55,0.05,true),noise(57,0.02));
+  }else if(k==='slow'){
+    y=add(band(0.3,2.5,9,61,0.62,true),band(3,6,4,63,0.08,true),band(12,25,6,65,0.04,true),noise(67,0.02));
+  }else if(k==='bs'){
+    /* uregelmessige, korte bursts med skarpe bølger; suppresjonen er lavamplitudig, ikke helt flat */
+    const bu=add(band(1,6,8,71,0.55,false),band(7,14,6,73,0.18,false)),bg=add(band(1,10,8,75,0.035,true),noise(76,0.012));
+    const B=[[1.1,1.3],[3.9,0.8],[4.9,1.1],[7.4,1.5],[9.4,0.5]];
+    y=new Float32Array(NS);
+    for(let i=0;i<NS;i++){const t=i/FS;let e=0;
+      for(const [t0,w] of B){if(t>=t0&&t<t0+w){const u=(t-t0)/w;e=Math.max(e,Math.sin(Math.PI*u)**1.5)}}
+      y[i]=bg[i]+e*bu[i];}
+  }else y=noise(81,0.008);
+  return CACHE[k]=y;
+}
+function draw(){
+  const dpr=window.devicePixelRatio||1, W=cv.parentElement.clientWidth, H=130;
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);cv.style.height=H+'px';
+  const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=1;
+  for(let s=1;s<10;s++){const x=s/10*W;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  ctx.strokeStyle='#8FE0D6';ctx.lineWidth=1.1;ctx.beginPath();
+  const Y=build(cur), N=NS;
+  for(let i=0;i<N;i++){const y=Math.max(-0.95,Math.min(0.95,Y[i])), px=i/(N-1)*W, py=H/2-y*H*0.5;
+    i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+  ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='11px "Source Sans 3",system-ui,sans-serif';
+  ctx.fillText(cv.dataset.sec||'10 s',W-34,H-6);
+  document.getElementById('rawDemoText').innerHTML=RAWTXT[cur];
+  cv.setAttribute('aria-label',(cv.dataset.label||'')+': '+document.querySelector('#rawDemoSeg button[data-k="'+cur+'"]').textContent);
+}
+document.querySelectorAll('#rawDemoSeg button').forEach(b=>b.addEventListener('click',()=>{
+  cur=b.dataset.k;
+  document.querySelectorAll('#rawDemoSeg button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  draw();
+}));
+window.addEventListener('resize',draw);
+const obs=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))draw()});obs.observe(cv);
+draw();
+})();
 </script>
 </body>
 </html>
