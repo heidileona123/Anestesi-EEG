@@ -669,6 +669,19 @@ header h1 button:hover{color:var(--accent)}
 
 <!-- ========== SPEKTROGRAM ========== -->
 <section class="panel" id="p-spec" hidden>
+  <div class="card"><h3>Fra rå-EEG til spektrogram (DSA): animasjon</h3>
+  <p>En 44 sekunder lang animasjon uten lyd, laget av forfatteren av appen, som viser hvordan monitoren lager spektrogrammet. Den kan brukes i undervisning med egen fortellerstemme.</p>
+  <video controls playsinline preload="metadata" poster="dsa-no.jpg" style="width:100%;aspect-ratio:16/9;background:#fff;border-radius:8px" aria-label="Animasjon: fra rå-EEG til density spectral array" src="dsa-no.mp4"></video>
+  <ol>
+   <li>Rå-EEG deles opp i korte vinduer, i animasjonen 1,2 sekunder.</li>
+   <li>Fourier-transformasjonen bryter hvert vindu ned i sinusbølger med ulik frekvens og amplitude (delta, theta, alfa, beta).</li>
+   <li>Effekten per frekvens tegnes som et spekter med fargeskala.</li>
+   <li>Spektrene stables etter hverandre langs tidsaksen, ett per vindu.</li>
+   <li>Sett ovenfra blir stabelen et spektrogram (density spectral array): tid bortover, frekvens oppover og effekt i farge.</li>
+  </ol>
+  <p class="small">Vinduslengden og beregningsmetoden varierer mellom monitorer og studier. Guay 2025 brukte for eksempel vinduer på 2 sekunder med multitaper-metoden, og viste effekten i desibel (logaritmisk skala) fordi effekten kan variere med flere størrelsesordener mellom frekvensene. Animasjonen er skjematisk og ikke pasientdata.</p>
+  <span class="tag">Animasjon: forfatteren av appen</span> <span class="tag">Guay 2025 Part 2</span></div>
+
   <h2>Spektrogram-simulator</h2>
   <p>Et spektrogram viser tid langs x-aksen, frekvens (Hz) opp langs y-aksen og effekt i farge. Velg legemiddel og alder, og dra i bildet eller i glidebryteren for å se hvordan mønsteret endrer seg gjennom et forløp.</p>
 

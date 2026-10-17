@@ -668,6 +668,19 @@ header h1 button:hover{color:var(--accent)}
 
 <!-- ========== SPEKTROGRAM ========== -->
 <section class="panel" id="p-spec" hidden>
+  <div class="card"><h3>From raw EEG to spectrogram (DSA): animation</h3>
+  <p>A 44-second animation without sound, showing how the monitor builds the spectrogram. This is an English version of an animation made by the author of the app. It can be used in teaching with your own narration.</p>
+  <video controls playsinline preload="metadata" poster="dsa-en.jpg" style="width:100%;aspect-ratio:16/9;background:#fff;border-radius:8px" aria-label="Animation: from raw EEG to density spectral array" src="dsa-en.mp4"></video>
+  <ol>
+   <li>The raw EEG is divided into short windows, 1.2 seconds in the animation.</li>
+   <li>The Fourier transform breaks each window down into sine waves of different frequency and amplitude (delta, theta, alpha, beta).</li>
+   <li>Power per frequency is drawn as a spectrum with a colour scale.</li>
+   <li>The spectra are stacked one after another along the time axis, one per window.</li>
+   <li>Seen from above, the stack becomes a spectrogram (density spectral array): time across, frequency upwards and power in colour.</li>
+  </ol>
+  <p class="small">Window length and calculation method vary between monitors and studies. Guay 2025, for example, used 2-second windows with the multitaper method and displayed power in decibels (logarithmic scale), because power can differ by orders of magnitude across frequencies. The animation is schematic, not patient data.</p>
+  <span class="tag">Animation: the author of the app</span> <span class="tag">Guay 2025 Part 2</span></div>
+
   <h2>Spectrogram simulator</h2>
   <p>A spectrogram shows time along the x-axis, frequency (Hz) up the y-axis and power as colour. Select drug and age, and drag in the image or the slider to see how the pattern changes over the course of an anaesthetic.</p>
 
