@@ -668,18 +668,27 @@ header h1 button:hover{color:var(--accent)}
 
 <!-- ========== SPEKTROGRAM ========== -->
 <section class="panel" id="p-spec" hidden>
-  <div class="card"><h3>From raw EEG to spectrogram (DSA): animation</h3>
-  <p>A 44-second animation without sound, showing how the monitor builds the spectrogram. This is an English version of an animation made by the author of the app. It can be used in teaching with your own narration.</p>
-  <video controls playsinline preload="metadata" poster="dsa-en.jpg" style="width:100%;aspect-ratio:16/9;background:#fff;border-radius:8px" aria-label="Animation: from raw EEG to density spectral array" src="dsa-en.mp4"></video>
-  <ol>
-   <li>The raw EEG is divided into short windows, 1.2 seconds in the animation.</li>
+  <div class="card"><h3>From raw EEG to spectrogram (DSA): step by step</h3>
+  <p>This is how the monitor builds the spectrogram. The figure calculates the spectrogram from a synthetic EEG signal while you watch, one window at a time. Choose a step to see it highlighted.</p>
+  <div class="seg" id="dsaSteps" role="group" aria-label="Steps in the figure">
+    <button data-s="0" aria-pressed="false">All</button><button data-s="1" aria-pressed="true">1 Window</button><button data-s="2" aria-pressed="false">2 Spectrum</button><button data-s="3" aria-pressed="false">3 Colour</button><button data-s="4" aria-pressed="false">4 Spectrogram</button>
+  </div>
+  <div class="seg" id="dsaMeth" role="group" aria-label="Calculation method"><button data-m="mt" aria-pressed="true">Multitaper</button><button data-m="hann" aria-pressed="false">Single window (Hann)</button></div>
+  <div class="rawwrap"><canvas id="dsaCanvas" role="img" aria-label="Figure: from raw EEG to spectrogram"></canvas></div>
+  <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap">
+    <button id="dsaPlay" class="linkbtn" type="button">▶ Play</button>
+    <input id="dsaTime" type="range" min="2" max="120" step="1" value="12" aria-label="Time" style="flex:1 1 160px">
+  </div>
+  <p class="small" id="dsaTimeLbl" style="margin:4px 0 0"></p>
+  <p id="dsaText" style="margin-top:8px"></p>
+    <ol>
+   <li>The raw EEG is divided into short windows, 2 seconds in the figure.</li>
    <li>The Fourier transform breaks each window down into sine waves of different frequency and amplitude (delta, theta, alpha, beta).</li>
-   <li>Power per frequency is drawn as a spectrum with a colour scale.</li>
-   <li>The spectra are stacked one after another along the time axis, one per window.</li>
-   <li>Seen from above, the stack becomes a spectrogram (density spectral array): time across, frequency upwards and power in colour.</li>
+   <li>Power per frequency is drawn as a spectrum, and power is translated into colour.</li>
+   <li>The colour strips are placed side by side along the time axis, one per window, and become a spectrogram (density spectral array): time across, frequency upwards and power in colour.</li>
   </ol>
-  <p class="small">Window length and calculation method vary between monitors and studies. Guay 2025, for example, used 2-second windows with the multitaper method and displayed power in decibels (logarithmic scale), because power can differ by orders of magnitude across frequencies. The animation is schematic, not patient data.</p>
-  <span class="tag">Animation: the author of the app</span> <span class="tag">Guay 2025 Part 2</span></div>
+  <p class="small">Window length and calculation method vary between monitors and studies. Guay 2025, for example, used 2-second windows with the multitaper method and displayed power in decibels (logarithmic scale), because power can differ by orders of magnitude across frequencies. The figure can show both: multitaper with the same settings as Guay 2025 (2 s windows, three tapers, time-bandwidth product 2) and a single Hann window. Guay 2025 let the windows overlap by 0.2 seconds, while the figure moves the window one second at a time. The signal is synthetic and time is compressed: in Purdon 2013 the changes leading up to loss of consciousness took place over about 30 minutes, here over one minute.</p>
+  <span class="tag">Figure: the app's own, synthetic signal</span> <span class="tag">Guay 2025 Part 2, Purdon 2013, Purdon 2015 Part I</span></div>
 
   <h2>Spectrogram simulator</h2>
   <p>A spectrogram shows time along the x-axis, frequency (Hz) up the y-axis and power as colour. Select drug and age, and drag in the image or the slider to see how the pattern changes over the course of an anaesthetic.</p>
@@ -961,7 +970,7 @@ header h1 button:hover{color:var(--accent)}
   <ul>
    <li><strong>Sevoflurane is epileptogenic:</strong> in children undergoing mask induction, Schultz 2012 (70 children, 8% sevoflurane for a mean of 73 s before reduction to 4%, midazolam premedication) found epileptiform patterns in 20% without motor signs: delta with spikes (14%), rhythmic polyspikes (14%) and periodic epileptiform discharges (6%). Kreuzer 2014 (100 children) found the patterns in 76% at 8% for 3 min versus 52% at 6% for 5 min; rhythmic polyspikes appeared earlier at 8%. Both recommend a lower concentration and a shorter time at high concentration, and EEG to catch those who react, since it cannot be predicted.</li>
    <li><strong>The index does not help:</strong> Gimson 2021 (scoping review, 8 observational studies, 1 RCT and 15 case reports, almost all with BIS) found that the index value during seizures most often rose, but fell in six studies, and in the randomised trial BIS ranged from 11 to 97 during epileptiform discharges with no difference in mean compared with patients without them. Raw EEG from the BIS monitor caught status epilepticus, but missed periodic discharges in about 75% of cases in one study. Conclusion: processed EEG should not be used to rule out non-convulsive status, but an unexpected index (high or low) relative to the clinical picture should prompt conventional EEG.</li>
-   <li><strong>Two appearances on the spectrogram:</strong> (1) “flames”, broadband vertical power peaks that build up and subside over minutes (Taccone 2026, image 14); (2) a low-frequency, apparently deep pattern with low SEF and low index, where only the raw EEG shows that the waves are periodic and have a sharp component (image 19, intensive care patient, confirmed by a neurologist with full EEG). Image 20 shows flames and 3 Hz spike-and-wave from the same setting with PSI 46 versus 23 in image 19: the same type of activity, two index values. The second is the easiest to miss, because everything on the screen looks “deep enough”.</li>
+   <li><strong>Two appearances on the spectrogram:</strong> (1) “flames”, broadband vertical power peaks that build up and subside over minutes (Taccone 2026, image 14); (2) a low-frequency, apparently deep pattern with low SEF and low index, where only the raw EEG shows that the waves are periodic and have a sharp component (image 19; Ntahe 2018 describes BIS 25–35 and unchanged SR during nonconvulsive status epilepticus). Image 20 shows flames and 3 Hz spike-and-wave with an index around 45 versus around 25 in image 19: the same type of activity, two index values (Gimson 2021). The second is the easiest to miss, because everything on the screen looks “deep enough”.</li>
    <li><strong>What to do when you suspect it:</strong> read the raw EEG in all four channels (periodicity, sharpness, symmetry), check the sevoflurane concentration and EtCO2 (hyperventilation and high concentration are described triggers in the literature Kreuzer cites), consider lowering the concentration or switching to propofol, and request a full EEG. Do not steer the dose by the index. Frontal four-channel EEG cannot confirm the diagnosis.</li>
    <li><strong>What the literature does not say:</strong> none of the studies above use SedLine/PSI, and both paediatric studies are from the same centre (Hannover) with the same monitor (Narcotrend) and one visual rater. Adult data are mainly case reports. The clinical significance of subclinical epileptiform patterns during sevoflurane has not been clarified.</li>
   </ul>
@@ -1509,18 +1518,18 @@ header h1 button:hover{color:var(--accent)}
   </ul>
   <span class="tag">Abend et al. Neurology 2013;81:383–391</span></div>
 
-  <h3>Clinical example: nonconvulsive seizures in sepsis that looked like deep sedation on the index (shared case)</h3>
+  <h3>When the index does not see the seizure: published examples</h3>
   <div class="card">
-  <p>Shared with the author of this app. Adult patient with sepsis. Nonconvulsive seizures were confirmed. The case is described from one screenshot from a four-channel frontal EEG monitor, and the image is not reproduced here.</p>
+  <p>Nonconvulsive seizures can look like deep sedation on a frontal monitor. Three published papers show how, and what revealed the seizures.</p>
   <ul>
-   <li><strong>The numbers:</strong> PSI 23, SR 0, EMG 2 %, artefact 0 %, SEF 5.1 Hz left and 8.3 Hz right. The index trend lay steadily around 20–25 throughout.</li>
-   <li><strong>The spectrogram:</strong> power lay in the low frequencies on both sides, with the SEF line low. Without the raw EEG the picture could easily have been read as slow-delta during deep sedation.</li>
-   <li><strong>Raw EEG (30 mm/s, 5 µV/mm):</strong> high-amplitude, rhythmic, sharp slow waves repeating in all four channels, roughly simultaneously on both sides. This is what distinguished the picture from ordinary deep sedation.</li>
-   <li><strong>What the sources say:</strong> sepsis can cause electrographic seizures and periodic discharges (Lobo and Lamperti ch. 1), and most seizures in the medical ICU are purely electrographic (Oddo 2009). Guay 2025 describes a patient in whom a frontal monitor showed sharp periodic discharges after propofol was weaned, and a full EEG confirmed nonconvulsive seizures. Frequency, localisation and sharpness determine seizure risk.</li>
-   <li><strong>The app's own synthesis:</strong> the index, SR and spectrogram were consistent with deep sedation. Only the raw EEG showed the pattern. See the simulator for epileptiform patterns above, especially periodic discharges and seizure with evolution.</li>
-   <li><strong>Caveats:</strong> a single case, described from one screenshot. How the seizures were confirmed, which sedation the patient received, treatment and outcome are not described here.</li>
+   <li><strong>Ntahe 2018 (case report):</strong> a 75-year-old woman, comatose after cardiac arrest, with nonconvulsive status epilepticus diagnosed with conventional EEG. During treatment BIS lay between 25 and 35 and SR between 20 and 35. When hypnotics were weaned on day 3, the raw EEG from the BIS monitor showed high-amplitude, irregular waves with spikes, spike-and-wave and polyspikes, alternating with a flat signal, while BIS and SR did not change significantly. Conventional EEG confirmed recurrence with continuous, generalised rhythmic spikes and spike-and-wave at 1–1.5 Hz. The conclusion is that the BIS monitor cannot replace conventional EEG, and that the raw EEG must be read together with the numbers.</li>
+   <li><strong>Haesen 2018 (validation study):</strong> 32 comatose patients after cardiac arrest in whom the raw EEG from the BIS monitor was compared with full EEG. For status epilepticus, sensitivity was 86 % and specificity 100 % by consensus between two neurophysiologists. Two inexperienced investigators identified status epilepticus with sensitivity 70–90 % and specificity 92–96 %. Periodic epileptiform discharges were picked up in only 25 % of cases, probably because only frontotemporal leads were recorded.</li>
+   <li><strong>Hernández-Hernández 2016 (two children):</strong> bilateral BIS spectrogram during status epilepticus in a 5-month-old infant and a 7-year-old child. In the infant the seizure activity appeared as the colours in the low frequencies shifting from orange, yellow and green to dark red, without clinical convulsions. The pattern disappeared after thiopental.</li>
+   <li><strong>Sepsis:</strong> sepsis can cause electrographic seizures and periodic discharges (Lobo and Lamperti ch. 1), most seizures in the medical ICU are purely electrographic (Oddo 2009), and among children in intensive care, sepsis had the highest proportion of seizures (Abend 2013, above).</li>
+   <li><strong>The app's own synthesis:</strong> the index tells you where the power lies in frequency, not whether the activity is epileptiform. Low-frequency periodic discharges can therefore give a low index and low SEF that resemble deep sedation, while broadband discharges can give higher numbers (Gimson 2021). It is the raw EEG that reveals the pattern. See the simulator above and images 19 and 20 in the image quiz.</li>
+   <li><strong>Caveats:</strong> case reports and a small retrospective single-centre study, all with BIS. None of them tells how often the index misses. In Ntahe 2018 the sensor was changed from four to two channels on day 3. Ntahe 2018 and Haesen 2018 report no conflicts of interest.</li>
   </ul>
-  <span class="tag">Shared case</span></div>
+  <span class="tag">Ntahe 2018, Haesen 2018, Hernández-Hernández 2016, Gimson 2021</span></div>
 
   <h3>Expect a pattern: EEG-guided management of the critically ill (Guay 2025 Part 2)</h3>
   <div class="card">
@@ -3975,6 +3984,12 @@ const QS=[
  {q:'What did Abend 2013 find about seizures in children in intensive care with continuous EEG?',
   a:['30 % had electrographic seizures, and in 36 % of them all seizures were without clinical signs','Seizures occurred only in children with known epilepsy','No one had seizures during sedation','All seizures caused convulsions'],c:0,
   e:'Sepsis had the highest proportion (58 % of 19). Electrographic status epilepticus was associated with higher mortality (OR 2.42).',s:'Abend 2013',t:'icu'},
+{q:'What did Ntahe 2018 show about BIS during recurrence of nonconvulsive status epilepticus?',
+ a:['BIS rose abruptly above 80 and warned of the seizure','BIS and SR did not change significantly; only the raw EEG showed spikes, spike-and-wave and polyspikes','SR rose to 100 %','The seizure triggered an EMG alarm'],c:1,
+ e:'BIS lay between 25 and 35 both before and during the recurrence. The raw EEG from the monitor raised the suspicion, and conventional EEG confirmed generalised spike-and-wave at 1–1.5 Hz. A single case report.',s:'Ntahe 2018',t:'icu'},
+{q:'How well did the raw EEG from the BIS monitor detect status epilepticus after cardiac arrest (Haesen 2018)?',
+ a:['Poorly: sensitivity below 30 %','Well for status epilepticus (sensitivity 86 %, specificity 100 % by consensus), but poorly for periodic discharges (25 %)','As well as full EEG for all patterns','Only with the index, not with the raw EEG'],c:1,
+ e:'32 patients, one centre, retrospective. Only frontotemporal leads, which probably explains why periodic epileptiform discharges were missed.',s:'Haesen 2018',t:'icu'},
  {q:'A patient has SR 0 and BIS 64, but the raw EEG is almost flat and the EMG bar is full. After a neuromuscular blocker, with no change in dose, the monitor shows SR 82. What does this show about the suppression ratio?',
   a:['That SR is an algorithmic estimate: EMG kept it falsely low, and it must always be read together with the raw EEG','That the blocker made the patient deeper','That SR is always reliable when EMG is 0','That SR 82 can only be due to sensor failure'],c:0,
   e:'The monitor calculates suppression from an amplitude threshold. Noise above the threshold gives a falsely low SR, whereas poor contact and artefacts can give a falsely high SR (Gruenbaum 2026). Visually determined suppression was associated with delirium in a study where SR-based suppression was not (Jegarl 2026).',s:'Gruenbaum 2026, Jegarl 2026, image quiz image 2',t:'bs'},
@@ -4186,6 +4201,7 @@ function linkIds(t){
 }
 const REFS=[
  ['Brown EN, Lydic R, Schiff ND. General anesthesia, sleep, and coma. N Engl J Med 2010;363:2638–50.','https://pmc.ncbi.nlm.nih.gov/articles/3162622','Defines the components of general anaesthesia and the relationship to sleep and coma.'],
+ ['Babadi B, Brown EN. A review of multitaper spectral analysis. IEEE Trans Biomed Eng 2014;61:1555–1564.','https://doi.org/10.1109/TBME.2014.2311996','Review of the multitaper method; cited by Guay 2025.'],
  ['Purdon PL, Sampson A, Pavone KJ, Brown EN. Clinical electroencephalography for anesthesiologists, Part I: background and basic signatures. Anesthesiology 2015;123:937–60.','https://pmc.ncbi.nlm.nih.gov/articles/PMC4573341','EEG signatures for propofol, dexmedetomidine, ketamine, sevoflurane, isoflurane, desflurane and nitrous oxide.'],
  ['Purdon PL et al. The ageing brain: age-dependent changes in the electroencephalogram during propofol and sevoflurane general anaesthesia. Br J Anaesth 2015;115(Suppl 1):i46–57.','https://pmc.ncbi.nlm.nih.gov/articles/PMC4501918','155 patients aged 18–90.. Lower power and alpha coherence and more frequent burst suppression in older patients.'],
  ['Nordum FH, Tveit SH, Idland AV, Øyen LA, Thomas OMT, Søvik S, Hyldebrandt JA. Predictors of cerebral blood flow during surgery in the Trendelenburg position, and their correlations to postoperative cognitive function. Front Anesthesiol 2024;3:1395973.','https://doi.org/10.3389/fanes.2024.1395973','44 men, Ahus. ICA flow predicted by cardiac output and PaCO₂, negatively by MAP. No cognitive impairment.'],
@@ -4261,6 +4277,9 @@ const REFS=[
  ['Kelz MB, García PS, Mashour GA, Solt K. Escape from oblivion: neural mechanisms of emergence from general anesthesia. Anesth Analg 2019;128:726–736.','https://doi.org/10.1213/ANE.0000000000004006','Narrative review. No conflicts of interest.'],
  ['la Cour KN, Andersen-Ranberg NC, Weihe S, et al. Distribution of delirium motor subtypes in the intensive care unit: a systematic scoping review. Crit Care 2022;26:53.','https://doi.org/10.1186/s13054-022-03931-3','Scoping review, 131 studies. No conflicts of interest.'],
  ['Abend NS, Arndt DH, Carpenter JL, et al. Electrographic seizures in pediatric ICU patients: cohort study of risk factors and mortality. Neurology 2013;81:383–391.','https://doi.org/10.1212/WNL.0b013e31829c5cfe','Retrospective, 11 centres, 550 children.'],
+ ['Ntahe A. Early diagnosis of nonconvulsive status epilepticus recurrence with raw EEG of a bispectral index monitor. Case Rep Crit Care 2018;2018:1208401.','https://doi.org/10.1155/2018/1208401','Case report, one patient. No conflicts of interest reported.'],
+ ['Haesen J, Eertmans W, Genbrugge C, et al. The validation of simplified EEG derived from the bispectral index monitor in post-cardiac arrest patients. Resuscitation 2018;126:179–184.','https://doi.org/10.1016/j.resuscitation.2018.01.042','Retrospective, single centre, 32 EEG samples. No conflicts of interest reported.'],
+ ['Hernández-Hernández MA, Iglesias-Posadilla D, Ruiz-Ruiz A, Gómez-Marcos V, Fernández-Torre JL. Colour density spectral array of bilateral bispectral index in status epilepticus. An Pediatr (Barc) 2016;85:44–47.','https://doi.org/10.1016/j.anpede.2015.09.037','Scientific letter, two children.'],
  ['Oddo M, Carrera E, Claassen J, Mayer SA, Hirsch LJ. Continuous electroencephalography in the medical intensive care unit. Crit Care Med 2009;37:2051–2056.','https://doi.org/10.1097/CCM.0b013e3181a00604','Retrospective, 201 patients. Only the abstract has been read.'],
  ['Sikka P, Hu S, Heifets BD. Dreaming during anaesthesia: a scoping review. Br J Anaesth 2026;137:506–524.','https://doi.org/10.1016/j.bja.2026.05.002','157 studies 1921–2024.'],
  ['Sarasso S, Boly M, Napolitani M, Gosseries O, Charland-Verville V, Casarotto S, et al. Consciousness and complexity during unresponsiveness induced by propofol, xenon, and ketamine. Curr Biol 2015;25:3099–3105.','https://doi.org/10.1016/j.cub.2015.10.014','TMS-EEG in 18 healthy volunteers.'],
@@ -4409,7 +4428,7 @@ const IQ=(()=>{
    P:(f,t)=>base(f)*0.6+0.9*sl(f)+0.35*th(f)+0.4*al(f,1,10,2.5)+0.15*be(f,1,16,5),sup:t=>env(t,21,1.9)<0.64, raw:{comps:[[0.6,1.3],[1.3,1.0],[2.5,0.6],[9,0.25]],amp:0.32,sup:true,burstFrac:0.3},
    q:'What does the image show, and why is SEF shown as “--”?',a:['The electrodes have come loose; ARTF should have been high','Burst suppression: the narrow flames are bursts with broadband power, the dark part is suppression. EMG 0 and ARTF 0 mean that the flat stretches are real. SEF cannot be calculated meaningfully when the EEG is suppressed most of the time, and the SR trend swings because the ratio is calculated over a moving window','The patient is sleeping naturally','Normal variation under propofol'],c:1,
    e:'The bursts contain the whole previous pattern (slow, theta and alpha) for a few seconds before the next suppression (Ching 2012), and in older patients they are lower and flatter (Kratzer 2020). This is more than the patient needs: Fritz 2016, Watson 2008 and Andresen 2014 show an association with delirium and mortality, while Hogan 2020 and Jegarl 2026 argue that the pattern primarily marks vulnerability. Reduce the hypnotic and check blood pressure and temperature (Georgii 2022, Guay 2025). Compare with image 16, where the bursts are completely absent.',s:'Ching 2012, Kratzer 2020, Fritz 2016, Burst suppression tab'},
-  {title:'Image 4',ctx:'Adult, index rising from 45 to 70, EMG 11%, SR 0%. The alpha and delta bands dissolve towards the end.',
+  {title:'Image 4',ctx:'Adult, index rising from about 45 to about 70, EMG increasing, SR 0%. The alpha and delta bands dissolve towards the end.',
    P:(f,t)=>{const k=t<0.78?1:Math.max(0,1-(t-0.78)/0.12);return base(f)+(0.9*sl(f)+0.9*al(f,1,10,1.8))*k+(1-k)*(0.35*be(f,1,20,10)+emgN(f,0.2))}, raw:{comps:[[2.5,0.15],[10,0.1],[22,0.25]],amp:0.45,emg:0.4},
    q:'What happens at the transition?',a:['Burst suppression','Emergence: the alpha-delta pattern dissolves, higher frequencies and EMG come in, and the index rises','Nociceptive alpha dropout','The sensor has come loose'],c:1,
    e:'As the concentration falls, the spindle frequency increases before the spindles become intermittent and disappear (Hight 2020). EMG activation is often the first sign (Hight 2017). Remember neural inertia: the concentration at emergence is lower than at loss of consciousness.',s:'Hight 2020, Hight 2017'},
@@ -4470,15 +4489,15 @@ const IQ=(()=>{
    P:(f,t)=>{const k=Math.max(0,Math.min(1,(t-0.6)/0.22)); const w=1-k; return base(f)+1.0*sl(f)+(0.5+0.15*env(t,2,2))*th(f)+(0.4+0.55*k+0.15*env(t,4,3))*al(f,1,10+0.8*w+0.4*env(t,7,1.5),2.0+0.8*w)+(0.28*w+0.08)*(0.7+0.5*env(t,9,4))*be(f,1,16,5)+(0.14*w)*(0.6+0.6*env(t,12,5))*be(f,1,22,5)}, raw:{comps:[[0.7,1.0],[2.5,0.7],[5.5,0.5],[10,0.45],[16,0.3]],amp:0.8},
    q:'Was the first part too light anaesthesia or nociception from too little analgesia? What can the EEG tell us?',a:['Definitely too light anaesthesia: PSI 50 is above the target range','Definitely nociception: alpha dropout with beta is described by García 2021','EEG alone cannot distinguish them. Weak alpha with more beta fits both low hypnotic effect and nociceptive activation (beta arousal/alpha dropout). That alpha returned after the dose increase does not settle it either, because both states respond to more hypnotic. The temporal relationship to surgical stimulus, opioid dose and haemodynamics must be included in the assessment','Electrode artefact'],c:2,
    e:'García 2021 describes beta arousal, delta arousal and alpha dropout as nociceptive patterns, but the same patterns occur when the hypnotic concentration is low (Hight 2020). The indices are not age-adjusted, and in children PSI/BIS may be higher during adequate anaesthesia: in Miyasaka 2025 PSI averaged 66 in children judged to be deeply unconscious with alpha and slow-delta (Akeju 2015, Lee 2017). The clinical answer is often the same (more agent), but the choice of which agent (hypnotic or opioid) depends on whether there had just been a noxious stimulus. The example was shared by the author of the app, who is herself unsure what the cause was; that is more honest than a model answer.',s:'García 2021, Hight 2020, Fundamentals tab: nociception'},
-  {title:'Image 19',ctx:'Adult patient in the intensive care unit, sedated and monitored with frontal four-channel EEG. PSI 23, SR 0, EMG 2%, ARTF 0, SEF 5.1 Hz left and 8.3 Hz right. The spectrogram has almost all power below 8–10 Hz, without a clear alpha band and without suppression. Raw EEG at 5 µV/mm: large, slow waves with a sharp component that repeats about once per second, alike in all four channels.',
+  {title:'Image 19',ctx:'Schematic example made for the app: sedated adult intensive care patient with frontal four-channel EEG. Index around 25, SR 0, low SEF (about 5–8 Hz). The spectrogram has almost all power below 8–10 Hz, without a clear alpha band and without suppression. Raw EEG at 5 µV/mm: large, slow waves with a sharp component that repeats about once per second, alike in all four channels.',
    P:(f,t)=>base(f)*0.8+1.35*(0.85+0.3*env(t,3,1.6))*sl(f)+0.9*(0.8+0.4*env(t,6,2.2))*th(f)+0.35*g(f,1.1,0.5)+0.2*g(f,2.2,0.6)+0.12*al(f,1,9.5,2.5)+0.05*be(f,1,16,6),
    raw:{comps:[[0.8,0.65],[1.6,0.35],[4,0.2],[7,0.1]],amp:0.85,spikes:true,spikePer:1.0,spikeAmp:0.85},
-   q:'PSI 23 and SEF 5 Hz: is this just deep anaesthesia?',a:['Yes. Low SEF and low PSI without SR mean deep, but not too deep, sevoflurane anaesthesia; no action needed','Burst suppression; the SR counter has not had time to react','No. The raw EEG shows periodic, high-amplitude sharp-slow complexes, not the irregular delta pattern that deep anaesthesia produces. The index is low because the power lies in the low frequencies, not because the hypnosis is deep. Suspect epileptiform activity: read the raw EEG, review agents and precipitating causes, and request a full EEG','Pulse artefact: one wave per heartbeat'],c:2,
-   e:'This is a real case from an intensive care unit, shared with the author of the app and redrawn; epileptiform activity was confirmed by a neurologist with a full EEG. The spectrogram looks “deep” (low SEF, everything below 10 Hz), and PSI 23 apparently confirms it. It is the raw EEG that reveals the pattern: regular complexes with a sharp component repeating periodically. Gimson 2021 (scoping review) found that processed indices during epileptiform activity can be too high, too low or unchanged (BIS 11–97 in the one randomised trial), so the index cannot be used to rule it out. Which agents the patient received is not known. In the operating theatre sevoflurane is the most common drug-related cause: delta with spikes, rhythmic polyspikes and periodic discharges occur more often at high concentration (Kreuzer 2014: 76% at 8% versus 52% at 6% in children). In intensive care, non-convulsive seizures are common in unconscious patients regardless of sedation (Miller\'s ch. 80). Pulse artefact follows the heart rate (usually above 1 Hz) and has an even, sinusoidal shape. A frontal four-channel montage can neither confirm nor localise; it can only raise suspicion.',s:'Gimson 2021, Kreuzer 2014, Miller\'s ch. 80, Spectrogram tab'},  {title:'Image 20',ctx:'Adult patient in the intensive care unit, same type of case as image 19, but a different recording. PSI 46, SR 0, EMG 0, ARTF 0. The spectrogram is filled with “flames”: broadband, vertical power peaks that come close together and almost without interruption over several minutes, with the SEF line jumping up towards 20–25 Hz. Raw EEG: rhythmic spike-and-wave complexes around 3 Hz in all four channels.',
+   q:'Low index and SEF around 5 Hz: is this just deep sedation?',a:['Yes. Low SEF and low index without SR mean deep, but not too deep, sedation; no action needed','Burst suppression; the SR counter has not had time to react','No. The raw EEG shows periodic, high-amplitude sharp-slow complexes, not the irregular delta pattern that deep anaesthesia produces. The index is low because the power lies in the low frequencies, not because the hypnosis is deep. Suspect epileptiform activity: read the raw EEG, review agents and precipitating causes, and request a full EEG','Pulse artefact: one wave per heartbeat'],c:2,
+   e:'The image is a schematic example drawn for the app, not a patient case. Ntahe 2018 describes the same in practice: BIS 25–35 and unchanged SR while the raw EEG showed spikes and spike-and-wave, and conventional EEG confirmed nonconvulsive status epilepticus. The spectrogram looks “deep” (low SEF, everything below 10 Hz), and the low index apparently confirms it. It is the raw EEG that reveals the pattern: regular complexes with a sharp component repeating periodically. Gimson 2021 (scoping review) found that processed indices during epileptiform activity can be too high, too low or unchanged (BIS 11–97 in the one randomised trial), so the index cannot be used to rule it out. In the operating theatre sevoflurane is the most common drug-related cause: delta with spikes, rhythmic polyspikes and periodic discharges occur more often at high concentration (Kreuzer 2014: 76% at 8% versus 52% at 6% in children). In intensive care, non-convulsive seizures are common in unconscious patients regardless of sedation (Miller\'s ch. 80). Pulse artefact follows the heart rate (usually above 1 Hz) and has an even, sinusoidal shape. A frontal four-channel montage can neither confirm nor localise; it can only raise suspicion.',s:'Ntahe 2018, Gimson 2021, Kreuzer 2014, Miller\'s ch. 80'},  {title:'Image 20',ctx:'Schematic example made for the app: sedated adult intensive care patient with the same type of activity as in image 19, but with the power distributed differently. Index around 45, SR 0, EMG 0, ARTF 0. The spectrogram is filled with “flames”: broadband, vertical power peaks that come close together and almost without interruption over several minutes, with the SEF line jumping up towards 20–25 Hz. Raw EEG: rhythmic spike-and-wave complexes around 3 Hz in all four channels.',
    P:(f,t)=>{const fl=(0.9*Math.exp(-f/(9+5*env(t,8,1.3)))+0.6*g(f,3,1.2)+0.4*g(f,6,2.5)+0.3*g(f,12,5)+0.15*g(f,20,6))*(0.45+0.8*gate(t,13,3.2,0.35)+0.3*env(t,17,4)); return base(f)+0.5*sl(f)+0.15*al(f,1,10,2)+fl},
    raw:{comps:[[0.8,0.4],[3,0.7],[6,0.3],[9,0.4]],amp:0.85,spikes:true,spikeAmp:0.9},
-   q:'Image 19 had PSI 23, this one has PSI 46 with the same type of activity. What does that tell you?',a:['The patient in image 20 is more lightly sedated, which is why the seizure activity is visible','PSI 46 means the activity is not epileptiform; the flames are EMG','The index is not a measure of epileptiform activity. Depending on where the power lies in frequency (low-frequency periodic complexes in image 19, broadband 3 Hz spike-and-wave here), the same type of activity can give a low, medium or high index. It is the raw EEG and the development of the spectrogram over time that raise the suspicion, and full EEG that confirms it','SR 0 rules out seizure, because seizures are always followed by suppression'],c:2,
-   e:'Gimson 2021 found exactly this: during epileptiform activity BIS was most often too high, in six studies too low, and in the one randomised trial 11–97. Both cases (images 19 and 20) are from the intensive care unit and were confirmed by a neurologist with full EEG. Flames that build up and fade over minutes are Taccone 2026\'s hallmark of ictal activity in the spectrogram, in contrast to artefacts, which are abrupt and do not evolve (image 14). EMG 0 and ARTF 0 argue against muscle or electrode artefact. SR is a measure of flat stretches, not of seizures; postictal suppression is not obligatory. Frontal four-channel EEG can neither confirm nor localise.',s:'Gimson 2021, Taccone 2026, Miller\'s ch. 80, Spectrogram tab'},
+   q:'Image 19 had an index around 25, this one has around 45 with the same type of activity. What does that tell you?',a:['The patient in image 20 is more lightly sedated, which is why the seizure activity is visible','An index around 45 means the activity is not epileptiform; the flames are EMG','The index is not a measure of epileptiform activity. Depending on where the power lies in frequency (low-frequency periodic complexes in image 19, broadband 3 Hz spike-and-wave here), the same type of activity can give a low, medium or high index. It is the raw EEG and the development of the spectrogram over time that raise the suspicion, and full EEG that confirms it','SR 0 rules out seizure, because seizures are always followed by suppression'],c:2,
+   e:'Gimson 2021 found exactly this: during epileptiform activity BIS was most often too high, in six studies too low, and in the one randomised trial 11–97. Both images are schematic examples drawn for the app. Hernández-Hernández 2016 describes seizures on the bilateral spectrogram in children as a shift to dark red in the low frequencies. Flames that build up and fade over minutes are Taccone 2026\'s hallmark of ictal activity in the spectrogram, in contrast to artefacts, which are abrupt and do not evolve (image 14). EMG 0 and ARTF 0 argue against muscle or electrode artefact. SR is a measure of flat stretches, not of seizures; postictal suppression is not obligatory. Frontal four-channel EEG can neither confirm nor localise.',s:'Gimson 2021, Taccone 2026, Hernández-Hernández 2016'},
   ];
 })();
 function iqRenderSpec(cv,P,sup,scale=1){
@@ -4795,6 +4814,143 @@ document.querySelectorAll('#epiScale button').forEach(b=>b.addEventListener('cli
   document.querySelectorAll('#epiScale button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw();}));
 const rr=document.getElementById('epiRate'); rr.addEventListener('input',()=>{rate=+rr.value;draw();});
 document.getElementById('epiSharp').addEventListener('change',e=>{sharpOn=e.target.checked;draw();});
+window.addEventListener('resize',draw);
+new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))draw()}).observe(cv);
+draw();
+})();
+</script>
+<script>
+(function(){
+/* Fra rå-EEG til spektrogram. Syntetisk signal, ekte beregning (Hann-vindu, DFT 0–30 Hz). Appens egen figur. */
+const cv=document.getElementById('dsaCanvas'); if(!cv) return;
+const T={"raw": "Raw EEG (synthetic)", "win": "2 s window", "spec": "Spectrum (dB)", "pow": "power", "strip": "Strip", "dsa": "Spectrogram", "time": "time (s)", "play": "▶ Play", "pause": "❚❚ Pause", "ph": ["awake", "induction with propofol", "maintenance"], "at": "The window ends at {t} s ({p})", "aria": "Figure: from raw EEG to spectrogram.", "steps": ["<strong>The whole chain:</strong> press “Play”, or drag the slider. The window moves one second at a time. For each window a spectrum is calculated, the spectrum becomes a colour strip, and the strip is placed in the spectrogram at the right time.", "<strong>1. Raw EEG and window:</strong> the monitor takes a short window of raw EEG. Here the window is 2 seconds, as in Guay 2025. Window length varies between monitors. In the figure the window moves one second at a time, so the windows overlap.", "<strong>2. The spectrum:</strong> the Fourier transform calculates how much power the window has at each frequency. Power is shown in decibels (logarithmic), because it can differ by orders of magnitude between frequencies (Guay 2025). Frequency runs vertically, as it does in the spectrogram. With multitaper the spectrum is calculated three times, with three different, specially shaped windows (tapers), and the average is used. This gives a smoother spectrum with less random variation, but slightly poorer frequency resolution (Babadi and Brown 2014, cited by Guay 2025). Switch between “Single window” and “Multitaper” to see the difference.", "<strong>3. From spectrum to colour:</strong> power is translated into colour, high power warm (red) and low power cold (blue). The whole spectrum becomes one vertical colour strip.", "<strong>4. The spectrogram:</strong> the strips are placed side by side along the time axis, and the spectrogram (density spectral array) grows: time across, frequency upwards and power in colour. The example shows the awake state with little power and mostly beta, induction with propofol where beta power increases and slides down in frequency, and maintenance with alpha around 10 Hz and slow-delta (Purdon 2013, Purdon 2015)."]};
+const FS=128, DUR=120, N=FS*DUR, WIN=2*FS, FMAX=30, DF=0.5, NB=FMAX/DF+1;
+/* --- deterministisk støy --- */
+let seed=7; function rnd(){seed=(seed*16807)%2147483647; return seed/2147483647;}
+/* --- faser: våken 0–30 s, innsovning 30–60 s, vedlikehold 60–120 s (komprimert tid) --- */
+function sm(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+const sig=new Float32Array(N);
+const ind=t=>sm((t-30)/30), mnt=t=>sm((t-55)/12);
+const G=(f,c,w)=>Math.exp(-0.5*((f-c)/w)**2);
+/* ønsket amplitudespekter (µV per 0,5 Hz-bin) som funksjon av tid */
+function amp(f,t){
+  const ib=sm((t-28)/10)*(1-mnt(t)), cf=24-13*ind(t);
+  return 7/(1+f/1.5)                                  /* bakgrunn, 1/f-aktig */
+    +1.1*(1-ind(t))*(f>14&&f<32?1:0.25)              /* våken: lav beta */
+    +4.5*ib*G(f,cf,3)                                 /* innsovning: beta som glir nedover (Purdon 2013) */
+    +7*mnt(t)*G(f,10,1.1)                             /* vedlikehold: alfa */
+    +2.5*mnt(t)*G(f,3,1.5)                            /* litt delta/theta */
+    +(3+15*sm((t-40)/25))*G(f,0.8,0.5);               /* langsom-delta */
+}
+/* syntese: overlappende 1 s-segmenter med Hann-vindu og tilfeldig fase */
+const SEG=FS, HOP=FS/2, FR=[]; for(let f=0.25;f<=40;f+=0.5) FR.push(f);
+const hw=new Float32Array(SEG); for(let i=0;i<SEG;i++) hw[i]=Math.sin(Math.PI*i/SEG)**2;
+for(let s0=-HOP;s0<N;s0+=HOP){
+  const tc=Math.max(0,(s0+SEG/2)/FS);
+  for(const f of FR){
+    const A=amp(f,tc)*(0.6+0.8*rnd()), ph=6.283*rnd(), w=6.283*f/FS;
+    for(let i=0;i<SEG;i++){const k=s0+i; if(k<0||k>=N) continue; sig[k]+=A*hw[i]*Math.sin(w*i+ph);}
+  }
+}
+/* --- spektre: ett vindu per sekund, enkelt Hann-vindu eller multitaper (3 DPSS-tapere, TW = 2, som Guay 2025) --- */
+const COLS=DUR-1, hann=new Float32Array(WIN);
+for(let i=0;i<WIN;i++) hann[i]=0.5-0.5*Math.cos(6.283*i/(WIN-1));
+const DPSS=[[0.0017,0.0020,0.0022,0.0025,0.0028,0.0030,0.0033,0.0037,0.0040,0.0043,0.0047,0.0051,0.0055,0.0059,0.0064,0.0068,0.0073,0.0078,0.0083,0.0088,0.0093,0.0099,0.0105,0.0111,0.0117,0.0123,0.0130,0.0137,0.0144,0.0151,0.0158,0.0166,0.0173,0.0181,0.0189,0.0197,0.0206,0.0215,0.0223,0.0232,0.0242,0.0251,0.0260,0.0270,0.0280,0.0290,0.0300,0.0310,0.0321,0.0331,0.0342,0.0353,0.0364,0.0375,0.0386,0.0398,0.0409,0.0421,0.0432,0.0444,0.0456,0.0468,0.0480,0.0492,0.0504,0.0516,0.0528,0.0541,0.0553,0.0565,0.0577,0.0590,0.0602,0.0614,0.0626,0.0639,0.0651,0.0663,0.0675,0.0687,0.0699,0.0711,0.0722,0.0734,0.0745,0.0757,0.0768,0.0779,0.0790,0.0801,0.0812,0.0822,0.0833,0.0843,0.0853,0.0863,0.0872,0.0882,0.0891,0.0900,0.0908,0.0917,0.0925,0.0933,0.0941,0.0948,0.0955,0.0962,0.0968,0.0975,0.0981,0.0986,0.0992,0.0997,0.1001,0.1006,0.1010,0.1014,0.1017,0.1020,0.1023,0.1025,0.1027,0.1029,0.1030,0.1031,0.1032,0.1032,0.1032,0.1032,0.1031,0.1030,0.1029,0.1027,0.1025,0.1023,0.1020,0.1017,0.1014,0.1010,0.1006,0.1001,0.0997,0.0992,0.0986,0.0981,0.0975,0.0968,0.0962,0.0955,0.0948,0.0941,0.0933,0.0925,0.0917,0.0908,0.0900,0.0891,0.0882,0.0872,0.0863,0.0853,0.0843,0.0833,0.0822,0.0812,0.0801,0.0790,0.0779,0.0768,0.0757,0.0745,0.0734,0.0722,0.0711,0.0699,0.0687,0.0675,0.0663,0.0651,0.0639,0.0626,0.0614,0.0602,0.0590,0.0577,0.0565,0.0553,0.0541,0.0528,0.0516,0.0504,0.0492,0.0480,0.0468,0.0456,0.0444,0.0432,0.0421,0.0409,0.0398,0.0386,0.0375,0.0364,0.0353,0.0342,0.0331,0.0321,0.0310,0.0300,0.0290,0.0280,0.0270,0.0260,0.0251,0.0242,0.0232,0.0223,0.0215,0.0206,0.0197,0.0189,0.0181,0.0173,0.0166,0.0158,0.0151,0.0144,0.0137,0.0130,0.0123,0.0117,0.0111,0.0105,0.0099,0.0093,0.0088,0.0083,0.0078,0.0073,0.0068,0.0064,0.0059,0.0055,0.0051,0.0047,0.0043,0.0040,0.0037,0.0033,0.0030,0.0028,0.0025,0.0022,0.0020,0.0017],[0.0106,0.0115,0.0124,0.0134,0.0144,0.0155,0.0165,0.0176,0.0188,0.0199,0.0211,0.0223,0.0235,0.0248,0.0261,0.0274,0.0287,0.0300,0.0314,0.0328,0.0342,0.0356,0.0370,0.0384,0.0399,0.0413,0.0428,0.0443,0.0458,0.0472,0.0487,0.0502,0.0517,0.0532,0.0546,0.0561,0.0576,0.0590,0.0605,0.0619,0.0633,0.0647,0.0661,0.0674,0.0688,0.0701,0.0714,0.0726,0.0739,0.0751,0.0762,0.0774,0.0784,0.0795,0.0805,0.0815,0.0824,0.0833,0.0841,0.0849,0.0857,0.0864,0.0870,0.0876,0.0881,0.0886,0.0890,0.0894,0.0897,0.0899,0.0901,0.0902,0.0903,0.0902,0.0902,0.0900,0.0898,0.0895,0.0892,0.0888,0.0883,0.0877,0.0871,0.0864,0.0857,0.0849,0.0840,0.0830,0.0820,0.0809,0.0798,0.0785,0.0772,0.0759,0.0745,0.0730,0.0715,0.0699,0.0682,0.0665,0.0647,0.0629,0.0610,0.0590,0.0571,0.0550,0.0529,0.0508,0.0486,0.0464,0.0441,0.0418,0.0395,0.0371,0.0347,0.0322,0.0298,0.0273,0.0247,0.0222,0.0196,0.0171,0.0145,0.0118,0.0092,0.0066,0.0040,0.0013,-0.0013,-0.0040,-0.0066,-0.0092,-0.0118,-0.0145,-0.0171,-0.0196,-0.0222,-0.0247,-0.0273,-0.0298,-0.0322,-0.0347,-0.0371,-0.0395,-0.0418,-0.0441,-0.0464,-0.0486,-0.0508,-0.0529,-0.0550,-0.0571,-0.0590,-0.0610,-0.0629,-0.0647,-0.0665,-0.0682,-0.0699,-0.0715,-0.0730,-0.0745,-0.0759,-0.0772,-0.0785,-0.0798,-0.0809,-0.0820,-0.0830,-0.0840,-0.0849,-0.0857,-0.0864,-0.0871,-0.0877,-0.0883,-0.0888,-0.0892,-0.0895,-0.0898,-0.0900,-0.0902,-0.0902,-0.0903,-0.0902,-0.0901,-0.0899,-0.0897,-0.0894,-0.0890,-0.0886,-0.0881,-0.0876,-0.0870,-0.0864,-0.0857,-0.0849,-0.0841,-0.0833,-0.0824,-0.0815,-0.0805,-0.0795,-0.0784,-0.0774,-0.0762,-0.0751,-0.0739,-0.0726,-0.0714,-0.0701,-0.0688,-0.0674,-0.0661,-0.0647,-0.0633,-0.0619,-0.0605,-0.0590,-0.0576,-0.0561,-0.0546,-0.0532,-0.0517,-0.0502,-0.0487,-0.0472,-0.0458,-0.0443,-0.0428,-0.0413,-0.0399,-0.0384,-0.0370,-0.0356,-0.0342,-0.0328,-0.0314,-0.0300,-0.0287,-0.0274,-0.0261,-0.0248,-0.0235,-0.0223,-0.0211,-0.0199,-0.0188,-0.0176,-0.0165,-0.0155,-0.0144,-0.0134,-0.0124,-0.0115,-0.0106],[0.0390,0.0409,0.0428,0.0447,0.0466,0.0485,0.0504,0.0522,0.0541,0.0559,0.0578,0.0596,0.0613,0.0631,0.0648,0.0665,0.0682,0.0698,0.0714,0.0729,0.0744,0.0758,0.0772,0.0785,0.0798,0.0810,0.0821,0.0832,0.0842,0.0852,0.0861,0.0869,0.0876,0.0883,0.0888,0.0893,0.0897,0.0901,0.0903,0.0905,0.0905,0.0905,0.0904,0.0902,0.0899,0.0896,0.0891,0.0886,0.0879,0.0872,0.0864,0.0854,0.0844,0.0833,0.0822,0.0809,0.0795,0.0781,0.0766,0.0750,0.0733,0.0715,0.0697,0.0678,0.0658,0.0637,0.0616,0.0594,0.0572,0.0549,0.0525,0.0501,0.0476,0.0451,0.0425,0.0399,0.0372,0.0345,0.0318,0.0291,0.0263,0.0235,0.0207,0.0179,0.0150,0.0122,0.0094,0.0065,0.0037,0.0009,-0.0020,-0.0048,-0.0075,-0.0103,-0.0130,-0.0157,-0.0183,-0.0210,-0.0235,-0.0261,-0.0285,-0.0309,-0.0333,-0.0356,-0.0378,-0.0400,-0.0421,-0.0441,-0.0461,-0.0479,-0.0497,-0.0514,-0.0530,-0.0546,-0.0560,-0.0573,-0.0586,-0.0597,-0.0608,-0.0617,-0.0626,-0.0633,-0.0639,-0.0645,-0.0649,-0.0652,-0.0654,-0.0655,-0.0655,-0.0654,-0.0652,-0.0649,-0.0645,-0.0639,-0.0633,-0.0626,-0.0617,-0.0608,-0.0597,-0.0586,-0.0573,-0.0560,-0.0546,-0.0530,-0.0514,-0.0497,-0.0479,-0.0461,-0.0441,-0.0421,-0.0400,-0.0378,-0.0356,-0.0333,-0.0309,-0.0285,-0.0261,-0.0235,-0.0210,-0.0183,-0.0157,-0.0130,-0.0103,-0.0075,-0.0048,-0.0020,0.0009,0.0037,0.0065,0.0094,0.0122,0.0150,0.0179,0.0207,0.0235,0.0263,0.0291,0.0318,0.0345,0.0372,0.0399,0.0425,0.0451,0.0476,0.0501,0.0525,0.0549,0.0572,0.0594,0.0616,0.0637,0.0658,0.0678,0.0697,0.0715,0.0733,0.0750,0.0766,0.0781,0.0795,0.0809,0.0822,0.0833,0.0844,0.0854,0.0864,0.0872,0.0879,0.0886,0.0891,0.0896,0.0899,0.0902,0.0904,0.0905,0.0905,0.0905,0.0903,0.0901,0.0897,0.0893,0.0888,0.0883,0.0876,0.0869,0.0861,0.0852,0.0842,0.0832,0.0821,0.0810,0.0798,0.0785,0.0772,0.0758,0.0744,0.0729,0.0714,0.0698,0.0682,0.0665,0.0648,0.0631,0.0613,0.0596,0.0578,0.0559,0.0541,0.0522,0.0504,0.0485,0.0466,0.0447,0.0428,0.0409,0.0390]];
+const CS=[],SN=[]; for(let b=0;b<NB;b++){const c=new Float32Array(WIN),sn=new Float32Array(WIN); for(let i=0;i<WIN;i++){const a=6.283*b*DF*i/FS; c[i]=Math.cos(a); sn[i]=Math.sin(a);} CS.push(c); SN.push(sn);}
+function spectra(tapers,norm){
+  const out=[]; let hi=-1e9;
+  for(let c=0;c<COLS;c++){
+    const s0=c*FS, row=new Float32Array(NB);
+    for(let b=0;b<NB;b++){
+      let pw=0;
+      for(const tp of tapers){let re=0,im=0; for(let i=0;i<WIN;i++){const v=sig[s0+i]*tp[i]; re+=v*CS[b][i]; im-=v*SN[b][i];} pw+=re*re+im*im;}
+      const db=10*Math.log10(pw/tapers.length/norm+1e-3); row[b]=db; if(b>0) hi=Math.max(hi,db);
+    }
+    row[0]=row[1]; out.push(row);
+  }
+  return {P:out,hi:hi,lo:hi-38};
+}
+let hn=0; for(let i=0;i<WIN;i++) hn+=hann[i]*hann[i];
+const SPEC={hann:spectra([hann],hn), mt:spectra(DPSS,1)};
+let meth='mt', P=SPEC.mt.P, lo=SPEC.mt.lo, hi=SPEC.mt.hi;
+const STOPS=[[0,[16,26,74]],[.18,[31,78,156]],[.34,[31,163,163]],[.505,[155,208,90]],[.636,[245,211,63]],[.734,[240,138,44]],[.815,[214,55,43]],[1,[120,14,28]]];
+function cm(x){x=Math.max(0,Math.min(1,x));for(let i=0;i<STOPS.length-1;i++){const[a,ca]=STOPS[i],[b,cb]=STOPS[i+1];if(x<=b){const k=(x-a)/(b-a);return 'rgb('+[0,1,2].map(j=>Math.round(ca[j]+(cb[j]-ca[j])*k)).join(',')+')';}}return 'rgb(120,14,28)';}
+const nv=db=>(db-lo)/(hi-lo);
+
+/* --- tilstand --- */
+let cur=12, step=1, playing=false, last=0;
+const tSl=document.getElementById('dsaTime'), pb=document.getElementById('dsaPlay');
+function phaseName(t){return t<30?T.ph[0]:(t<60?T.ph[1]:T.ph[2]);}
+function draw(){
+  const dpr=window.devicePixelRatio||1, W=cv.parentElement.clientWidth, H=Math.round(Math.min(460,Math.max(360,W*0.62)));
+  cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cv.style.height=H+'px';
+  const g=cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,W,H);
+  g.font='11px "Source Sans 3",system-ui,sans-serif'; g.textBaseline='alphabetic';
+  const c=Math.max(0,Math.min(COLS-1,Math.round(cur)-2)), tEnd=c+2;
+  const pad=8, txt='rgba(255,255,255,.78)', dim='rgba(255,255,255,.45)';
+  const A=k=>{g.globalAlpha=(step===k||step===0)?1:0.32;};
+  /* panel 1: rå-EEG, 10 s som slutter ved vinduets slutt */
+  const rTop=18, rH=Math.round(H*0.24), rL=pad+26, rW=W-rL-pad, span=10, t0=Math.max(0,tEnd-span+1.5);
+  A(1);
+  g.fillStyle=txt; g.fillText(T.raw+' · '+phaseName(tEnd),rL,12);
+  g.strokeStyle='rgba(255,255,255,.08)'; for(let s=Math.ceil(t0);s<t0+span;s++){const x=rL+(s-t0)/span*rW; g.beginPath();g.moveTo(x,rTop);g.lineTo(x,rTop+rH);g.stroke();}
+  g.strokeStyle='#F5C542'; g.lineWidth=1; g.beginPath();
+  const i0=Math.floor(t0*FS), i1=Math.min(N-1,Math.floor((t0+span)*FS));
+  for(let i=i0;i<=i1;i++){const x=rL+(i/FS-t0)/span*rW, y=rTop+rH/2-Math.max(-rH/2,Math.min(rH/2,sig[i]*rH/180)); i===i0?g.moveTo(x,y):g.lineTo(x,y);} g.stroke();
+  const wx=rL+(c-t0)/span*rW, ww=2/span*rW;
+  g.strokeStyle='#5CC9C0'; g.lineWidth=2; g.strokeRect(wx,rTop-2,ww,rH+4);
+  g.fillStyle='#5CC9C0'; g.fillText(T.win,wx+2,rTop+rH+14);
+  g.fillStyle=dim; g.fillText('±90 µV',pad,rTop+10);
+  /* felles frekvensakse for spekter, stripe og spektrogram */
+  const fTop=rTop+rH+30, fBot=H-26, fH=fBot-fTop, yF=f=>fBot-f/FMAX*fH;
+  const sL=pad+26, sW=Math.round(W*0.2), stL=sL+sW+18, stW=Math.max(12,Math.round(W*0.03)), dL=stL+stW+22, dW=W-dL-pad;
+  /* y-akse */
+  g.globalAlpha=1; g.fillStyle=dim;
+  [0,4,8,12,20,30].forEach(f=>{g.fillText(String(f),pad,yF(f)+4);});
+  g.fillText('Hz',pad,fTop-8);
+  /* panel 2: spekter, frekvens loddrett */
+  const row=P[c]; A(2);
+  g.fillStyle=txt; g.fillText(W<500?T.spec.replace(/ \(dB\)/,''):T.spec,sL,fTop-8);
+  g.strokeStyle='rgba(255,255,255,.12)'; [4,8,12].forEach(f=>{g.beginPath();g.moveTo(sL,yF(f));g.lineTo(sL+sW,yF(f));g.stroke();});
+  for(let b=0;b<NB-1;b++){const v=Math.max(0,nv(row[b])); g.fillStyle=cm(v); const y1=yF(b*DF), y2=yF((b+1)*DF); g.fillRect(sL,y2,Math.max(1,v*sW),y1-y2+0.5);}
+  g.strokeStyle='#fff'; g.lineWidth=1.2; g.beginPath();
+  for(let b=0;b<NB;b++){const x=sL+Math.max(0,nv(row[b]))*sW, y=yF(b*DF); b?g.lineTo(x,y):g.moveTo(x,y);} g.stroke();
+  g.fillStyle=dim; g.fillText(T.pow+' →',sL,fBot+16);
+  [['δ',2],['θ',6],['α',10],['β',20]].forEach(([n,f])=>{g.fillText(n,sL+sW+3,yF(f)+4);});
+  /* panel 3: fargestripe */
+  A(3);
+  g.fillStyle=txt; g.fillText(T.strip,stL-4,fTop-8);
+  for(let b=0;b<NB-1;b++){g.fillStyle=cm(nv(row[b])); const y1=yF(b*DF),y2=yF((b+1)*DF); g.fillRect(stL,y2,stW,y1-y2+0.5);}
+  g.strokeStyle='#5CC9C0'; g.lineWidth=1.5; g.strokeRect(stL,fTop,stW,fH);
+  /* pil til spektrogram */
+  g.strokeStyle=dim; g.lineWidth=1; g.beginPath(); g.moveTo(stL+stW+4,fTop+fH/2); g.lineTo(dL-4,fTop+fH/2); g.stroke();
+  /* panel 4: spektrogram */
+  A(4);
+  g.fillStyle=txt; g.fillText(T.dsa,dL,fTop-8);
+  g.fillStyle='#08101c'; g.fillRect(dL,fTop,dW,fH);
+  const cw=dW/COLS;
+  for(let k=0;k<=c;k++){const r=P[k]; for(let b=0;b<NB-1;b++){g.fillStyle=cm(nv(r[b])); const y1=yF(b*DF),y2=yF((b+1)*DF); g.fillRect(dL+k*cw,y2,cw+0.6,y1-y2+0.6);}}
+  g.strokeStyle='#5CC9C0'; g.lineWidth=1.5; g.strokeRect(dL+c*cw,fTop,Math.max(2,cw),fH);
+  g.fillStyle=dim; (W<500?[0,60,120]:[0,30,60,90,120]).forEach(s=>{const x=dL+Math.min(dW-14,s/DUR*dW); g.fillText(String(s),x,fBot+14);});
+  g.fillText(T.time,dL+dW-60,fBot+24>H?fBot+14:fBot+24);
+  g.strokeStyle='rgba(255,255,255,.25)'; g.setLineDash([3,3]);
+  [30,60].forEach(s=>{const x=dL+s/DUR*dW; g.beginPath(); g.moveTo(x,fTop); g.lineTo(x,fBot); g.stroke();});
+  g.setLineDash([]);
+  g.globalAlpha=1;
+  tSl.value=String(Math.round(cur));
+  document.getElementById('dsaTimeLbl').textContent=T.at.replace('{t}',Math.round(cur)).replace('{p}',phaseName(tEnd));
+  document.getElementById('dsaText').innerHTML=T.steps[step];
+  cv.setAttribute('aria-label',T.aria+' '+T.at.replace('{t}',Math.round(cur)).replace('{p}',phaseName(tEnd)));
+}
+function tick(ts){ if(!playing) return; if(!last) last=ts; cur+=(ts-last)/1000*6; last=ts;
+  if(cur>=DUR){cur=DUR;playing=false;pb.textContent=T.play;} draw(); if(playing) requestAnimationFrame(tick);}
+pb.addEventListener('click',()=>{ if(playing){playing=false;pb.textContent=T.play;return;}
+  if(cur>=DUR) cur=2; playing=true; last=0; pb.textContent=T.pause; requestAnimationFrame(tick);});
+tSl.addEventListener('input',()=>{cur=+tSl.value; draw();});
+document.querySelectorAll('#dsaSteps button').forEach(b=>b.addEventListener('click',()=>{step=+b.dataset.s;
+  document.querySelectorAll('#dsaSteps button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); draw();}));
+document.querySelectorAll('#dsaMeth button').forEach(b=>b.addEventListener('click',()=>{meth=b.dataset.m; P=SPEC[meth].P; lo=SPEC[meth].lo; hi=SPEC[meth].hi;
+  document.querySelectorAll('#dsaMeth button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); draw();}));
 window.addEventListener('resize',draw);
 new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))draw()}).observe(cv);
 draw();
