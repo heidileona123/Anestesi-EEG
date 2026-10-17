@@ -1242,6 +1242,20 @@ header h1 button:hover{color:var(--accent)}
       <li><strong>Analgesia:</strong> α2 receptors in the dorsal horn of the spinal cord inhibit nociceptive neurons and reduce substance P release. The review writes that the spinal mechanism accounts for most of the analgesia, although there is also evidence for supraspinal and peripheral sites.</li>
     </ul></div>
   </div></details>
+
+  <details class="comp" style="--hue:var(--c-aki)"><summary>Dexmedetomidine and clonidine compared</summary><div class="body">
+    <span class="tag">Miller's ch. 8, 10 and 21</span> <span class="tag">Giovannitti 2015</span> <span class="tag">Hendrickx 2008</span> <span class="tag">Walsh 2025 (A2B)</span>
+    <p>Both are α2 <em>agonists</em> (they stimulate the receptor); atipamezole is an example of an α2 antagonist. Even so, they are quite different.</p>
+    <ul>
+      <li><strong>Selectivity:</strong> dexmedetomidine binds α2 over α1 in a ratio of about 1600:1, clonidine about 220:1 (ch. 21). Chapter 10 describes clonidine as considerably less specific and less potent. Clonidine's α1 effect can cause a transient rise in blood pressure at the start (Giovannitti 2015).</li>
+      <li><strong>Locus coeruleus:</strong> both act via α2 receptors, including in the locus coeruleus. Dexmedetomidine being “more specific” refers to the receptor type (α2 over α1), not the brain region. The animal studies linking loss of consciousness to α2A receptors in the locus coeruleus were done with dexmedetomidine (ch. 8, Mizobe 1996). The sources do not describe a separate circuit mechanism for clonidine.</li>
+      <li><strong>Imidazoline:</strong> both have an imidazole ring and can also activate imidazoline binding sites, which may contribute to bradycardia (ch. 21, Mizobe 1996).</li>
+      <li><strong>Duration:</strong> clonidine has a half-life of 12–16 hours (Giovannitti 2015). The A2B protocol gives about 13 hours for clonidine and about 2 hours for dexmedetomidine. Clonidine is therefore harder to titrate and takes longer to wear off.</li>
+      <li><strong>Hypnosis and MAC:</strong> clonidine lowers MAC-awake for sevoflurane by 17–21 % and has a ceiling, while dexmedetomidine gives rousable sedation at 0.2–0.3 ng/ml and non-rousable sedation above about 1.9 ng/ml (Hendrickx 2008, Ebert 2000).</li>
+      <li><strong>EEG:</strong> both give a sleep-like pattern with slow waves and spindles (Hight 2020). Spectral studies exist for dexmedetomidine (Akeju, Purdon, Huupponen), but not for clonidine in the sources the app has.</li>
+      <li><strong>In intensive care (A2B, Walsh 2025):</strong> neither gave faster extubation than propofol. Both caused more agitation (RR 1.54 and 1.55) and more severe bradycardia (RR 1.62 and 1.58). Clonidine is not licensed for ICU sedation in the UK, but is much cheaper.</li>
+    </ul>
+  </div></details>
   <details class="comp" style="--hue:var(--c-sta)"><summary>Thiopental and etomidate</summary><div class="body">
     <span class="tag">Miller's ch. 21 and 10</span>
     <ul>
@@ -1805,6 +1819,20 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Caveats:</strong> most of the recommendations are conditional with low quality of evidence. Several panel members report conflicts of interest, including an EEG-based delirium monitor under development.</li>
   </ul>
   <span class="tag">Devlin et al. Crit Care Med 2018;46:e825–e873</span></div>
+
+  <h3>Movement and fighting the ventilator: less stress before more hypnotic</h3>
+  <div class="card">
+  <p>Suggestion from the author of the app: when an intensive care patient moves or fights the ventilator, one should look for the cause and reduce stress before increasing the hypnotic dose. What the sources say about the individual measures:</p>
+  <ul>
+   <li><strong>Hypnotics do not prevent movement:</strong> midazolam alone cannot abolish movement in response to painful stimuli (Hendrickx 2008), and propofol alone must reach 15–16 µg/ml before movement at incision is prevented, whereas burst suppression occurs at about 5 µg/ml (ch. 21 and 36). Immobility arises mainly in the spinal cord (see the Components tab). Increasing the hypnotic until the patient lies still can therefore give very deep hypnosis.</li>
+   <li><strong>Pain first:</strong> PADIS 2018 states that pain should be treated before a sedative is considered (good practice statement), and suggests an assessment-driven, protocol-based, stepwise approach to pain and sedation (conditional recommendation, moderate evidence).</li>
+   <li><strong>Light and noise:</strong> PADIS suggests noise and light reduction strategies to improve sleep (conditional, low evidence).</li>
+   <li><strong>Ventilator settings:</strong> PADIS suggests assist-control ventilation at night rather than pressure support to improve sleep (conditional, low evidence). The guideline makes no recommendation on adaptive modes. Whether fighting the ventilator is best solved with other settings is not covered in the sources the app has.</li>
+   <li><strong>Full bladder:</strong> acute urinary retention has been described as a cause of delirium in older people (“cystocerebral syndrome”). The proposed mechanism is increased adrenergic activity when the bladder cannot be emptied (Ble 2001, case report and literature review). The evidence is weak, but it is a simple thing to check.</li>
+   <li><strong>α2 agonists are not the answer to agitation in themselves:</strong> in A2B (Walsh 2025, 1404 ventilated patients in 41 UK intensive care units) neither dexmedetomidine nor clonidine gave faster extubation than propofol. Agitation was more frequent with dexmedetomidine (RR 1.54) and clonidine (RR 1.55), as was severe bradycardia (RR 1.62 and 1.58).</li>
+   <li><strong>The app's own synthesis:</strong> if the EEG shows that the patient is already deeply sedated, movement and fighting the ventilator are a sign that something other than hypnosis needs treating: pain, discomfort, ventilation or surroundings.</li>
+  </ul>
+  <span class="tag">Suggestion from the author of the app</span> <span class="tag">Devlin 2018 (PADIS), Hendrickx 2008, Miller's ch. 21 and 36, Ble 2001, Walsh 2025 (A2B)</span></div>
 
   <h3>EEG in ventilated patients with new-onset altered consciousness and delirium (Eskioglou 2021)</h3>
   <div class="card">
@@ -4342,6 +4370,9 @@ const REFS=[
  ['Kim JW, Lee AR, Park ES, et al. Comparison of bolus administration effects of lidocaine on preventing tourniquet-induced hypertension in patients undergoing general anesthesia: a randomized controlled trial. Anesth Pain Med 2022;17:35–43.','https://doi.org/10.17085/apm.21055','RCT, 75 patients.'],
  ['Ono AH, Moura TR, Govêia CS, et al. ED50 of remifentanil for providing excellent intubating conditions when co-administered with a single standard dose of propofol without the use of muscle relaxants in children: dose-finding clinical trial. J Anesth 2018;32:493–498.','https://doi.org/10.1007/s00540-018-2502-z','27 children, up-and-down method.'],
  ['Zhang L, Fang K, Tao S, et al. Electroencephalography-demonstrated mechanisms of dexmedetomidine-mediated deepening of propofol anesthesia: an observational study. Perioper Med 2021;10:44.','https://doi.org/10.1186/s13741-021-00213-4','Observational study, 21 patients.'],
+ ['Walsh TS, Parker RA, Aitken LM, McKenzie C, A2B Trial Investigators. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA 2025;334:32–45.','https://doi.org/10.1001/jama.2025.7200','RCT, 1404 patients, 41 ICUs.'],
+ ['Ble A, Zuliani G, Quarenghi C, Gallerani M, Fellin R. Cystocerebral syndrome: a case report and literature review. Aging (Milano) 2001;13:339–342.','https://iris.unife.it/handle/11392/471718','Case report and literature review.'],
+ ['A2B Trial Investigators. Alpha 2 agonists for sedation to produce better outcomes from critical illness (A2B trial): protocol. ClinicalTrials.gov NCT03653832.','https://cdn.clinicaltrials.gov/large-docs/32/NCT03653832/Prot_000.pdf','Trial protocol, not peer reviewed.'],
  ['Liebermann DG, Defrin R. Characteristics of the nociceptive withdrawal response elicited under aware and unaware conditions. J Electromyogr Kinesiol 2009;19:e114–e122.','https://doi.org/10.1016/j.jelekin.2007.10.006','8 healthy volunteers.'],
  ['Jure FA, Arguissain FG, Biurrun Manresa JA, Graven-Nielsen T, Andersen OK. Stimulus predictability moderates the withdrawal strategy in response to repetitive noxious stimulation in humans. J Neurophysiol 2020;123:2201–2208.','https://doi.org/10.1152/jn.00028.2020','15 healthy volunteers. No conflicts of interest reported.'],
  ['Ntahe A. Early diagnosis of nonconvulsive status epilepticus recurrence with raw EEG of a bispectral index monitor. Case Rep Crit Care 2018;2018:1208401.','https://doi.org/10.1155/2018/1208401','Case report, one patient. No conflicts of interest reported.'],
