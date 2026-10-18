@@ -2150,6 +2150,9 @@ header h1 button:hover{color:var(--accent)}
   </figure>
   <ul>
    <li><strong>Bands are a description, not a mechanism:</strong> the same frequency can have different origins. Frontal alpha under propofol (thalamocortical, see the Spectrogram tab) is not the same as posterior alpha in an awake person with eyes closed, even though both are 8–13 Hz.</li>
+   <li><strong>Posterior alpha and eye opening:</strong> alpha at the back of the head (the posterior dominant rhythm) is strongest in an awake person resting with eyes closed, and is attenuated when the eyes open. This was described in the very first human EEG recordings and is still used as a test of reactivity. It is not only about visual input: when the eyes opened, alpha fell across the whole scalp while skin conductance (a measure of arousal) rose, and the authors consider that alpha also reflects how activated the brain is, while the changes in the other bands reflected processing of the visual input (Barry 2007).</li>
+   <li><strong>Alpha as active inhibition:</strong> a widely used explanation is that alpha marks areas that are inhibited because they are not needed at the moment, so that information is routed to the areas in use (“gating by inhibition”, Jensen and Mazaheri 2010). With eyes closed the visual cortex has little to do and shows much alpha; when it is engaged, alpha falls. This is a well-supported hypothesis, not definitively proven.</li>
+   <li><strong>What it means for anaesthesia and intensive care (interpretation based on the sources):</strong> at loss of consciousness under propofol the posterior alpha disappears and a frontal alpha with a different origin appears (Purdon 2013, see the Components tab). A frontal monitor does not see posterior alpha. In intensive care, reactivity is the key: alpha that changes with stimulation suggests preserved function, while alpha that does not react may be alpha coma (see the Intensive care tab).</li>
    <li><strong>Amplitude:</strong> the EEG signal is in the microvolt range and must be amplified to volt level before digitisation. Amplitude falls with age (Purdon 2015, Obert 2024) and increases with slow activity.</li>
    <li><strong>Gamma and EMG:</strong> gamma has low amplitude, is attenuated by skull and skin (Lobo and Lamperti ch. 4 write that 30–80 Hz is “typically filtered out by the skull and not visible on conventional surface EEG”) and overlaps in frequency with muscle activity. What looks like gamma on a frontal pEEG monitor in a patient without neuromuscular blockers is therefore often EMG from the forehead and eye muscles. In clinical neurophysiology it is precisely frontal EMG, blinking and eye movements that, together with low amplitude and fast activity, characterise an awake EEG; Schuller 2015 showed the flip side of this: in awake, paralysed volunteers the raw EEG looked awake “just without EMG and eye movements”, and BIS fell to 44–47 (see Schuller 2015 and Hight 2017 in the Spectrogram tab). The nuance: low gamma (25–40 Hz) under ketamine has been demonstrated with surface EEG in studies with good signal processing (Purdon 2015, Vlisides 2017), but in the clinic it cannot be distinguished from EMG without neuromuscular blockers.</li>
   </ul>
@@ -2509,249 +2512,21 @@ header h1 button:hover{color:var(--accent)}
 <!-- ========== PERFUSION AND POSITIONING ========== -->
 <section class="panel" id="p-perf" hidden>
   <h2>The brain: perfusion, pressure and positioning</h2>
-  <p>This tab gathers what the sources say about the relationship between the brain's blood supply, pressure and EEG. First the foundations: Miller's chapter 10 on cerebral physiology and the anaesthetic drugs (Patel, Drummond and Lemkuil), Lobo and Lamperti (2025), van Putten and Hofmeijer and Foreman and Claassen on ischaemia and EEG, brought together in one figure of CBF thresholds. Then clinical studies and case reports on EEG as a perfusion marker (Sheorajpanday, Guay, Manquat, Nycz, Ching, Georgii, Xu, Lenstra) and own cases. The last cards cover positioning and perfusion pressure, built on Miller's chapter 30, Kalmar, Nordum and Pisitsak. All numbers are taken from the sources; where they disagree, it is noted in the discrepancy list in the Sources tab.</p>
-  <div class="seg subnav" id="perfSub" role="group" aria-label="Sections of the tab" style="margin:6px 0 14px"><button data-sub="phys" aria-pressed="true">Physiology</button><button data-sub="isch" aria-pressed="false">Ischaemia and brain injury</button><button data-sub="bp" aria-pressed="false">Blood pressure and cardiac output</button><button data-sub="pos" aria-pressed="false">Positioning</button></div>
-  <div class="subgrp" data-sub="phys">
-  <div class="card"><h3>Perfusion, CPP and autoregulation</h3>
-  <ul>
-   <li>Cerebral perfusion pressure (CPP) is MAP minus intracranial pressure (ICP). Blood flow (CBF) is CPP divided by cerebrovascular resistance.</li>
-   <li>ICP is affected by volume inside the skull (tumour, oedema, haemorrhage, increased CSF volume), by positioning (for example Trendelenburg), by rotation of the head that compresses the jugular veins, and by high intrathoracic pressure and PEEP that impede venous drainage.</li>
-   <li>With intact autoregulation, MAP between approximately 60 and 160 mmHg does not affect CBF, which is kept at around 50 ml/100 g/min. When autoregulation fails, blood flow follows pressure passively.</li>
-   <li>CBF can fall by 50–60% before compensation fails, because the brain then increases oxygen extraction.</li>
-   <li>Cerebrovascular resistance is affected by vasopressors and vasodilators, by PaCO₂, and can be shifted by chronic hypertension. Treating low blood pressure with a vasopressor alone can reduce cardiac output.</li>
-   <li>Hypercapnia impairs autoregulation, and the anaesthetic agents play a part: propofol preserves it during hypercapnia, whereas sevoflurane at a corresponding PaCO₂ impairs or abolishes it.</li>
-   <li>The brain is about 2% of body weight, but receives 12–15% of cardiac output and uses up to 20% of the oxygen. Approximately 75–80% of oxygen consumption goes to restoring the membrane potential.</li>
-  </ul>
-  <span class="tag">Lobo and Lamperti 2025, ch. 1, 2 and 7</span></div>
-  <h3>Miller's ch. 10: cerebral physiology and the anaesthetic drugs (Patel, Drummond and Lemkuil)</h3>
-  <div class="card"><h3>Normal values, energy use and why EEG and CMR go together</h3>
-  <ul>
-   <li><strong>Numbers (box 10.1):</strong> global CBF 45–55 ml/100 g/min, cortical 75–80, subcortical 8–20. CMRO₂ 3–3.5 ml/100 g/min. The brain is about 2% of body weight and receives 12–15% of cardiac output. rSO₂ 55–80%, SjVO₂ 60–70%, ICP supine 8–12 mmHg.</li>
-   <li><strong>Two energy components:</strong> about 60% of energy use supports electrophysiological function (what the EEG shows), the rest cellular “housekeeping”. Anaesthetic drugs (barbiturates, isoflurane, sevoflurane, desflurane, propofol, etomidate) lower only the first: CMR falls in step with EEG suppression, and more drug after the EEG is flat gives no further reduction (fig. 10.2). Ketamine and nitrous oxide are exceptions. Hypothermia lowers both components (6–7% per °C; EEG flat at about 18–20 °C; CMRO₂ below 10% of normal at 18 °C), so cooling still works after the EEG is flat.</li>
-   <li><strong>Burst suppression is not one state:</strong> at complete EEG suppression CMRO₂ is similar whichever drug is used, but the distribution differs: barbiturates lower CBF and CMR uniformly, isoflurane and sevoflurane most in the neocortex. Cortical SSEPs can be recorded at thiopental doses far beyond those giving a flat EEG, but are hard to elicit with isoflurane in burst suppression (about 1.5 MAC). The burst-suppression pattern just before complete suppression also differs between drugs.</li>
-   <li><strong>What it means for EEG interpretation:</strong> a low index or a flat EEG means “maximal metabolic effect” of the drug, not that more dose does anything useful. That is the argument behind the cards on overdose and burst suppression in the Spectrogram and Agents tabs.</li>
-  </ul>
-  <span class="tag">Miller's ch. 10, box 10.1 and fig. 10.2</span></div>
-  <div class="card"><h3>Autoregulation: the Lassen curve is outdated, the lower limit is around 70 mmHg in most people</h3>
-  <ul>
-   <li><strong>The classical picture</strong> (CBF constant at 50 ml/100 g/min from MAP 50 to 150) was built on a heterogeneous sample with single measurements, and the chapter calls it “outmoded”. Newer analyses give a narrower plateau with a gentle upslope, so pressure-passive CBF applies over a wider MAP range than assumed. With rapid pressure changes (dynamic autoregulation) the plateau may be as short as 10 mmHg or absent; with slow changes over about 10 minutes (static) the plateau is at least ±20 mmHg.</li>
-   <li><strong>Lower limit (LLA):</strong> across seven studies in awake, healthy subjects the mean LLA ranged from 57 to 91 mmHg, with enormous inter-subject variability. The authors (Drummond) hold that the LLA in the majority is not below 70 mmHg, which with normal ICP (5–10) gives a CPP of 60–65 mmHg, and that 70 mmHg is a prudent threshold without an autoregulation monitor. Upper limit: about 90 mmHg on cardiopulmonary bypass, probably above 140 in hypertensives. Autoregulation is best described as a family of curves (fig. 10.5), not one.</li>
-   <li><strong>Reserve:</strong> symptoms of ischaemia appear only when CBF has fallen 35–40% in awake subjects. This cerebrovascular reserve means that brief hypotension below the LLA is usually tolerated; sustained falls are not. Reserve is reduced with CNS injury (autoregulation impaired for about 2 weeks, restored after 1–3 months), raised local tissue pressure (ICP, retractors, cervical stenosis), an incomplete circle of Willis (35–40% of the population) and hypertension.</li>
-   <li><strong>Hypertension:</strong> both dynamic and static autoregulation are preserved in hypertensives, and treatment to normal pressure does not reduce CBF. The intraoperative question is hypotension: the authors limit the MAP fall to no more than 20% below baseline measured at head level in the sitting position, in the section on chronic hypertension they give 30–35%, and state that a 25% fall brings both normo- and hypertensive patients to the LLA. See the discrepancy list.</li>
-   <li><strong>Hydrostatic gradient:</strong> 2 mmHg per inch (2.5 cm) the head is above the heart; 12 inches give about 24 mmHg. To keep CPP at 60–65 with the head elevated, MAP at heart level must be about 85. The siphon model (closed loop) is rejected: gravity does affect CPP. See the card on perfusion pressure and head height.</li>
-   <li><strong>Practical MAP target:</strong> in patients without acute ischaemia and with normal or well-controlled pressure the chapter regards an intraoperative MAP of about 75 mmHg as adequate, and table 10.2 lists subspecialty targets in brain injury (for example SBP above 100–110 in traumatic brain injury depending on age, MAP above 65 after cardiac arrest).</li>
-  </ul>
-  <span class="tag">Miller's ch. 10, fig. 10.3–10.5, table 10.2</span></div>
-  <div class="card"><h3>CO₂, O₂, cardiac output and vasopressors</h3>
-  <ul>
-   <li><strong>PaCO₂:</strong> CBF changes 1–2 ml/100 g/min per mmHg within 25–70 mmHg; the response is attenuated below 25 and above 75–80. Moderate hypotension (MAP fall under 33%) attenuates the CO₂ response markedly, severe hypotension (about 66%) abolishes it. Hypocapnia widens the autoregulatory range, hypercapnia narrows it. The effect of a changed PaCO₂ wanes over 6–8 hours as CSF pH normalises; abrupt normalisation after prolonged hyperventilation gives CSF acidosis and increased CBF/ICP.</li>
-   <li><strong>PaO₂:</strong> little effect between 60 and 300 mmHg; below 60 CBF rises rapidly, linearly with falling saturation. Haemodilution gives a smaller CBF rise than hypoxaemia for the same fall in O₂ content. 1 atm oxygen lowers CBF by about 18%.</li>
-   <li><strong>Cardiac output:</strong> Meng estimates that a 30% fall in CO gives about a 10% fall in CBF independent of MAP and PaCO₂; a newer study found that a 10% fall in MAP and a 20% fall in CO gave the same fall (about 5%) in MCA velocity. A meta-analysis nevertheless does not confirm an independent relationship, because CO cannot be changed without changing MAP and PaCO₂. The chapter still concludes that low CO probably adds to low MAP in hypotension, that volume should be optimised first, and that bolus phenylephrine may lower CO further. See the Nordum 2024 card (Trendelenburg) and the clinical example with alpha and cardiac output.</li>
-   <li><strong>Vasopressors:</strong> α₁-agonists (phenylephrine, noradrenaline) do not change global CBF in humans when autoregulation is intact; they act via MAP. Bolus phenylephrine slightly lowered NIRS-measured SCO₂ in several studies, ephedrine did not, probably because ephedrine maintains CO; extracranial contamination of NIRS exceeds this difference. Koch found that ephedrine, not phenylephrine, increased local CBF, tissue oxygenation and microcirculation in brain-tumour patients. Outcome studies are lacking. Dexmedetomidine lowers CBF 25–30% via CMR; dopamine up to 100 µg/kg/min does not cause cerebral vasoconstriction; dobutamine increased CBF and CMR by 20 and 30%.</li>
-  </ul>
-  <span class="tag">Miller's ch. 10, fig. 10.8–10.10, table 10.3</span></div>
-  <div class="card"><h3>What the anaesthetic drugs do to CBF and CMR</h3>
-  <ul>
-   <li><strong>Intravenous agents</strong> preserve flow–metabolism coupling, autoregulation and CO₂ responsiveness. Propofol lowered regional CBF 53–79% and whole-brain glucose metabolism 48–58% at surgical depth in volunteers; autoregulation and CO₂ response are preserved even at burst suppression. Etomidate 0.2 mg/kg: CBF −34%, CMR −45%. Midazolam 0.15 mg/kg: CBF −30 to −34% (−12% globally with PET). Opioids: small reductions in the unstimulated brain; sedative remifentanil can increase CBF regionally; a bolus with a MAP fall can raise ICP through autoregulatory vasodilation. Flumazenil can give an overshoot in CBF/ICP in patients with poor intracranial compliance.</li>
-   <li><strong>Ketamine</strong> is the only one that increases CMR and CBF: subanaesthetic doses (0.2–0.3 mg/kg) increased global CMR by about 25%, most in frontal and anterior cingulate cortex; S-ketamine increases CMR, R-ketamine lowers it. CBF rose 14% (subanaesthetic) and 36% (anaesthetic) without a change in CMRO₂ in one study; CBV +50%. Propofol, benzodiazepines and isoflurane blunt or abolish the ICP rise, and systematic reviews find no ICP rise in head injury. See the ketamine cards in the Agents tab for the EEG pattern.</li>
-   <li><strong>Volatile agents:</strong> lower CMR dose-dependently but are also direct vasodilators. Net: at 0.5 MAC CBF falls, at 1 MAC it is unchanged, above 1 MAC it rises (“luxury perfusion”), and autoregulation to rising pressure is impaired. Vasodilating potency: halothane ≫ enflurane > desflurane ≈ isoflurane > sevoflurane. At 1 MAC sevoflurane and desflurane lowered CBF by 38 and 22% and CMR by 39 and 35% (Kety–Schmidt, cortical measurement); PET shows about 50% for both. Maximal CMR reduction is reached at EEG suppression, at 1.5–2 MAC. Sevoflurane lowers regional CBF but not CBV; propofol lowers both. If CMR is already suppressed (for example by propofol), the vasodilation is unmasked: adding a volatile agent then clearly increases CBF.</li>
-   <li><strong>Entropy and sevoflurane:</strong> in a dose-escalation study in humans the largest reduction in entropy was at 1 MAC sevoflurane, with smaller reductions at higher concentrations. This fits with CMRO₂ falling sharply with the onset of the anaesthetic EEG pattern and more slowly thereafter.</li>
-   <li><strong>Nitrous oxide</strong> increases CBF, CMR and ICP, most alone or with a volatile agent (0.75 MAC isoflurane + 65% N₂O gave 43% higher CBF than 1.5 MAC isoflurane); with intravenous agents the effect is blunted. CBV is little affected.</li>
-   <li><strong>Lidocaine:</strong> 5 mg/kg over 30 min + 45 µg/kg/min lowered CBF 24% and CMR 20% in awake volunteers; membrane stabilisation is thought to lower the energy needed for membrane integrity. A 1.5 mg/kg bolus was as effective as thiopental 3 mg/kg against the ICP rise at pin placement, with less MAP fall. After a 2 mg/kg bolus peak concentrations are 6.6–8.5 µg/mL, below the seizure threshold (above 5–10 µg/mL in awake subjects); lidocaine seizures have not been reported in anaesthetised patients. See the card on multimodal anaesthesia in the Agents tab.</li>
-   <li><strong>Neuromuscular blockers</strong> have no direct cerebrovascular effect beyond histamine release; succinylcholine can raise ICP by about 5 mmHg as an arousal phenomenon under light anaesthesia, blocked by deep anaesthesia or defasciculation.</li>
-  </ul>
-  <span class="tag">Miller's ch. 10, fig. 10.12–10.19</span></div>
-  <div class="card"><h3>Epileptogenic drugs according to chapter 10</h3>
-  <ul>
-   <li><strong>Sevoflurane:</strong> seizures at induction with high concentrations in children, also without a known predisposition. In two healthy volunteers burst suppression at 2 MAC was accompanied by epileptiform discharges with a clear CBF increase (coupling preserved). In patients with temporal lobe epilepsy 1.5 MAC produced widespread paroxysmal activity that was not confined to the focus and did not help localisation. Tonic–clonic movements at emergence have been reported in healthy patients. No sequelae documented; caution in epilepsy. See the card on epileptiform activity and images 19–20 in the Spectrogram tab.</li>
-   <li><strong>Etomidate</strong> often causes myoclonus without epileptiform EEG, but can trigger generalised epileptic activity in epileptics; 0.1 mg/kg is used to activate a quiescent focus intraoperatively. <strong>Methohexital</strong> activates foci. <strong>Ketamine</strong> can trigger seizures in predisposed patients, with subcortical activity not always seen in surface EEG, but is also used for refractory status (effective in 56%). <strong>Propofol</strong> is not confirmed as proconvulsant and shortens ECT seizures; high-amplitude beta is described. <strong>Opioids:</strong> high-dose fentanyl produced electrical seizure activity in 8 of 9 patients with partial complex seizures during temporal lobe surgery; alfentanil 50 µg/kg augmented spikes in temporal lobe epilepsy. <strong>Isoflurane</strong> gives spikes and myoclonus but is not regarded as epileptogenic and is used for refractory status. <strong>Enflurane</strong> is epileptogenic, potentiated by hypocapnia.</li>
-   <li><strong>Why it belongs in an EEG app:</strong> seizure activity can raise CMR by up to 400%, and in a paralysed patient the EEG is the only way to detect it.</li>
-  </ul>
-  <span class="tag">Miller's ch. 10, section Epileptogenesis</span></div>
-  <div class="card"><h3>CBF thresholds (fig. 10.20), hypoglycaemia and neuroprotection</h3>
-  <ul>
-   <li><strong>Thresholds:</strong> normal CBF about 50 ml/100 g/min. Symptoms of hypoperfusion in awake subjects only at about 30. EEG evidence of ischaemia from about 20. Isoelectric cortical EEG at about 15. Penumbra 10–20: reversible dysfunction, but cell death if flow is not restored. Signs of irreversible membrane failure (extracellular potassium, lost direct cortical response) only at about 6–10 (the legend says 6–12). The data are from the cortex of barbiturate-anaesthetised baboons and awake monkeys, and the levels vary with drug and species; in humans under halothane and N₂O the threshold for the first EEG change matched the animal data. The thresholds are drawn into the figure above alongside van Putten and Foreman and Claassen.</li>
-   <li><strong>Completeness:</strong> with complete global ischaemia (cardiac arrest) energy supply fails within minutes; with incomplete (focal) ischaemia residual flow keeps ATP production going longer, which is why focal ischaemia is apparently better tolerated.</li>
-   <li><strong>Hypoglycaemia in the EEG:</strong> with a gradual fall to about 40 mg/dL (about 2.2 mmol/L) the EEG shifts from alpha and beta towards delta and theta; below 20 mg/dL (about 1.1 mmol/L) the EEG becomes flat. Persistence at that level gives seizures and hippocampal injury. Hyperthermia above 42 °C gives an abrupt fall in oxygen consumption (protein denaturation).</li>
-   <li><strong>Neuroprotection:</strong> barbiturates, propofol, ketamine, volatile agents and xenon protect in animal models, but only with mild ischaemia and not durably. In humans: in IHAST thiopental, etomidate or propofol to EEG suppression gave no better outcome; in GALA general anaesthesia gave no advantage over local anaesthesia for carotid surgery. Conclusion: inducing burst suppression for brain protection is not supported in anaesthetised patients, and physiological control (CPP, oxygenation, normocapnia, temperature, glucose, seizures) matters more. Etomidate can worsen tissue hypoxia during temporary vessel occlusion. Hypothermia 32–36 °C after cardiac arrest: TTM and TTM2 showed no benefit of lower targets; guidelines keep 32–36 °C and strict avoidance of hyperthermia.</li>
-   <li><strong>Deferring elective surgery after stroke:</strong> the risk of death within 30 days was highest in the first 3 months and only stabilised after 9 months; the chapter recommends deferring elective surgery for 9 months, with an exception for early carotid surgery in small infarcts.</li>
-  </ul>
-  <span class="tag">Miller's ch. 10, fig. 10.20–10.24</span></div>
-  <div class="card"><h3>SSEP, ICP and falling blood flow (Lobo and Lamperti ch. 6)</h3>
-  <ul>
-   <li>The text states that SSEP amplitude changes at a CBF fall to about 15 ml/100 g/min and disappears below 18.</li>
-   <li>Increased ICP changes the SSEP classically: amplitude decreases and latency is prolonged. With herniation, subcortical responses may disappear first.</li>
-   <li>The book does not directly describe how the EEG changes with raised ICP. CBF thresholds for EEG are given in the van Putten and Hofmeijer card and in the figure below.</li>
-  </ul>
-  <span class="tag">Lobo and Lamperti 2025, ch. 6</span></div>
-  <div class="card"><h3>Figure: where on the CBF scale EEG and the cells fail</h3>
-  <figure style="margin:0 0 10px">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 425" role="img" aria-labelledby="cbfT cbfD" style="width:100%;height:auto;font-family:inherit">
-<title id="cbfT">CBF thresholds for EEG and cell injury: three sources side by side</title><desc id="cbfD">Horizontal axis with cerebral blood flow from 55 down to 0 ml/100 g/min. Three rows show approximate thresholds from Miller's ch. 10, van Putten and Hofmeijer 2016 and Foreman and Claassen (cited by van Putten). The thresholds overlap and are not hard limits.</desc>
-<style>.lab{font-size:12px;font-weight:700;fill:currentColor}.sub{font-size:10.5px;fill:var(--muted,#4F615E)}.txt{font-size:10.5px;fill:currentColor}.num{font-size:8.5px;font-weight:700;fill:var(--surface,#fff)}.grid{stroke:var(--line,#C9D3CE)}.hd{font-size:11.5px;font-weight:700;fill:currentColor}.b-ok{fill:var(--accent,#0F6B6B);opacity:.35}.b-mid{fill:#D9A441;opacity:.5}.b-bad{fill:#B5453C;opacity:.5}.mk{stroke:currentColor;stroke-width:.8;stroke-dasharray:2 2;opacity:.7}.dot{fill:currentColor}</style>
-<text x="14" y="18" class="hd">Cerebral blood flow (ml/100 g/min), falling to the right</text>
-<line x1="236.9" y1="28" x2="236.9" y2="46" class="grid"/><text x="236.9" y="40" class="txt" text-anchor="middle">50</text>
-<line x1="330.7" y1="28" x2="330.7" y2="46" class="grid"/><text x="330.7" y="40" class="txt" text-anchor="middle">40</text>
-<line x1="424.5" y1="28" x2="424.5" y2="46" class="grid"/><text x="424.5" y="40" class="txt" text-anchor="middle">30</text>
-<line x1="518.4" y1="28" x2="518.4" y2="46" class="grid"/><text x="518.4" y="40" class="txt" text-anchor="middle">20</text>
-<line x1="612.2" y1="28" x2="612.2" y2="46" class="grid"/><text x="612.2" y="40" class="txt" text-anchor="middle">10</text>
-<line x1="706.0" y1="28" x2="706.0" y2="46" class="grid"/><text x="706.0" y="40" class="txt" text-anchor="middle">0</text>
-<line x1="190" y1="46" x2="706" y2="46" class="grid"/>
-<text x="14" y="69" class="lab">Miller's ch. 10 (primate data)</text>
-<rect x="190.0" y="56" width="234.5" height="18" class="b-ok"/>
-<rect x="424.5" y="56" width="93.8" height="18" class="b-mid"/>
-<rect x="518.4" y="56" width="93.8" height="18" class="b-mid"/>
-<rect x="612.2" y="56" width="93.8" height="18" class="b-bad"/>
-<rect x="188" y="81" width="10" height="10" class="b-ok" style="opacity:.8"/>
-<text x="202" y="90" class="txt">&gt; 30: No symptoms in awake subjects</text>
-<rect x="188" y="94" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="103" class="txt">20–30: Symptoms of hypoperfusion (awake)</text>
-<rect x="188" y="107" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="116" class="txt">10–20: Penumbra: reversible dysfunction, cell death without reperfusion</text>
-<line x1="518.4" y1="53" x2="518.4" y2="77" class="mk"/><circle cx="518.4" cy="65" r="6.5" class="dot"/><text x="518.4" y="68.5" class="num" text-anchor="middle">1</text>
-<text x="202" y="129" class="txt">20: EEG signs of ischaemia begin</text>
-<circle cx="194" cy="125" r="5.5" class="dot"/><text x="194" y="128.5" class="num" text-anchor="middle">1</text>
-<line x1="565.3" y1="53" x2="565.3" y2="77" class="mk"/><circle cx="565.3" cy="65" r="6.5" class="dot"/><text x="565.3" y="68.5" class="num" text-anchor="middle">2</text>
-<text x="202" y="142" class="txt">15: Cortical EEG isoelectric</text>
-<circle cx="194" cy="138" r="5.5" class="dot"/><text x="194" y="141.5" class="num" text-anchor="middle">2</text>
-<rect x="188" y="146" width="10" height="10" class="b-bad" style="opacity:.8"/>
-<text x="202" y="155" class="txt">0–10: Irreversible membrane failure (text 6–10, legend 6–12)</text>
-<line x1="14" y1="174" x2="706" y2="174" class="grid"/>
-<text x="14" y="197" class="lab">van Putten and Hofmeijer 2016</text>
-<rect x="190.0" y="184" width="46.9" height="18" class="b-ok"/>
-<rect x="377.6" y="184" width="187.6" height="18" class="b-mid"/>
-<rect x="612.2" y="184" width="93.8" height="18" class="b-bad"/>
-<rect x="188" y="209" width="10" height="10" class="b-ok" style="opacity:.8"/>
-<text x="202" y="218" class="txt">&gt; 50: Normal CBF about 50–54</text>
-<rect x="188" y="222" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="231" class="txt">15–35: Mild to moderate ischaemia: synaptic failure. Less alpha and beta, then more delta; may</text>
-<text x="202" y="243" class="txt">become isoelectric, but reversible</text>
-<rect x="188" y="247" width="10" height="10" class="b-bad" style="opacity:.8"/>
-<text x="202" y="256" class="txt">0–10: Membrane potential shifts (Donnan); cell death, permanent loss of rhythms</text>
-<line x1="14" y1="275" x2="706" y2="275" class="grid"/>
-<text x="14" y="298" class="lab">Foreman and Claassen (cited by van Putten)</text>
-<rect x="377.6" y="285" width="93.8" height="18" class="b-mid"/>
-<rect x="537.1" y="285" width="9.4" height="18" class="b-mid"/>
-<rect x="593.4" y="285" width="18.8" height="18" class="b-bad"/>
-<rect x="188" y="310" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="319" class="txt">25–35: Fast activity disappears</text>
-<rect x="188" y="323" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="332" class="txt">17–18: Slow activity increases (van Putten fig. 3: about 15)</text>
-<rect x="188" y="336" width="10" height="10" class="b-bad" style="opacity:.8"/>
-<text x="202" y="345" class="txt">10–12: EEG silent</text>
-<line x1="14" y1="364" x2="706" y2="364" class="grid"/>
-<text x="14" y="380" class="sub">Drawn from the numbers in the text of Miller's ch. 10 (fig. 10.20, primate data) and van Putten and Hofmeijer 2016, not</text>
-<text x="14" y="393" class="sub">copied from figures. Definitions differ between sources. All thresholds are approximate, depend on duration, and</text>
-<text x="14" y="406" class="sub">overlap.</text>
-</svg>
-  <figcaption class="small">Figure: CBF thresholds from three sources on one axis. Teaching figure; the numbers are taken from the text and should not be used as hard limits.</figcaption>
-  </figure>
-  <span class="tag">Miller's ch. 10 · van Putten and Hofmeijer 2016 · Foreman and Claassen via van Putten</span></div>
-  </div>
-  <div class="subgrp" data-sub="isch">
-  <div class="card"><h3>What ischaemia does to the EEG (van Putten and Hofmeijer 2016)</h3>
-  <ul>
-   <li><strong>Energy:</strong> the brain accounts for about 20% of the body's energy requirement. In the cortex about 40% of ATP goes to the resting membrane potential and action potentials, and about 35% to synaptic transmission. The rhythms in the EEG arise from summed postsynaptic current in the pyramidal cells, and action potentials contribute little.</li>
-   <li><strong>Normal blood flow</strong> is about 750 ml/min, 15–20% of cardiac output, or 50–54 ml/100 g/min.</li>
-   <li><strong>Mild to moderate ischaemia (15–35 ml/100 g/min):</strong> it is primarily synaptic transmission that fails. The neurons retain their membrane potential, and CT and MRI are normal. The EEG shows less alpha and beta, then more delta, depending on severity and duration. In severe cases the EEG can become isoelectric, and even an isoelectric EEG can be due to isolated synaptic failure and be reversible.</li>
-   <li><strong>Below 10 ml/100 g/min:</strong> the membrane potential shifts towards the Donnan potential (about −15 to −20 mV), and cytotoxic oedema and cell death follow. The EEG rhythms then disappear permanently. Lack of energy for more than 5–8 minutes produces such changes.</li>
-   <li><strong>How fast:</strong> a few minutes without blood flow produce synaptic failure with full recovery when perfusion returns. In circulatory arrest the EEG becomes isoelectric within 10–40 seconds. In figure 1 (syncope), slower rhythms appear after a few seconds and clear slowing around 20 seconds after the arrest.</li>
-   <li><strong>Inhibitory neurons</strong> are probably more vulnerable than excitatory ones. This may explain increased synchronisation and generalised periodic discharges in severe hypoxic injury.</li>
-  </ul>
-  <span class="tag">van Putten and Hofmeijer. J Clin Neurophysiol 2016;33:203–210</span></div>
-  <div class="card"><h3>EEG in carotid surgery</h3>
-  <ul>
-   <li>During test clamping of the internal carotid artery, reduced fast activity (often followed by more slow activity) reflects reduced blood flow. In figure 3, loss of fast activity alone corresponds to a CBF in the ipsilateral hemisphere of about 25–35 ml/100 g/min, and loss of fast activity plus more delta to about 15. These figures are taken from Foreman and Claassen and were not measured in the study.</li>
-   <li>Which changes require a shunt is debated. In a study of 57 patients (Blume 1986), moderate changes (8–13 Hz retained, but an amplitude fall of 50% or more and increased delta above 1 Hz) did not lead to postoperative stroke. Major changes (8–13 Hz reduced to minimal or absent, and a doubling of delta) led to stroke in 2 of 22. Most neurophysiologists nevertheless recommend a shunt for any change, and the authors consider that a fall in alpha/beta amplitude of about 10% can probably be accepted.</li>
-   <li>Perioperative stroke rate in a review (AbuRahma 2011): 1.4% with routine shunting, 1.6% with selective shunting guided by EEG and 2% without shunting. With shunting guided by transcranial Doppler it was 4.8% versus 1.6% with EEG. In the authors' own hospitals a shunt was used in about 3–5%.</li>
-   <li>EEG is not sensitive to deep structures, but preserved cortical rhythms are regarded as a reliable indicator of adequate blood flow deep down as well. This is because reduced flow usually produces a corresponding fraction in cortex and deep structures, and because the cortex has the greatest energy requirement.</li>
-   <li><strong>Quantitative:</strong> the brain symmetry index (BSI) measures spectral asymmetry between the hemispheres on a scale from 0 to 1, with normal values of 0.05–0.08. A change of 0.05 is regarded as significant and agrees well with visual assessment. Temporal BSI captures global changes over time.</li>
-  </ul>
-  <span class="tag">van Putten and Hofmeijer 2016 (Blume 1986, AbuRahma 2011)</span></div>
-  <div class="card"><h3>EEG in acute cerebral infarction</h3>
-  <ul>
-   <li>The predictive value of EEG for outcome after cerebral infarction is low to moderate. In a study of 110 patients, pdBSI and the (delta + theta)/(alpha + beta) ratio correlated with mRS at 6 months with a Spearman rho of about 0.46–0.47.</li>
-   <li>Continuous quantitative EEG with BSI correlated well with NIHSS in hemispheric infarction and was used to follow the effect of thrombolysis.</li>
-   <li>Spreading depolarisation occurs in acute infarction and may contribute to growth of the injury, but is difficult to measure through an intact skull. So far it has only been demonstrated reliably with electrocorticography.</li>
-  </ul>
-  <span class="tag">van Putten and Hofmeijer 2016</span></div>
-  <div class="card"><h3>EEG after cardiac arrest</h3>
-  <ul>
-   <li>About half of comatose patients after cardiac arrest have a poor outcome. SSEP and pupillary and corneal reflexes at 72 hours capture only about 20% of those who do not recover.</li>
-   <li>Continuous, normal or diffusely slowed EEG at 12 hours predicted good outcome (CPC 1–2) with specificity 91%, sensitivity 55%, PPV 84% and NPV 70%. Isoelectric, low-voltage (below 20 μV) or burst suppression with identical bursts at 24 hours predicted poor outcome (CPC 3–5) with specificity 100%, sensitivity 42%, PPV 100% and NPV 55%. The figures are based on two prospective cohorts with a total of 377 patients, all treated with mild therapeutic hypothermia and sedated.</li>
-   <li>Evolution towards continuous physiological EEG within 12 hours gives a very good prognosis. The patient's further prognosis then depends on injury to other organs, and the patients with favourable EEG and poor outcome died of failure of other organs, particularly the heart. Deep coma in the first hours does not rule out full recovery.</li>
-   <li>The authors call it a persistent misconception that EEG cannot be used during hypothermia or sedation. Mild hypothermia to 32 °C barely affects the EEG. At usual propofol doses the EEG remains continuous with anteriorisation of alpha, and isoelectricity does not occur.</li>
-   <li><strong>Sedation-induced versus pathological burst suppression:</strong> in a relatively healthy brain the bursts are heterogeneous, and they come and go gradually. In postanoxic injury the bursts are identical, the intervals between them are flat, and the transitions between suppression and burst are abrupt. The latter has a poor prognosis.</li>
-   <li>The cerebral recovery index (CRI) combines five quantitative features (mean amplitude, alpha/delta ratio, entropy, coherence and continuity) into one number between 0 and 1. In the patient with good outcome CRI was about 0.7 at 24 hours, and in the patient with poor outcome about 0.3. In the first hours the EEG was almost identical in both.</li>
-   <li>The authors point out that recent guidelines do not include early EEG for prognostication, and expect EEG to be included in future guidelines. Interpretation of reactivity is not simple, and inter-rater agreement is only moderate.</li>
-  </ul>
-  <span class="tag">van Putten and Hofmeijer 2016</span></div>
-  <div class="card"><h3>Consciousness and the dying brain (Mashour 2024)</h3>
-  <p>Narrative review (Anesthesiology 2024;140:1221–1231; Mashour, Lee, Pal and Li) on near-death experiences and EEG around cardiac arrest and death.</p>
-  <ul>
-   <li><strong>Incidence:</strong> 10–20 % of survivors of in-hospital cardiac arrest report near-death experiences. In AWARE II, 21.4 % of 28 interviewed patients had a «transcendent recalled experience of death».</li>
-   <li><strong>The indices just before death:</strong> in seven critically ill patients without brain injury, BIS and SedLine values rose to levels consistent with consciousness just before death, after withdrawal of life-sustaining treatment. In a follow-up, 13 of 28 (46 %) had such a surge, while none of seven brain-dead patients did. Other series have not found this.</li>
-   <li><strong>Why the indices cannot be read as consciousness:</strong> processed EEG cannot distinguish non-specific activation (for example glutamate release as hypoxic neurones die) from organised activity, cannot distinguish wakefulness from seizures, has only frontal electrodes, and EMG is hard to exclude completely.</li>
-   <li><strong>Animal studies:</strong> in rats, a brief surge of gamma and theta with increased coupling between cortical regions occurred within 30 seconds of cardiac arrest. During asphyxia, release of many neurotransmitters increased; serotonin rose more than 20-fold within 2 minutes.</li>
-   <li><strong>Humans:</strong> in 2 of 4 dying comatose patients, beta and gamma increased after the ventilator was disconnected. Both had a history of seizures, so seizure activity cannot be excluded. In a study of 8 patients, EEG ceased a median 78 seconds before circulatory arrest. None of the findings is linked to an actual experience.</li>
-   <li><strong>During CPR:</strong> in AWARE II, SedLine gave interpretable EEG in 53 of 85 during ongoing CPR, and near-normal activity was seen up to 35–60 minutes into CPR. Detailed analysis has not been published.</li>
-   <li><strong>Isoelectric is not always final:</strong> in animal models the isoelectric phase can be reversed by rapid reoxygenation, and the authors do not exclude that experiences may arise while the brain recovers.</li>
-   <li><strong>Relevance and caveats:</strong> anaesthesia staff take part in CPR, organ donation and withdrawal of treatment. The authors reject non-neurobiological explanations. Funded by NIH, no competing interests. Note that the findings concern dying patients, not prognosis in survivors.</li>
-  </ul>
-  <span class="tag">Mashour, Lee, Pal and Li. Anesthesiology 2024;140:1221–1231</span></div>
-  <div class="card"><h3>Quantitative EEG, CBF and CPP (Foreman and Claassen 2012)</h3>
-  <ul>
-   <li><strong>Thresholds:</strong> when CBF falls to about 25–35 ml/100 g/min, the EEG first loses fast frequencies. At about 17–18 slow frequencies increase gradually, and the authors call this a critical ischaemic threshold at which neurons begin to lose transmembrane gradients. At 10–12 ml/100 g/min and below the EEG becomes silent, and the cell injury is irreversible.</li>
-   <li><strong>How fast:</strong> during carotid clamping the changes occur within about 20 seconds and are reversible. Infarction may only appear after hours at this flow level. Quantitative EEG (qEEG) captures changes in blood flow and metabolism within 28–104 seconds. Diffusion-weighted MRI detects changes at CBF 35–40 after about 30 minutes, whereas EEG detects them within seconds.</li>
-   <li><strong>CPP:</strong> the mean frequency in the EEG falls when CPP is below 60 mmHg, also in comatose or sedated patients (Diedler 2009, according to the review). More slow activity (delta and theta) and less fast activity (alpha and beta) follow reduced cerebral oxygen metabolism (CMRO₂).</li>
-   <li><strong>Which measure works:</strong> in carotid surgery, spectral edge frequency (SEF) captured ischaemic changes in patients on isoflurane, whereas relative delta percentage (delta/total power) was accurate in patients on propofol. Overall, relative delta percentage gives the most robust correlation with CBF and metabolism in focal ischaemia.</li>
-   <li><strong>Confounding factors:</strong> seizures and periodic discharges, changes in intracranial pressure (for example acute hydrocephalus), systemic disease, sedatives, opioids and antipsychotics. Normal slow-wave sleep can resemble ischaemic changes. Raw EEG remains the gold standard, and any qEEG algorithm should be checkable against the raw EEG by someone who knows EEG.</li>
-   <li><strong>The spectrogram</strong> (compressed spectral array) gives, according to the authors, the highest ratio of pixels to data and is easy to read, compared with raw EEG.</li>
-   <li>The review does not discuss the operating room beyond carotid surgery. Most of the review concerns intensive care patients. The suggestion of use after high-risk vascular and cardiac surgery, in refractory hypotension and in sepsis is the authors' own, and not documented in studies.</li>
-  </ul>
-  <span class="tag">Foreman and Claassen. Crit Care 2012;16:216</span></div>
-  <div class="card"><h3>EEG in cerebral infarction and subarachnoid haemorrhage</h3>
-  <ul>
-   <li><strong>Infarction:</strong> in the early subacute phase the EEG correlates well with CBF while oxygen extraction increases (“misery perfusion”). Later it correlates more with CMRO₂ (“luxury perfusion”). Loss of reactivity and absent sleep-wake cycling suggest a poor prognosis. Absence of delta or presence of faster frequencies within 24 hours belongs to good outcome. Regional attenuation of fast frequencies without delta (RAWOD) suggests severe early CBF loss (mean 8.6 ml/100 g/min), and in one series mortality was up to 67%.</li>
-   <li>One year after infarction, functional outcome was predicted correctly in 60% of cases with clinical criteria. With EEG this increased to 85%.</li>
-   <li>After thrombolysis, delta power fell 100 minutes before clinical improvement in one study.</li>
-   <li><strong>Delayed cerebral ischaemia (DCI) after SAH:</strong> occurs in 20–40%. Daily transcranial Doppler is about 60–70% sensitive. In the table of studies: in 34 comatose patients, a change of 10% in the alpha/delta ratio over 6 minutes gave sensitivity 100% and specificity 76%, and a change of 50% over one minute gave 89% and 84%. In 12 patients, sensitivity for predicting neurological deterioration increased from 40% with clinical assessment alone to 67% with qEEG (specificity 73%). In one study, relative alpha variability fell in all 19 with vasospasm, on average 2.9 days before vasospasm was confirmed, but also in 7 without vasospasm, mainly because of infarction or increased ICP.</li>
-   <li>All the studies are small, and the authors themselves point out that the findings must be validated prospectively and in randomised trials.</li>
-  </ul>
-  <span class="tag">Foreman and Claassen 2012</span></div>
-  <div class="card"><h3>Asymmetry and reproducibility in ischaemia (Sheorajpanday 2009)</h3>
-  <ul>
-   <li><strong>Design:</strong> exploratory, methodological study in 41 patients: 21 with cerebral infarction (median NIHSS 11, mean DWI volume 79 ml), 10 with TIA and 10 controls aged 55 years or more with subjective memory complaints and normal MRI. One EEG per patient, awake with eyes closed for at least 10 minutes, 19 electrodes with impedance below 5 kΩ. 128 seconds free of artefacts were analysed after visual artefact removal. The study was not done under anaesthesia.</li>
-   <li><strong>pdBSI:</strong> a variant of the brain symmetry index that compares the power spectrum between homologous channel pairs (8 pairs, 1–25 Hz), instead of the average for the whole hemisphere.</li>
-   <li><strong>Reproducibility:</strong> minimum Cronbach's alpha was 0.95–0.99 for standard spectral measures and 0.96–0.99 for pdBSI, both within the same recording and between and within raters. The authors say that visual artefact removal by a skilled person is a critical first step that cannot be replaced by automatic artefact removal. Automation can confuse ischaemic delta with slow activity from eye movements and drowsiness.</li>
-   <li><strong>Clinical correlation:</strong> pdBSI correlated with NIHSS (rho 0.64–0.70) and with DWI volume (rho 0.79–0.84). Standard measures such as relative alpha and the delta/alpha ratio correlated moderately with NIHSS, but not significantly with DWI volume after adjustment for multiple testing.</li>
-   <li><strong>Group difference:</strong> pdBSI distinguished infarction from TIA and controls. The standard measures did not after adjustment. Neither pdBSI nor the standard measures could distinguish TIA from controls.</li>
-   <li><strong>Broad frequency bands:</strong> pdBSI over 1–25 Hz was better than narrower bands, and 1–3 Hz alone was not significant. The authors interpret this as the whole frequency range being affected in acute ischaemia.</li>
-   <li><strong>Relative measures:</strong> the authors used relative power, because absolute power is affected by skull thickness. The skull is on average about 80 times less conductive than brain and scalp, and a 10% thinner skull can produce a change of 800% in amplitude.</li>
-   <li><strong>Caveats:</strong> small study, one recording per patient, and no ambition of diagnostic value for individual patients. Asymmetry measures are not specific for ischaemia, and pdBSI will not detect equal injury on both sides of a channel pair.</li>
-  </ul>
-  <span class="tag">Sheorajpanday et al. Clin Neurophysiol 2009;120:845–855</span></div>
-  <div class="card"><h3>EEG and raised intracranial pressure: sparse evidence</h3>
-  <ul>
-   <li><strong>Mechanism:</strong> increased ICP lowers CPP and thereby CBF, which limits the supply of oxygen and energy to the cortex. The EEG changes are thus assumed to arise via CPP, CBF and metabolism (and possibly herniation), not from ICP itself. Lenstra 2026 describes that neurogenic mechanisms may then dominate over vasomotor, chemical and metabolic ones in the regulation of CBF.</li>
-   <li><strong>Systematic review (Lenstra 2026):</strong> adults with moderate to severe traumatic brain injury (TBI) and ICP measurement. Of 873 hits, only 4 studies met the criteria (all with ICP measured via ventricular drain or parenchymal probe). Three concerned post-traumatic seizures and ICP, and one the direction between EEG and ICP. The authors conclude that there is very little evidence and that larger studies are needed. They do not write that a validated pattern is lacking, but say that personalised EEG-ICP thresholds must be developed in future studies. Studies without original data, case reports and series, paediatric patients and invasive EEG were excluded.</li>
-   <li><strong>Direction (Sanz-García 2018, cited in the review):</strong> 21 patients (15 TBI, 6 SAH), a total of 1055 hours. On average, 38% of the time showed significant Granger causality from EEG to ICP, with a delay of 25–50 seconds, most often in relative alpha (12 patients). In one patient the direction was reversed. The authors interpret this as possible neurovascular coupling. The study did not examine the EEG during the intracranial hypertension episodes themselves, and sedation boluses did not change the finding.</li>
-   <li><strong>Conflicting findings (McNamara 2003, cited in the review):</strong> in 17 intensive care patients with acute ICP rise, quantitative EEG showed no changes during the ICP peaks. There were only 30 minutes of EEG per patient, so late changes may have been missed.</li>
-   <li><strong>Case reports and series (outside the review's criteria):</strong> Sheikh 2022 (retrospective series, J Clin Neurophysiol) describes that cyclic patterns and varying degrees of slowing and attenuated fast activity often preceded clinical deterioration in intracranial hypertension. It is described that generalised rhythmic delta activity and loss of fast activity about 30 minutes before clinical change are mentioned in presumed plateau waves. The review describes the series as seven non-traumatic neurocritical patients. Alsallom 2022 describes two patients with herniation in whom increased low-frequency power and asymmetry in the spectrogram appeared roughly an hour before clinical deterioration.</li>
-   <li><strong>Animal study (Pose, pilot):</strong> the median cross-correlation between total EEG power and ICP was 0.7, and 0.55 for CPP. A model with only three variables had accuracy 0.70, sensitivity 0.53 and specificity 0.79. The direction of the correlation is not stated.</li>
-   <li><strong>What the sources do not test:</strong> how processed indices and the spectrogram change with raised ICP under general anaesthesia. Foreman and Claassen mention that ICP changes, sedatives and sleep can confound EEG interpretation. Guay 2025 lists intracranial hypertension as one of the causes of reduced cerebral oxygen delivery and writes that such changes can resemble deeper sedation on frontal EEG, but shows no data from patients with raised ICP. That processed indices may confuse them with deeper anaesthesia is therefore a reasonable assumption, not a demonstrated finding for ICP.</li>
-  </ul>
-  <span class="tag">Lenstra 2026, Sheikh 2022, McNamara 2003 and Pose</span></div>
-  <div class="card"><h3>EEG in pathology, age and the vulnerable brain</h3>
-  <ul>
-   <li><strong>Septic encephalopathy:</strong> EEG slowing is the earliest finding and can be seen even with a normal neurological examination. The chapter also mentions increased theta, dominant delta, triphasic waves, periodic epileptiform discharges and suppression.</li>
-   <li><strong>Burst suppression:</strong> the risk increases with age and with impaired neurological status. In older patients the bursts and suppression phases are less distinct, and the pattern is difficult to detect.</li>
-   <li>High-dose ketamine does not itself produce burst suppression, but can lower the threshold. Pain and nociceptive input can also lower the threshold.</li>
-   <li>Processed BSR algorithms do not pick up suppression until it is around 40%. The chapter therefore recommends assessing the raw EEG.</li>
-   <li>Two theories explain burst suppression: cortical hyperexcitability, and a metabolic theory in which falling ATP opens ATP-gated potassium channels. The metabolic theory fits with findings that low perfusion can produce burst suppression, but it is not proven.</li>
-   <li>ENGAGES did not change the incidence of delirium, but found lower 30-day mortality in the EEG group. The book calls this an observation that should be investigated further.</li>
-  </ul>
-  <span class="tag">Lobo and Lamperti 2025, ch. 1, 5 and 11</span></div>
+  <p>The point of this tab: during anaesthesia we must think perfusion, not just dose. The brain spends much of its energy on the electrical activity the EEG measures, so when blood supply fails it shows in the EEG, and it can look like anaesthesia that is too deep. Start with “Key message”. The other sub-tabs go into detail.</p>
+  <div class="seg subnav" id="perfSub2" role="group" aria-label="Sections of the tab" style="margin:6px 0 14px"><button data-sub="main" aria-pressed="true">Key message</button><button data-sub="bp" aria-pressed="false">Blood pressure and cardiac output</button><button data-sub="pos" aria-pressed="false">Positioning</button><button data-sub="isch" aria-pressed="false">Ischaemia and brain injury</button><button data-sub="phys" aria-pressed="false">In depth: physiology</button></div>
+  <div class="subgrp" data-sub="main">
+  <div class="card"><h3>Why think perfusion during anaesthesia?</h3>
+  <ol>
+   <li><strong>The EEG shows the brain's energy supply:</strong> about 60% of the brain's energy goes to the electrical signalling the EEG measures (Miller's ch. 10). When blood supply fails, it is this signalling that fails first, and it shows in the EEG before the cells are damaged (van Putten and Hofmeijer 2016). Read more: <button type="button" class="linkbtn" data-subjump="isch">Ischaemia and brain injury</button>.</li>
+   <li><strong>Alpha and faster activity disappear first:</strong> in moderate ischaemia, alpha and beta fall, then more delta appears and finally suppression (van Putten and Hofmeijer 2016). In carotid surgery, a fall of more than 50% in 8–15 Hz is regarded as a sign of too little blood flow (Guay 2025). A frontal alpha band that weakens without a change in dose may therefore be a perfusion signal.</li>
+   <li><strong>It can look like anaesthesia that is too deep:</strong> reduced oxygen delivery to the brain gives the same picture as more hypnotic: lower frequencies, less power and burst suppression (Guay 2025). Other causes of the same picture include hypothermia, hypoglycaemia, hypercapnia, anaemia and hypoxaemia.</li>
+   <li><strong>Autoregulation is not guaranteed:</strong> the lower blood pressure limit of autoregulation varies from 40 to 90 mmHg in adults (Guay 2025) and is around 70 mmHg in most (Miller's ch. 10). Chronic hypertension shifts it, and hypercapnia and sevoflurane can impair it (Miller's ch. 10). MAP 65 is therefore not a safe target for everyone. Read more: <button type="button" class="linkbtn" data-subjump="bp">Blood pressure and cardiac output</button>.</li>
+   <li><strong>Blood flow is about cardiac output, not just MAP:</strong> in Trendelenburg, cardiac output was the strongest predictor of blood flow to the brain, while MAP mattered little within the autoregulatory range (Nordum 2024, Ahus). Treating low blood pressure with a vasopressor alone can reduce cardiac output (Miller's ch. 10).</li>
+   <li><strong>Positioning matters:</strong> Trendelenburg, sitting position, PEEP and head rotation change perfusion pressure and venous drainage from the brain (Miller's ch. 10 and 30). Read more: <button type="button" class="linkbtn" data-subjump="pos">Positioning</button>.</li>
+   <li><strong>What to do (interpretation based on the sources):</strong> when the EEG changes without a change in dose, check blood pressure, cardiac output, CO₂, haemoglobin, temperature and position before adjusting the hypnotic. Sometimes it is perfusion, not the anaesthetic dose, that needs optimising.</li>
+  </ol>
+  <p class="small">The physiology behind it, with normal values, energy use and CBF thresholds, is in <button type="button" class="linkbtn" data-subjump="phys">In depth: physiology</button>.</p>
+  <span class="tag">Miller's ch. 10 and 30</span> <span class="tag">van Putten and Hofmeijer 2016</span> <span class="tag">Guay 2025</span> <span class="tag">Nordum 2024</span></div>
   </div>
   <div class="subgrp" data-sub="bp">
   <div class="card"><h3>Schematic example: fall in cardiac output and loss of alpha</h3>
@@ -2948,6 +2723,262 @@ header h1 button:hover{color:var(--accent)}
   <span class="tag">ASA Task Force et al. Anesthesiology 2019;130:12–30</span></div>
 
   <div class="note">Miller's chapter 30 does not describe EEG. The EEG section above is based on Lobo and Lamperti and the studies. The evidence for EEG in raised ICP is sparse (see the card on ICP). Foreman and Claassen mention that the mean frequency falls when CPP is below 60 mmHg. Kalmar measured neither ICP nor EEG.</div>
+  </div>
+  <div class="subgrp" data-sub="isch">
+  <div class="card"><h3>What ischaemia does to the EEG (van Putten and Hofmeijer 2016)</h3>
+  <ul>
+   <li><strong>Energy:</strong> the brain accounts for about 20% of the body's energy requirement. In the cortex about 40% of ATP goes to the resting membrane potential and action potentials, and about 35% to synaptic transmission. The rhythms in the EEG arise from summed postsynaptic current in the pyramidal cells, and action potentials contribute little.</li>
+   <li><strong>Normal blood flow</strong> is about 750 ml/min, 15–20% of cardiac output, or 50–54 ml/100 g/min.</li>
+   <li><strong>Mild to moderate ischaemia (15–35 ml/100 g/min):</strong> it is primarily synaptic transmission that fails. The neurons retain their membrane potential, and CT and MRI are normal. The EEG shows less alpha and beta, then more delta, depending on severity and duration. In severe cases the EEG can become isoelectric, and even an isoelectric EEG can be due to isolated synaptic failure and be reversible.</li>
+   <li><strong>Below 10 ml/100 g/min:</strong> the membrane potential shifts towards the Donnan potential (about −15 to −20 mV), and cytotoxic oedema and cell death follow. The EEG rhythms then disappear permanently. Lack of energy for more than 5–8 minutes produces such changes.</li>
+   <li><strong>How fast:</strong> a few minutes without blood flow produce synaptic failure with full recovery when perfusion returns. In circulatory arrest the EEG becomes isoelectric within 10–40 seconds. In figure 1 (syncope), slower rhythms appear after a few seconds and clear slowing around 20 seconds after the arrest.</li>
+   <li><strong>Inhibitory neurons</strong> are probably more vulnerable than excitatory ones. This may explain increased synchronisation and generalised periodic discharges in severe hypoxic injury.</li>
+  </ul>
+  <span class="tag">van Putten and Hofmeijer. J Clin Neurophysiol 2016;33:203–210</span></div>
+  <div class="card"><h3>EEG in carotid surgery</h3>
+  <ul>
+   <li>During test clamping of the internal carotid artery, reduced fast activity (often followed by more slow activity) reflects reduced blood flow. In figure 3, loss of fast activity alone corresponds to a CBF in the ipsilateral hemisphere of about 25–35 ml/100 g/min, and loss of fast activity plus more delta to about 15. These figures are taken from Foreman and Claassen and were not measured in the study.</li>
+   <li>Which changes require a shunt is debated. In a study of 57 patients (Blume 1986), moderate changes (8–13 Hz retained, but an amplitude fall of 50% or more and increased delta above 1 Hz) did not lead to postoperative stroke. Major changes (8–13 Hz reduced to minimal or absent, and a doubling of delta) led to stroke in 2 of 22. Most neurophysiologists nevertheless recommend a shunt for any change, and the authors consider that a fall in alpha/beta amplitude of about 10% can probably be accepted.</li>
+   <li>Perioperative stroke rate in a review (AbuRahma 2011): 1.4% with routine shunting, 1.6% with selective shunting guided by EEG and 2% without shunting. With shunting guided by transcranial Doppler it was 4.8% versus 1.6% with EEG. In the authors' own hospitals a shunt was used in about 3–5%.</li>
+   <li>EEG is not sensitive to deep structures, but preserved cortical rhythms are regarded as a reliable indicator of adequate blood flow deep down as well. This is because reduced flow usually produces a corresponding fraction in cortex and deep structures, and because the cortex has the greatest energy requirement.</li>
+   <li><strong>Quantitative:</strong> the brain symmetry index (BSI) measures spectral asymmetry between the hemispheres on a scale from 0 to 1, with normal values of 0.05–0.08. A change of 0.05 is regarded as significant and agrees well with visual assessment. Temporal BSI captures global changes over time.</li>
+  </ul>
+  <span class="tag">van Putten and Hofmeijer 2016 (Blume 1986, AbuRahma 2011)</span></div>
+  <div class="card"><h3>EEG in acute cerebral infarction</h3>
+  <ul>
+   <li>The predictive value of EEG for outcome after cerebral infarction is low to moderate. In a study of 110 patients, pdBSI and the (delta + theta)/(alpha + beta) ratio correlated with mRS at 6 months with a Spearman rho of about 0.46–0.47.</li>
+   <li>Continuous quantitative EEG with BSI correlated well with NIHSS in hemispheric infarction and was used to follow the effect of thrombolysis.</li>
+   <li>Spreading depolarisation occurs in acute infarction and may contribute to growth of the injury, but is difficult to measure through an intact skull. So far it has only been demonstrated reliably with electrocorticography.</li>
+  </ul>
+  <span class="tag">van Putten and Hofmeijer 2016</span></div>
+  <div class="card"><h3>EEG after cardiac arrest</h3>
+  <ul>
+   <li>About half of comatose patients after cardiac arrest have a poor outcome. SSEP and pupillary and corneal reflexes at 72 hours capture only about 20% of those who do not recover.</li>
+   <li>Continuous, normal or diffusely slowed EEG at 12 hours predicted good outcome (CPC 1–2) with specificity 91%, sensitivity 55%, PPV 84% and NPV 70%. Isoelectric, low-voltage (below 20 μV) or burst suppression with identical bursts at 24 hours predicted poor outcome (CPC 3–5) with specificity 100%, sensitivity 42%, PPV 100% and NPV 55%. The figures are based on two prospective cohorts with a total of 377 patients, all treated with mild therapeutic hypothermia and sedated.</li>
+   <li>Evolution towards continuous physiological EEG within 12 hours gives a very good prognosis. The patient's further prognosis then depends on injury to other organs, and the patients with favourable EEG and poor outcome died of failure of other organs, particularly the heart. Deep coma in the first hours does not rule out full recovery.</li>
+   <li>The authors call it a persistent misconception that EEG cannot be used during hypothermia or sedation. Mild hypothermia to 32 °C barely affects the EEG. At usual propofol doses the EEG remains continuous with anteriorisation of alpha, and isoelectricity does not occur.</li>
+   <li><strong>Sedation-induced versus pathological burst suppression:</strong> in a relatively healthy brain the bursts are heterogeneous, and they come and go gradually. In postanoxic injury the bursts are identical, the intervals between them are flat, and the transitions between suppression and burst are abrupt. The latter has a poor prognosis.</li>
+   <li>The cerebral recovery index (CRI) combines five quantitative features (mean amplitude, alpha/delta ratio, entropy, coherence and continuity) into one number between 0 and 1. In the patient with good outcome CRI was about 0.7 at 24 hours, and in the patient with poor outcome about 0.3. In the first hours the EEG was almost identical in both.</li>
+   <li>The authors point out that recent guidelines do not include early EEG for prognostication, and expect EEG to be included in future guidelines. Interpretation of reactivity is not simple, and inter-rater agreement is only moderate.</li>
+  </ul>
+  <span class="tag">van Putten and Hofmeijer 2016</span></div>
+  <div class="card"><h3>Consciousness and the dying brain (Mashour 2024)</h3>
+  <p>Narrative review (Anesthesiology 2024;140:1221–1231; Mashour, Lee, Pal and Li) on near-death experiences and EEG around cardiac arrest and death.</p>
+  <ul>
+   <li><strong>Incidence:</strong> 10–20 % of survivors of in-hospital cardiac arrest report near-death experiences. In AWARE II, 21.4 % of 28 interviewed patients had a «transcendent recalled experience of death».</li>
+   <li><strong>The indices just before death:</strong> in seven critically ill patients without brain injury, BIS and SedLine values rose to levels consistent with consciousness just before death, after withdrawal of life-sustaining treatment. In a follow-up, 13 of 28 (46 %) had such a surge, while none of seven brain-dead patients did. Other series have not found this.</li>
+   <li><strong>Why the indices cannot be read as consciousness:</strong> processed EEG cannot distinguish non-specific activation (for example glutamate release as hypoxic neurones die) from organised activity, cannot distinguish wakefulness from seizures, has only frontal electrodes, and EMG is hard to exclude completely.</li>
+   <li><strong>Animal studies:</strong> in rats, a brief surge of gamma and theta with increased coupling between cortical regions occurred within 30 seconds of cardiac arrest. During asphyxia, release of many neurotransmitters increased; serotonin rose more than 20-fold within 2 minutes.</li>
+   <li><strong>Humans:</strong> in 2 of 4 dying comatose patients, beta and gamma increased after the ventilator was disconnected. Both had a history of seizures, so seizure activity cannot be excluded. In a study of 8 patients, EEG ceased a median 78 seconds before circulatory arrest. None of the findings is linked to an actual experience.</li>
+   <li><strong>During CPR:</strong> in AWARE II, SedLine gave interpretable EEG in 53 of 85 during ongoing CPR, and near-normal activity was seen up to 35–60 minutes into CPR. Detailed analysis has not been published.</li>
+   <li><strong>Isoelectric is not always final:</strong> in animal models the isoelectric phase can be reversed by rapid reoxygenation, and the authors do not exclude that experiences may arise while the brain recovers.</li>
+   <li><strong>Relevance and caveats:</strong> anaesthesia staff take part in CPR, organ donation and withdrawal of treatment. The authors reject non-neurobiological explanations. Funded by NIH, no competing interests. Note that the findings concern dying patients, not prognosis in survivors.</li>
+  </ul>
+  <span class="tag">Mashour, Lee, Pal and Li. Anesthesiology 2024;140:1221–1231</span></div>
+  <div class="card"><h3>Quantitative EEG, CBF and CPP (Foreman and Claassen 2012)</h3>
+  <ul>
+   <li><strong>Thresholds:</strong> when CBF falls to about 25–35 ml/100 g/min, the EEG first loses fast frequencies. At about 17–18 slow frequencies increase gradually, and the authors call this a critical ischaemic threshold at which neurons begin to lose transmembrane gradients. At 10–12 ml/100 g/min and below the EEG becomes silent, and the cell injury is irreversible.</li>
+   <li><strong>How fast:</strong> during carotid clamping the changes occur within about 20 seconds and are reversible. Infarction may only appear after hours at this flow level. Quantitative EEG (qEEG) captures changes in blood flow and metabolism within 28–104 seconds. Diffusion-weighted MRI detects changes at CBF 35–40 after about 30 minutes, whereas EEG detects them within seconds.</li>
+   <li><strong>CPP:</strong> the mean frequency in the EEG falls when CPP is below 60 mmHg, also in comatose or sedated patients (Diedler 2009, according to the review). More slow activity (delta and theta) and less fast activity (alpha and beta) follow reduced cerebral oxygen metabolism (CMRO₂).</li>
+   <li><strong>Which measure works:</strong> in carotid surgery, spectral edge frequency (SEF) captured ischaemic changes in patients on isoflurane, whereas relative delta percentage (delta/total power) was accurate in patients on propofol. Overall, relative delta percentage gives the most robust correlation with CBF and metabolism in focal ischaemia.</li>
+   <li><strong>Confounding factors:</strong> seizures and periodic discharges, changes in intracranial pressure (for example acute hydrocephalus), systemic disease, sedatives, opioids and antipsychotics. Normal slow-wave sleep can resemble ischaemic changes. Raw EEG remains the gold standard, and any qEEG algorithm should be checkable against the raw EEG by someone who knows EEG.</li>
+   <li><strong>The spectrogram</strong> (compressed spectral array) gives, according to the authors, the highest ratio of pixels to data and is easy to read, compared with raw EEG.</li>
+   <li>The review does not discuss the operating room beyond carotid surgery. Most of the review concerns intensive care patients. The suggestion of use after high-risk vascular and cardiac surgery, in refractory hypotension and in sepsis is the authors' own, and not documented in studies.</li>
+  </ul>
+  <span class="tag">Foreman and Claassen. Crit Care 2012;16:216</span></div>
+  <div class="card"><h3>EEG in cerebral infarction and subarachnoid haemorrhage</h3>
+  <ul>
+   <li><strong>Infarction:</strong> in the early subacute phase the EEG correlates well with CBF while oxygen extraction increases (“misery perfusion”). Later it correlates more with CMRO₂ (“luxury perfusion”). Loss of reactivity and absent sleep-wake cycling suggest a poor prognosis. Absence of delta or presence of faster frequencies within 24 hours belongs to good outcome. Regional attenuation of fast frequencies without delta (RAWOD) suggests severe early CBF loss (mean 8.6 ml/100 g/min), and in one series mortality was up to 67%.</li>
+   <li>One year after infarction, functional outcome was predicted correctly in 60% of cases with clinical criteria. With EEG this increased to 85%.</li>
+   <li>After thrombolysis, delta power fell 100 minutes before clinical improvement in one study.</li>
+   <li><strong>Delayed cerebral ischaemia (DCI) after SAH:</strong> occurs in 20–40%. Daily transcranial Doppler is about 60–70% sensitive. In the table of studies: in 34 comatose patients, a change of 10% in the alpha/delta ratio over 6 minutes gave sensitivity 100% and specificity 76%, and a change of 50% over one minute gave 89% and 84%. In 12 patients, sensitivity for predicting neurological deterioration increased from 40% with clinical assessment alone to 67% with qEEG (specificity 73%). In one study, relative alpha variability fell in all 19 with vasospasm, on average 2.9 days before vasospasm was confirmed, but also in 7 without vasospasm, mainly because of infarction or increased ICP.</li>
+   <li>All the studies are small, and the authors themselves point out that the findings must be validated prospectively and in randomised trials.</li>
+  </ul>
+  <span class="tag">Foreman and Claassen 2012</span></div>
+  <div class="card"><h3>Asymmetry and reproducibility in ischaemia (Sheorajpanday 2009)</h3>
+  <ul>
+   <li><strong>Design:</strong> exploratory, methodological study in 41 patients: 21 with cerebral infarction (median NIHSS 11, mean DWI volume 79 ml), 10 with TIA and 10 controls aged 55 years or more with subjective memory complaints and normal MRI. One EEG per patient, awake with eyes closed for at least 10 minutes, 19 electrodes with impedance below 5 kΩ. 128 seconds free of artefacts were analysed after visual artefact removal. The study was not done under anaesthesia.</li>
+   <li><strong>pdBSI:</strong> a variant of the brain symmetry index that compares the power spectrum between homologous channel pairs (8 pairs, 1–25 Hz), instead of the average for the whole hemisphere.</li>
+   <li><strong>Reproducibility:</strong> minimum Cronbach's alpha was 0.95–0.99 for standard spectral measures and 0.96–0.99 for pdBSI, both within the same recording and between and within raters. The authors say that visual artefact removal by a skilled person is a critical first step that cannot be replaced by automatic artefact removal. Automation can confuse ischaemic delta with slow activity from eye movements and drowsiness.</li>
+   <li><strong>Clinical correlation:</strong> pdBSI correlated with NIHSS (rho 0.64–0.70) and with DWI volume (rho 0.79–0.84). Standard measures such as relative alpha and the delta/alpha ratio correlated moderately with NIHSS, but not significantly with DWI volume after adjustment for multiple testing.</li>
+   <li><strong>Group difference:</strong> pdBSI distinguished infarction from TIA and controls. The standard measures did not after adjustment. Neither pdBSI nor the standard measures could distinguish TIA from controls.</li>
+   <li><strong>Broad frequency bands:</strong> pdBSI over 1–25 Hz was better than narrower bands, and 1–3 Hz alone was not significant. The authors interpret this as the whole frequency range being affected in acute ischaemia.</li>
+   <li><strong>Relative measures:</strong> the authors used relative power, because absolute power is affected by skull thickness. The skull is on average about 80 times less conductive than brain and scalp, and a 10% thinner skull can produce a change of 800% in amplitude.</li>
+   <li><strong>Caveats:</strong> small study, one recording per patient, and no ambition of diagnostic value for individual patients. Asymmetry measures are not specific for ischaemia, and pdBSI will not detect equal injury on both sides of a channel pair.</li>
+  </ul>
+  <span class="tag">Sheorajpanday et al. Clin Neurophysiol 2009;120:845–855</span></div>
+  <div class="card"><h3>EEG and raised intracranial pressure: sparse evidence</h3>
+  <ul>
+   <li><strong>Mechanism:</strong> increased ICP lowers CPP and thereby CBF, which limits the supply of oxygen and energy to the cortex. The EEG changes are thus assumed to arise via CPP, CBF and metabolism (and possibly herniation), not from ICP itself. Lenstra 2026 describes that neurogenic mechanisms may then dominate over vasomotor, chemical and metabolic ones in the regulation of CBF.</li>
+   <li><strong>Systematic review (Lenstra 2026):</strong> adults with moderate to severe traumatic brain injury (TBI) and ICP measurement. Of 873 hits, only 4 studies met the criteria (all with ICP measured via ventricular drain or parenchymal probe). Three concerned post-traumatic seizures and ICP, and one the direction between EEG and ICP. The authors conclude that there is very little evidence and that larger studies are needed. They do not write that a validated pattern is lacking, but say that personalised EEG-ICP thresholds must be developed in future studies. Studies without original data, case reports and series, paediatric patients and invasive EEG were excluded.</li>
+   <li><strong>Direction (Sanz-García 2018, cited in the review):</strong> 21 patients (15 TBI, 6 SAH), a total of 1055 hours. On average, 38% of the time showed significant Granger causality from EEG to ICP, with a delay of 25–50 seconds, most often in relative alpha (12 patients). In one patient the direction was reversed. The authors interpret this as possible neurovascular coupling. The study did not examine the EEG during the intracranial hypertension episodes themselves, and sedation boluses did not change the finding.</li>
+   <li><strong>Conflicting findings (McNamara 2003, cited in the review):</strong> in 17 intensive care patients with acute ICP rise, quantitative EEG showed no changes during the ICP peaks. There were only 30 minutes of EEG per patient, so late changes may have been missed.</li>
+   <li><strong>Case reports and series (outside the review's criteria):</strong> Sheikh 2022 (retrospective series, J Clin Neurophysiol) describes that cyclic patterns and varying degrees of slowing and attenuated fast activity often preceded clinical deterioration in intracranial hypertension. It is described that generalised rhythmic delta activity and loss of fast activity about 30 minutes before clinical change are mentioned in presumed plateau waves. The review describes the series as seven non-traumatic neurocritical patients. Alsallom 2022 describes two patients with herniation in whom increased low-frequency power and asymmetry in the spectrogram appeared roughly an hour before clinical deterioration.</li>
+   <li><strong>Animal study (Pose, pilot):</strong> the median cross-correlation between total EEG power and ICP was 0.7, and 0.55 for CPP. A model with only three variables had accuracy 0.70, sensitivity 0.53 and specificity 0.79. The direction of the correlation is not stated.</li>
+   <li><strong>What the sources do not test:</strong> how processed indices and the spectrogram change with raised ICP under general anaesthesia. Foreman and Claassen mention that ICP changes, sedatives and sleep can confound EEG interpretation. Guay 2025 lists intracranial hypertension as one of the causes of reduced cerebral oxygen delivery and writes that such changes can resemble deeper sedation on frontal EEG, but shows no data from patients with raised ICP. That processed indices may confuse them with deeper anaesthesia is therefore a reasonable assumption, not a demonstrated finding for ICP.</li>
+  </ul>
+  <span class="tag">Lenstra 2026, Sheikh 2022, McNamara 2003 and Pose</span></div>
+  <div class="card"><h3>EEG in pathology, age and the vulnerable brain</h3>
+  <ul>
+   <li><strong>Septic encephalopathy:</strong> EEG slowing is the earliest finding and can be seen even with a normal neurological examination. The chapter also mentions increased theta, dominant delta, triphasic waves, periodic epileptiform discharges and suppression.</li>
+   <li><strong>Burst suppression:</strong> the risk increases with age and with impaired neurological status. In older patients the bursts and suppression phases are less distinct, and the pattern is difficult to detect.</li>
+   <li>High-dose ketamine does not itself produce burst suppression, but can lower the threshold. Pain and nociceptive input can also lower the threshold.</li>
+   <li>Processed BSR algorithms do not pick up suppression until it is around 40%. The chapter therefore recommends assessing the raw EEG.</li>
+   <li>Two theories explain burst suppression: cortical hyperexcitability, and a metabolic theory in which falling ATP opens ATP-gated potassium channels. The metabolic theory fits with findings that low perfusion can produce burst suppression, but it is not proven.</li>
+   <li>ENGAGES did not change the incidence of delirium, but found lower 30-day mortality in the EEG group. The book calls this an observation that should be investigated further.</li>
+  </ul>
+  <span class="tag">Lobo and Lamperti 2025, ch. 1, 5 and 11</span></div>
+  </div>
+  <div class="subgrp" data-sub="phys">
+  <div class="card"><h3>Perfusion, CPP and autoregulation</h3>
+  <ul>
+   <li>Cerebral perfusion pressure (CPP) is MAP minus intracranial pressure (ICP). Blood flow (CBF) is CPP divided by cerebrovascular resistance.</li>
+   <li>ICP is affected by volume inside the skull (tumour, oedema, haemorrhage, increased CSF volume), by positioning (for example Trendelenburg), by rotation of the head that compresses the jugular veins, and by high intrathoracic pressure and PEEP that impede venous drainage.</li>
+   <li>With intact autoregulation, MAP between approximately 60 and 160 mmHg does not affect CBF, which is kept at around 50 ml/100 g/min. When autoregulation fails, blood flow follows pressure passively.</li>
+   <li>CBF can fall by 50–60% before compensation fails, because the brain then increases oxygen extraction.</li>
+   <li>Cerebrovascular resistance is affected by vasopressors and vasodilators, by PaCO₂, and can be shifted by chronic hypertension. Treating low blood pressure with a vasopressor alone can reduce cardiac output.</li>
+   <li>Hypercapnia impairs autoregulation, and the anaesthetic agents play a part: propofol preserves it during hypercapnia, whereas sevoflurane at a corresponding PaCO₂ impairs or abolishes it.</li>
+   <li>The brain is about 2% of body weight, but receives 12–15% of cardiac output and uses up to 20% of the oxygen. Approximately 75–80% of oxygen consumption goes to restoring the membrane potential.</li>
+  </ul>
+  <span class="tag">Lobo and Lamperti 2025, ch. 1, 2 and 7</span></div>
+  <h3>Miller's ch. 10: cerebral physiology and the anaesthetic drugs (Patel, Drummond and Lemkuil)</h3>
+  <div class="card"><h3>Normal values, energy use and why EEG and CMR go together</h3>
+  <ul>
+   <li><strong>Normal values (Miller's box 10.1):</strong> the brain is only about 2% of body weight but receives 12–15% of cardiac output. The values below are for adults. “Per 100 g” means per 100 grams of brain tissue.
+    <div style="overflow-x:auto;margin-top:6px"><table class="mx" style="font-size:.9em;min-width:440px">
+     <thead><tr><th>Measure</th><th>What it is</th><th>Normal</th></tr></thead>
+     <tbody>
+      <tr><td>CBF, whole brain</td><td>Cerebral blood flow</td><td>45–55 ml/100 g/min</td></tr>
+      <tr><td>CBF, cortex</td><td>Grey matter uses most energy and receives most blood</td><td>75–80 ml/100 g/min</td></tr>
+      <tr><td>CBF, below the cortex</td><td>Less active tissue receives less blood</td><td>8–20 ml/100 g/min</td></tr>
+      <tr><td>CMRO₂</td><td>Cerebral oxygen consumption</td><td>3–3.5 ml O₂/100 g/min</td></tr>
+      <tr><td>rSO₂</td><td>Regional oxygen saturation in brain tissue, measured with NIRS on the forehead</td><td>55–80%</td></tr>
+      <tr><td>SjVO₂</td><td>Oxygen saturation of venous blood leaving the brain (jugular bulb)</td><td>60–70%</td></tr>
+      <tr><td>ICP</td><td>Pressure inside the skull, supine</td><td>8–12 mmHg</td></tr>
+     </tbody></table></div>
+   </li>
+   <li><strong>The brain uses energy for two things:</strong> about 60% goes to signalling between neurons, that is, the electrical activity the EEG measures. The rest goes to keeping the cells alive and maintained (“housekeeping”). Anaesthetic drugs such as barbiturates, isoflurane, sevoflurane, desflurane, propofol and etomidate dampen only the signalling. The quieter the EEG becomes, the less oxygen the brain uses. When the EEG is flat, signalling is already switched off, and more drug does not lower energy use further (fig. 10.2). Ketamine and nitrous oxide do not follow this pattern.</li>
+   <li><strong>Cooling acts on both parts:</strong> for every degree the body temperature falls, the brain's energy use falls by 6–7%. The EEG becomes flat at about 18–20 °C, and at 18 °C oxygen consumption is below 10% of normal. Because cold also lowers “housekeeping”, cooling reduces energy use further even after the EEG is flat. Anaesthetic drugs do not.</li>
+   <li><strong>Burst suppression is not the same with all drugs:</strong> when the EEG is completely suppressed, cerebral oxygen consumption is about the same whichever drug is used, but it is distributed differently. Barbiturates lower blood flow and energy use evenly throughout the brain, while isoflurane and sevoflurane lower it most in the outer cortex (neocortex). The burst-suppression pattern just before the EEG becomes completely flat also varies from drug to drug.</li>
+   <li><strong>Relevance for neuromonitoring:</strong> SSEPs (somatosensory evoked potentials) are the cortex's response to stimulation of a nerve in an arm or leg, and are used to monitor the spinal cord and brain during surgery. With thiopental, SSEPs can still be recorded at doses far beyond those giving a flat EEG, but with isoflurane in burst suppression (about 1.5 MAC) they are hard to elicit. The choice of agent can therefore affect whether neuromonitoring works (interpretation based on the sources).</li>
+   <li><strong>What it means for EEG interpretation:</strong> a very low index or a flat EEG means the drug has already lowered the brain's energy use as much as it can. More dose gives no more protection of the brain. That is the background for the cards on overdose and burst suppression in the Spectrogram and Agents tabs.</li>
+  </ul>
+  <span class="tag">Miller's ch. 10, box 10.1 and fig. 10.2</span></div>
+  <div class="card"><h3>Autoregulation: the Lassen curve is outdated, the lower limit is around 70 mmHg in most people</h3>
+  <ul>
+   <li><strong>The classical picture</strong> (CBF constant at 50 ml/100 g/min from MAP 50 to 150) was built on a heterogeneous sample with single measurements, and the chapter calls it “outmoded”. Newer analyses give a narrower plateau with a gentle upslope, so pressure-passive CBF applies over a wider MAP range than assumed. With rapid pressure changes (dynamic autoregulation) the plateau may be as short as 10 mmHg or absent; with slow changes over about 10 minutes (static) the plateau is at least ±20 mmHg.</li>
+   <li><strong>Lower limit (LLA):</strong> across seven studies in awake, healthy subjects the mean LLA ranged from 57 to 91 mmHg, with enormous inter-subject variability. The authors (Drummond) hold that the LLA in the majority is not below 70 mmHg, which with normal ICP (5–10) gives a CPP of 60–65 mmHg, and that 70 mmHg is a prudent threshold without an autoregulation monitor. Upper limit: about 90 mmHg on cardiopulmonary bypass, probably above 140 in hypertensives. Autoregulation is best described as a family of curves (fig. 10.5), not one.</li>
+   <li><strong>Reserve:</strong> symptoms of ischaemia appear only when CBF has fallen 35–40% in awake subjects. This cerebrovascular reserve means that brief hypotension below the LLA is usually tolerated; sustained falls are not. Reserve is reduced with CNS injury (autoregulation impaired for about 2 weeks, restored after 1–3 months), raised local tissue pressure (ICP, retractors, cervical stenosis), an incomplete circle of Willis (35–40% of the population) and hypertension.</li>
+   <li><strong>Hypertension:</strong> both dynamic and static autoregulation are preserved in hypertensives, and treatment to normal pressure does not reduce CBF. The intraoperative question is hypotension: the authors limit the MAP fall to no more than 20% below baseline measured at head level in the sitting position, in the section on chronic hypertension they give 30–35%, and state that a 25% fall brings both normo- and hypertensive patients to the LLA. See the discrepancy list.</li>
+   <li><strong>Hydrostatic gradient:</strong> 2 mmHg per inch (2.5 cm) the head is above the heart; 12 inches give about 24 mmHg. To keep CPP at 60–65 with the head elevated, MAP at heart level must be about 85. The siphon model (closed loop) is rejected: gravity does affect CPP. See the card on perfusion pressure and head height.</li>
+   <li><strong>Practical MAP target:</strong> in patients without acute ischaemia and with normal or well-controlled pressure the chapter regards an intraoperative MAP of about 75 mmHg as adequate, and table 10.2 lists subspecialty targets in brain injury (for example SBP above 100–110 in traumatic brain injury depending on age, MAP above 65 after cardiac arrest).</li>
+  </ul>
+  <span class="tag">Miller's ch. 10, fig. 10.3–10.5, table 10.2</span></div>
+  <div class="card"><h3>CO₂, O₂, cardiac output and vasopressors</h3>
+  <ul>
+   <li><strong>PaCO₂:</strong> CBF changes 1–2 ml/100 g/min per mmHg within 25–70 mmHg; the response is attenuated below 25 and above 75–80. Moderate hypotension (MAP fall under 33%) attenuates the CO₂ response markedly, severe hypotension (about 66%) abolishes it. Hypocapnia widens the autoregulatory range, hypercapnia narrows it. The effect of a changed PaCO₂ wanes over 6–8 hours as CSF pH normalises; abrupt normalisation after prolonged hyperventilation gives CSF acidosis and increased CBF/ICP.</li>
+   <li><strong>PaO₂:</strong> little effect between 60 and 300 mmHg; below 60 CBF rises rapidly, linearly with falling saturation. Haemodilution gives a smaller CBF rise than hypoxaemia for the same fall in O₂ content. 1 atm oxygen lowers CBF by about 18%.</li>
+   <li><strong>Cardiac output:</strong> Meng estimates that a 30% fall in CO gives about a 10% fall in CBF independent of MAP and PaCO₂; a newer study found that a 10% fall in MAP and a 20% fall in CO gave the same fall (about 5%) in MCA velocity. A meta-analysis nevertheless does not confirm an independent relationship, because CO cannot be changed without changing MAP and PaCO₂. The chapter still concludes that low CO probably adds to low MAP in hypotension, that volume should be optimised first, and that bolus phenylephrine may lower CO further. See the Nordum 2024 card (Trendelenburg) and the clinical example with alpha and cardiac output.</li>
+   <li><strong>Vasopressors:</strong> α₁-agonists (phenylephrine, noradrenaline) do not change global CBF in humans when autoregulation is intact; they act via MAP. Bolus phenylephrine slightly lowered NIRS-measured SCO₂ in several studies, ephedrine did not, probably because ephedrine maintains CO; extracranial contamination of NIRS exceeds this difference. Koch found that ephedrine, not phenylephrine, increased local CBF, tissue oxygenation and microcirculation in brain-tumour patients. Outcome studies are lacking. Dexmedetomidine lowers CBF 25–30% via CMR; dopamine up to 100 µg/kg/min does not cause cerebral vasoconstriction; dobutamine increased CBF and CMR by 20 and 30%.</li>
+  </ul>
+  <span class="tag">Miller's ch. 10, fig. 10.8–10.10, table 10.3</span></div>
+  <div class="card"><h3>What the anaesthetic drugs do to CBF and CMR</h3>
+  <ul>
+   <li><strong>Intravenous agents</strong> preserve flow–metabolism coupling, autoregulation and CO₂ responsiveness. Propofol lowered regional CBF 53–79% and whole-brain glucose metabolism 48–58% at surgical depth in volunteers; autoregulation and CO₂ response are preserved even at burst suppression. Etomidate 0.2 mg/kg: CBF −34%, CMR −45%. Midazolam 0.15 mg/kg: CBF −30 to −34% (−12% globally with PET). Opioids: small reductions in the unstimulated brain; sedative remifentanil can increase CBF regionally; a bolus with a MAP fall can raise ICP through autoregulatory vasodilation. Flumazenil can give an overshoot in CBF/ICP in patients with poor intracranial compliance.</li>
+   <li><strong>Ketamine</strong> is the only one that increases CMR and CBF: subanaesthetic doses (0.2–0.3 mg/kg) increased global CMR by about 25%, most in frontal and anterior cingulate cortex; S-ketamine increases CMR, R-ketamine lowers it. CBF rose 14% (subanaesthetic) and 36% (anaesthetic) without a change in CMRO₂ in one study; CBV +50%. Propofol, benzodiazepines and isoflurane blunt or abolish the ICP rise, and systematic reviews find no ICP rise in head injury. See the ketamine cards in the Agents tab for the EEG pattern.</li>
+   <li><strong>Volatile agents:</strong> lower CMR dose-dependently but are also direct vasodilators. Net: at 0.5 MAC CBF falls, at 1 MAC it is unchanged, above 1 MAC it rises (“luxury perfusion”), and autoregulation to rising pressure is impaired. Vasodilating potency: halothane ≫ enflurane > desflurane ≈ isoflurane > sevoflurane. At 1 MAC sevoflurane and desflurane lowered CBF by 38 and 22% and CMR by 39 and 35% (Kety–Schmidt, cortical measurement); PET shows about 50% for both. Maximal CMR reduction is reached at EEG suppression, at 1.5–2 MAC. Sevoflurane lowers regional CBF but not CBV; propofol lowers both. If CMR is already suppressed (for example by propofol), the vasodilation is unmasked: adding a volatile agent then clearly increases CBF.</li>
+   <li><strong>Entropy and sevoflurane:</strong> in a dose-escalation study in humans the largest reduction in entropy was at 1 MAC sevoflurane, with smaller reductions at higher concentrations. This fits with CMRO₂ falling sharply with the onset of the anaesthetic EEG pattern and more slowly thereafter.</li>
+   <li><strong>Nitrous oxide</strong> increases CBF, CMR and ICP, most alone or with a volatile agent (0.75 MAC isoflurane + 65% N₂O gave 43% higher CBF than 1.5 MAC isoflurane); with intravenous agents the effect is blunted. CBV is little affected.</li>
+   <li><strong>Lidocaine:</strong> 5 mg/kg over 30 min + 45 µg/kg/min lowered CBF 24% and CMR 20% in awake volunteers; membrane stabilisation is thought to lower the energy needed for membrane integrity. A 1.5 mg/kg bolus was as effective as thiopental 3 mg/kg against the ICP rise at pin placement, with less MAP fall. After a 2 mg/kg bolus peak concentrations are 6.6–8.5 µg/mL, below the seizure threshold (above 5–10 µg/mL in awake subjects); lidocaine seizures have not been reported in anaesthetised patients. See the card on multimodal anaesthesia in the Agents tab.</li>
+   <li><strong>Neuromuscular blockers</strong> have no direct cerebrovascular effect beyond histamine release; succinylcholine can raise ICP by about 5 mmHg as an arousal phenomenon under light anaesthesia, blocked by deep anaesthesia or defasciculation.</li>
+  </ul>
+  <span class="tag">Miller's ch. 10, fig. 10.12–10.19</span></div>
+  <div class="card"><h3>Epileptogenic drugs according to chapter 10</h3>
+  <ul>
+   <li><strong>Sevoflurane:</strong> seizures at induction with high concentrations in children, also without a known predisposition. In two healthy volunteers burst suppression at 2 MAC was accompanied by epileptiform discharges with a clear CBF increase (coupling preserved). In patients with temporal lobe epilepsy 1.5 MAC produced widespread paroxysmal activity that was not confined to the focus and did not help localisation. Tonic–clonic movements at emergence have been reported in healthy patients. No sequelae documented; caution in epilepsy. See the card on epileptiform activity and images 19–20 in the Spectrogram tab.</li>
+   <li><strong>Etomidate</strong> often causes myoclonus without epileptiform EEG, but can trigger generalised epileptic activity in epileptics; 0.1 mg/kg is used to activate a quiescent focus intraoperatively. <strong>Methohexital</strong> activates foci. <strong>Ketamine</strong> can trigger seizures in predisposed patients, with subcortical activity not always seen in surface EEG, but is also used for refractory status (effective in 56%). <strong>Propofol</strong> is not confirmed as proconvulsant and shortens ECT seizures; high-amplitude beta is described. <strong>Opioids:</strong> high-dose fentanyl produced electrical seizure activity in 8 of 9 patients with partial complex seizures during temporal lobe surgery; alfentanil 50 µg/kg augmented spikes in temporal lobe epilepsy. <strong>Isoflurane</strong> gives spikes and myoclonus but is not regarded as epileptogenic and is used for refractory status. <strong>Enflurane</strong> is epileptogenic, potentiated by hypocapnia.</li>
+   <li><strong>Why it belongs in an EEG app:</strong> seizure activity can raise CMR by up to 400%, and in a paralysed patient the EEG is the only way to detect it.</li>
+  </ul>
+  <span class="tag">Miller's ch. 10, section Epileptogenesis</span></div>
+  <div class="card"><h3>CBF thresholds (fig. 10.20), hypoglycaemia and neuroprotection</h3>
+  <ul>
+   <li><strong>Thresholds:</strong> normal CBF about 50 ml/100 g/min. Symptoms of hypoperfusion in awake subjects only at about 30. EEG evidence of ischaemia from about 20. Isoelectric cortical EEG at about 15. Penumbra 10–20: reversible dysfunction, but cell death if flow is not restored. Signs of irreversible membrane failure (extracellular potassium, lost direct cortical response) only at about 6–10 (the legend says 6–12). The data are from the cortex of barbiturate-anaesthetised baboons and awake monkeys, and the levels vary with drug and species; in humans under halothane and N₂O the threshold for the first EEG change matched the animal data. The thresholds are drawn into the figure above alongside van Putten and Foreman and Claassen.</li>
+   <li><strong>Completeness:</strong> with complete global ischaemia (cardiac arrest) energy supply fails within minutes; with incomplete (focal) ischaemia residual flow keeps ATP production going longer, which is why focal ischaemia is apparently better tolerated.</li>
+   <li><strong>Hypoglycaemia in the EEG:</strong> with a gradual fall to about 40 mg/dL (about 2.2 mmol/L) the EEG shifts from alpha and beta towards delta and theta; below 20 mg/dL (about 1.1 mmol/L) the EEG becomes flat. Persistence at that level gives seizures and hippocampal injury. Hyperthermia above 42 °C gives an abrupt fall in oxygen consumption (protein denaturation).</li>
+   <li><strong>Neuroprotection:</strong> barbiturates, propofol, ketamine, volatile agents and xenon protect in animal models, but only with mild ischaemia and not durably. In humans: in IHAST thiopental, etomidate or propofol to EEG suppression gave no better outcome; in GALA general anaesthesia gave no advantage over local anaesthesia for carotid surgery. Conclusion: inducing burst suppression for brain protection is not supported in anaesthetised patients, and physiological control (CPP, oxygenation, normocapnia, temperature, glucose, seizures) matters more. Etomidate can worsen tissue hypoxia during temporary vessel occlusion. Hypothermia 32–36 °C after cardiac arrest: TTM and TTM2 showed no benefit of lower targets; guidelines keep 32–36 °C and strict avoidance of hyperthermia.</li>
+   <li><strong>Deferring elective surgery after stroke:</strong> the risk of death within 30 days was highest in the first 3 months and only stabilised after 9 months; the chapter recommends deferring elective surgery for 9 months, with an exception for early carotid surgery in small infarcts.</li>
+  </ul>
+  <span class="tag">Miller's ch. 10, fig. 10.20–10.24</span></div>
+  <div class="card"><h3>SSEP, ICP and falling blood flow (Lobo and Lamperti ch. 6)</h3>
+  <ul>
+   <li>The text states that SSEP amplitude changes at a CBF fall to about 15 ml/100 g/min and disappears below 18.</li>
+   <li>Increased ICP changes the SSEP classically: amplitude decreases and latency is prolonged. With herniation, subcortical responses may disappear first.</li>
+   <li>The book does not directly describe how the EEG changes with raised ICP. CBF thresholds for EEG are given in the van Putten and Hofmeijer card and in the figure below.</li>
+  </ul>
+  <span class="tag">Lobo and Lamperti 2025, ch. 6</span></div>
+  <div class="card"><h3>Figure: where on the CBF scale EEG and the cells fail</h3>
+  <figure style="margin:0 0 10px">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 425" role="img" aria-labelledby="cbfT cbfD" style="width:100%;height:auto;font-family:inherit">
+<title id="cbfT">CBF thresholds for EEG and cell injury: three sources side by side</title><desc id="cbfD">Horizontal axis with cerebral blood flow from 55 down to 0 ml/100 g/min. Three rows show approximate thresholds from Miller's ch. 10, van Putten and Hofmeijer 2016 and Foreman and Claassen (cited by van Putten). The thresholds overlap and are not hard limits.</desc>
+<style>.lab{font-size:12px;font-weight:700;fill:currentColor}.sub{font-size:10.5px;fill:var(--muted,#4F615E)}.txt{font-size:10.5px;fill:currentColor}.num{font-size:8.5px;font-weight:700;fill:var(--surface,#fff)}.grid{stroke:var(--line,#C9D3CE)}.hd{font-size:11.5px;font-weight:700;fill:currentColor}.b-ok{fill:var(--accent,#0F6B6B);opacity:.35}.b-mid{fill:#D9A441;opacity:.5}.b-bad{fill:#B5453C;opacity:.5}.mk{stroke:currentColor;stroke-width:.8;stroke-dasharray:2 2;opacity:.7}.dot{fill:currentColor}</style>
+<text x="14" y="18" class="hd">Cerebral blood flow (ml/100 g/min), falling to the right</text>
+<line x1="236.9" y1="28" x2="236.9" y2="46" class="grid"/><text x="236.9" y="40" class="txt" text-anchor="middle">50</text>
+<line x1="330.7" y1="28" x2="330.7" y2="46" class="grid"/><text x="330.7" y="40" class="txt" text-anchor="middle">40</text>
+<line x1="424.5" y1="28" x2="424.5" y2="46" class="grid"/><text x="424.5" y="40" class="txt" text-anchor="middle">30</text>
+<line x1="518.4" y1="28" x2="518.4" y2="46" class="grid"/><text x="518.4" y="40" class="txt" text-anchor="middle">20</text>
+<line x1="612.2" y1="28" x2="612.2" y2="46" class="grid"/><text x="612.2" y="40" class="txt" text-anchor="middle">10</text>
+<line x1="706.0" y1="28" x2="706.0" y2="46" class="grid"/><text x="706.0" y="40" class="txt" text-anchor="middle">0</text>
+<line x1="190" y1="46" x2="706" y2="46" class="grid"/>
+<text x="14" y="69" class="lab">Miller's ch. 10 (primate data)</text>
+<rect x="190.0" y="56" width="234.5" height="18" class="b-ok"/>
+<rect x="424.5" y="56" width="93.8" height="18" class="b-mid"/>
+<rect x="518.4" y="56" width="93.8" height="18" class="b-mid"/>
+<rect x="612.2" y="56" width="93.8" height="18" class="b-bad"/>
+<rect x="188" y="81" width="10" height="10" class="b-ok" style="opacity:.8"/>
+<text x="202" y="90" class="txt">&gt; 30: No symptoms in awake subjects</text>
+<rect x="188" y="94" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="103" class="txt">20–30: Symptoms of hypoperfusion (awake)</text>
+<rect x="188" y="107" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="116" class="txt">10–20: Penumbra: reversible dysfunction, cell death without reperfusion</text>
+<line x1="518.4" y1="53" x2="518.4" y2="77" class="mk"/><circle cx="518.4" cy="65" r="6.5" class="dot"/><text x="518.4" y="68.5" class="num" text-anchor="middle">1</text>
+<text x="202" y="129" class="txt">20: EEG signs of ischaemia begin</text>
+<circle cx="194" cy="125" r="5.5" class="dot"/><text x="194" y="128.5" class="num" text-anchor="middle">1</text>
+<line x1="565.3" y1="53" x2="565.3" y2="77" class="mk"/><circle cx="565.3" cy="65" r="6.5" class="dot"/><text x="565.3" y="68.5" class="num" text-anchor="middle">2</text>
+<text x="202" y="142" class="txt">15: Cortical EEG isoelectric</text>
+<circle cx="194" cy="138" r="5.5" class="dot"/><text x="194" y="141.5" class="num" text-anchor="middle">2</text>
+<rect x="188" y="146" width="10" height="10" class="b-bad" style="opacity:.8"/>
+<text x="202" y="155" class="txt">0–10: Irreversible membrane failure (text 6–10, legend 6–12)</text>
+<line x1="14" y1="174" x2="706" y2="174" class="grid"/>
+<text x="14" y="197" class="lab">van Putten and Hofmeijer 2016</text>
+<rect x="190.0" y="184" width="46.9" height="18" class="b-ok"/>
+<rect x="377.6" y="184" width="187.6" height="18" class="b-mid"/>
+<rect x="612.2" y="184" width="93.8" height="18" class="b-bad"/>
+<rect x="188" y="209" width="10" height="10" class="b-ok" style="opacity:.8"/>
+<text x="202" y="218" class="txt">&gt; 50: Normal CBF about 50–54</text>
+<rect x="188" y="222" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="231" class="txt">15–35: Mild to moderate ischaemia: synaptic failure. Less alpha and beta, then more delta; may</text>
+<text x="202" y="243" class="txt">become isoelectric, but reversible</text>
+<rect x="188" y="247" width="10" height="10" class="b-bad" style="opacity:.8"/>
+<text x="202" y="256" class="txt">0–10: Membrane potential shifts (Donnan); cell death, permanent loss of rhythms</text>
+<line x1="14" y1="275" x2="706" y2="275" class="grid"/>
+<text x="14" y="298" class="lab">Foreman and Claassen (cited by van Putten)</text>
+<rect x="377.6" y="285" width="93.8" height="18" class="b-mid"/>
+<rect x="537.1" y="285" width="9.4" height="18" class="b-mid"/>
+<rect x="593.4" y="285" width="18.8" height="18" class="b-bad"/>
+<rect x="188" y="310" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="319" class="txt">25–35: Fast activity disappears</text>
+<rect x="188" y="323" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="332" class="txt">17–18: Slow activity increases (van Putten fig. 3: about 15)</text>
+<rect x="188" y="336" width="10" height="10" class="b-bad" style="opacity:.8"/>
+<text x="202" y="345" class="txt">10–12: EEG silent</text>
+<line x1="14" y1="364" x2="706" y2="364" class="grid"/>
+<text x="14" y="380" class="sub">Drawn from the numbers in the text of Miller's ch. 10 (fig. 10.20, primate data) and van Putten and Hofmeijer 2016, not</text>
+<text x="14" y="393" class="sub">copied from figures. Definitions differ between sources. All thresholds are approximate, depend on duration, and</text>
+<text x="14" y="406" class="sub">overlap.</text>
+</svg>
+  <figcaption class="small">Figure: CBF thresholds from three sources on one axis. Teaching figure; the numbers are taken from the text and should not be used as hard limits.</figcaption>
+  </figure>
+  <span class="tag">Miller's ch. 10 · van Putten and Hofmeijer 2016 · Foreman and Claassen via van Putten</span></div>
   </div>
 </section>
 
@@ -4314,6 +4345,9 @@ const QS=[
  {q:'What did Abend 2013 find about seizures in children in intensive care with continuous EEG?',
   a:['30 % had electrographic seizures, and in 36 % of them all seizures were without clinical signs','Seizures occurred only in children with known epilepsy','No one had seizures during sedation','All seizures caused convulsions'],c:0,
   e:'Sepsis had the highest proportion (58 % of 19). Electrographic status epilepticus was associated with higher mortality (OR 2.42).',s:'Abend 2013',t:'icu'},
+ {q:'What happens to posterior alpha when an awake person opens their eyes, and why?',
+  a:['It is attenuated; both because the visual cortex is engaged and because the brain becomes more activated (arousal)','It increases because visual input produces more alpha','It moves to the forehead','Nothing happens'],c:0,
+  e:'Barry 2007 found that alpha fell across the whole scalp on eye opening while skin conductance rose. Alpha is often interpreted as active inhibition of areas not in use (Jensen and Mazaheri 2010).',s:'Barry 2007, Jensen and Mazaheri 2010',t:'basis'},
  {q:'What did Ogawa 2020 find about measured propofol during CO₂ pneumoperitoneum and head-down position?',
   a:['On average not higher than TCI predicted, but higher the lower the cardiac index','Twice the prediction in everyone','Lower than predicted in everyone','Propofol was not measured'],c:0,
   e:'Lower cardiac output gives higher propofol concentrations, and that is the best documented mechanism (Upton 1999, Chalo 2019).',s:'Ogawa 2020',t:'perf'},
@@ -4894,6 +4928,8 @@ const REFS=[
  ['Kalkman CJ, et al. Anesthesiology 1991;75:68–74.','https://doi.org/10.1097/00000542-199107000-00012','Hypercapnia, hypocapnia and EEG.'],
  ['Ann et al. Korean J Anesthesiol 2017;70:213–216.','https://doi.org/10.4097/kjae.2017.70.2.213','Case report: very high PaCO₂ and fall in entropy.'],
  ['Braathen MR, Rigby-Jones AE, Ræder J, Spigset O, Heier T. Pharmacokinetics of propofol in severely obese surgical patients. Acta Anaesthesiol Scand 2024;68:726–736.','https://doi.org/10.1111/aas.14407','No conflicts of interest declared. Departmental funding.'],
+ ['Barry RJ, Clarke AR, Johnstone SJ, Magee CA, Rushby JA. EEG differences between eyes-closed and eyes-open resting conditions. Clin Neurophysiol 2007;118:2765–2773.','https://ro.uow.edu.au/hbspapers/1640',''],
+ ['Jensen O, Mazaheri A. Shaping functional architecture by oscillatory alpha activity: gating by inhibition. Front Hum Neurosci 2010;4:186.','https://doi.org/10.3389/fnhum.2010.00186',''],
  ['Li J, Hu R, Tan W, Li J, Huang W, Wang Z. Activation of glutamatergic neurones in the pedunculopontine tegmental nucleus promotes cortical activation and behavioural emergence from sevoflurane-induced unconsciousness in mice. Br J Anaesth 2024;132:320–333.','https://doi.org/10.1016/j.bja.2023.08.033','Animal study, mice. No conflicts of interest.'],
  ['Wildes TS, Avidan MS. Critical appraisal of ENGAGES: cognitive dissonance and anesthesia research. Ann Transl Med 2019;7(20):599.','https://doi.org/10.21037/atm.2019.09.48','Reply from the trial authors to Koch 2019. No conflicts of interest declared.'],
  ['Robinson TN, Eiseman B. Postoperative delirium in the elderly: diagnosis and management. Clin Interv Aging 2008;3:351–355.','https://dovepress.com/article/download/1759','Review.'],
@@ -5603,6 +5639,9 @@ document.querySelectorAll('.subnav').forEach(nav=>{
   showSub(nav,k,false);
 });
 })();
+</script>
+<script>
+document.addEventListener('click',e=>{const b=e.target.closest('[data-subjump]'); if(!b) return; const sec=b.closest('section'); const nb=sec&&sec.querySelector('.subnav button[data-sub="'+b.dataset.subjump+'"]'); if(nb){nb.click(); sec.querySelector('.subnav').scrollIntoView({behavior:'smooth',block:'start'});}});
 </script>
 </body>
 </html>

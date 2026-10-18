@@ -2151,6 +2151,9 @@ header h1 button:hover{color:var(--accent)}
   </figure>
   <ul>
    <li><strong>Bånd er en beskrivelse, ikke en mekanisme:</strong> samme frekvens kan ha ulik opprinnelse. Frontal alfa under propofol (thalamokortikal, se Spektrogram-fanen) er ikke det samme som bakre alfa hos en våken person med lukkede øyne, selv om begge er 8–13 Hz.</li>
+   <li><strong>Bakre alfa og øyeåpning:</strong> alfa bak i hodet (den bakre dominante rytmen) er sterkest hos en våken person som hviler med lukkede øyne, og dempes når øynene åpnes. Det ble beskrevet allerede i de første EEG-opptakene av mennesker og brukes fortsatt som test av reaktivitet. Det handler ikke bare om synsinntrykk: da øynene ble åpnet, falt alfa over hele hodet samtidig som hudledningsevnen (et mål på våkenhet) steg, og forfatterne mener alfa også speiler hvor aktivert hjernen er, mens endringene i de andre båndene speilet bearbeiding av synsinntrykkene (Barry 2007).</li>
+   <li><strong>Alfa som aktiv hemming:</strong> en mye brukt forklaring er at alfa markerer områder som er hemmet fordi de ikke trengs akkurat nå, slik at informasjonen ledes til de områdene som brukes («gating by inhibition», Jensen og Mazaheri 2010). Med lukkede øyne har synsbarken lite å gjøre og viser mye alfa; når den tas i bruk, faller alfa. Dette er en godt underbygget hypotese, ikke endelig bevist.</li>
+   <li><strong>Hva det betyr for anestesi og intensiv (tolkning ut fra kildene):</strong> ved tap av bevissthet under propofol forsvinner den bakre alfaen, og en frontal alfa med annen opprinnelse oppstår (Purdon 2013, se Komponenter-fanen). En frontal monitor ser ikke den bakre alfaen. På intensiv er reaktivitet nøkkelen: alfa som endrer seg ved stimulering tyder på bevart funksjon, mens alfa som ikke reagerer, kan være alfa-koma (se Intensiv-fanen).</li>
    <li><strong>Amplitude:</strong> EEG-signalet er i mikrovoltområdet og må forsterkes til voltnivå før digitalisering. Amplituden faller med alder (Purdon 2015, Obert 2024) og øker ved langsom aktivitet.</li>
    <li><strong>Gamma og EMG:</strong> gamma har lav amplitude, dempes av skalle og hud (Lobo og Lamperti kap. 4 skriver at 30–80 Hz «typisk filtreres bort av skallen og ikke er synlig på konvensjonelt overflate-EEG») og overlapper i frekvens med muskelaktivitet. Det som ser ut som gamma på en frontal pEEG-monitor hos en pasient uten relaksantia er derfor ofte EMG fra panne og øyemuskler. I klinisk nevrofysiologi er det nettopp frontal EMG, blunking og øyebevegelser som sammen med lav amplitude og rask aktivitet kjennetegner et våkent EEG; Schuller 2015 viste baksiden av dette: hos våkne, relakserte forsøkspersoner så rå-EEG våkent ut «bare uten EMG og øyebevegelser», og BIS falt til 44–47 (se Schuller 2015 og Hight 2017 i Spektrogram-fanen). Nyansen: lav gamma (25–40 Hz) under ketamin er påvist med overflate-EEG i studier med god signalbehandling (Purdon 2015, Vlisides 2017), men i klinikken kan den ikke skilles fra EMG uten relaksantia.</li>
   </ul>
@@ -2511,249 +2514,21 @@ header h1 button:hover{color:var(--accent)}
 <!-- ========== PERFUSJON OG LEIRING ========== -->
 <section class="panel" id="p-perf" hidden>
   <h2>Hjernen: perfusjon, trykk og leiring</h2>
-  <p>Denne fanen samler hva kildene sier om sammenhengen mellom hjernens blodforsyning, trykk og EEG. Først kommer grunnlaget: Miller's kapittel 10 om hjernens fysiologi og anestesimidlene (Patel, Drummond og Lemkuil), Lobo og Lamperti (2025), van Putten og Hofmeijer og Foreman og Claassen om iskemi og EEG, samlet i én figur med CBF-terskler. Deretter kommer kliniske studier og kasuistikker om EEG som perfusjonsmarkør (Sheorajpanday, Guay, Manquat, Nycz, Ching, Georgii, Xu, Lenstra) og egne tilfeller. De siste kortene handler om leiring og perfusjonstrykk, bygget på Miller's kapittel 30, Kalmar, Nordum og Pisitsak. Alle tall er hentet fra kildene; der de spriker, står det i Avvik-listen i Kilder-fanen.</p>
-  <div class="seg subnav" id="perfSub" role="group" aria-label="Deler av fanen" style="margin:6px 0 14px"><button data-sub="phys" aria-pressed="true">Fysiologi</button><button data-sub="isch" aria-pressed="false">Iskemi og hjerneskade</button><button data-sub="bp" aria-pressed="false">Blodtrykk og minuttvolum</button><button data-sub="pos" aria-pressed="false">Leiring</button></div>
-  <div class="subgrp" data-sub="phys">
-  <div class="card"><h3>Perfusjon, CPP og autoregulering</h3>
-  <ul>
-   <li>Cerebralt perfusjonstrykk (CPP) er MAP minus intrakranielt trykk (ICP). Blodstrøm (CBF) er CPP delt på cerebrovaskulær motstand.</li>
-   <li>ICP påvirkes av volum i skallen (svulst, ødem, blødning, økt CSF-mengde), av leiring (for eksempel Trendelenburg), av rotasjon av hodet som klemmer jugularvenene, og av høyt intratorakalt trykk og PEEP som hemmer venøs drenasje.</li>
-   <li>Ved intakt autoregulering påvirker MAP mellom omtrent 60 og 160 mmHg ikke CBF, som holdes rundt 50 ml/100 g/min. Når autoregulering svikter, følger blodstrømmen trykket passivt.</li>
-   <li>CBF kan falle med 50–60 % før kompensasjonen svikter, fordi hjernen da øker oksygenekstraksjonen.</li>
-   <li>Cerebrovaskulær motstand påvirkes av vasopressorer og vasodilatatorer, av PaCO₂, og kan forskyves ved kronisk høyt blodtrykk. Å behandle lavt blodtrykk bare med vasopressor kan redusere hjerteminuttvolumet.</li>
-   <li>Hyperkapni svekker autoregulering, og anestesimidlene spiller inn: propofol bevarer den ved hyperkapni, mens sevofluran ved tilsvarende PaCO₂ svekker eller opphever den.</li>
-   <li>Hjernen er ca. 2 % av kroppsvekten, men får 12–15 % av minuttvolumet og bruker opptil 20 % av oksygenet. Omtrent 75–80 % av oksygenforbruket går til å gjenopprette membranpotensialet.</li>
-  </ul>
-  <span class="tag">Lobo og Lamperti 2025, kap. 1, 2 og 7</span></div>
-  <h3>Miller's kap. 10: hjernens fysiologi og anestesimidlene (Patel, Drummond og Lemkuil)</h3>
-  <div class="card"><h3>Normalverdier, energibruk og hvorfor EEG og CMR henger sammen</h3>
-  <ul>
-   <li><strong>Tall (boks 10.1):</strong> global CBF 45–55 ml/100 g/min, kortikalt 75–80, subkortikalt 8–20. CMRO₂ 3–3,5 ml/100 g/min. Hjernen er ca. 2 % av kroppsvekten og får 12–15 % av minuttvolumet. rSO₂ 55–80 %, SjVO₂ 60–70 %, ICP liggende 8–12 mmHg.</li>
-   <li><strong>To energikomponenter:</strong> ca. 60 % av energibruken går til elektrofysiologisk funksjon (det EEG viser), resten til cellulær «husholdning». Anestesimidler (barbiturater, isofluran, sevofluran, desfluran, propofol, etomidat) senker bare den første: CMR faller i takt med EEG-undertrykkelsen, og mer middel etter at EEG er flatt gir ingen ytterligere reduksjon (fig. 10.2). Ketamin og lystgass er unntak. Hypotermi senker begge komponentene (6–7 % per °C; EEG flatt ved ca. 18–20 °C; CMRO₂ under 10 % av normalt ved 18 °C), derfor virker nedkjøling også etter at EEG er flatt.</li>
-   <li><strong>Burst suppression er ikke én tilstand:</strong> ved full EEG-undertrykkelse er CMRO₂ omtrent lik uansett middel, men fordelingen er ulik: barbiturater senker CBF og CMR jevnt i hele hjernen, isofluran og sevofluran mest i neocortex. Kortikale SSEP kan registreres ved tiopentaldoser langt over det som gir flatt EEG, men er vanskelige å få fram ved isofluran i burst suppression (ca. 1,5 MAC). Mønsteret i burst suppression rett før full undertrykkelse er også ulikt fra middel til middel.</li>
-   <li><strong>Hvor gjelder det for EEG-tolkning:</strong> at en lav indeks eller flatt EEG betyr «maksimal metabolsk effekt» av middelet, ikke at mer dose gjør noe nyttig. Det er argumentet bak kortene om overdosering og burst suppression i Spektrogram- og Midler-fanen.</li>
-  </ul>
-  <span class="tag">Miller's kap. 10, boks 10.1 og fig. 10.2</span></div>
-  <div class="card"><h3>Autoregulering: Lassen-kurven er foreldet, nedre grense ligger rundt 70 mmHg hos de fleste</h3>
-  <ul>
-   <li><strong>Det klassiske bildet</strong> (CBF konstant 50 ml/100 g/min fra MAP 50 til 150) bygde på et heterogent utvalg med enkeltmålinger, og kapitlet kaller det «outmoded». Nyere analyser gir et smalere platå med svak stigning, slik at trykkpassiv CBF gjelder over et større MAP-område enn antatt. Med raske trykkendringer (dynamisk autoregulering) kan platået være så kort som 10 mmHg eller mangle helt; med langsomme endringer over ca. 10 minutter (statisk) er platået minst ±20 mmHg.</li>
-   <li><strong>Nedre grense (LLA):</strong> i sju studier av våkne, friske personer var gjennomsnittlig LLA 57–91 mmHg, med enorm variasjon mellom personer. Forfatterne (Drummond) mener at LLA hos flertallet ikke er under 70 mmHg, som ved normalt ICP (5–10) gir CPP 60–65 mmHg, og at 70 mmHg er en fornuftig grense uten autoreguleringsmonitor. Øvre grense: ca. 90 mmHg under hjerte-lunge-maskin, trolig over 140 hos hypertensive. Autoregulering beskrives best som en familie av kurver (fig. 10.5), ikke én.</li>
-   <li><strong>Reserve:</strong> symptomer på iskemi kommer først når CBF har falt 35–40 % hos våkne. Denne cerebrovaskulære reserven gjør at kortvarig hypotensjon under LLA vanligvis tåles; vedvarende fall gjør det ikke. Reserven er redusert ved CNS-skade (autoregulering svekket i ca. 2 uker, gjenopprettes etter 1–3 måneder), ved lokalt vevstrykk (ICP, retraktor, cervikal stenose), ved ufullstendig circulus Willisi (35–40 % av befolkningen) og ved hypertensjon.</li>
-   <li><strong>Hypertensjon:</strong> både dynamisk og statisk autoregulering er bevart hos hypertensive, og behandling til normalt trykk reduserer ikke CBF. Spørsmålet peroperativt er hypotensjon: forfatterne begrenser MAP-fall til høyst 20 % under utgangsnivået målt i hodehøyde i sittende leie, i avsnittet om kronisk hypertensjon oppgir de 30–35 %, og at et fall på 25 % bringer både normo- og hypertensive til LLA. Se Avvik-listen.</li>
-   <li><strong>Hydrostatisk gradient:</strong> 2 mmHg per tomme (2,5 cm) hodet er over hjertet; 12 tommer gir ca. 24 mmHg. Skal CPP holdes på 60–65 med hodet hevet, må MAP ved hjertet være ca. 85. Sifong-modellen (lukket krets) avvises: tyngdekraften påvirker CPP. Se kortet om perfusjonstrykk og hodets høyde.</li>
-   <li><strong>Praktisk MAP-mål:</strong> hos pasienter uten akutt iskemi og med normalt eller velregulert trykk anser kapitlet MAP rundt 75 mmHg som tilstrekkelig peroperativt, og i tabell 10.2 står subspesialitetenes mål ved hjerneskade (for eksempel SBP over 100–110 ved traumatisk hjerneskade avhengig av alder, MAP over 65 etter hjertestans).</li>
-  </ul>
-  <span class="tag">Miller's kap. 10, fig. 10.3–10.5, tabell 10.2</span></div>
-  <div class="card"><h3>CO₂, O₂, minuttvolum og vasopressorer</h3>
-  <ul>
-   <li><strong>PaCO₂:</strong> CBF endres 1–2 ml/100 g/min per mmHg innenfor 25–70 mmHg; responsen avtar under 25 og over 75–80. Moderat hypotensjon (MAP-fall under 33 %) svekker CO₂-responsen betydelig, alvorlig hypotensjon (ca. 66 %) opphever den. Hypokapni utvider autoreguleringsområdet, hyperkapni innsnevrer det. Effekten av endret PaCO₂ avtar over 6–8 timer fordi CSF-pH normaliseres; brå normalisering etter langvarig hyperventilering gir CSF-acidose og økt CBF/ICP.</li>
-   <li><strong>PaO₂:</strong> lite effekt mellom 60 og 300 mmHg; under 60 stiger CBF raskt, lineært med fallende metning. Hemodilusjon gir mindre CBF-økning enn hypoksemi ved samme fall i O₂-innhold. 1 atm oksygen senker CBF ca. 18 %.</li>
-   <li><strong>Minuttvolum:</strong> Meng anslår at 30 % fall i CO gir ca. 10 % fall i CBF uavhengig av MAP og PaCO₂; en nyere studie fant at 10 % fall i MAP og 20 % fall i CO ga samme fall (ca. 5 %) i MCA-hastighet. En metaanalyse bekrefter likevel ikke en uavhengig sammenheng, fordi CO ikke kan endres uten at MAP og PaCO₂ endres. Kapitlet konkluderer likevel at lavt CO sannsynligvis legger til lavt MAP ved hypotensjon, at volum skal optimaliseres først, og at bolus fenylefrin kan senke CO ytterligere. Se Nordum 2024-kortet (Trendelenburg) og det kliniske eksemplet med alfa og minuttvolum.</li>
-   <li><strong>Vasopressorer:</strong> α₁-agonister (fenylefrin, noradrenalin) endrer ikke global CBF hos mennesker når autoreguleringen er intakt; de virker via MAP. Bolus fenylefrin senket NIRS-målt SCO₂ litt i flere studier, efedrin gjorde det ikke, trolig fordi efedrin holder CO; ekstrakraniell kontaminering av NIRS er større enn denne forskjellen. Koch fant at efedrin, ikke fenylefrin, økte lokal CBF, vevsoksygenering og mikrosirkulasjon i hjernesvulstpasienter. Utfallsstudier mangler. Deksmedetomidin senker CBF 25–30 % via CMR; dopamin opp til 100 µg/kg/min gir ikke cerebral vasokonstriksjon; dobutamin økte CBF og CMR 20 og 30 %.</li>
-  </ul>
-  <span class="tag">Miller's kap. 10, fig. 10.8–10.10, tabell 10.3</span></div>
-  <div class="card"><h3>Hva anestesimidlene gjør med CBF og CMR</h3>
-  <ul>
-   <li><strong>Intravenøse midler</strong> bevarer koblingen mellom CBF og CMR, autoregulering og CO₂-respons. Propofol senket regional CBF 53–79 % og hele hjernens glukosemetabolisme 48–58 % ved kirurgisk dybde hos frivillige, også ved burst suppression er autoregulering og CO₂-respons bevart. Etomidat 0,2 mg/kg: CBF −34 %, CMR −45 %. Midazolam 0,15 mg/kg: CBF −30 til −34 % (−12 % globalt med PET). Opioider: små reduksjoner i ubelastet hjerne; sederende remifentanil kan øke CBF regionalt; bolus med MAP-fall kan øke ICP via autoregulatorisk vasodilatasjon. Flumazenil kan gi overskytende CBF/ICP-økning hos pasienter med dårlig intrakraniell compliance.</li>
-   <li><strong>Ketamin</strong> er det eneste som øker CMR og CBF: subanestetiske doser (0,2–0,3 mg/kg) økte global CMR ca. 25 %, mest frontalt og i fremre cingulum; S-ketamin øker CMR, R-ketamin senker. CBF økte 14 % (subanestetisk) og 36 % (anestetisk) uten endring i CMRO₂ i én studie; CBV +50 %. Propofol, benzodiazepiner og isofluran demper eller opphever ICP-økningen, og systematiske oversikter finner ingen ICP-økning ved hodeskade. Se ketamin-kortene i Midler-fanen for EEG-mønsteret.</li>
-   <li><strong>Inhalasjonsmidler:</strong> senker CMR dosedependent, men er også direkte vasodilatorer. Netto: ved 0,5 MAC faller CBF, ved 1 MAC er den uendret, over 1 MAC stiger den («luksusperfusjon»), og autoreguleringen svekkes mot høyt trykk. Vasodilaterende styrke: halotan ≫ enfluran > desfluran ≈ isofluran > sevofluran. Ved 1 MAC senket sevofluran og desfluran CBF 38 og 22 % og CMR 39 og 35 % (Kety–Schmidt, kortikal måling); PET viser ca. 50 % for begge. Maksimal CMR-reduksjon nås ved EEG-undertrykkelse, ved 1,5–2 MAC. Sevofluran senker regional CBF, men ikke CBV; propofol senker begge. Er CMR allerede undertrykt (for eksempel av propofol), avdekkes vasodilatasjonen: å legge til inhalasjonsmiddel øker da CBF tydelig.</li>
-   <li><strong>Entropi og sevofluran:</strong> i en doseeskaleringsstudie hos mennesker var den største reduksjonen i entropi ved 1 MAC sevofluran, med mindre reduksjon ved økende konsentrasjon. Det stemmer med at CMRO₂ faller brått ved anestesiinnsettende EEG-mønster og deretter langsommere.</li>
-   <li><strong>Lystgass</strong> øker CBF, CMR og ICP, mest alene eller sammen med inhalasjonsmiddel (0,75 MAC isofluran + 65 % N₂O ga 43 % høyere CBF enn 1,5 MAC isofluran); sammen med intravenøse midler dempes effekten. CBV påvirkes lite.</li>
-   <li><strong>Lidokain:</strong> 5 mg/kg over 30 min + 45 µg/kg/min senket CBF 24 % og CMR 20 % hos våkne frivillige; membranstabiliseringen antas å senke energibehovet for membranintegritet. Bolus 1,5 mg/kg var like effektivt som tiopental 3 mg/kg mot ICP-stigning ved pinnefeste, med mindre MAP-fall. Etter 2 mg/kg bolus er toppkonsentrasjonen 6,6–8,5 µg/mL, under krampeterskelen (over 5–10 µg/mL hos våkne); lidokainkramper er ikke rapportert hos anesteserte. Se kortet om multimodal anestesi i Midler-fanen.</li>
-   <li><strong>Muskelrelaksantia</strong> har ingen direkte cerebrovaskulær effekt utover histaminfrigjøring; suksametonium kan gi ca. 5 mmHg ICP-stigning som arousal-fenomen ved lett anestesi, blokkert av dyp anestesi eller defascikulering.</li>
-  </ul>
-  <span class="tag">Miller's kap. 10, fig. 10.12–10.19</span></div>
-  <div class="card"><h3>Epileptogene midler ifølge kapittel 10</h3>
-  <ul>
-   <li><strong>Sevofluran:</strong> kramper ved innledning med høye konsentrasjoner hos barn også uten kjent disposisjon. Hos to friske frivillige var burst suppression ved 2 MAC ledsaget av epileptiforme utladninger med klar CBF-økning (koblingen bevart). Hos pasienter med temporallappsepilepsi ga 1,5 MAC utbredt paroksysmal aktivitet som ikke var begrenset til fokus og ikke hjalp til lokalisering. Tonisk-kloniske bevegelser ved oppvåkning er rapportert hos friske. Ingen sekveler dokumentert; forsiktighet ved epilepsi. Se kortet om epileptiform aktivitet og bilde 19–20 i Spektrogram-fanen.</li>
-   <li><strong>Etomidat</strong> gir ofte myoklonus uten epileptiform EEG, men kan utløse generalisert epileptisk aktivitet hos epileptikere; 0,1 mg/kg brukes til å aktivere et stille fokus peroperativt. <strong>Metoheksital</strong> aktiverer fokus. <strong>Ketamin</strong> kan utløse anfall ved disposisjon, med subkortikal aktivitet som ikke alltid ses i overflate-EEG, men brukes også mot refraktær status (effekt hos 56 %). <strong>Propofol</strong> er ikke bekreftet prokonvulsivt og forkorter ECT-anfall; høyamplitudig beta er beskrevet. <strong>Opioider:</strong> høydose fentanyl ga elektrisk anfallsaktivitet hos 8 av 9 pasienter med partielle komplekse anfall under temporallappskirurgi; alfentanil 50 µg/kg forsterket spikes ved temporallappsepilepsi. <strong>Isofluran</strong> gir spikes og myoklonus, men regnes ikke som epileptogent og brukes mot refraktær status. <strong>Enfluran</strong> er epileptogent, forsterket av hypokapni.</li>
-   <li><strong>Hvorfor det hører hjemme i en EEG-app:</strong> anfallsaktivitet kan øke CMR inntil 400 %, og hos en relaksert pasient er EEG den eneste måten å oppdage den på.</li>
-  </ul>
-  <span class="tag">Miller's kap. 10, avsnittet Epileptogenesis</span></div>
-  <div class="card"><h3>CBF-terskler (fig. 10.20), hypoglykemi og nevroproteksjon</h3>
-  <ul>
-   <li><strong>Terskler:</strong> normal CBF ca. 50 ml/100 g/min. Symptomer på hypoperfusjon hos våkne først ved ca. 30. EEG-tegn på iskemi fra ca. 20. Isoelektrisk kortikalt EEG ved ca. 15. Penumbra 10–20: reversibel dysfunksjon, men celledød hvis flow ikke gjenopprettes. Tegn på irreversibel membransvikt (ekstracellulært kalium, tapt direkte kortikal respons) først ved ca. 6–10 (figurteksten sier 6–12). Dataene er fra cortex hos barbiturat-anesteserte bavianer og våkne aper, og nivåene varierer med middel og art; hos mennesker under halotan og N₂O var terskelen for første EEG-endring lik dyredataene. Tersklene er tegnet inn i figuren over sammen med van Putten og Foreman og Claassen.</li>
-   <li><strong>Kompletthet:</strong> ved fullstendig global iskemi (hjertestans) svikter energiforsyningen innen minutter; ved inkomplett (fokal) iskemi holder restflow ATP-produksjonen i gang lenger, derfor tåles fokal iskemi tilsynelatende bedre.</li>
-   <li><strong>Hypoglykemi i EEG:</strong> ved gradvis fall til ca. 40 mg/dL (ca. 2,2 mmol/L) skifter EEG fra alfa og beta mot delta og theta; under 20 mg/dL (ca. 1,1 mmol/L) blir EEG flatt. Vedvarende så lavt gir anfall og hippocampusskade. Hypertermi over 42 °C gir brått fall i oksygenforbruk (proteindenaturering).</li>
-   <li><strong>Nevroproteksjon:</strong> barbiturater, propofol, ketamin, inhalasjonsmidler og xenon beskytter i dyremodeller, men bare ved mild iskemi og ikke varig. Hos mennesker: i IHAST ga tiopental, etomidat eller propofol til EEG-undertrykkelse ingen bedre utfall; i GALA ga generell anestesi ingen fordel mot lokalanestesi ved karotiskirurgi. Konklusjon: å framkalle burst suppression for hjernebeskyttelse er ikke støttet hos anesteserte pasienter, og fysiologisk kontroll (CPP, oksygenering, normokapni, temperatur, glukose, anfall) betyr mer. Etomidat kan forverre vevshypoksi ved midlertidig karokklusjon. Hypotermi 32–36 °C etter hjertestans: TTM og TTM2 viste ingen fordel av lavere mål, retningslinjene holder på 32–36 °C og streng unngåelse av hypertermi.</li>
-   <li><strong>Utsettelse av elektiv kirurgi etter hjerneslag:</strong> risikoen for død innen 30 dager var størst de første 3 månedene og stabiliserte seg først etter 9 måneder; kapitlet anbefaler 9 måneders utsettelse av elektiv kirurgi, med unntak for tidlig karotiskirurgi ved små infarkter.</li>
-  </ul>
-  <span class="tag">Miller's kap. 10, fig. 10.20–10.24</span></div>
-  <div class="card"><h3>SSEP, ICP og fallende blodstrøm (Lobo og Lamperti kap. 6)</h3>
-  <ul>
-   <li>Teksten oppgir at SSEP-amplituden endres ved et CBF-fall til ca. 15 ml/100 g/min og forsvinner under 18.</li>
-   <li>Økt ICP endrer SSEP klassisk: amplituden går ned og latensen forlenges. Ved herniering kan subkortikale responser forsvinne først.</li>
-   <li>Boken beskriver ikke direkte hvordan EEG endres ved forhøyet ICP. CBF-terskler for EEG står i kortet om van Putten og Hofmeijer og i figuren under.</li>
-  </ul>
-  <span class="tag">Lobo og Lamperti 2025, kap. 6</span></div>
-  <div class="card"><h3>Figur: hvor på CBF-skalaen EEG og cellene svikter</h3>
-  <figure style="margin:0 0 10px">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 425" role="img" aria-labelledby="cbfT cbfD" style="width:100%;height:auto;font-family:inherit">
-<title id="cbfT">CBF-terskler for EEG og celleskade: tre kilder side om side</title><desc id="cbfD">Horisontal akse med cerebral blodstrøm fra 55 ned til 0 ml/100 g/min. Tre rader viser omtrentlige terskler fra Miller's kap. 10, van Putten og Hofmeijer 2016 og Foreman og Claassen (sitert hos van Putten). Tersklene overlapper og er ikke harde grenser.</desc>
-<style>.lab{font-size:12px;font-weight:700;fill:currentColor}.sub{font-size:10.5px;fill:var(--muted,#4F615E)}.txt{font-size:10.5px;fill:currentColor}.num{font-size:8.5px;font-weight:700;fill:var(--surface,#fff)}.grid{stroke:var(--line,#C9D3CE)}.hd{font-size:11.5px;font-weight:700;fill:currentColor}.b-ok{fill:var(--accent,#0F6B6B);opacity:.35}.b-mid{fill:#D9A441;opacity:.5}.b-bad{fill:#B5453C;opacity:.5}.mk{stroke:currentColor;stroke-width:.8;stroke-dasharray:2 2;opacity:.7}.dot{fill:currentColor}</style>
-<text x="14" y="18" class="hd">Cerebral blodstrøm (ml/100 g/min), fallende mot høyre</text>
-<line x1="236.9" y1="28" x2="236.9" y2="46" class="grid"/><text x="236.9" y="40" class="txt" text-anchor="middle">50</text>
-<line x1="330.7" y1="28" x2="330.7" y2="46" class="grid"/><text x="330.7" y="40" class="txt" text-anchor="middle">40</text>
-<line x1="424.5" y1="28" x2="424.5" y2="46" class="grid"/><text x="424.5" y="40" class="txt" text-anchor="middle">30</text>
-<line x1="518.4" y1="28" x2="518.4" y2="46" class="grid"/><text x="518.4" y="40" class="txt" text-anchor="middle">20</text>
-<line x1="612.2" y1="28" x2="612.2" y2="46" class="grid"/><text x="612.2" y="40" class="txt" text-anchor="middle">10</text>
-<line x1="706.0" y1="28" x2="706.0" y2="46" class="grid"/><text x="706.0" y="40" class="txt" text-anchor="middle">0</text>
-<line x1="190" y1="46" x2="706" y2="46" class="grid"/>
-<text x="14" y="69" class="lab">Miller's kap. 10 (primatdata)</text>
-<rect x="190.0" y="56" width="234.5" height="18" class="b-ok"/>
-<rect x="424.5" y="56" width="93.8" height="18" class="b-mid"/>
-<rect x="518.4" y="56" width="93.8" height="18" class="b-mid"/>
-<rect x="612.2" y="56" width="93.8" height="18" class="b-bad"/>
-<rect x="188" y="81" width="10" height="10" class="b-ok" style="opacity:.8"/>
-<text x="202" y="90" class="txt">&gt; 30: Ingen symptomer hos våkne</text>
-<rect x="188" y="94" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="103" class="txt">20–30: Symptomer på hypoperfusjon (våkne)</text>
-<rect x="188" y="107" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="116" class="txt">10–20: Penumbra: reversibel dysfunksjon, celledød uten reperfusjon</text>
-<line x1="518.4" y1="53" x2="518.4" y2="77" class="mk"/><circle cx="518.4" cy="65" r="6.5" class="dot"/><text x="518.4" y="68.5" class="num" text-anchor="middle">1</text>
-<text x="202" y="129" class="txt">20: EEG-tegn på iskemi begynner</text>
-<circle cx="194" cy="125" r="5.5" class="dot"/><text x="194" y="128.5" class="num" text-anchor="middle">1</text>
-<line x1="565.3" y1="53" x2="565.3" y2="77" class="mk"/><circle cx="565.3" cy="65" r="6.5" class="dot"/><text x="565.3" y="68.5" class="num" text-anchor="middle">2</text>
-<text x="202" y="142" class="txt">15: Kortikalt EEG isoelektrisk</text>
-<circle cx="194" cy="138" r="5.5" class="dot"/><text x="194" y="141.5" class="num" text-anchor="middle">2</text>
-<rect x="188" y="146" width="10" height="10" class="b-bad" style="opacity:.8"/>
-<text x="202" y="155" class="txt">0–10: Irreversibel membransvikt (teksten 6–10, figurteksten 6–12)</text>
-<line x1="14" y1="174" x2="706" y2="174" class="grid"/>
-<text x="14" y="197" class="lab">van Putten og Hofmeijer 2016</text>
-<rect x="190.0" y="184" width="46.9" height="18" class="b-ok"/>
-<rect x="377.6" y="184" width="187.6" height="18" class="b-mid"/>
-<rect x="612.2" y="184" width="93.8" height="18" class="b-bad"/>
-<rect x="188" y="209" width="10" height="10" class="b-ok" style="opacity:.8"/>
-<text x="202" y="218" class="txt">&gt; 50: Normal CBF ca. 50–54</text>
-<rect x="188" y="222" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="231" class="txt">15–35: Mild til moderat iskemi: synaptisk svikt. Mindre alfa og beta, så mer delta; kan bli</text>
-<text x="202" y="243" class="txt">isoelektrisk, men reversibelt</text>
-<rect x="188" y="247" width="10" height="10" class="b-bad" style="opacity:.8"/>
-<text x="202" y="256" class="txt">0–10: Membranpotensialet endres (Donnan); celledød, permanent tap av rytmer</text>
-<line x1="14" y1="275" x2="706" y2="275" class="grid"/>
-<text x="14" y="298" class="lab">Foreman og Claassen (sitert hos van Putten)</text>
-<rect x="377.6" y="285" width="93.8" height="18" class="b-mid"/>
-<rect x="537.1" y="285" width="9.4" height="18" class="b-mid"/>
-<rect x="593.4" y="285" width="18.8" height="18" class="b-bad"/>
-<rect x="188" y="310" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="319" class="txt">25–35: Hurtig aktivitet forsvinner</text>
-<rect x="188" y="323" width="10" height="10" class="b-mid" style="opacity:.8"/>
-<text x="202" y="332" class="txt">17–18: Langsom aktivitet øker (van Putten fig. 3: ca. 15)</text>
-<rect x="188" y="336" width="10" height="10" class="b-bad" style="opacity:.8"/>
-<text x="202" y="345" class="txt">10–12: EEG stille</text>
-<line x1="14" y1="364" x2="706" y2="364" class="grid"/>
-<text x="14" y="380" class="sub">Tegnet etter tallene i teksten hos Miller's kap. 10 (fig. 10.20, primatdata) og van Putten og Hofmeijer 2016, ikke</text>
-<text x="14" y="393" class="sub">kopiert fra figurer. Definisjonene er ulike kildene imellom. Alle terskler er omtrentlige, avhenger av varighet, og</text>
-<text x="14" y="406" class="sub">overlapper.</text>
-</svg>
-  <figcaption class="small">Figur: CBF-terskler fra tre kilder på samme akse. Undervisningsfigur; tallene er hentet fra teksten og bør ikke brukes som harde grenser.</figcaption>
-  </figure>
-  <span class="tag">Miller's kap. 10 · van Putten og Hofmeijer 2016 · Foreman og Claassen via van Putten</span></div>
-  </div>
-  <div class="subgrp" data-sub="isch">
-  <div class="card"><h3>Hva iskemi gjør med EEG (van Putten og Hofmeijer 2016)</h3>
-  <ul>
-   <li><strong>Energi:</strong> hjernen står for ca. 20 % av kroppens energibehov. I cortex går ca. 40 % av ATP til hvilemembranpotensialet og aksjonspotensialer, og ca. 35 % til synaptisk transmisjon. Rytmene i EEG kommer fra summert postsynaptisk strøm i pyramidecellene, og aksjonspotensialer bidrar lite.</li>
-   <li><strong>Normal blodstrøm</strong> er ca. 750 ml/min, 15–20 % av minuttvolumet, eller 50–54 ml/100 g/min.</li>
-   <li><strong>Mild til moderat iskemi (15–35 ml/100 g/min):</strong> det er først og fremst synaptisk transmisjon som svikter. Nevronene beholder membranpotensialet, og CT og MR er normale. EEG viser mindre alfa og beta, deretter mer delta, avhengig av alvorlighet og varighet. I alvorlige tilfeller kan EEG bli isoelektrisk, og selv et isoelektrisk EEG kan skyldes isolert synaptisk svikt og være reversibelt.</li>
-   <li><strong>Under 10 ml/100 g/min:</strong> membranpotensialet endres mot Donnan-potensialet (ca. −15 til −20 mV), og cytotoksisk ødem og celledød følger. EEG-rytmene forsvinner da permanent. Mangel på energi i mer enn 5–8 minutter gir slike endringer.</li>
-   <li><strong>Hvor fort:</strong> få minutter uten blodstrøm gir synaptisk svikt med full restitusjon når perfusjonen kommer tilbake. Ved sirkulasjonsstans blir EEG isoelektrisk innen 10–40 sekunder. I figur 1 (synkope) kommer langsommere rytmer etter få sekunder og tydelig sakking rundt 20 sekunder etter stans.</li>
-   <li><strong>Hemmende nevroner</strong> er trolig mer utsatt enn eksiterende. Det kan forklare økt synkronisering og generaliserte periodiske utladninger ved alvorlig hypoksisk skade.</li>
-  </ul>
-  <span class="tag">van Putten og Hofmeijer. J Clin Neurophysiol 2016;33:203–210</span></div>
-  <div class="card"><h3>EEG ved karotiskirurgi</h3>
-  <ul>
-   <li>Ved test-klemming av arteria carotis interna reflekterer redusert hurtig aktivitet (ofte etterfulgt av mer langsom aktivitet) nedsatt blodstrøm. I figur 3 tilsvarer bare tap av hurtig aktivitet en CBF i den ipsilaterale hemisfæren på ca. 25–35 ml/100 g/min, og tap av hurtig aktivitet pluss mer delta ca. 15. Disse tallene er hentet fra Foreman og Claassen og ikke målt i studien.</li>
-   <li>Hvilke endringer som krever shunt er omdiskutert. I en studie av 57 pasienter (Blume 1986) ga moderate endringer (8–13 Hz beholdt, men amplitudefall på 50 % eller mer og økt delta over 1 Hz) ikke postoperativt hjerneslag. Store endringer (8–13 Hz redusert til minimalt eller borte, og en dobling av delta) ga hjerneslag hos 2 av 22. De fleste nevrofysiologer anbefaler likevel shunt ved enhver endring, og forfatterne mener et fall i alfa/beta-amplituden på ca. 10 % trolig kan aksepteres.</li>
-   <li>Perioperativ slagrate i en oversikt (AbuRahma 2011): 1,4 % ved rutinemessig shunt, 1,6 % ved selektiv shunt styrt av EEG og 2 % uten shunt. Ved shunting styrt av transkraniell Doppler var den 4,8 % mot 1,6 % med EEG. I forfatternes egne sykehus ble det brukt shunt hos ca. 3–5 %.</li>
-   <li>EEG er ikke sensitiv for dype strukturer, men bevarte kortikale rytmer regnes som en pålitelig indikator på tilstrekkelig blodstrøm også dypt. Det skyldes at redusert strøm vanligvis gir tilsvarende brøkdel i cortex og dype strukturer, og at cortex har størst energibehov.</li>
-   <li><strong>Kvantitativt:</strong> brain symmetry index (BSI) måler spektral asymmetri mellom hemisfærene på en skala fra 0 til 1, med normale verdier på 0,05–0,08. En endring på 0,05 regnes som signifikant og stemmer godt med visuell vurdering. Temporal BSI fanger globale endringer over tid.</li>
-  </ul>
-  <span class="tag">van Putten og Hofmeijer 2016 (Blume 1986, AbuRahma 2011)</span></div>
-  <div class="card"><h3>EEG ved akutt hjerneinfarkt</h3>
-  <ul>
-   <li>Prediktiv verdi av EEG for utfall etter hjerneinfarkt er lav til moderat. I en studie av 110 pasienter korrelerte pdBSI og (delta + theta)/(alfa + beta)-forholdet med mRS etter 6 måneder med Spearman rho på ca. 0,46–0,47.</li>
-   <li>Kontinuerlig kvantitativ EEG med BSI korrelerte godt med NIHSS ved hemisfæreinfarkt og ble brukt til å følge effekten av trombolyse.</li>
-   <li>Spreading depolarization forekommer ved akutt infarkt og kan bidra til at skaden vokser, men er vanskelig å måle gjennom intakt skalle. Det er så langt bare påvist pålitelig med elektrokortikografi.</li>
-  </ul>
-  <span class="tag">van Putten og Hofmeijer 2016</span></div>
-  <div class="card"><h3>EEG etter hjertestans</h3>
-  <ul>
-   <li>Omtrent halvparten av komatøse pasienter etter hjertestans får dårlig utfall. SSEP og pupill- og kornealrefleks etter 72 timer fanger bare ca. 20 % av dem som ikke kommer seg.</li>
-   <li>Kontinuerlig, normal eller diffust sakket EEG etter 12 timer spådde godt utfall (CPC 1–2) med spesifisitet 91 %, sensitivitet 55 %, PPV 84 % og NPV 70 %. Isoelektrisk, lavamplitudig (under 20 μV) eller burst suppression med identiske bursts etter 24 timer spådde dårlig utfall (CPC 3–5) med spesifisitet 100 %, sensitivitet 42 %, PPV 100 % og NPV 55 %. Tallene bygger på to prospektive kohorter med til sammen 377 pasienter, alle behandlet med mild terapeutisk hypotermi og sedert.</li>
-   <li>Utvikling mot kontinuerlig fysiologisk EEG innen 12 timer gir svært god prognose. Pasientens videre prognose avhenger da av skade på andre organer, og pasientene med gunstig EEG og dårlig utfall døde av svikt i andre organer, særlig hjertet. Dyp koma de første timene utelukker ikke full restitusjon.</li>
-   <li>Forfatterne kaller det en seiglivet misforståelse at EEG ikke kan brukes under hypotermi eller sedasjon. Mild hypotermi til 32 °C påvirker knapt EEG. Ved vanlige propofoldoser forblir EEG kontinuerlig med anteriorisering av alfa, og isoelektrisitet oppstår ikke.</li>
-   <li><strong>Sedasjonsindusert mot patologisk burst suppression:</strong> hos en relativt frisk hjerne er bursts heterogene, og de kommer og går gradvis. Ved postanoksisk skade er bursts identiske, intervallene mellom dem er flate, og overgangene mellom suppresjon og burst er brå. Det siste har dårlig prognose.</li>
-   <li>Cerebral recovery index (CRI) samler fem kvantitative trekk (gjennomsnittsamplitude, alfa/delta-forhold, entropi, koherens og kontinuitet) i ett tall mellom 0 og 1. Hos pasienten med godt utfall var CRI ca. 0,7 etter 24 timer, og hos pasienten med dårlig utfall ca. 0,3. De første timene var EEG nesten likt hos begge.</li>
-   <li>Forfatterne påpeker at nyere retningslinjer ikke inkluderer tidlig EEG for prognostisering, og forventer at EEG kommer med i framtidige retningslinjer. Tolkning av reaktivitet er ikke enkel, og samsvaret mellom bedømmere er bare moderat.</li>
-  </ul>
-  <span class="tag">van Putten og Hofmeijer 2016</span></div>
-  <div class="card"><h3>Bevissthet og den døende hjernen (Mashour 2024)</h3>
-  <p>Narrativ oversikt (Anesthesiology 2024;140:1221–1231; Mashour, Lee, Pal og Li) om nær-døden-opplevelser og EEG rundt hjertestans og død.</p>
-  <ul>
-   <li><strong>Forekomst:</strong> 10–20 % av dem som overlever hjertestans på sykehus, rapporterer nær-døden-opplevelser. I AWARE II hadde 21,4 % av 28 intervjuede en «transcendent recalled experience of death».</li>
-   <li><strong>Indeksene rett før døden:</strong> hos sju kritisk syke uten hjerneskade steg BIS- og SedLine-verdier til nivåer forenlig med bevissthet rett før døden, etter at livsforlengende behandling ble avsluttet. I en oppfølging hadde 13 av 28 (46 %) en slik økning, mens ingen av sju hjernedøde hadde det. Andre serier har ikke funnet dette.</li>
-   <li><strong>Hvorfor indeksene ikke kan tolkes som bevissthet:</strong> prosessert EEG skiller ikke uspesifikk aktivering (for eksempel glutamatfrigjøring når hypoksiske nevroner går til grunne) fra organisert aktivitet, skiller ikke våkenhet fra anfall, har bare frontale elektroder, og EMG er vanskelig å utelukke helt.</li>
-   <li><strong>Dyreforsøk:</strong> hos rotter kom en kortvarig økning i gamma og theta med økt kobling mellom hjernebarkområder innen 30 sekunder etter hjertestans. Ved kvelning økte frigjøringen av mange signalstoffer; serotonin steg over 20 ganger innen 2 minutter.</li>
-   <li><strong>Mennesker:</strong> hos 2 av 4 døende komatøse pasienter økte beta og gamma etter at respiratoren ble koblet fra. Begge hadde tidligere hatt anfall, så anfallsaktivitet kan ikke utelukkes. I en studie av 8 pasienter opphørte EEG median 78 sekunder før sirkulasjonsstans. Ingen av funnene er koblet til en faktisk opplevelse.</li>
-   <li><strong>Under HLR:</strong> i AWARE II ga SedLine tolkbart EEG hos 53 av 85 under pågående HLR, og nær normal aktivitet ble sett opptil 35–60 minutter inn i HLR. Detaljert analyse er ikke publisert.</li>
-   <li><strong>Isoelektrisk er ikke alltid endelig:</strong> i dyremodeller kan den isoelektriske fasen reverseres ved rask reoksygenering, og forfatterne utelukker ikke at opplevelser kan oppstå mens hjernen henter seg inn igjen.</li>
-   <li><strong>Relevans og forbehold:</strong> anestesipersonell deltar i HLR, organdonasjon og avslutning av behandling. Forfatterne avviser ikke-nevrobiologiske forklaringer. Finansiert av NIH, ingen interessekonflikter. Merk at kildens funn gjelder døende pasienter, ikke prognose hos dem som overlever.</li>
-  </ul>
-  <span class="tag">Mashour, Lee, Pal og Li. Anesthesiology 2024;140:1221–1231</span></div>
-  <div class="card"><h3>Kvantitativ EEG, CBF og CPP (Foreman og Claassen 2012)</h3>
-  <ul>
-   <li><strong>Terskler:</strong> når CBF faller til ca. 25–35 ml/100 g/min, mister EEG først hurtige frekvenser. Ved ca. 17–18 øker langsomme frekvenser gradvis, og forfatterne kaller dette en avgjørende iskemisk terskel der nevronene begynner å miste transmembrane gradienter. Ved 10–12 ml/100 g/min og lavere blir EEG stille, og celleskaden er irreversibel.</li>
-   <li><strong>Hvor fort:</strong> ved karotisklemming skjer endringene innen ca. 20 sekunder og er reversible. Infarkt kan komme først etter timer på dette flytnivået. Kvantitativ EEG (qEEG) fanger endringer i blodstrøm og metabolisme på 28–104 sekunder. Diffusjonsvektet MR oppdager endringer ved CBF 35–40 etter ca. 30 minutter, mens EEG oppdager dem på sekunder.</li>
-   <li><strong>CPP:</strong> gjennomsnittsfrekvensen i EEG faller når CPP er under 60 mmHg, også hos komatøse eller sederte pasienter (Diedler 2009, ifølge oversikten). Mer langsom aktivitet (delta og theta) og mindre hurtig aktivitet (alfa og beta) følger redusert cerebral oksygenmetabolisme (CMRO₂).</li>
-   <li><strong>Hvilket mål som virker:</strong> ved karotiskirurgi fanget spektral kantfrekvens (SEF) iskemiske endringer hos pasienter på isofluran, mens relativ delta-prosent (delta/total effekt) var treffsikker hos pasienter på propofol. Samlet gir relativ delta-prosent den mest robuste korrelasjonen med CBF og metabolisme ved fokal iskemi.</li>
-   <li><strong>Forstyrrende faktorer:</strong> anfall og periodiske utladninger, endringer i intrakranielt trykk (for eksempel akutt hydrocefalus), systemisk sykdom, sedativer, opioider og antipsykotika. Normal langsom-bølge-søvn kan ligne iskemiendringer. Rå-EEG er fortsatt gullstandard, og enhver qEEG-algoritme bør kunne kontrolleres mot rå-EEG av en som kan EEG.</li>
-   <li><strong>Spektrogrammet</strong> (tidskomprimert spektralarray) gir ifølge forfatterne høyest forhold mellom piksler og data og er lett å lese, sammenlignet med rå-EEG.</li>
-   <li>Oversikten omtaler ikke operasjonsrommet utover karotiskirurgi. Mesteparten av oversikten gjelder intensivpasienter. Forslaget om bruk etter høyrisiko kar- og hjertekirurgi, ved refraktær hypotensjon og ved sepsis er forfatternes, og ikke dokumentert i studier.</li>
-  </ul>
-  <span class="tag">Foreman og Claassen. Crit Care 2012;16:216</span></div>
-  <div class="card"><h3>EEG ved hjerneinfarkt og subaraknoidalblødning</h3>
-  <ul>
-   <li><strong>Infarkt:</strong> tidlig subakutt korrelerer EEG godt med CBF mens oksygenekstraksjonen øker («misery perfusion»). Senere korrelerer det mer med CMRO₂ («luxury perfusion»). Tap av reaktivitet og manglende søvn-våken-syklus tyder på dårlig prognose. Fravær av delta eller tilstedeværelse av hurtigere frekvenser innen 24 timer hører til godt utfall. Regional demping av hurtige frekvenser uten delta (RAWOD) tyder på alvorlig tidlig CBF-tap (gjennomsnitt 8,6 ml/100 g/min), og i én serie var dødeligheten opptil 67 %.</li>
-   <li>Ett år etter infarkt ble funksjonelt utfall spådd riktig i 60 % av tilfellene med kliniske kriterier. Med EEG økte det til 85 %.</li>
-   <li>Etter trombolyse falt delta-effekten 100 minutter før klinisk bedring i én studie.</li>
-   <li><strong>Forsinket cerebral iskemi (DCI) etter SAH:</strong> forekommer hos 20–40 %. Daglig transkraniell Doppler er ca. 60–70 % sensitiv. I tabellen over studier: hos 34 komatøse pasienter ga en endring på 10 % i alfa/delta-forholdet over 6 minutter sensitivitet 100 % og spesifisitet 76 %, og en endring på 50 % over ett minutt ga 89 % og 84 %. Hos 12 pasienter økte sensitiviteten for å forutsi nevrologisk forverring fra 40 % med klinikk alene til 67 % med qEEG (spesifisitet 73 %). I én studie falt variasjonen i relativ alfa hos alle 19 med vasospasme, gjennomsnittlig 2,9 dager før vasospasme ble bekreftet, men også hos 7 uten vasospasme, hovedsakelig på grunn av infarkt eller økt ICP.</li>
-   <li>Alle studiene er små, og forfatterne peker selv på at funnene må valideres prospektivt og randomisert.</li>
-  </ul>
-  <span class="tag">Foreman og Claassen 2012</span></div>
-  <div class="card"><h3>Asymmetri og reproduserbarhet ved iskemi (Sheorajpanday 2009)</h3>
-  <ul>
-   <li><strong>Design:</strong> eksplorativ, metodologisk studie hos 41 pasienter: 21 med hjerneinfarkt (median NIHSS 11, DWI-volum i gjennomsnitt 79 ml), 10 med TIA og 10 kontroller på 55 år eller mer med subjektive hukommelsesplager og normal MR. Én EEG per pasient, våken med lukkede øyne i minst 10 minutter, 19 elektroder med impedans under 5 kΩ. 128 sekunder uten artefakter ble analysert etter visuell artefaktfjerning. Studien er ikke gjort under anestesi.</li>
-   <li><strong>pdBSI:</strong> en variant av brain symmetry index som sammenligner effektspekteret mellom homologe kanalpar (8 par, 1–25 Hz), i stedet for gjennomsnittet for hele hemisfæren.</li>
-   <li><strong>Reproduserbarhet:</strong> minimal Cronbachs alfa var 0,95–0,99 for standard spektrale mål og 0,96–0,99 for pdBSI, både innen samme opptak og mellom og innen vurderere. Forfatterne sier at visuell artefaktfjerning av en kyndig person er et avgjørende første steg som ikke kan erstattes av automatisk artefaktfjerning. Automatikk kan blande ischemisk delta sammen med langsom aktivitet fra øyebevegelser og søvnighet.</li>
-   <li><strong>Klinisk sammenheng:</strong> pdBSI korrelerte med NIHSS (rho 0,64–0,70) og med DWI-volum (rho 0,79–0,84). Standardmål som relativ alfa og delta/alfa-forholdet korrelerte moderat med NIHSS, men ikke signifikant med DWI-volum etter justering for flere tester.</li>
-   <li><strong>Gruppeforskjell:</strong> pdBSI skilte infarkt fra TIA og kontroller. Standardmålene gjorde det ikke etter justering. Verken pdBSI eller standardmålene kunne skille TIA fra kontroller.</li>
-   <li><strong>Brede frekvensbånd:</strong> pdBSI over 1–25 Hz var bedre enn smalere bånd, og 1–3 Hz alene var ikke signifikant. Forfatterne tolker det som at hele frekvensområdet påvirkes ved akutt iskemi.</li>
-   <li><strong>Relative mål:</strong> forfatterne brukte relativ effekt, fordi absolutt effekt påvirkes av skalletykkelse. Skallen er i gjennomsnitt ca. 80 ganger mindre ledende enn hjerne og hodebunn, og 10 % tynnere skalle kan gi en endring på 800 % i amplitude.</li>
-   <li><strong>Forbehold:</strong> liten studie, én opptak per pasient, og ingen ambisjon om diagnostisk verdi for enkeltpasienter. Asymmetrimål er ikke spesifikke for iskemi, og pdBSI vil ikke oppdage lik skade på begge sider av et kanalpar.</li>
-  </ul>
-  <span class="tag">Sheorajpanday et al. Clin Neurophysiol 2009;120:845–855</span></div>
-  <div class="card"><h3>EEG og forhøyet intrakranielt trykk: sparsom evidens</h3>
-  <ul>
-   <li><strong>Mekanisme:</strong> økt ICP senker CPP og dermed CBF, noe som begrenser oksygen- og energitilførselen til cortex. EEG-endringene antas altså å komme via CPP, CBF og metabolisme (og eventuelt herniering), ikke fra ICP i seg selv. Lenstra 2026 beskriver at nevrogene mekanismer da kan dominere over vasomotoriske, kjemiske og metabolske i reguleringen av CBF.</li>
-   <li><strong>Systematisk oversikt (Lenstra 2026):</strong> voksne med moderat til alvorlig traumatisk hjerneskade (TBI) og ICP-måling. Av 873 treff oppfylte bare 4 studier kriteriene (alle med ICP målt via ventrikkeldren eller parenkymsonde). Tre handlet om posttraumatiske anfall og ICP, og én om retningen mellom EEG og ICP. Forfatterne konkluderer med at det finnes svært lite evidens og at større studier trengs. De skriver ikke at et validert mønster mangler, men sier at personlige EEG-ICP-terskler må utvikles i framtidige studier. Studier uten original data, kasuistikker og serier, pediatriske pasienter og invasiv EEG ble ekskludert.</li>
-   <li><strong>Retning (Sanz-García 2018, referert i oversikten):</strong> 21 pasienter (15 TBI, 6 SAH), totalt 1055 timer. I gjennomsnitt hadde 38 % av tiden signifikant Granger-kausalitet fra EEG til ICP, med forsinkelse på 25–50 sekunder, oftest i relativ alfa (12 pasienter). Hos én pasient var retningen motsatt. Forfatterne tolker det som mulig neurovaskulær kobling. Studien undersøkte ikke EEG under selve intrakranielle hypertensjonsperioder, og sedasjonsbolus endret ikke funnet.</li>
-   <li><strong>Motstridende funn (McNamara 2003, referert i oversikten):</strong> hos 17 intensivpasienter med akutt ICP-stigning viste kvantitativ EEG ingen endringer under ICP-toppene. Det var bare 30 minutters EEG per pasient, så sene endringer kan være oversett.</li>
-   <li><strong>Kasuistikker og serier (utenfor oversiktens kriterier):</strong> Sheikh 2022 (retrospektiv serie, J Clin Neurophysiol) beskriver at sykliske mønstre og ulik grad av sakking og dempet hurtig aktivitet ofte kom før klinisk forverring ved intrakraniell hypertensjon. Det beskrives generalisert rytmisk deltaaktivitet og tap av hurtig aktivitet ca. 30 minutter før klinisk endring ved antatte plateaubølger. Oversikten omtaler serien som sju ikke-traumatiske nevrokritiske pasienter. Alsallom 2022 beskriver to pasienter med herniering der økt lavfrekvent effekt og asymmetri i spektrogrammet kom omtrent en time før klinisk forverring.</li>
-   <li><strong>Dyrestudie (Pose, pilot):</strong> median kryss-korrelasjon mellom total EEG-effekt og ICP var 0,7, og 0,55 for CPP. En modell med bare tre variabler hadde nøyaktighet 0,70, sensitivitet 0,53 og spesifisitet 0,79. Retningen på korrelasjonen er ikke oppgitt.</li>
-   <li><strong>Det kildene ikke tester:</strong> hvordan prosesserte indekser og spektrogrammet endres ved forhøyet ICP under narkose. Foreman og Claassen nevner at ICP-endringer, sedativer og søvn kan forstyrre tolkningen av EEG. Guay 2025 oppgir intrakraniell hypertensjon som en av årsakene til redusert cerebral oksygentilførsel og skriver at slike endringer kan ligne dypere sedasjon på frontal EEG, men viser ingen data fra pasienter med forhøyet ICP. At prosesserte indekser kan forveksle dem med dypere anestesi er derfor en rimelig antakelse, ikke et påvist funn for ICP.</li>
-  </ul>
-  <span class="tag">Lenstra 2026, Sheikh 2022, McNamara 2003 og Pose</span></div>
-  <div class="card"><h3>EEG ved patologi, alder og sårbar hjerne</h3>
-  <ul>
-   <li><strong>Sepsisencefalopati:</strong> EEG-sakking er det tidligste funnet og kan sees selv med normal nevrologisk undersøkelse. Kapittelet nevner også økt theta, dominerende delta, trifasiske bølger, periodiske epileptiforme utladninger og suppresjon.</li>
-   <li><strong>Burst suppression:</strong> risikoen øker med alder og ved svekket nevrologisk status. Hos eldre er burstene og suppresjonsfasene mindre tydelige, og mønsteret er vanskelig å oppdage.</li>
-   <li>Høydose ketamin gir ikke selv burst suppression, men kan senke terskelen. Smerte og nociseptiv input kan også senke terskelen.</li>
-   <li>Prosesserte BSR-algoritmer fanger ikke opp suppresjon før den er omtrent 40 %. Kapittelet anbefaler derfor å vurdere rå-EEG.</li>
-   <li>To teorier forklarer burst suppression: kortikal hypereksitabilitet, og en metabolsk teori der fallende ATP åpner ATP-styrte kaliumkanaler. Den metabolske teorien passer med funn om at lav perfusjon kan gi burst suppression, men er ikke bevist.</li>
-   <li>ENGAGES endret ikke deliriumforekomsten, men fant lavere 30-dagers dødelighet i EEG-gruppen. Boken kaller det en observasjon som bør undersøkes videre.</li>
-  </ul>
-  <span class="tag">Lobo og Lamperti 2025, kap. 1, 5 og 11</span></div>
+  <p>Poenget med denne fanen: under anestesi må vi tenke perfusjon, ikke bare dose. Hjernen bruker mye av energien sin på den elektriske aktiviteten EEG måler, så når blodtilførselen svikter, synes det i EEG, og det kan se ut som for dyp anestesi. Start med «Hovedpoenget». De andre underfanene utdyper.</p>
+  <div class="seg subnav" id="perfSub2" role="group" aria-label="Deler av fanen" style="margin:6px 0 14px"><button data-sub="main" aria-pressed="true">Hovedpoenget</button><button data-sub="bp" aria-pressed="false">Blodtrykk og minuttvolum</button><button data-sub="pos" aria-pressed="false">Leiring</button><button data-sub="isch" aria-pressed="false">Iskemi og hjerneskade</button><button data-sub="phys" aria-pressed="false">Fordypning: fysiologi</button></div>
+  <div class="subgrp" data-sub="main">
+  <div class="card"><h3>Hvorfor tenke perfusjon under anestesi?</h3>
+  <ol>
+   <li><strong>EEG viser hjernens energitilførsel:</strong> ca. 60 % av hjernens energi går til den elektriske signaleringen EEG måler (Miller's kap. 10). Når blodtilførselen svikter, er det denne signaleringen som svikter først, og det synes i EEG før cellene tar skade (van Putten og Hofmeijer 2016). Les mer: <button type="button" class="linkbtn" data-subjump="isch">Iskemi og hjerneskade</button>.</li>
+   <li><strong>Alfa og raskere aktivitet forsvinner først:</strong> ved moderat iskemi faller alfa og beta, så kommer mer delta og til slutt suppresjon (van Putten og Hofmeijer 2016). Ved karotiskirurgi regnes mer enn 50 % fall i 8–15 Hz som tegn på for lite blodstrøm (Guay 2025). Et frontalt alfa-bånd som svekkes uten at dosen er endret, kan derfor være et perfusjonssignal.</li>
+   <li><strong>Det kan ligne for dyp anestesi:</strong> nedsatt oksygentilførsel til hjernen gir samme bilde som mer hypnotikum: lavere frekvenser, mindre effekt og burst suppression (Guay 2025). Andre årsaker til samme bilde er blant annet hypotermi, hypoglykemi, hyperkapni, anemi og hypoksemi.</li>
+   <li><strong>Autoreguleringen er ikke garantert:</strong> nedre blodtrykksgrense for autoregulering varierer fra 40 til 90 mmHg hos voksne (Guay 2025) og ligger rundt 70 mmHg hos de fleste (Miller's kap. 10). Kronisk høyt blodtrykk forskyver den, og hyperkapni og sevofluran kan svekke den (Miller's kap. 10). MAP 65 er derfor ikke et trygt mål for alle. Les mer: <button type="button" class="linkbtn" data-subjump="bp">Blodtrykk og minuttvolum</button>.</li>
+   <li><strong>Blodstrøm handler om minuttvolum, ikke bare MAP:</strong> i Trendelenburg var minuttvolumet den sterkeste prediktoren for blodstrømmen til hjernen, mens MAP betydde lite innenfor autoreguleringsområdet (Nordum 2024, Ahus). Å behandle lavt blodtrykk bare med vasopressor kan redusere minuttvolumet (Miller's kap. 10).</li>
+   <li><strong>Leiring betyr noe:</strong> Trendelenburg, sittende leie, PEEP og rotasjon av hodet endrer perfusjonstrykket og den venøse drenasjen fra hjernen (Miller's kap. 10 og 30). Les mer: <button type="button" class="linkbtn" data-subjump="pos">Leiring</button>.</li>
+   <li><strong>Hva man gjør (tolkning ut fra kildene):</strong> når EEG endrer seg uten at dosen er endret, sjekk blodtrykk, minuttvolum, CO₂, hemoglobin, temperatur og leie før hypnotikum justeres. Noen ganger er det perfusjonen, ikke anestesidosen, som skal optimaliseres.</li>
+  </ol>
+  <p class="small">Fysiologien bak, med normalverdier, energibruk og CBF-terskler, står i <button type="button" class="linkbtn" data-subjump="phys">Fordypning: fysiologi</button>.</p>
+  <span class="tag">Miller's kap. 10 og 30</span> <span class="tag">van Putten og Hofmeijer 2016</span> <span class="tag">Guay 2025</span> <span class="tag">Nordum 2024</span></div>
   </div>
   <div class="subgrp" data-sub="bp">
   <div class="card"><h3>Skjematisk eksempel: fall i minuttvolum og alfa-bortfall</h3>
@@ -2950,6 +2725,262 @@ header h1 button:hover{color:var(--accent)}
   <span class="tag">ASA Task Force et al. Anesthesiology 2019;130:12–30</span></div>
 
   <div class="note">Miller's kapittel 30 beskriver ikke EEG. EEG-delen over bygger på Lobo og Lamperti og studiene. Evidensen for EEG ved forhøyet ICP er sparsom (se kortet om ICP). Foreman og Claassen nevner at gjennomsnittsfrekvensen faller når CPP er under 60 mmHg. Kalmar målte verken ICP eller EEG.</div>
+  </div>
+  <div class="subgrp" data-sub="isch">
+  <div class="card"><h3>Hva iskemi gjør med EEG (van Putten og Hofmeijer 2016)</h3>
+  <ul>
+   <li><strong>Energi:</strong> hjernen står for ca. 20 % av kroppens energibehov. I cortex går ca. 40 % av ATP til hvilemembranpotensialet og aksjonspotensialer, og ca. 35 % til synaptisk transmisjon. Rytmene i EEG kommer fra summert postsynaptisk strøm i pyramidecellene, og aksjonspotensialer bidrar lite.</li>
+   <li><strong>Normal blodstrøm</strong> er ca. 750 ml/min, 15–20 % av minuttvolumet, eller 50–54 ml/100 g/min.</li>
+   <li><strong>Mild til moderat iskemi (15–35 ml/100 g/min):</strong> det er først og fremst synaptisk transmisjon som svikter. Nevronene beholder membranpotensialet, og CT og MR er normale. EEG viser mindre alfa og beta, deretter mer delta, avhengig av alvorlighet og varighet. I alvorlige tilfeller kan EEG bli isoelektrisk, og selv et isoelektrisk EEG kan skyldes isolert synaptisk svikt og være reversibelt.</li>
+   <li><strong>Under 10 ml/100 g/min:</strong> membranpotensialet endres mot Donnan-potensialet (ca. −15 til −20 mV), og cytotoksisk ødem og celledød følger. EEG-rytmene forsvinner da permanent. Mangel på energi i mer enn 5–8 minutter gir slike endringer.</li>
+   <li><strong>Hvor fort:</strong> få minutter uten blodstrøm gir synaptisk svikt med full restitusjon når perfusjonen kommer tilbake. Ved sirkulasjonsstans blir EEG isoelektrisk innen 10–40 sekunder. I figur 1 (synkope) kommer langsommere rytmer etter få sekunder og tydelig sakking rundt 20 sekunder etter stans.</li>
+   <li><strong>Hemmende nevroner</strong> er trolig mer utsatt enn eksiterende. Det kan forklare økt synkronisering og generaliserte periodiske utladninger ved alvorlig hypoksisk skade.</li>
+  </ul>
+  <span class="tag">van Putten og Hofmeijer. J Clin Neurophysiol 2016;33:203–210</span></div>
+  <div class="card"><h3>EEG ved karotiskirurgi</h3>
+  <ul>
+   <li>Ved test-klemming av arteria carotis interna reflekterer redusert hurtig aktivitet (ofte etterfulgt av mer langsom aktivitet) nedsatt blodstrøm. I figur 3 tilsvarer bare tap av hurtig aktivitet en CBF i den ipsilaterale hemisfæren på ca. 25–35 ml/100 g/min, og tap av hurtig aktivitet pluss mer delta ca. 15. Disse tallene er hentet fra Foreman og Claassen og ikke målt i studien.</li>
+   <li>Hvilke endringer som krever shunt er omdiskutert. I en studie av 57 pasienter (Blume 1986) ga moderate endringer (8–13 Hz beholdt, men amplitudefall på 50 % eller mer og økt delta over 1 Hz) ikke postoperativt hjerneslag. Store endringer (8–13 Hz redusert til minimalt eller borte, og en dobling av delta) ga hjerneslag hos 2 av 22. De fleste nevrofysiologer anbefaler likevel shunt ved enhver endring, og forfatterne mener et fall i alfa/beta-amplituden på ca. 10 % trolig kan aksepteres.</li>
+   <li>Perioperativ slagrate i en oversikt (AbuRahma 2011): 1,4 % ved rutinemessig shunt, 1,6 % ved selektiv shunt styrt av EEG og 2 % uten shunt. Ved shunting styrt av transkraniell Doppler var den 4,8 % mot 1,6 % med EEG. I forfatternes egne sykehus ble det brukt shunt hos ca. 3–5 %.</li>
+   <li>EEG er ikke sensitiv for dype strukturer, men bevarte kortikale rytmer regnes som en pålitelig indikator på tilstrekkelig blodstrøm også dypt. Det skyldes at redusert strøm vanligvis gir tilsvarende brøkdel i cortex og dype strukturer, og at cortex har størst energibehov.</li>
+   <li><strong>Kvantitativt:</strong> brain symmetry index (BSI) måler spektral asymmetri mellom hemisfærene på en skala fra 0 til 1, med normale verdier på 0,05–0,08. En endring på 0,05 regnes som signifikant og stemmer godt med visuell vurdering. Temporal BSI fanger globale endringer over tid.</li>
+  </ul>
+  <span class="tag">van Putten og Hofmeijer 2016 (Blume 1986, AbuRahma 2011)</span></div>
+  <div class="card"><h3>EEG ved akutt hjerneinfarkt</h3>
+  <ul>
+   <li>Prediktiv verdi av EEG for utfall etter hjerneinfarkt er lav til moderat. I en studie av 110 pasienter korrelerte pdBSI og (delta + theta)/(alfa + beta)-forholdet med mRS etter 6 måneder med Spearman rho på ca. 0,46–0,47.</li>
+   <li>Kontinuerlig kvantitativ EEG med BSI korrelerte godt med NIHSS ved hemisfæreinfarkt og ble brukt til å følge effekten av trombolyse.</li>
+   <li>Spreading depolarization forekommer ved akutt infarkt og kan bidra til at skaden vokser, men er vanskelig å måle gjennom intakt skalle. Det er så langt bare påvist pålitelig med elektrokortikografi.</li>
+  </ul>
+  <span class="tag">van Putten og Hofmeijer 2016</span></div>
+  <div class="card"><h3>EEG etter hjertestans</h3>
+  <ul>
+   <li>Omtrent halvparten av komatøse pasienter etter hjertestans får dårlig utfall. SSEP og pupill- og kornealrefleks etter 72 timer fanger bare ca. 20 % av dem som ikke kommer seg.</li>
+   <li>Kontinuerlig, normal eller diffust sakket EEG etter 12 timer spådde godt utfall (CPC 1–2) med spesifisitet 91 %, sensitivitet 55 %, PPV 84 % og NPV 70 %. Isoelektrisk, lavamplitudig (under 20 μV) eller burst suppression med identiske bursts etter 24 timer spådde dårlig utfall (CPC 3–5) med spesifisitet 100 %, sensitivitet 42 %, PPV 100 % og NPV 55 %. Tallene bygger på to prospektive kohorter med til sammen 377 pasienter, alle behandlet med mild terapeutisk hypotermi og sedert.</li>
+   <li>Utvikling mot kontinuerlig fysiologisk EEG innen 12 timer gir svært god prognose. Pasientens videre prognose avhenger da av skade på andre organer, og pasientene med gunstig EEG og dårlig utfall døde av svikt i andre organer, særlig hjertet. Dyp koma de første timene utelukker ikke full restitusjon.</li>
+   <li>Forfatterne kaller det en seiglivet misforståelse at EEG ikke kan brukes under hypotermi eller sedasjon. Mild hypotermi til 32 °C påvirker knapt EEG. Ved vanlige propofoldoser forblir EEG kontinuerlig med anteriorisering av alfa, og isoelektrisitet oppstår ikke.</li>
+   <li><strong>Sedasjonsindusert mot patologisk burst suppression:</strong> hos en relativt frisk hjerne er bursts heterogene, og de kommer og går gradvis. Ved postanoksisk skade er bursts identiske, intervallene mellom dem er flate, og overgangene mellom suppresjon og burst er brå. Det siste har dårlig prognose.</li>
+   <li>Cerebral recovery index (CRI) samler fem kvantitative trekk (gjennomsnittsamplitude, alfa/delta-forhold, entropi, koherens og kontinuitet) i ett tall mellom 0 og 1. Hos pasienten med godt utfall var CRI ca. 0,7 etter 24 timer, og hos pasienten med dårlig utfall ca. 0,3. De første timene var EEG nesten likt hos begge.</li>
+   <li>Forfatterne påpeker at nyere retningslinjer ikke inkluderer tidlig EEG for prognostisering, og forventer at EEG kommer med i framtidige retningslinjer. Tolkning av reaktivitet er ikke enkel, og samsvaret mellom bedømmere er bare moderat.</li>
+  </ul>
+  <span class="tag">van Putten og Hofmeijer 2016</span></div>
+  <div class="card"><h3>Bevissthet og den døende hjernen (Mashour 2024)</h3>
+  <p>Narrativ oversikt (Anesthesiology 2024;140:1221–1231; Mashour, Lee, Pal og Li) om nær-døden-opplevelser og EEG rundt hjertestans og død.</p>
+  <ul>
+   <li><strong>Forekomst:</strong> 10–20 % av dem som overlever hjertestans på sykehus, rapporterer nær-døden-opplevelser. I AWARE II hadde 21,4 % av 28 intervjuede en «transcendent recalled experience of death».</li>
+   <li><strong>Indeksene rett før døden:</strong> hos sju kritisk syke uten hjerneskade steg BIS- og SedLine-verdier til nivåer forenlig med bevissthet rett før døden, etter at livsforlengende behandling ble avsluttet. I en oppfølging hadde 13 av 28 (46 %) en slik økning, mens ingen av sju hjernedøde hadde det. Andre serier har ikke funnet dette.</li>
+   <li><strong>Hvorfor indeksene ikke kan tolkes som bevissthet:</strong> prosessert EEG skiller ikke uspesifikk aktivering (for eksempel glutamatfrigjøring når hypoksiske nevroner går til grunne) fra organisert aktivitet, skiller ikke våkenhet fra anfall, har bare frontale elektroder, og EMG er vanskelig å utelukke helt.</li>
+   <li><strong>Dyreforsøk:</strong> hos rotter kom en kortvarig økning i gamma og theta med økt kobling mellom hjernebarkområder innen 30 sekunder etter hjertestans. Ved kvelning økte frigjøringen av mange signalstoffer; serotonin steg over 20 ganger innen 2 minutter.</li>
+   <li><strong>Mennesker:</strong> hos 2 av 4 døende komatøse pasienter økte beta og gamma etter at respiratoren ble koblet fra. Begge hadde tidligere hatt anfall, så anfallsaktivitet kan ikke utelukkes. I en studie av 8 pasienter opphørte EEG median 78 sekunder før sirkulasjonsstans. Ingen av funnene er koblet til en faktisk opplevelse.</li>
+   <li><strong>Under HLR:</strong> i AWARE II ga SedLine tolkbart EEG hos 53 av 85 under pågående HLR, og nær normal aktivitet ble sett opptil 35–60 minutter inn i HLR. Detaljert analyse er ikke publisert.</li>
+   <li><strong>Isoelektrisk er ikke alltid endelig:</strong> i dyremodeller kan den isoelektriske fasen reverseres ved rask reoksygenering, og forfatterne utelukker ikke at opplevelser kan oppstå mens hjernen henter seg inn igjen.</li>
+   <li><strong>Relevans og forbehold:</strong> anestesipersonell deltar i HLR, organdonasjon og avslutning av behandling. Forfatterne avviser ikke-nevrobiologiske forklaringer. Finansiert av NIH, ingen interessekonflikter. Merk at kildens funn gjelder døende pasienter, ikke prognose hos dem som overlever.</li>
+  </ul>
+  <span class="tag">Mashour, Lee, Pal og Li. Anesthesiology 2024;140:1221–1231</span></div>
+  <div class="card"><h3>Kvantitativ EEG, CBF og CPP (Foreman og Claassen 2012)</h3>
+  <ul>
+   <li><strong>Terskler:</strong> når CBF faller til ca. 25–35 ml/100 g/min, mister EEG først hurtige frekvenser. Ved ca. 17–18 øker langsomme frekvenser gradvis, og forfatterne kaller dette en avgjørende iskemisk terskel der nevronene begynner å miste transmembrane gradienter. Ved 10–12 ml/100 g/min og lavere blir EEG stille, og celleskaden er irreversibel.</li>
+   <li><strong>Hvor fort:</strong> ved karotisklemming skjer endringene innen ca. 20 sekunder og er reversible. Infarkt kan komme først etter timer på dette flytnivået. Kvantitativ EEG (qEEG) fanger endringer i blodstrøm og metabolisme på 28–104 sekunder. Diffusjonsvektet MR oppdager endringer ved CBF 35–40 etter ca. 30 minutter, mens EEG oppdager dem på sekunder.</li>
+   <li><strong>CPP:</strong> gjennomsnittsfrekvensen i EEG faller når CPP er under 60 mmHg, også hos komatøse eller sederte pasienter (Diedler 2009, ifølge oversikten). Mer langsom aktivitet (delta og theta) og mindre hurtig aktivitet (alfa og beta) følger redusert cerebral oksygenmetabolisme (CMRO₂).</li>
+   <li><strong>Hvilket mål som virker:</strong> ved karotiskirurgi fanget spektral kantfrekvens (SEF) iskemiske endringer hos pasienter på isofluran, mens relativ delta-prosent (delta/total effekt) var treffsikker hos pasienter på propofol. Samlet gir relativ delta-prosent den mest robuste korrelasjonen med CBF og metabolisme ved fokal iskemi.</li>
+   <li><strong>Forstyrrende faktorer:</strong> anfall og periodiske utladninger, endringer i intrakranielt trykk (for eksempel akutt hydrocefalus), systemisk sykdom, sedativer, opioider og antipsykotika. Normal langsom-bølge-søvn kan ligne iskemiendringer. Rå-EEG er fortsatt gullstandard, og enhver qEEG-algoritme bør kunne kontrolleres mot rå-EEG av en som kan EEG.</li>
+   <li><strong>Spektrogrammet</strong> (tidskomprimert spektralarray) gir ifølge forfatterne høyest forhold mellom piksler og data og er lett å lese, sammenlignet med rå-EEG.</li>
+   <li>Oversikten omtaler ikke operasjonsrommet utover karotiskirurgi. Mesteparten av oversikten gjelder intensivpasienter. Forslaget om bruk etter høyrisiko kar- og hjertekirurgi, ved refraktær hypotensjon og ved sepsis er forfatternes, og ikke dokumentert i studier.</li>
+  </ul>
+  <span class="tag">Foreman og Claassen. Crit Care 2012;16:216</span></div>
+  <div class="card"><h3>EEG ved hjerneinfarkt og subaraknoidalblødning</h3>
+  <ul>
+   <li><strong>Infarkt:</strong> tidlig subakutt korrelerer EEG godt med CBF mens oksygenekstraksjonen øker («misery perfusion»). Senere korrelerer det mer med CMRO₂ («luxury perfusion»). Tap av reaktivitet og manglende søvn-våken-syklus tyder på dårlig prognose. Fravær av delta eller tilstedeværelse av hurtigere frekvenser innen 24 timer hører til godt utfall. Regional demping av hurtige frekvenser uten delta (RAWOD) tyder på alvorlig tidlig CBF-tap (gjennomsnitt 8,6 ml/100 g/min), og i én serie var dødeligheten opptil 67 %.</li>
+   <li>Ett år etter infarkt ble funksjonelt utfall spådd riktig i 60 % av tilfellene med kliniske kriterier. Med EEG økte det til 85 %.</li>
+   <li>Etter trombolyse falt delta-effekten 100 minutter før klinisk bedring i én studie.</li>
+   <li><strong>Forsinket cerebral iskemi (DCI) etter SAH:</strong> forekommer hos 20–40 %. Daglig transkraniell Doppler er ca. 60–70 % sensitiv. I tabellen over studier: hos 34 komatøse pasienter ga en endring på 10 % i alfa/delta-forholdet over 6 minutter sensitivitet 100 % og spesifisitet 76 %, og en endring på 50 % over ett minutt ga 89 % og 84 %. Hos 12 pasienter økte sensitiviteten for å forutsi nevrologisk forverring fra 40 % med klinikk alene til 67 % med qEEG (spesifisitet 73 %). I én studie falt variasjonen i relativ alfa hos alle 19 med vasospasme, gjennomsnittlig 2,9 dager før vasospasme ble bekreftet, men også hos 7 uten vasospasme, hovedsakelig på grunn av infarkt eller økt ICP.</li>
+   <li>Alle studiene er små, og forfatterne peker selv på at funnene må valideres prospektivt og randomisert.</li>
+  </ul>
+  <span class="tag">Foreman og Claassen 2012</span></div>
+  <div class="card"><h3>Asymmetri og reproduserbarhet ved iskemi (Sheorajpanday 2009)</h3>
+  <ul>
+   <li><strong>Design:</strong> eksplorativ, metodologisk studie hos 41 pasienter: 21 med hjerneinfarkt (median NIHSS 11, DWI-volum i gjennomsnitt 79 ml), 10 med TIA og 10 kontroller på 55 år eller mer med subjektive hukommelsesplager og normal MR. Én EEG per pasient, våken med lukkede øyne i minst 10 minutter, 19 elektroder med impedans under 5 kΩ. 128 sekunder uten artefakter ble analysert etter visuell artefaktfjerning. Studien er ikke gjort under anestesi.</li>
+   <li><strong>pdBSI:</strong> en variant av brain symmetry index som sammenligner effektspekteret mellom homologe kanalpar (8 par, 1–25 Hz), i stedet for gjennomsnittet for hele hemisfæren.</li>
+   <li><strong>Reproduserbarhet:</strong> minimal Cronbachs alfa var 0,95–0,99 for standard spektrale mål og 0,96–0,99 for pdBSI, både innen samme opptak og mellom og innen vurderere. Forfatterne sier at visuell artefaktfjerning av en kyndig person er et avgjørende første steg som ikke kan erstattes av automatisk artefaktfjerning. Automatikk kan blande ischemisk delta sammen med langsom aktivitet fra øyebevegelser og søvnighet.</li>
+   <li><strong>Klinisk sammenheng:</strong> pdBSI korrelerte med NIHSS (rho 0,64–0,70) og med DWI-volum (rho 0,79–0,84). Standardmål som relativ alfa og delta/alfa-forholdet korrelerte moderat med NIHSS, men ikke signifikant med DWI-volum etter justering for flere tester.</li>
+   <li><strong>Gruppeforskjell:</strong> pdBSI skilte infarkt fra TIA og kontroller. Standardmålene gjorde det ikke etter justering. Verken pdBSI eller standardmålene kunne skille TIA fra kontroller.</li>
+   <li><strong>Brede frekvensbånd:</strong> pdBSI over 1–25 Hz var bedre enn smalere bånd, og 1–3 Hz alene var ikke signifikant. Forfatterne tolker det som at hele frekvensområdet påvirkes ved akutt iskemi.</li>
+   <li><strong>Relative mål:</strong> forfatterne brukte relativ effekt, fordi absolutt effekt påvirkes av skalletykkelse. Skallen er i gjennomsnitt ca. 80 ganger mindre ledende enn hjerne og hodebunn, og 10 % tynnere skalle kan gi en endring på 800 % i amplitude.</li>
+   <li><strong>Forbehold:</strong> liten studie, én opptak per pasient, og ingen ambisjon om diagnostisk verdi for enkeltpasienter. Asymmetrimål er ikke spesifikke for iskemi, og pdBSI vil ikke oppdage lik skade på begge sider av et kanalpar.</li>
+  </ul>
+  <span class="tag">Sheorajpanday et al. Clin Neurophysiol 2009;120:845–855</span></div>
+  <div class="card"><h3>EEG og forhøyet intrakranielt trykk: sparsom evidens</h3>
+  <ul>
+   <li><strong>Mekanisme:</strong> økt ICP senker CPP og dermed CBF, noe som begrenser oksygen- og energitilførselen til cortex. EEG-endringene antas altså å komme via CPP, CBF og metabolisme (og eventuelt herniering), ikke fra ICP i seg selv. Lenstra 2026 beskriver at nevrogene mekanismer da kan dominere over vasomotoriske, kjemiske og metabolske i reguleringen av CBF.</li>
+   <li><strong>Systematisk oversikt (Lenstra 2026):</strong> voksne med moderat til alvorlig traumatisk hjerneskade (TBI) og ICP-måling. Av 873 treff oppfylte bare 4 studier kriteriene (alle med ICP målt via ventrikkeldren eller parenkymsonde). Tre handlet om posttraumatiske anfall og ICP, og én om retningen mellom EEG og ICP. Forfatterne konkluderer med at det finnes svært lite evidens og at større studier trengs. De skriver ikke at et validert mønster mangler, men sier at personlige EEG-ICP-terskler må utvikles i framtidige studier. Studier uten original data, kasuistikker og serier, pediatriske pasienter og invasiv EEG ble ekskludert.</li>
+   <li><strong>Retning (Sanz-García 2018, referert i oversikten):</strong> 21 pasienter (15 TBI, 6 SAH), totalt 1055 timer. I gjennomsnitt hadde 38 % av tiden signifikant Granger-kausalitet fra EEG til ICP, med forsinkelse på 25–50 sekunder, oftest i relativ alfa (12 pasienter). Hos én pasient var retningen motsatt. Forfatterne tolker det som mulig neurovaskulær kobling. Studien undersøkte ikke EEG under selve intrakranielle hypertensjonsperioder, og sedasjonsbolus endret ikke funnet.</li>
+   <li><strong>Motstridende funn (McNamara 2003, referert i oversikten):</strong> hos 17 intensivpasienter med akutt ICP-stigning viste kvantitativ EEG ingen endringer under ICP-toppene. Det var bare 30 minutters EEG per pasient, så sene endringer kan være oversett.</li>
+   <li><strong>Kasuistikker og serier (utenfor oversiktens kriterier):</strong> Sheikh 2022 (retrospektiv serie, J Clin Neurophysiol) beskriver at sykliske mønstre og ulik grad av sakking og dempet hurtig aktivitet ofte kom før klinisk forverring ved intrakraniell hypertensjon. Det beskrives generalisert rytmisk deltaaktivitet og tap av hurtig aktivitet ca. 30 minutter før klinisk endring ved antatte plateaubølger. Oversikten omtaler serien som sju ikke-traumatiske nevrokritiske pasienter. Alsallom 2022 beskriver to pasienter med herniering der økt lavfrekvent effekt og asymmetri i spektrogrammet kom omtrent en time før klinisk forverring.</li>
+   <li><strong>Dyrestudie (Pose, pilot):</strong> median kryss-korrelasjon mellom total EEG-effekt og ICP var 0,7, og 0,55 for CPP. En modell med bare tre variabler hadde nøyaktighet 0,70, sensitivitet 0,53 og spesifisitet 0,79. Retningen på korrelasjonen er ikke oppgitt.</li>
+   <li><strong>Det kildene ikke tester:</strong> hvordan prosesserte indekser og spektrogrammet endres ved forhøyet ICP under narkose. Foreman og Claassen nevner at ICP-endringer, sedativer og søvn kan forstyrre tolkningen av EEG. Guay 2025 oppgir intrakraniell hypertensjon som en av årsakene til redusert cerebral oksygentilførsel og skriver at slike endringer kan ligne dypere sedasjon på frontal EEG, men viser ingen data fra pasienter med forhøyet ICP. At prosesserte indekser kan forveksle dem med dypere anestesi er derfor en rimelig antakelse, ikke et påvist funn for ICP.</li>
+  </ul>
+  <span class="tag">Lenstra 2026, Sheikh 2022, McNamara 2003 og Pose</span></div>
+  <div class="card"><h3>EEG ved patologi, alder og sårbar hjerne</h3>
+  <ul>
+   <li><strong>Sepsisencefalopati:</strong> EEG-sakking er det tidligste funnet og kan sees selv med normal nevrologisk undersøkelse. Kapittelet nevner også økt theta, dominerende delta, trifasiske bølger, periodiske epileptiforme utladninger og suppresjon.</li>
+   <li><strong>Burst suppression:</strong> risikoen øker med alder og ved svekket nevrologisk status. Hos eldre er burstene og suppresjonsfasene mindre tydelige, og mønsteret er vanskelig å oppdage.</li>
+   <li>Høydose ketamin gir ikke selv burst suppression, men kan senke terskelen. Smerte og nociseptiv input kan også senke terskelen.</li>
+   <li>Prosesserte BSR-algoritmer fanger ikke opp suppresjon før den er omtrent 40 %. Kapittelet anbefaler derfor å vurdere rå-EEG.</li>
+   <li>To teorier forklarer burst suppression: kortikal hypereksitabilitet, og en metabolsk teori der fallende ATP åpner ATP-styrte kaliumkanaler. Den metabolske teorien passer med funn om at lav perfusjon kan gi burst suppression, men er ikke bevist.</li>
+   <li>ENGAGES endret ikke deliriumforekomsten, men fant lavere 30-dagers dødelighet i EEG-gruppen. Boken kaller det en observasjon som bør undersøkes videre.</li>
+  </ul>
+  <span class="tag">Lobo og Lamperti 2025, kap. 1, 5 og 11</span></div>
+  </div>
+  <div class="subgrp" data-sub="phys">
+  <div class="card"><h3>Perfusjon, CPP og autoregulering</h3>
+  <ul>
+   <li>Cerebralt perfusjonstrykk (CPP) er MAP minus intrakranielt trykk (ICP). Blodstrøm (CBF) er CPP delt på cerebrovaskulær motstand.</li>
+   <li>ICP påvirkes av volum i skallen (svulst, ødem, blødning, økt CSF-mengde), av leiring (for eksempel Trendelenburg), av rotasjon av hodet som klemmer jugularvenene, og av høyt intratorakalt trykk og PEEP som hemmer venøs drenasje.</li>
+   <li>Ved intakt autoregulering påvirker MAP mellom omtrent 60 og 160 mmHg ikke CBF, som holdes rundt 50 ml/100 g/min. Når autoregulering svikter, følger blodstrømmen trykket passivt.</li>
+   <li>CBF kan falle med 50–60 % før kompensasjonen svikter, fordi hjernen da øker oksygenekstraksjonen.</li>
+   <li>Cerebrovaskulær motstand påvirkes av vasopressorer og vasodilatatorer, av PaCO₂, og kan forskyves ved kronisk høyt blodtrykk. Å behandle lavt blodtrykk bare med vasopressor kan redusere hjerteminuttvolumet.</li>
+   <li>Hyperkapni svekker autoregulering, og anestesimidlene spiller inn: propofol bevarer den ved hyperkapni, mens sevofluran ved tilsvarende PaCO₂ svekker eller opphever den.</li>
+   <li>Hjernen er ca. 2 % av kroppsvekten, men får 12–15 % av minuttvolumet og bruker opptil 20 % av oksygenet. Omtrent 75–80 % av oksygenforbruket går til å gjenopprette membranpotensialet.</li>
+  </ul>
+  <span class="tag">Lobo og Lamperti 2025, kap. 1, 2 og 7</span></div>
+  <h3>Miller's kap. 10: hjernens fysiologi og anestesimidlene (Patel, Drummond og Lemkuil)</h3>
+  <div class="card"><h3>Normalverdier, energibruk og hvorfor EEG og CMR henger sammen</h3>
+  <ul>
+   <li><strong>Normalverdier (Miller's boks 10.1):</strong> hjernen er bare ca. 2 % av kroppsvekten, men får 12–15 % av minuttvolumet. Tallene under gjelder voksne. «Per 100 g» betyr per 100 gram hjernevev.
+    <div style="overflow-x:auto;margin-top:6px"><table class="mx" style="font-size:.9em;min-width:440px">
+     <thead><tr><th>Mål</th><th>Hva det er</th><th>Normalt</th></tr></thead>
+     <tbody>
+      <tr><td>CBF, hele hjernen</td><td>Hjernens blodgjennomstrømning</td><td>45–55 ml/100 g/min</td></tr>
+      <tr><td>CBF, hjernebarken</td><td>Grå substans bruker mest energi og får mest blod</td><td>75–80 ml/100 g/min</td></tr>
+      <tr><td>CBF, under hjernebarken</td><td>Mindre aktivt vev får mindre blod</td><td>8–20 ml/100 g/min</td></tr>
+      <tr><td>CMRO₂</td><td>Hjernens oksygenforbruk</td><td>3–3,5 ml O₂/100 g/min</td></tr>
+      <tr><td>rSO₂</td><td>Regional oksygenmetning i hjernevevet, målt med NIRS på pannen</td><td>55–80 %</td></tr>
+      <tr><td>SjVO₂</td><td>Oksygenmetning i venøst blod som forlater hjernen (bulbus venae jugularis)</td><td>60–70 %</td></tr>
+      <tr><td>ICP</td><td>Trykket inne i skallen, liggende</td><td>8–12 mmHg</td></tr>
+     </tbody></table></div>
+   </li>
+   <li><strong>Hjernen bruker energi til to ting:</strong> ca. 60 % går til signalering mellom nervecellene, altså den elektriske aktiviteten EEG måler. Resten går til å holde cellene i live og i stand («husholdning»). Anestesimidler som barbiturater, isofluran, sevofluran, desfluran, propofol og etomidat demper bare signaleringen. Jo stillere EEG blir, desto mindre oksygen bruker hjernen. Når EEG er flatt, er signaleringen allerede slått av, og mer legemiddel senker ikke energibruken ytterligere (fig. 10.2). Ketamin og lystgass følger ikke dette mønsteret.</li>
+   <li><strong>Nedkjøling virker på begge delene:</strong> for hver grad kroppstemperaturen synker, faller hjernens energibruk med 6–7 %. EEG blir flatt ved ca. 18–20 °C, og ved 18 °C er oksygenforbruket under 10 % av normalt. Fordi kulde også senker «husholdningen», reduserer nedkjøling energibruken videre selv etter at EEG er flatt. Det gjør ikke anestesimidlene.</li>
+   <li><strong>Burst suppression er ikke det samme med alle midler:</strong> når EEG er helt undertrykt, er hjernens oksygenforbruk omtrent likt uansett middel, men det fordeler seg ulikt. Barbiturater senker blodstrøm og energibruk jevnt i hele hjernen, mens isofluran og sevofluran senker mest i den ytre hjernebarken (neocortex). Mønsteret i burst suppression rett før EEG blir helt flatt varierer også fra middel til middel.</li>
+   <li><strong>Betydning for nevromonitorering:</strong> SSEP (somatosensoriske fremkalte potensialer) er hjernebarkens svar på stimulering av en nerve i arm eller bein, og brukes til å overvåke ryggmarg og hjerne under kirurgi. Med tiopental kan SSEP fortsatt registreres ved doser langt over det som gir flatt EEG, men med isofluran i burst suppression (ca. 1,5 MAC) er de vanskelige å få fram. Valg av middel kan altså påvirke om nevromonitoreringen fungerer (tolkning ut fra kildene).</li>
+   <li><strong>Hva det betyr for EEG-tolkning:</strong> en svært lav indeks eller et flatt EEG betyr at legemiddelet allerede har senket hjernens energibruk så mye det kan. Mer dose gir ikke mer beskyttelse av hjernen. Det er bakgrunnen for kortene om overdosering og burst suppression i Spektrogram- og Midler-fanen.</li>
+  </ul>
+  <span class="tag">Miller's kap. 10, boks 10.1 og fig. 10.2</span></div>
+  <div class="card"><h3>Autoregulering: Lassen-kurven er foreldet, nedre grense ligger rundt 70 mmHg hos de fleste</h3>
+  <ul>
+   <li><strong>Det klassiske bildet</strong> (CBF konstant 50 ml/100 g/min fra MAP 50 til 150) bygde på et heterogent utvalg med enkeltmålinger, og kapitlet kaller det «outmoded». Nyere analyser gir et smalere platå med svak stigning, slik at trykkpassiv CBF gjelder over et større MAP-område enn antatt. Med raske trykkendringer (dynamisk autoregulering) kan platået være så kort som 10 mmHg eller mangle helt; med langsomme endringer over ca. 10 minutter (statisk) er platået minst ±20 mmHg.</li>
+   <li><strong>Nedre grense (LLA):</strong> i sju studier av våkne, friske personer var gjennomsnittlig LLA 57–91 mmHg, med enorm variasjon mellom personer. Forfatterne (Drummond) mener at LLA hos flertallet ikke er under 70 mmHg, som ved normalt ICP (5–10) gir CPP 60–65 mmHg, og at 70 mmHg er en fornuftig grense uten autoreguleringsmonitor. Øvre grense: ca. 90 mmHg under hjerte-lunge-maskin, trolig over 140 hos hypertensive. Autoregulering beskrives best som en familie av kurver (fig. 10.5), ikke én.</li>
+   <li><strong>Reserve:</strong> symptomer på iskemi kommer først når CBF har falt 35–40 % hos våkne. Denne cerebrovaskulære reserven gjør at kortvarig hypotensjon under LLA vanligvis tåles; vedvarende fall gjør det ikke. Reserven er redusert ved CNS-skade (autoregulering svekket i ca. 2 uker, gjenopprettes etter 1–3 måneder), ved lokalt vevstrykk (ICP, retraktor, cervikal stenose), ved ufullstendig circulus Willisi (35–40 % av befolkningen) og ved hypertensjon.</li>
+   <li><strong>Hypertensjon:</strong> både dynamisk og statisk autoregulering er bevart hos hypertensive, og behandling til normalt trykk reduserer ikke CBF. Spørsmålet peroperativt er hypotensjon: forfatterne begrenser MAP-fall til høyst 20 % under utgangsnivået målt i hodehøyde i sittende leie, i avsnittet om kronisk hypertensjon oppgir de 30–35 %, og at et fall på 25 % bringer både normo- og hypertensive til LLA. Se Avvik-listen.</li>
+   <li><strong>Hydrostatisk gradient:</strong> 2 mmHg per tomme (2,5 cm) hodet er over hjertet; 12 tommer gir ca. 24 mmHg. Skal CPP holdes på 60–65 med hodet hevet, må MAP ved hjertet være ca. 85. Sifong-modellen (lukket krets) avvises: tyngdekraften påvirker CPP. Se kortet om perfusjonstrykk og hodets høyde.</li>
+   <li><strong>Praktisk MAP-mål:</strong> hos pasienter uten akutt iskemi og med normalt eller velregulert trykk anser kapitlet MAP rundt 75 mmHg som tilstrekkelig peroperativt, og i tabell 10.2 står subspesialitetenes mål ved hjerneskade (for eksempel SBP over 100–110 ved traumatisk hjerneskade avhengig av alder, MAP over 65 etter hjertestans).</li>
+  </ul>
+  <span class="tag">Miller's kap. 10, fig. 10.3–10.5, tabell 10.2</span></div>
+  <div class="card"><h3>CO₂, O₂, minuttvolum og vasopressorer</h3>
+  <ul>
+   <li><strong>PaCO₂:</strong> CBF endres 1–2 ml/100 g/min per mmHg innenfor 25–70 mmHg; responsen avtar under 25 og over 75–80. Moderat hypotensjon (MAP-fall under 33 %) svekker CO₂-responsen betydelig, alvorlig hypotensjon (ca. 66 %) opphever den. Hypokapni utvider autoreguleringsområdet, hyperkapni innsnevrer det. Effekten av endret PaCO₂ avtar over 6–8 timer fordi CSF-pH normaliseres; brå normalisering etter langvarig hyperventilering gir CSF-acidose og økt CBF/ICP.</li>
+   <li><strong>PaO₂:</strong> lite effekt mellom 60 og 300 mmHg; under 60 stiger CBF raskt, lineært med fallende metning. Hemodilusjon gir mindre CBF-økning enn hypoksemi ved samme fall i O₂-innhold. 1 atm oksygen senker CBF ca. 18 %.</li>
+   <li><strong>Minuttvolum:</strong> Meng anslår at 30 % fall i CO gir ca. 10 % fall i CBF uavhengig av MAP og PaCO₂; en nyere studie fant at 10 % fall i MAP og 20 % fall i CO ga samme fall (ca. 5 %) i MCA-hastighet. En metaanalyse bekrefter likevel ikke en uavhengig sammenheng, fordi CO ikke kan endres uten at MAP og PaCO₂ endres. Kapitlet konkluderer likevel at lavt CO sannsynligvis legger til lavt MAP ved hypotensjon, at volum skal optimaliseres først, og at bolus fenylefrin kan senke CO ytterligere. Se Nordum 2024-kortet (Trendelenburg) og det kliniske eksemplet med alfa og minuttvolum.</li>
+   <li><strong>Vasopressorer:</strong> α₁-agonister (fenylefrin, noradrenalin) endrer ikke global CBF hos mennesker når autoreguleringen er intakt; de virker via MAP. Bolus fenylefrin senket NIRS-målt SCO₂ litt i flere studier, efedrin gjorde det ikke, trolig fordi efedrin holder CO; ekstrakraniell kontaminering av NIRS er større enn denne forskjellen. Koch fant at efedrin, ikke fenylefrin, økte lokal CBF, vevsoksygenering og mikrosirkulasjon i hjernesvulstpasienter. Utfallsstudier mangler. Deksmedetomidin senker CBF 25–30 % via CMR; dopamin opp til 100 µg/kg/min gir ikke cerebral vasokonstriksjon; dobutamin økte CBF og CMR 20 og 30 %.</li>
+  </ul>
+  <span class="tag">Miller's kap. 10, fig. 10.8–10.10, tabell 10.3</span></div>
+  <div class="card"><h3>Hva anestesimidlene gjør med CBF og CMR</h3>
+  <ul>
+   <li><strong>Intravenøse midler</strong> bevarer koblingen mellom CBF og CMR, autoregulering og CO₂-respons. Propofol senket regional CBF 53–79 % og hele hjernens glukosemetabolisme 48–58 % ved kirurgisk dybde hos frivillige, også ved burst suppression er autoregulering og CO₂-respons bevart. Etomidat 0,2 mg/kg: CBF −34 %, CMR −45 %. Midazolam 0,15 mg/kg: CBF −30 til −34 % (−12 % globalt med PET). Opioider: små reduksjoner i ubelastet hjerne; sederende remifentanil kan øke CBF regionalt; bolus med MAP-fall kan øke ICP via autoregulatorisk vasodilatasjon. Flumazenil kan gi overskytende CBF/ICP-økning hos pasienter med dårlig intrakraniell compliance.</li>
+   <li><strong>Ketamin</strong> er det eneste som øker CMR og CBF: subanestetiske doser (0,2–0,3 mg/kg) økte global CMR ca. 25 %, mest frontalt og i fremre cingulum; S-ketamin øker CMR, R-ketamin senker. CBF økte 14 % (subanestetisk) og 36 % (anestetisk) uten endring i CMRO₂ i én studie; CBV +50 %. Propofol, benzodiazepiner og isofluran demper eller opphever ICP-økningen, og systematiske oversikter finner ingen ICP-økning ved hodeskade. Se ketamin-kortene i Midler-fanen for EEG-mønsteret.</li>
+   <li><strong>Inhalasjonsmidler:</strong> senker CMR dosedependent, men er også direkte vasodilatorer. Netto: ved 0,5 MAC faller CBF, ved 1 MAC er den uendret, over 1 MAC stiger den («luksusperfusjon»), og autoreguleringen svekkes mot høyt trykk. Vasodilaterende styrke: halotan ≫ enfluran > desfluran ≈ isofluran > sevofluran. Ved 1 MAC senket sevofluran og desfluran CBF 38 og 22 % og CMR 39 og 35 % (Kety–Schmidt, kortikal måling); PET viser ca. 50 % for begge. Maksimal CMR-reduksjon nås ved EEG-undertrykkelse, ved 1,5–2 MAC. Sevofluran senker regional CBF, men ikke CBV; propofol senker begge. Er CMR allerede undertrykt (for eksempel av propofol), avdekkes vasodilatasjonen: å legge til inhalasjonsmiddel øker da CBF tydelig.</li>
+   <li><strong>Entropi og sevofluran:</strong> i en doseeskaleringsstudie hos mennesker var den største reduksjonen i entropi ved 1 MAC sevofluran, med mindre reduksjon ved økende konsentrasjon. Det stemmer med at CMRO₂ faller brått ved anestesiinnsettende EEG-mønster og deretter langsommere.</li>
+   <li><strong>Lystgass</strong> øker CBF, CMR og ICP, mest alene eller sammen med inhalasjonsmiddel (0,75 MAC isofluran + 65 % N₂O ga 43 % høyere CBF enn 1,5 MAC isofluran); sammen med intravenøse midler dempes effekten. CBV påvirkes lite.</li>
+   <li><strong>Lidokain:</strong> 5 mg/kg over 30 min + 45 µg/kg/min senket CBF 24 % og CMR 20 % hos våkne frivillige; membranstabiliseringen antas å senke energibehovet for membranintegritet. Bolus 1,5 mg/kg var like effektivt som tiopental 3 mg/kg mot ICP-stigning ved pinnefeste, med mindre MAP-fall. Etter 2 mg/kg bolus er toppkonsentrasjonen 6,6–8,5 µg/mL, under krampeterskelen (over 5–10 µg/mL hos våkne); lidokainkramper er ikke rapportert hos anesteserte. Se kortet om multimodal anestesi i Midler-fanen.</li>
+   <li><strong>Muskelrelaksantia</strong> har ingen direkte cerebrovaskulær effekt utover histaminfrigjøring; suksametonium kan gi ca. 5 mmHg ICP-stigning som arousal-fenomen ved lett anestesi, blokkert av dyp anestesi eller defascikulering.</li>
+  </ul>
+  <span class="tag">Miller's kap. 10, fig. 10.12–10.19</span></div>
+  <div class="card"><h3>Epileptogene midler ifølge kapittel 10</h3>
+  <ul>
+   <li><strong>Sevofluran:</strong> kramper ved innledning med høye konsentrasjoner hos barn også uten kjent disposisjon. Hos to friske frivillige var burst suppression ved 2 MAC ledsaget av epileptiforme utladninger med klar CBF-økning (koblingen bevart). Hos pasienter med temporallappsepilepsi ga 1,5 MAC utbredt paroksysmal aktivitet som ikke var begrenset til fokus og ikke hjalp til lokalisering. Tonisk-kloniske bevegelser ved oppvåkning er rapportert hos friske. Ingen sekveler dokumentert; forsiktighet ved epilepsi. Se kortet om epileptiform aktivitet og bilde 19–20 i Spektrogram-fanen.</li>
+   <li><strong>Etomidat</strong> gir ofte myoklonus uten epileptiform EEG, men kan utløse generalisert epileptisk aktivitet hos epileptikere; 0,1 mg/kg brukes til å aktivere et stille fokus peroperativt. <strong>Metoheksital</strong> aktiverer fokus. <strong>Ketamin</strong> kan utløse anfall ved disposisjon, med subkortikal aktivitet som ikke alltid ses i overflate-EEG, men brukes også mot refraktær status (effekt hos 56 %). <strong>Propofol</strong> er ikke bekreftet prokonvulsivt og forkorter ECT-anfall; høyamplitudig beta er beskrevet. <strong>Opioider:</strong> høydose fentanyl ga elektrisk anfallsaktivitet hos 8 av 9 pasienter med partielle komplekse anfall under temporallappskirurgi; alfentanil 50 µg/kg forsterket spikes ved temporallappsepilepsi. <strong>Isofluran</strong> gir spikes og myoklonus, men regnes ikke som epileptogent og brukes mot refraktær status. <strong>Enfluran</strong> er epileptogent, forsterket av hypokapni.</li>
+   <li><strong>Hvorfor det hører hjemme i en EEG-app:</strong> anfallsaktivitet kan øke CMR inntil 400 %, og hos en relaksert pasient er EEG den eneste måten å oppdage den på.</li>
+  </ul>
+  <span class="tag">Miller's kap. 10, avsnittet Epileptogenesis</span></div>
+  <div class="card"><h3>CBF-terskler (fig. 10.20), hypoglykemi og nevroproteksjon</h3>
+  <ul>
+   <li><strong>Terskler:</strong> normal CBF ca. 50 ml/100 g/min. Symptomer på hypoperfusjon hos våkne først ved ca. 30. EEG-tegn på iskemi fra ca. 20. Isoelektrisk kortikalt EEG ved ca. 15. Penumbra 10–20: reversibel dysfunksjon, men celledød hvis flow ikke gjenopprettes. Tegn på irreversibel membransvikt (ekstracellulært kalium, tapt direkte kortikal respons) først ved ca. 6–10 (figurteksten sier 6–12). Dataene er fra cortex hos barbiturat-anesteserte bavianer og våkne aper, og nivåene varierer med middel og art; hos mennesker under halotan og N₂O var terskelen for første EEG-endring lik dyredataene. Tersklene er tegnet inn i figuren over sammen med van Putten og Foreman og Claassen.</li>
+   <li><strong>Kompletthet:</strong> ved fullstendig global iskemi (hjertestans) svikter energiforsyningen innen minutter; ved inkomplett (fokal) iskemi holder restflow ATP-produksjonen i gang lenger, derfor tåles fokal iskemi tilsynelatende bedre.</li>
+   <li><strong>Hypoglykemi i EEG:</strong> ved gradvis fall til ca. 40 mg/dL (ca. 2,2 mmol/L) skifter EEG fra alfa og beta mot delta og theta; under 20 mg/dL (ca. 1,1 mmol/L) blir EEG flatt. Vedvarende så lavt gir anfall og hippocampusskade. Hypertermi over 42 °C gir brått fall i oksygenforbruk (proteindenaturering).</li>
+   <li><strong>Nevroproteksjon:</strong> barbiturater, propofol, ketamin, inhalasjonsmidler og xenon beskytter i dyremodeller, men bare ved mild iskemi og ikke varig. Hos mennesker: i IHAST ga tiopental, etomidat eller propofol til EEG-undertrykkelse ingen bedre utfall; i GALA ga generell anestesi ingen fordel mot lokalanestesi ved karotiskirurgi. Konklusjon: å framkalle burst suppression for hjernebeskyttelse er ikke støttet hos anesteserte pasienter, og fysiologisk kontroll (CPP, oksygenering, normokapni, temperatur, glukose, anfall) betyr mer. Etomidat kan forverre vevshypoksi ved midlertidig karokklusjon. Hypotermi 32–36 °C etter hjertestans: TTM og TTM2 viste ingen fordel av lavere mål, retningslinjene holder på 32–36 °C og streng unngåelse av hypertermi.</li>
+   <li><strong>Utsettelse av elektiv kirurgi etter hjerneslag:</strong> risikoen for død innen 30 dager var størst de første 3 månedene og stabiliserte seg først etter 9 måneder; kapitlet anbefaler 9 måneders utsettelse av elektiv kirurgi, med unntak for tidlig karotiskirurgi ved små infarkter.</li>
+  </ul>
+  <span class="tag">Miller's kap. 10, fig. 10.20–10.24</span></div>
+  <div class="card"><h3>SSEP, ICP og fallende blodstrøm (Lobo og Lamperti kap. 6)</h3>
+  <ul>
+   <li>Teksten oppgir at SSEP-amplituden endres ved et CBF-fall til ca. 15 ml/100 g/min og forsvinner under 18.</li>
+   <li>Økt ICP endrer SSEP klassisk: amplituden går ned og latensen forlenges. Ved herniering kan subkortikale responser forsvinne først.</li>
+   <li>Boken beskriver ikke direkte hvordan EEG endres ved forhøyet ICP. CBF-terskler for EEG står i kortet om van Putten og Hofmeijer og i figuren under.</li>
+  </ul>
+  <span class="tag">Lobo og Lamperti 2025, kap. 6</span></div>
+  <div class="card"><h3>Figur: hvor på CBF-skalaen EEG og cellene svikter</h3>
+  <figure style="margin:0 0 10px">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 425" role="img" aria-labelledby="cbfT cbfD" style="width:100%;height:auto;font-family:inherit">
+<title id="cbfT">CBF-terskler for EEG og celleskade: tre kilder side om side</title><desc id="cbfD">Horisontal akse med cerebral blodstrøm fra 55 ned til 0 ml/100 g/min. Tre rader viser omtrentlige terskler fra Miller's kap. 10, van Putten og Hofmeijer 2016 og Foreman og Claassen (sitert hos van Putten). Tersklene overlapper og er ikke harde grenser.</desc>
+<style>.lab{font-size:12px;font-weight:700;fill:currentColor}.sub{font-size:10.5px;fill:var(--muted,#4F615E)}.txt{font-size:10.5px;fill:currentColor}.num{font-size:8.5px;font-weight:700;fill:var(--surface,#fff)}.grid{stroke:var(--line,#C9D3CE)}.hd{font-size:11.5px;font-weight:700;fill:currentColor}.b-ok{fill:var(--accent,#0F6B6B);opacity:.35}.b-mid{fill:#D9A441;opacity:.5}.b-bad{fill:#B5453C;opacity:.5}.mk{stroke:currentColor;stroke-width:.8;stroke-dasharray:2 2;opacity:.7}.dot{fill:currentColor}</style>
+<text x="14" y="18" class="hd">Cerebral blodstrøm (ml/100 g/min), fallende mot høyre</text>
+<line x1="236.9" y1="28" x2="236.9" y2="46" class="grid"/><text x="236.9" y="40" class="txt" text-anchor="middle">50</text>
+<line x1="330.7" y1="28" x2="330.7" y2="46" class="grid"/><text x="330.7" y="40" class="txt" text-anchor="middle">40</text>
+<line x1="424.5" y1="28" x2="424.5" y2="46" class="grid"/><text x="424.5" y="40" class="txt" text-anchor="middle">30</text>
+<line x1="518.4" y1="28" x2="518.4" y2="46" class="grid"/><text x="518.4" y="40" class="txt" text-anchor="middle">20</text>
+<line x1="612.2" y1="28" x2="612.2" y2="46" class="grid"/><text x="612.2" y="40" class="txt" text-anchor="middle">10</text>
+<line x1="706.0" y1="28" x2="706.0" y2="46" class="grid"/><text x="706.0" y="40" class="txt" text-anchor="middle">0</text>
+<line x1="190" y1="46" x2="706" y2="46" class="grid"/>
+<text x="14" y="69" class="lab">Miller's kap. 10 (primatdata)</text>
+<rect x="190.0" y="56" width="234.5" height="18" class="b-ok"/>
+<rect x="424.5" y="56" width="93.8" height="18" class="b-mid"/>
+<rect x="518.4" y="56" width="93.8" height="18" class="b-mid"/>
+<rect x="612.2" y="56" width="93.8" height="18" class="b-bad"/>
+<rect x="188" y="81" width="10" height="10" class="b-ok" style="opacity:.8"/>
+<text x="202" y="90" class="txt">&gt; 30: Ingen symptomer hos våkne</text>
+<rect x="188" y="94" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="103" class="txt">20–30: Symptomer på hypoperfusjon (våkne)</text>
+<rect x="188" y="107" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="116" class="txt">10–20: Penumbra: reversibel dysfunksjon, celledød uten reperfusjon</text>
+<line x1="518.4" y1="53" x2="518.4" y2="77" class="mk"/><circle cx="518.4" cy="65" r="6.5" class="dot"/><text x="518.4" y="68.5" class="num" text-anchor="middle">1</text>
+<text x="202" y="129" class="txt">20: EEG-tegn på iskemi begynner</text>
+<circle cx="194" cy="125" r="5.5" class="dot"/><text x="194" y="128.5" class="num" text-anchor="middle">1</text>
+<line x1="565.3" y1="53" x2="565.3" y2="77" class="mk"/><circle cx="565.3" cy="65" r="6.5" class="dot"/><text x="565.3" y="68.5" class="num" text-anchor="middle">2</text>
+<text x="202" y="142" class="txt">15: Kortikalt EEG isoelektrisk</text>
+<circle cx="194" cy="138" r="5.5" class="dot"/><text x="194" y="141.5" class="num" text-anchor="middle">2</text>
+<rect x="188" y="146" width="10" height="10" class="b-bad" style="opacity:.8"/>
+<text x="202" y="155" class="txt">0–10: Irreversibel membransvikt (teksten 6–10, figurteksten 6–12)</text>
+<line x1="14" y1="174" x2="706" y2="174" class="grid"/>
+<text x="14" y="197" class="lab">van Putten og Hofmeijer 2016</text>
+<rect x="190.0" y="184" width="46.9" height="18" class="b-ok"/>
+<rect x="377.6" y="184" width="187.6" height="18" class="b-mid"/>
+<rect x="612.2" y="184" width="93.8" height="18" class="b-bad"/>
+<rect x="188" y="209" width="10" height="10" class="b-ok" style="opacity:.8"/>
+<text x="202" y="218" class="txt">&gt; 50: Normal CBF ca. 50–54</text>
+<rect x="188" y="222" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="231" class="txt">15–35: Mild til moderat iskemi: synaptisk svikt. Mindre alfa og beta, så mer delta; kan bli</text>
+<text x="202" y="243" class="txt">isoelektrisk, men reversibelt</text>
+<rect x="188" y="247" width="10" height="10" class="b-bad" style="opacity:.8"/>
+<text x="202" y="256" class="txt">0–10: Membranpotensialet endres (Donnan); celledød, permanent tap av rytmer</text>
+<line x1="14" y1="275" x2="706" y2="275" class="grid"/>
+<text x="14" y="298" class="lab">Foreman og Claassen (sitert hos van Putten)</text>
+<rect x="377.6" y="285" width="93.8" height="18" class="b-mid"/>
+<rect x="537.1" y="285" width="9.4" height="18" class="b-mid"/>
+<rect x="593.4" y="285" width="18.8" height="18" class="b-bad"/>
+<rect x="188" y="310" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="319" class="txt">25–35: Hurtig aktivitet forsvinner</text>
+<rect x="188" y="323" width="10" height="10" class="b-mid" style="opacity:.8"/>
+<text x="202" y="332" class="txt">17–18: Langsom aktivitet øker (van Putten fig. 3: ca. 15)</text>
+<rect x="188" y="336" width="10" height="10" class="b-bad" style="opacity:.8"/>
+<text x="202" y="345" class="txt">10–12: EEG stille</text>
+<line x1="14" y1="364" x2="706" y2="364" class="grid"/>
+<text x="14" y="380" class="sub">Tegnet etter tallene i teksten hos Miller's kap. 10 (fig. 10.20, primatdata) og van Putten og Hofmeijer 2016, ikke</text>
+<text x="14" y="393" class="sub">kopiert fra figurer. Definisjonene er ulike kildene imellom. Alle terskler er omtrentlige, avhenger av varighet, og</text>
+<text x="14" y="406" class="sub">overlapper.</text>
+</svg>
+  <figcaption class="small">Figur: CBF-terskler fra tre kilder på samme akse. Undervisningsfigur; tallene er hentet fra teksten og bør ikke brukes som harde grenser.</figcaption>
+  </figure>
+  <span class="tag">Miller's kap. 10 · van Putten og Hofmeijer 2016 · Foreman og Claassen via van Putten</span></div>
   </div>
 </section>
 
@@ -4318,6 +4349,9 @@ const QS=[
  {q:'Hva fant Abend 2013 om anfall hos barn på intensiv med kontinuerlig EEG?',
   a:['30 % hadde elektrografiske anfall, og hos 36 % av dem var alle anfallene uten kliniske tegn','Anfall forekom bare hos barn med kjent epilepsi','Ingen hadde anfall under sedasjon','Alle anfall ga kramper'],c:0,
   e:'Sepsis hadde høyest andel (58 % av 19). Elektrografisk status epilepticus var knyttet til høyere dødelighet (OR 2,42).',s:'Abend 2013',t:'icu'},
+ {q:'Hva skjer med bakre alfa når en våken person åpner øynene, og hvorfor?',
+  a:['Den dempes; både fordi synsbarken tas i bruk og fordi hjernen blir mer aktivert (våkenhet)','Den øker fordi synsinntrykk gir mer alfa','Den flytter seg til pannen','Ingenting skjer'],c:0,
+  e:'Barry 2007 fant at alfa falt over hele hodet ved øyeåpning samtidig som hudledningsevnen steg. Alfa tolkes ofte som aktiv hemming av områder som ikke er i bruk (Jensen og Mazaheri 2010).',s:'Barry 2007, Jensen og Mazaheri 2010',t:'basis'},
  {q:'Hva fant Ogawa 2020 om målt propofol under CO₂-pneumoperitoneum og hodeleie?',
   a:['I snitt ikke høyere enn TCI beregnet, men høyere jo lavere hjerteindeksen var','Dobbelt så høy som beregnet hos alle','Lavere enn beregnet hos alle','Propofol ble ikke målt'],c:0,
   e:'Lavere minuttvolum gir høyere propofolkonsentrasjon, og det er den best dokumenterte mekanismen (Upton 1999, Chalo 2019).',s:'Ogawa 2020',t:'perf'},
@@ -4898,6 +4932,8 @@ const REFS=[
  ['Kalkman CJ, et al. Anesthesiology 1991;75:68–74.','https://doi.org/10.1097/00000542-199107000-00012','Hyperkapni, hypokapni og EEG.'],
  ['Ann et al. Korean J Anesthesiol 2017;70:213–216.','https://doi.org/10.4097/kjae.2017.70.2.213','Kasuistikk: svært høy PaCO₂ og fall i entropi.'],
  ['Braathen MR, Rigby-Jones AE, Ræder J, Spigset O, Heier T. Pharmacokinetics of propofol in severely obese surgical patients. Acta Anaesthesiol Scand 2024;68:726–736.','https://doi.org/10.1111/aas.14407','Ingen interessekonflikter oppgitt. Finansiert av avdelingen.'],
+ ['Barry RJ, Clarke AR, Johnstone SJ, Magee CA, Rushby JA. EEG differences between eyes-closed and eyes-open resting conditions. Clin Neurophysiol 2007;118:2765–2773.','https://ro.uow.edu.au/hbspapers/1640',''],
+ ['Jensen O, Mazaheri A. Shaping functional architecture by oscillatory alpha activity: gating by inhibition. Front Hum Neurosci 2010;4:186.','https://doi.org/10.3389/fnhum.2010.00186',''],
  ['Li J, Hu R, Tan W, Li J, Huang W, Wang Z. Activation of glutamatergic neurones in the pedunculopontine tegmental nucleus promotes cortical activation and behavioural emergence from sevoflurane-induced unconsciousness in mice. Br J Anaesth 2024;132:320–333.','https://doi.org/10.1016/j.bja.2023.08.033','Dyreforsøk, mus. Ingen interessekonflikter.'],
  ['Wildes TS, Avidan MS. Critical appraisal of ENGAGES: cognitive dissonance and anesthesia research. Ann Transl Med 2019;7(20):599.','https://doi.org/10.21037/atm.2019.09.48','Svar fra studiens forfattere på Koch 2019. Ingen interessekonflikter oppgitt.'],
  ['Robinson TN, Eiseman B. Postoperative delirium in the elderly: diagnosis and management. Clin Interv Aging 2008;3:351–355.','https://dovepress.com/article/download/1759','Oversikt.'],
@@ -5608,6 +5644,9 @@ document.querySelectorAll('.subnav').forEach(nav=>{
   showSub(nav,k,false);
 });
 })();
+</script>
+<script>
+document.addEventListener('click',e=>{const b=e.target.closest('[data-subjump]'); if(!b) return; const sec=b.closest('section'); const nb=sec&&sec.querySelector('.subnav button[data-sub="'+b.dataset.subjump+'"]'); if(nb){nb.click(); sec.querySelector('.subnav').scrollIntoView({behavior:'smooth',block:'start'});}});
 </script>
 </body>
 </html>
