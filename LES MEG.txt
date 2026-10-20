@@ -15,6 +15,6 @@ Nytt i denne versjonen
   alfa målt mot bakgrunnen», med skjematisk effektspekter og tre skjematiske spektrogrammer.
   Tre nye referanser i Kilder-fanen.
 
-Sjekk før du laster opp
-  De to eLife-referansene er ikke åpnet i fulltekst. Bekreft at kulepunktene om helning og
-  våkenhetsnivå og om alfa og hjernens modning stemmer med artiklene.
+Kilder
+  Tröndle et al. 2022 (eLife) er lest i fulltekst. eLife 2020;9:e55092 (våkenhetsnivå) er ikke åpnet i
+  fulltekst; bekreft at kulepunktet om helning og våkenhetsnivå stemmer med artikkelen.
