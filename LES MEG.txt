@@ -1,16 +1,20 @@
-ANESTESI OG EEG – NETTSIDEPAKKE (flat, uten mapper)
+OPPDATERING: PERIODISK OG APERIODISK EEG-AKTIVITET
 
-Last opp ALLE filene i denne mappen som enkeltfiler til GitHub (Add file → Upload files):
-  index.html              norsk versjon
-  en.html                 engelsk versjon
-  manifest.webmanifest    norsk app-manifest (installasjon på mobil)
-  manifest-en.webmanifest engelsk app-manifest
-  sw.js                   offline-støtte
-  icon-192.png, icon-512.png, icon-512-maskable.png, apple-touch-icon.png, favicon-64.png   ikoner
+Innhold
+  index.html   norsk versjon
+  en.html      engelsk versjon
 
-Adresser etter at GitHub Pages er slått på (Settings → Pages → Deploy from a branch, main, / (root)):
-  norsk:   https://heidileona123.github.io/Anestesi-EEG/
-  engelsk: https://heidileona123.github.io/Anestesi-EEG/en.html
+Slik oppdaterer du
+  1. Pakk ut mappen.
+  2. Gå til repoet «Anestesi-EEG» på github.com.
+  3. Klikk «Add file» → «Upload files», og dra inn index.html og en.html.
+  4. Klikk «Commit changes». Siden er oppdatert etter 1–2 minutter.
 
-Installere på mobil: åpne adressen i Safari (iPhone) → Del → «Legg til på Hjem-skjerm»,
-eller Chrome (Android) → meny → «Installer app».
+Nytt i denne versjonen
+  Kort i Spektrogram-fanen, under «Simulator og grunnlag»: «Periodisk og aperiodisk aktivitet:
+  alfa målt mot bakgrunnen», med skjematisk effektspekter og tre skjematiske spektrogrammer.
+  Tre nye referanser i Kilder-fanen.
+
+Sjekk før du laster opp
+  De to eLife-referansene er ikke åpnet i fulltekst. Bekreft at kulepunktene om helning og
+  våkenhetsnivå og om alfa og hjernens modning stemmer med artiklene.
