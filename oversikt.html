@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hvorfor EEG under narkose og sedasjon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap">
+<style>
+/* Layout: seks grunner som rader (tall til venstre, forklaring i midten, artikkelhode til høyre), så en egen boks for det EEG ikke kan. */
+:root{
+  --bg:#FFFFFF; --fg:#1B1A1A; --muted:#625C5C; --line:#E3DCDC;
+  --red:#B5121B; --red-soft:#FBEDEE; --panel:#F7F4F4; --ref:#FAF8F8;
+  --display:'Source Serif 4',Cambria,Georgia,serif; --body:'Source Sans 3',Calibri,system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16100F; --fg:#F2ECEB; --muted:#B7ABAA; --line:#3A2D2C;
+  --red:#F0646B; --red-soft:#2A1618; --panel:#201817; --ref:#1C1514; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16100F; --fg:#F2ECEB; --muted:#B7ABAA; --line:#3A2D2C;
+  --red:#F0646B; --red-soft:#2A1618; --panel:#201817; --ref:#1C1514; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5;
+  padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto}
+header{border-bottom:3px solid var(--red);padding-bottom:14px;margin-bottom:8px}
+.kicker{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:0 0 6px}
+h1{font-family:var(--display);font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:1.1;margin:0;text-wrap:balance}
+.lead{margin:10px 0 0;color:var(--muted);max-width:62ch}
+.row{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,340px);gap:12px 28px;padding:20px 0;border-bottom:1px solid var(--line);align-items:start}
+.big{font-family:var(--display);font-weight:700;color:var(--red);font-size:1.9rem;line-height:1.05;min-width:0}
+.big small{display:block;font-family:var(--body);font-weight:400;font-size:.85rem;color:var(--muted);margin-top:4px;line-height:1.3}
+h2{font-family:var(--display);font-size:1.3rem;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+.row p{margin:0 0 6px;min-width:0}
+.cite{font-size:.88rem;color:var(--muted)}
+.ref{background:var(--ref);border:1px solid var(--line);border-left:5px solid var(--red);padding:10px 12px;min-width:0}
+.ref .j{font-size:.75rem;font-weight:700;color:var(--red);margin:0 0 3px}
+.ref .t{font-family:var(--display);font-weight:700;font-size:.98rem;line-height:1.3;margin:0 0 4px}
+.ref .a{font-size:.8rem;color:var(--muted);margin:0}
+.limits{margin-top:24px;background:var(--panel);border:1px solid var(--line);padding:18px 20px}
+.limits h2{color:var(--red)}
+.limits ul{margin:8px 0 0;padding-left:20px}
+.limits li{margin-bottom:6px}
+.bottom{margin-top:22px;border-top:3px solid var(--red);padding-top:12px;font-family:var(--display);font-size:1.25rem;line-height:1.35;text-wrap:balance}
+footer{margin-top:14px;font-size:.82rem;color:var(--muted)}
+@media (max-width:760px){.row{grid-template-columns:1fr;gap:6px}.big{font-size:1.6rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="kicker">EEG under narkose og sedasjon</p>
+  <h1>Hvorfor bruke EEG?</h1>
+  <p class="lead">Seks grunner, og hva som ikke er vist. Tallene kommer fra artiklene til høyre.</p>
+</header>
+
+<section class="row">
+  <div class="big">2,6 mot 4,6<small>µg/ml ved tap av respons</small></div>
+  <div><h2>Samme tall på pumpen, ulik dybde</h2>
+    <p>Effektstedkonsentrasjonen er en modell, ikke en måling. Ved langsom induksjon var den 2,6 µg/ml ved tap av respons, ved rask 4,6 µg/ml. EEG viser hva hjernen gjør med dosen hos akkurat denne pasienten.</p>
+    <p class="cite">Sepúlveda 2020, Anaesthesia 75:196, og Obert 2020, Sci Rep 10:19444.</p></div>
+  <div></div>
+</section>
+
+<section class="row">
+  <div class="big">TIVA + relaksans<small>pEEG skal brukes</small></div>
+  <div><h2>Når muskelrelaksans fjerner bevegelse som varsel</h2>
+    <p>Retningslinjen sier at prosessert EEG skal brukes ved TIVA sammen med nevromuskulær blokade, fra før induksjon til full opphevelse er bekreftet. Det bør vurderes ved andre teknikker og hos høyrisikopasienter.</p></div>
+  <div class="ref"><p class="j">Anaesthesia 2021;76:1212–1223</p><p class="t">Recommendations for standards of monitoring during anaesthesia and recovery 2021: guideline from the Association of Anaesthetists</p><p class="a">Klein AA, et al. (anbefaling 7)</p></div>
+</section>
+
+<section class="row">
+  <div class="big">OR 0,36<small>mot klinisk overvåking</small></div>
+  <div><h2>Awareness: bedre enn tegn alene, ikke bedre enn gassmåling</h2>
+    <p>Cochrane-oversikten (52 studier) fant at hjerneovervåking mer enn halverte awareness med erindring sammenlignet med klinisk overvåking. Mot alarm på endetidal gass var det ingen forskjell (OR 1,13). Sikkerheten i evidensen var lav. Det taler for EEG særlig ved TIVA, der det ikke finnes en endetidal måling.</p>
+    <p class="cite">Lewis 2019, Cochrane (slik den gjengis i Miller's kap. 36). B-Unaware og BAG-RECALL viste samme bilde.</p></div>
+  <div></div>
+</section>
+
+<section class="row">
+  <div class="big">0,69 mot 0,80<small>MAC, EEG-styrt mot vanlig</small></div>
+  <div><h2>Unngå unødvendig dyp narkose</h2>
+    <p>I ENGAGES fikk EEG-gruppen mindre volatilt middel og mindre suppresjon (7 mot 13 minutter). Delirium ble ikke redusert (26,0 % mot 23,0 %). Burst suppression henger sammen med delirium i observasjonsstudier, men det er en sammenheng og ikke en årsak.</p></div>
+  <div class="ref"><p class="j">JAMA 2019;321:473–483</p><p class="t">Effect of electroencephalography-guided anesthetic administration on postoperative delirium among older adults undergoing major surgery: the ENGAGES randomized clinical trial</p><p class="a">Wildes TS, et al.</p></div>
+</section>
+
+<section class="row">
+  <div class="big">15–16 mot 5<small>µg/ml propofol, immobilitet mot burst suppression</small></div>
+  <div><h2>Bevegelse er ikke et mål på hypnose</h2>
+    <p>Propofol alene må opp i 15–16 µg/ml for å hindre bevegelse ved incision, mens burst suppression kommer ved ca. 5 µg/ml. Mer hypnotikum treffer da feil komponent. I ENGAGES var uønsket bevegelse 22,3 % mot 15,4 % når narkosen ble holdt lettere, så analgesien må vurderes.</p>
+    <p class="cite">Miller's Anesthesia kap. 21 og 36; Wildes 2019 (ENGAGES).</p></div>
+  <div></div>
+</section>
+
+<section class="row">
+  <div class="big">RASS ≤ −3<small>og nevromuskulær blokade</small></div>
+  <div><h2>På intensiv: der klinisk vurdering ikke strekker til</h2>
+    <p>Ekspertpanelet anbefaler prosessert EEG når klinisk vurdering ikke er mulig, ved dyp sedasjon og som hovedmetode ved nevromuskulær blokade. Ved lett sedasjon (RASS 0 til −2) har det ikke nytte. EEG viser også anfall uten kramper: 10 % hadde anfall og 17 % periodiske utladninger, 32 % ved sepsis (Oddo).</p></div>
+  <div>
+    <div class="ref"><p class="j">Neurocrit Care 2023</p><p class="t">Processed Electroencephalogram-Based Monitoring to Guide Sedation in Critically Ill Adult Patients: Recommendations from an International Expert Panel-Based Consensus</p><p class="a">Rasulo et al.</p></div>
+    <div class="ref" style="margin-top:10px"><p class="j">Crit Care Med 2009;37:2051–2056</p><p class="t">Continuous electroencephalography in the medical intensive care unit</p><p class="a">Oddo M, Carrera E, Claassen J, Mayer SA, Hirsch LJ</p></div>
+  </div>
+</section>
+
+<section class="limits">
+  <h2>Hva EEG ikke kan</h2>
+  <ul>
+    <li>Et indekstall er ikke nok. Det skal kontrolleres mot rå-EEG og spektrogram, og artefakt og EMG kan gi feil tall.</li>
+    <li>Frontal alfa–delta utelukker ikke tilkoblet bevissthet, og indekser er ikke perfekte til å oppdage bevissthet.</li>
+    <li>En frontal monitor kan overse anfall i tinninglapp og bakhode. Mistanke skal gi fullt EEG.</li>
+    <li>Bedre enn endetidal gass til å forebygge awareness er ikke vist (B-Unaware, BAG-RECALL).</li>
+    <li>Reduksjon i delirium er ikke vist konsekvent (ENGAGES). Argumentet er å se og unngå unødvendig dyp suppresjon, ikke å love lavere deliriumrate.</li>
+  </ul>
+</section>
+
+<p class="bottom">EEG viser hva hjernen gjør med dosen. Det hjelper oss å velge riktig tiltak, men det erstatter ikke klinikken.</p>
+<footer>Laget av Heidi Leona Porskrog-Mjelde, anestesisykepleier. Ikke produktinformasjon, og ingen doseringsråd. Kontroller originalkildene før bruk i undervisning.</footer>
+</div>
+
+</body>
+</html>
