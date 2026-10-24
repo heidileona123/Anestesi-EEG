@@ -2959,7 +2959,6 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>What looks like gamma is often muscle:</strong> Gamma is attenuated by skull and skin and overlaps with muscle activity. In a patient without neuromuscular blockade, “gamma” on a frontal monitor is therefore often EMG from the forehead and eye muscles. (see “The frequency bands”)</li>
    <li><strong>Frontal monitors have a limited view:</strong> They use only the front part of the 10–20 system, which is enough for frontal alpha and slow activity but not for localising seizures or seeing posterior alpha. Only sensors with electrodes over both sides can show asymmetry. (see “Electrodes, the 10–20 system and frontal monitors”)</li>
    <li><strong>The pattern tells you more than the number:</strong> Sustained alpha spindles around 10 Hz coupled to slow delta suggest adequate hypnosis under propofol and volatile agents, but not with ketamine or nitrous oxide, and older patients produce weaker alpha. Burst suppression and sustained suppression are the clearest, though non-specific, signs of too much. (see “An ‘imperfect but useful mirror’: an introduction to EEG monitoring (Hight 2020)”)</li>
-   <li><strong>The spectral background carries information:</strong> The aperiodic slope was 1.61 when awake versus 2.60 under anaesthesia and separated the states well. This is research, and no commercial monitor displays the exponent today. (see “Aperiodic EEG activity (‘1/f’): the background is signal, not noise”)</li>
   </ul>
   <p class="small">The cards below summarise the articles and chapters these points are based on.</p></div>
   <h3>What EEG is</h3>
@@ -3034,7 +3033,14 @@ header h1 button:hover{color:var(--accent)}
   <span class="tag">Lobo and Lamperti 2025, ch. 4; Mehler 2024 (four-channel montage)</span></div>
   <h3>Aperiodic EEG activity (“1/f”): the background is signal, not noise</h3>
   <div class="card">
-  <p>An EEG spectrum consists of two parts: <strong>periodic</strong> peaks (delta, theta, alpha, beta, which give the bands in the spectrogram) on top of an <strong>aperiodic</strong> background where power falls steadily with frequency according to a power law, P ∝ 1/f<sup>α</sup>. In a log-log plot the background is a straight line, and the exponent α is the slope: the steeper, the more the power is concentrated in the slow frequencies. This was long called “1/f noise”, but carries information.</p>
+  <p class="small"><strong>New research, not yet clinical practice.</strong> The card is included because it helps explain why the same change on the monitor can have different causes. No monitor shows this today.</p>
+  <p><strong>What it is:</strong> the spectrogram splits the EEG into frequencies. You then see two things at once:</p>
+  <ul>
+   <li><strong>The rhythms:</strong> clear bands at particular frequencies, for example alpha around 10 Hz under propofol. This is called the periodic part.</li>
+   <li><strong>The background:</strong> an even “foundation” that is always there, even when there is no rhythm. It is strongest at the slow frequencies and becomes weaker the faster the frequency. This is called the aperiodic part (without a fixed rhythm), or “1/f”, because power falls roughly as 1 divided by the frequency.</li>
+   <li><strong>The slope:</strong> how quickly the background falls from slow to fast frequencies. A steep slope means much slow and little fast activity. A flat slope means relatively more fast activity.</li>
+  </ul>
+  <p><strong>Why it is useful to know:</strong> when the power in a frequency band changes, it may be because the rhythm changes, because the background changes, or both. The monitor does not distinguish between them. One example is weak alpha in older patients: some of it is a weaker alpha rhythm, and some is a lower background (Tröndle 2023, Leroy 2023). The figure shows the principle.</p>
 
   <figure style="margin:14px 0 6px">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 330" role="img" aria-labelledby="apA apAd" style="width:100%;height:auto;font-family:inherit">
@@ -3098,6 +3104,14 @@ header h1 button:hover{color:var(--accent)}
 </svg>
   <figcaption class="small">Schematic, not measured data. Top: the measured spectrum (solid) is the sum of an aperiodic background (dashed) and rhythmic peaks. Adjusted alpha power is the peak above the background. Bottom: age at rest and anaesthesia change the background in opposite directions, so the same change in total power can have different causes. The figures are drawn for the app after the principle in Tröndle 2023 and Widmann 2025.</figcaption>
   </figure>
+  <p><strong>What research has shown so far:</strong></p>
+  <ul>
+   <li><strong>Anaesthesia makes the background steeper.</strong> In one study the slope separated awake from anaesthetised patients very well (Widmann 2025).</li>
+   <li><strong>Age makes it flatter.</strong> At rest, older people have a lower and flatter background than young people (Tröndle 2023). Under propofol, much of the difference between young and old lay in the background, not in the rhythms (Leroy 2023).</li>
+   <li><strong>The agents may perhaps be distinguished.</strong> The slope differed between sevoflurane and propofol (Dragovic 2025, discussed in Connor 2026).</li>
+   <li><strong>Caveats:</strong> few and small studies, the numbers depend on the analysis method, and values from different studies cannot be compared directly.</li>
+  </ul>
+  <details class="sc"><summary>The studies in detail (numbers and method)</summary><div class="body">
   <ul>
    <li><strong>The exponent follows hypnosis (Widmann 2025, BJA):</strong> frontal EEG in 62 awake subjects and 125 during maintenance with propofol, sevoflurane or desflurane, decomposed with the FOOOF algorithm. α was 1.61 awake versus 2.60 under anaesthesia (AUC 0.98). When the usual spectral parameters (beta ratio, SEF95, spectral entropy, alpha/delta ratio) were computed on the aperiodic model alone instead of the whole spectrum, the ability to separate awake from anaesthetised rose from AUC 0.71–0.95 to 0.98 for all four, on a par with permutation and approximate entropy. The authors' interpretation: the aperiodic part reflects the hypnotic component, while the periodic oscillations, especially alpha, disturb the indices and rather say something about the quality of the anaesthesia (nociception, frailty) than about the level of consciousness. Simulations (Gao 2017) link α to the balance between synaptic excitation and inhibition.</li>
    <li><strong>Age-independent markers of loss of consciousness (Leroy 2023):</strong> 9 young (18–30 years) and 14 older (over 70 years) subjects during manual propofol induction with 21 electrodes. Loss of consciousness produced an increased exponent and offset in both groups, the alpha peak shifted from about 10 to 11 Hz, and the adjusted alpha power above the background increased. The older subjects received half the propofol dose (1.8 versus 3.4 mg/kg), but 4 of 14 developed burst suppression versus 2 of 9 young. The young showed a “travelling” burst of power from gamma via beta to alpha around loss of consciousness (as in Purdon 2013), and in 8 of 9 young the exponent fell just before loss of consciousness, consistent with paradoxical excitation. When the background was subtracted, older and young looked far more alike: much of the age difference lies in the aperiodic part. Exploratory pilot without correction for multiple testing.</li>
@@ -3107,6 +3121,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>The direction is not the same (interpretation based on the sources):</strong> at rest the background becomes flatter with age (Tröndle 2023), whereas anaesthesia makes it steeper (Widmann 2025). Lower total alpha in an older patient may therefore reflect both less rhythmic alpha and a lower background, and the numbers on the monitor do not separate them.</li>
    <li><strong>Caveats:</strong> Widmann is a signal-analytic study without control for doses or age, and the FOOOF settings (with or without a “knee” around 20 Hz) affect the numbers, so exponent values from different studies cannot be compared directly. Conflicts of interest: Kreuzer, García, Kratzer and Schneider hold patents on intraoperative EEG analysis, García is co-founder of Lantern Laboratories, Kreuzer has received funds from Masimo, Narcotrend, Medtronic and Fresenius for EEG teaching; Koch (Leroy 2023) holds patents sold to Medtronic. Connor reports none of relevance.</li>
   </ul>
+  </div></details>
   <p><strong>Typical tendencies, not diagnostic criteria</strong></p>
   <table class="mx" style="font-size:.9em">
    <thead><tr><th></th><th>Younger, more robust brain</th><th>Older or more vulnerable brain</th></tr></thead>

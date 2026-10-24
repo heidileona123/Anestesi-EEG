@@ -2959,7 +2959,6 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Det som ser ut som gamma, er ofte muskel:</strong> Gamma dempes av skalle og hud og overlapper med muskelaktivitet. Hos en pasient uten muskelrelaksans er «gamma» på en frontal monitor derfor ofte EMG fra panne og øyemuskler. (se «Frekvensbåndene»)</li>
    <li><strong>Frontale monitorer har begrenset utsyn:</strong> De bruker bare den fremre delen av 10–20-systemet, som er nok for frontal alfa og langsom aktivitet, men ikke for anfallslokalisering eller bakre alfa. Bare sensorer med elektroder over begge sider kan vise asymmetri. (se «Elektroder, 10–20-systemet og frontale monitorer»)</li>
    <li><strong>Mønsteret forteller mer enn tallet:</strong> Vedvarende alfa-spindler rundt 10 Hz koblet til langsom delta tyder på adekvat hypnose under propofol og inhalasjonsmidler, men ikke med ketamin eller lystgass, og eldre lager svakere alfa. Burst suppression og vedvarende suppresjon er de tydeligste, men uspesifikke, tegnene på for mye. (se «Et «ufullkomment, men nyttig speil»: innføring i EEG-monitorering (Hight 2020)»)</li>
-   <li><strong>Bakgrunnen i spekteret bærer informasjon:</strong> Den aperiodiske helningen var 1,61 hos våkne mot 2,60 under anestesi og skilte godt mellom tilstandene. Dette er forskning, og ingen kommersiell monitor viser eksponenten i dag. (se «Aperiodisk EEG-aktivitet («1/f»): bakgrunnen er signal, ikke støy»)</li>
   </ul>
   <p class="small">Kortene under oppsummerer artiklene og kapitlene poengene bygger på.</p></div>
   <h3>Hva EEG er</h3>
@@ -3034,7 +3033,14 @@ header h1 button:hover{color:var(--accent)}
   <span class="tag">Lobo og Lamperti 2025, kap. 4; Mehler 2024 (firekanals montasje)</span></div>
   <h3>Aperiodisk EEG-aktivitet («1/f»): bakgrunnen er signal, ikke støy</h3>
   <div class="card">
-  <p>Et EEG-spektrum består av to deler: <strong>periodiske</strong> topper (delta, theta, alfa, beta, som gir båndene i spektrogrammet) oppå en <strong>aperiodisk</strong> bakgrunn der effekten faller jevnt med frekvensen etter en potenslov, P ∝ 1/f<sup>α</sup>. I et log-log-plott er bakgrunnen en rett linje, og eksponenten α er helningen: jo brattere, desto mer er effekten samlet i de langsomme frekvensene. Dette ble lenge kalt «1/f-støy», men bærer informasjon.</p>
+  <p class="small"><strong>Ny forskning, ikke klinisk praksis ennå.</strong> Kortet er med fordi det hjelper å forstå hvorfor samme endring på monitoren kan ha ulike årsaker. Ingen monitor viser dette i dag.</p>
+  <p><strong>Hva det er:</strong> spektrogrammet deler EEG opp i frekvenser. Da ser man to ting samtidig:</p>
+  <ul>
+   <li><strong>Rytmene:</strong> tydelige bånd på bestemte frekvenser, for eksempel alfa rundt 10 Hz under propofol. Dette kalles den periodiske delen.</li>
+   <li><strong>Bakgrunnen:</strong> en jevn «grunnmur» som alltid er der, også når det ikke er noen rytme. Den er sterkest ved de langsomme frekvensene og blir svakere jo raskere frekvensen er. Dette kalles den aperiodiske delen (uten fast rytme), eller «1/f», fordi effekten faller omtrent som 1 delt på frekvensen.</li>
+   <li><strong>Helningen:</strong> hvor raskt bakgrunnen faller fra langsomme til raske frekvenser. Bratt helning betyr mye langsom og lite rask aktivitet. Flat helning betyr relativt mer rask aktivitet.</li>
+  </ul>
+  <p><strong>Hvorfor det er nyttig å vite:</strong> når effekten i et frekvensbånd endrer seg, kan det skyldes at rytmen endrer seg, at bakgrunnen endrer seg, eller begge deler. Monitoren skiller ikke mellom dem. Et eksempel er svak alfa hos eldre: noe av det er svakere alfa-rytme, og noe er en lavere bakgrunn (Tröndle 2023, Leroy 2023). Figuren viser prinsippet.</p>
 
   <figure style="margin:14px 0 6px">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 330" role="img" aria-labelledby="apA apAd" style="width:100%;height:auto;font-family:inherit">
@@ -3098,6 +3104,14 @@ header h1 button:hover{color:var(--accent)}
 </svg>
   <figcaption class="small">Skjematisk, ikke måledata. Øverst: det målte spekteret (heltrukket) er summen av en aperiodisk bakgrunn (stiplet) og rytmiske topper. Justert alfa-effekt er toppen over bakgrunnen. Nederst: alder i hvile og anestesi endrer bakgrunnen i hver sin retning, så samme endring i total effekt kan ha ulike årsaker. Figurene er tegnet for appen etter prinsippet i Tröndle 2023 og Widmann 2025.</figcaption>
   </figure>
+  <p><strong>Hva forskningen har vist så langt:</strong></p>
+  <ul>
+   <li><strong>Anestesi gjør bakgrunnen brattere.</strong> I én studie skilte helningen våkne fra anesteserte pasienter svært godt (Widmann 2025).</li>
+   <li><strong>Alder gjør den flatere.</strong> I hvile har eldre en lavere og flatere bakgrunn enn unge (Tröndle 2023). Under propofol lå mye av forskjellen mellom unge og eldre i bakgrunnen, ikke i rytmene (Leroy 2023).</li>
+   <li><strong>Midlene kan kanskje skilles.</strong> Helningen var ulik for sevofluran og propofol (Dragovic 2025, omtalt i Connor 2026).</li>
+   <li><strong>Forbehold:</strong> få og små studier, tallene avhenger av analysemetoden, og verdier fra ulike studier kan ikke sammenlignes direkte.</li>
+  </ul>
+  <details class="sc"><summary>Studiene i detalj (tall og metode)</summary><div class="body">
   <ul>
    <li><strong>Eksponenten følger hypnosen (Widmann 2025, BJA):</strong> frontalt EEG hos 62 våkne og 125 under vedlikehold med propofol, sevofluran eller desfluran, dekomponert med FOOOF-algoritmen. α var 1,61 våken mot 2,60 under anestesi (AUC 0,98). Når de vanlige spektralparametrene (beta-ratio, SEF95, spektral entropi, alfa/delta-ratio) ble beregnet på den aperiodiske modellen alene i stedet for hele spekteret, steg skilleevnen mellom våken og anestesert fra AUC 0,71–0,95 til 0,98 for alle fire, på nivå med permutasjons- og approksimativ entropi. Forfatternes tolkning: den aperiodiske delen speiler den hypnotiske komponenten, mens de periodiske svingningene, særlig alfa, forstyrrer indeksene og heller sier noe om anestesiens kvalitet (nocisepsjon, skrøpelighet) enn om bevissthetsnivået. Simuleringer (Gao 2017) knytter α til balansen mellom synaptisk eksitasjon og inhibisjon.</li>
    <li><strong>Aldersuavhengige markører for tap av bevissthet (Leroy 2023):</strong> 9 unge (18–30 år) og 14 eldre (over 70 år) under manuell propofolinduksjon med 21 elektroder. Tap av bevissthet ga økt eksponent og offset i begge grupper, alfa-toppen flyttet seg fra ca. 10 til 11 Hz, og den justerte alfa-effekten over bakgrunnen økte. Eldre fikk halve propofoldosen (1,8 mot 3,4 mg/kg), men 4 av 14 fikk burst suppression mot 2 av 9 unge. Unge viste et «vandrende» effektutbrudd fra gamma via beta til alfa rundt tap av bevissthet (som Purdon 2013), og hos 8 av 9 unge falt eksponenten like før tap av bevissthet, forenlig med paradoksal eksitasjon. Når bakgrunnen ble trukket fra, så eldre og unge langt likere ut: mye av aldersforskjellen ligger i den aperiodiske delen. Eksplorativ pilot uten korreksjon for multippel testing.</li>
@@ -3107,6 +3121,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Retningen er ikke den samme (tolkning ut fra kildene):</strong> i hvile blir bakgrunnen flatere med alder (Tröndle 2023), mens anestesi gjør den brattere (Widmann 2025). Lavere total alfa hos en eldre pasient kan derfor skyldes både mindre rytmisk alfa og en lavere bakgrunn, og tallene på monitoren skiller ikke mellom dem.</li>
    <li><strong>Forbehold:</strong> Widmann er en signalanalytisk studie uten kontroll for doser eller alder, og FOOOF-innstillingene (med eller uten «kne» rundt 20 Hz) påvirker tallene, så eksponentverdier fra ulike studier kan ikke sammenlignes direkte. Interessekonflikter: Kreuzer, García, Kratzer og Schneider har patenter på intraoperativ EEG-analyse, García er medgründer av Lantern Laboratories, Kreuzer har mottatt midler fra Masimo, Narcotrend, Medtronic og Fresenius for EEG-opplæring; Koch (Leroy 2023) har patenter solgt til Medtronic. Connor oppgir ingen relevante.</li>
   </ul>
+  </div></details>
   <p><strong>Typiske tendenser, ikke diagnostiske kriterier</strong></p>
   <table class="mx" style="font-size:.9em">
    <thead><tr><th></th><th>Yngre, mer robust hjerne</th><th>Eldre eller mer sårbar hjerne</th></tr></thead>
