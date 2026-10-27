@@ -7548,8 +7548,16 @@ function prepCard(c){
   return hidden;
 }
 function lead(el){let n=el.firstChild; while(n&&n.nodeType===3&&!n.textContent.trim()) n=n.nextSibling; return n&&n.nodeType===1&&(n.tagName==='STRONG'||n.tagName==='B')?n:null;}
-function wrapRest(el){const st=lead(el); if(/:\s*$/.test(st.textContent)) return false; const rest=[]; let n=st.nextSibling; while(n){rest.push(n);n=n.nextSibling;}
-  if(!rest.some(x=>x.nodeType===1||x.textContent.trim())) return false; const sp=document.createElement('span'); sp.className='more'; rest.forEach(x=>sp.appendChild(x)); el.appendChild(sp); return true;}
+function wrapRest(el){const st=lead(el); if(/:\s*$/.test(st.textContent)) return false;
+  /* behold første setning av forklaringen (minst ca. 60 tegn), skjul resten */
+  let n=st.nextSibling, kept=0, cut=null; const RE=/[.!?»](?=\s+[A-ZÆØÅÉ«(])/g;
+  while(n){ if(n.nodeType===1){ if(n.matches('span.small,.tag')||n.tagName==='UL'||n.tagName==='OL'){cut=n;break;} kept+=n.textContent.length; n=n.nextSibling; continue; }
+    const t=n.textContent; RE.lastIndex=0; let m, done=false;
+    while((m=RE.exec(t))){ const pos=m.index+1; if(kept+pos>=60){ if(t.slice(pos).trim()){cut=n.splitText(pos);} else {cut=n.nextSibling;} done=true; break; } }
+    if(done) break; kept+=t.length; n=n.nextSibling; }
+  if(!cut) return false; const rest=[]; let x=cut; while(x){rest.push(x);x=x.nextSibling;}
+  if(!rest.some(y=>(y.nodeType===1&&!y.matches('span.small,.tag'))||(y.nodeType===3&&y.textContent.trim()))) return false;
+  const sp=document.createElement('span'); sp.className='more'; rest.forEach(y=>sp.appendChild(y)); el.appendChild(sp); return true;}
 document.querySelectorAll('section.panel').forEach(sec=>{
   if(SKIP.has(sec.id)) return;
   const groups=[...sec.querySelectorAll(':scope > .subgrp')]; if(!groups.length) groups.push(sec);
