@@ -20,21 +20,21 @@
   padding-bottom:env(safe-area-inset-bottom,0px);
   --bg:#EDF0EC; --surface:#FBFCFA; --ink:#14201E; --muted:#4F615E; --line:#C9D3CE;
   --accent:#0F6B6B; --accent-ink:#FFFFFF; --soft:#E1E8E4;
-  --c-hyp:#2F5FB3; --c-amn:#7A4FB0; --c-ana:#B5700F; --c-aki:#2E7D4F; --c-sta:#B23A3A;
+  --c-hyp:#2F5FB3; --c-amn:#7A4FB0; --c-ana:#B5700F; --c-aki:#2E7D4F; --c-sta:#B23A3A;--c-bs:#9B3F86;--c-quiz:#4F4FB0;
   --ok:#1E7A46; --bad:#B23A3A;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0F1716; --surface:#16211F; --ink:#E6EFEC; --muted:#9DB0AB; --line:#2A3A37;
     --accent:#5CC9C0; --accent-ink:#06201E; --soft:#1D2B28;
-    --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;
+    --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;--c-bs:#E39AD2;--c-quiz:#A9A9F0;
     --ok:#6CCB92; --bad:#E58585;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0F1716; --surface:#16211F; --ink:#E6EFEC; --muted:#9DB0AB; --line:#2A3A37;
   --accent:#5CC9C0; --accent-ink:#06201E; --soft:#1D2B28;
-  --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;
+  --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;--c-bs:#E39AD2;--c-quiz:#A9A9F0;
   --ok:#6CCB92; --bad:#E58585;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
@@ -166,6 +166,17 @@ header h1 button:hover{color:var(--accent)}
 .stat b{display:block;font-size:1.4rem;color:var(--accent)}
 .stat span{font-size:.82rem;color:var(--muted)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:10px 0}
+.tiles.big{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:12px 0 8px}
+.tile.big{min-height:92px;padding:14px;display:flex;flex-direction:column;gap:4px;border-width:1.5px}
+.tile.big .num{font-size:.75rem;font-weight:700;color:var(--muted)}
+.tile.big .tn{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.18rem;font-weight:700;color:var(--accent);line-height:1.15}
+.tile.big .td{font-size:.88rem;color:var(--muted);line-height:1.3}
+.tile.big.src .tn{color:var(--ink)}
+.tile.big{border-left:5px solid var(--tc,var(--accent));background:var(--surface);background:color-mix(in srgb,var(--tc,var(--accent)) 9%,var(--surface))}
+.tile.big .tn{color:var(--tc,var(--accent))}
+.tile.big .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--tc,var(--accent));color:var(--bg);font-size:.75rem}
+.tile.big.src{--tc:var(--muted)}
+.tile.big.src .num{background:none}
 .tile{all:unset;box-sizing:border-box;display:block;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:44px}
 .tile:hover,.tile:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 2px var(--accent)}
 .iqPanels canvas{display:block;width:100%;border-radius:6px;margin:4px 0}
@@ -201,34 +212,24 @@ header h1 button:hover{color:var(--accent)}
       <text x="716" y="66" font-size="10" fill="var(--muted)" text-anchor="end">generell anestesi (langsom + alfa)</text>
     </svg>
     <p><strong>Et læringsverktøy for anestesipersonell</strong> om hva generell anestesi består av, hvordan hjernen svarer på den, og hva EEG og spektrogram faktisk viser. Hvert kort oppgir kilden; der kildene er uenige, står det.</p>
-    <div class="stats" id="homeStats"></div>
   </div>
 
-  <h2>Foreslått vei gjennom stoffet</h2>
-  <div class="path">
-    <span class="step">1 Grunnlag</span><span class="arr">→</span>
-    <span class="step">2 Komponenter</span><span class="arr">→</span>
-    <span class="step">3 Spektrogram</span><span class="arr">→</span>
-    <span class="step">4 Midler</span><span class="arr">→</span>
-    <span class="step">5 Perfusjon</span><span class="arr">→</span>
-    <span class="step">6 Intensiv</span><span class="arr">→</span>
-    <span class="step">7 Burst suppression</span><span class="arr">→</span>
-    <span class="step">8 Quiz</span>
+  <h2>Velg et tema</h2>
+  <div class="tiles big">
+    <button class="tile big" style="--tc:var(--accent)" data-go="p-basis"><span class="num">1</span><span class="tn">Grunnlag</span><span class="td">Hva EEG er og hvordan det måles</span></button>
+    <button class="tile big" style="--tc:var(--c-amn)" data-go="p-comp"><span class="num">2</span><span class="tn">Komponenter</span><span class="td">Bevissthet, hukommelse, smerte og bevegelse</span></button>
+    <button class="tile big" style="--tc:var(--c-hyp)" data-go="p-spec"><span class="num">3</span><span class="tn">Spektrogram</span><span class="td">Simulatorer, eldre, barn og artefakter</span></button>
+    <button class="tile big" style="--tc:var(--c-ana)" data-go="p-drug"><span class="num">4</span><span class="tn">Midler</span><span class="td">Hvert legemiddel for seg</span></button>
+    <button class="tile big" style="--tc:var(--c-sta)" data-go="p-perf"><span class="num">5</span><span class="tn">Perfusjon</span><span class="td">Blodtrykk, leiring og iskemi</span></button>
+    <button class="tile big" style="--tc:var(--c-aki)" data-go="p-icu"><span class="num">6</span><span class="tn">Intensiv</span><span class="td">Sedasjon, anfall, koma og nyfødte</span></button>
+    <button class="tile big" style="--tc:var(--c-bs)" data-go="p-bs"><span class="num">7</span><span class="tn">Burst suppression</span><span class="td">Ønsket, unødvendig eller et varsel?</span></button>
+    <button class="tile big" style="--tc:var(--c-quiz)" data-go="p-quiz"><span class="num">8</span><span class="tn">Quiz</span><span class="td">Test deg selv</span></button>
+    <button class="tile big src" data-go="p-src"><span class="num">&nbsp;</span><span class="tn">Kilder</span><span class="td">Referanser og avvik mellom kilder</span></button>
   </div>
-  <p class="small">Har du EEG fra før, kan du hoppe rett til Komponenter. Quizen trekker fra alle fanene, så den fungerer best til slutt.</p>
+  <p class="small">Ny her? Følg tallene fra 1 til 8. Har du EEG fra før, kan du hoppe rett til Komponenter. Quizen trekker fra alle fanene, så den fungerer best til slutt.</p>
 
-  <h2>Fanene</h2>
-  <div class="tiles">
-    <button class="tile" data-go="p-basis"><span class="n">Grunnlag</span><h3>Hva EEG er og hvordan det måles</h3><p>Signal, frekvensbånd, 10–20, montasjer, filtre. Hva en TCI-pumpe vet. Nocisepsjon mot smerte.</p></button>
-    <button class="tile" data-go="p-comp"><span class="n">Komponenter</span><h3>Bevissthet, hukommelse, nocisepsjon, immobilitet</h3><p>Begrepene som blandes, isolert underarm, implisitt hukommelse, awareness-tallene og hva de bygger på.</p></button>
-    <button class="tile" data-go="p-spec"><span class="n">Spektrogram</span><h3>Simulator og signaturer</h3><p>Propofol, sevofluran, ketamin, dexmedetomidin og alder i en interaktiv modell, pluss artefakter, barn og eldre.</p></button>
-    <button class="tile" data-go="p-drug"><span class="n">Midler</span><h3>Legemidler, bevissthet og amnesi</h3><p>Konsentrasjon–effekt, hukommelsestap over tid, benzodiazepiner, opioider og EEG.</p></button>
-    <button class="tile" data-go="p-perf"><span class="n">Perfusjon</span><h3>Blodstrøm, trykk og leiring</h3><p>CPP, autoregulering, EEG ved iskemi og ICP, Trendelenburg og beach chair.</p></button>
-    <button class="tile" data-go="p-icu"><span class="n">Intensiv</span><h3>Sedasjon i dager og uker</h3><p>PADIS, pEEG-konsensus, nevrointensiv, komamønstre, kasuistikker fra intensiv.</p></button>
-    <button class="tile" data-go="p-bs"><span class="n">Burst suppression</span><h3>Ønsket, unødvendig eller et varsel?</h3><p>Mekanismer, dose og alder, utfall, hjertestans og kliniske eksempler samlet på ett sted.</p></button>
-    <button class="tile" data-go="p-quiz"><span class="n">Quiz</span><h3>Test deg selv</h3><p>Flervalgsspørsmål med forklaring og kilde, trukket fra alle fanene.</p></button>
-    <button class="tile" data-go="p-src"><span class="n">Kilder</span><h3>Referanser og avvik</h3><p>Hva studiene viser, originalreferansene i Miller's, uenigheter mellom kilder, full referanseliste.</p></button>
-  </div>
+  <h2 style="margin-top:22px">Innholdet i tall</h2>
+  <div class="stats" id="homeStats"></div>
 
   <details class="sc" id="about">
     <summary>Om dette verktøyet: hva, for hvem og på hvilket grunnlag</summary>
@@ -241,7 +242,7 @@ header h1 button:hover{color:var(--accent)}
       <p><strong>Hva det ikke er.</strong> Spektrogrammene i simulatoren er skjematiske modeller bygget på beskrivelsene i kildene, ikke opptak fra pasienter. Der kildene er uenige, eller der artikler inneholder interne avvik, er dette samlet i «Avvik og uenigheter mellom kilder» i Kilder-fanen i stedet for å bli glattet over. Kontroller originalkildene før innholdet brukes i undervisning.</p>
       <p><strong>Uavhengighet.</strong> Dette er ikke produktinformasjon. Appen er produktnøytral og anbefaler ingen monitorer. Produktnavn står bare der en studie eller et klinisk tilfelle har målt med et bestemt apparat, fordi indeksverdiene da hører til det apparatet, og i interessekonfliktene forfatterne av kildene oppgir. Ingen produsent eller leverandør har hatt innflytelse på innholdet. Interessekonflikter som forfatterne av kildene selv oppgir, er gjengitt på hvert kort.</p>
       <p><strong>Om forfatteren og uavhengighet.</strong> Appen er laget av en anestesisykepleier på fritiden, med egne midler og eget utstyr. Den er laget uten finansiering fra eller innflytelse av arbeidsgiver, utdanningsinstitusjon, produsenter eller leverandører. Forfatteren har erfaring med opplæring i bruk av medisinsk-teknisk utstyr, inkludert EEG-monitorer. Appen er produktnøytral og anbefaler ingen monitorer.</p>
-      <p class="small">Innspill eller ønsker om innhold som mangler: <a href="mailto:heidimjelde@hotmail.com">heidimjelde@hotmail.com</a>. Sist oppdatert: 25. oktober 2026.</p>
+      <p class="small">Innspill eller ønsker om innhold som mangler: <a href="mailto:heidimjelde@hotmail.com">heidimjelde@hotmail.com</a>. Sist oppdatert: 26. oktober 2026.</p>
       <p class="small">Lisens: tekst, figurer og simulatorer laget for appen kan deles og bearbeides for ikke-kommersielle formål, så lenge forfatteren oppgis (<a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>). Sitater, tall og funn fra kildene tilhører de respektive forfatterne og utgiverne.</p>
     </div>
   </details>

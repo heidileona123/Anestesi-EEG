@@ -20,21 +20,21 @@
   padding-bottom:env(safe-area-inset-bottom,0px);
   --bg:#EDF0EC; --surface:#FBFCFA; --ink:#14201E; --muted:#4F615E; --line:#C9D3CE;
   --accent:#0F6B6B; --accent-ink:#FFFFFF; --soft:#E1E8E4;
-  --c-hyp:#2F5FB3; --c-amn:#7A4FB0; --c-ana:#B5700F; --c-aki:#2E7D4F; --c-sta:#B23A3A;
+  --c-hyp:#2F5FB3; --c-amn:#7A4FB0; --c-ana:#B5700F; --c-aki:#2E7D4F; --c-sta:#B23A3A;--c-bs:#9B3F86;--c-quiz:#4F4FB0;
   --ok:#1E7A46; --bad:#B23A3A;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0F1716; --surface:#16211F; --ink:#E6EFEC; --muted:#9DB0AB; --line:#2A3A37;
     --accent:#5CC9C0; --accent-ink:#06201E; --soft:#1D2B28;
-    --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;
+    --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;--c-bs:#E39AD2;--c-quiz:#A9A9F0;
     --ok:#6CCB92; --bad:#E58585;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0F1716; --surface:#16211F; --ink:#E6EFEC; --muted:#9DB0AB; --line:#2A3A37;
   --accent:#5CC9C0; --accent-ink:#06201E; --soft:#1D2B28;
-  --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;
+  --c-hyp:#7FA6EE; --c-amn:#B99AE6; --c-ana:#E3A64A; --c-aki:#6CCB92; --c-sta:#E58585;--c-bs:#E39AD2;--c-quiz:#A9A9F0;
   --ok:#6CCB92; --bad:#E58585;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
@@ -166,6 +166,17 @@ header h1 button:hover{color:var(--accent)}
 .stat b{display:block;font-size:1.4rem;color:var(--accent)}
 .stat span{font-size:.82rem;color:var(--muted)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:10px 0}
+.tiles.big{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:12px 0 8px}
+.tile.big{min-height:92px;padding:14px;display:flex;flex-direction:column;gap:4px;border-width:1.5px}
+.tile.big .num{font-size:.75rem;font-weight:700;color:var(--muted)}
+.tile.big .tn{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.18rem;font-weight:700;color:var(--accent);line-height:1.15}
+.tile.big .td{font-size:.88rem;color:var(--muted);line-height:1.3}
+.tile.big.src .tn{color:var(--ink)}
+.tile.big{border-left:5px solid var(--tc,var(--accent));background:var(--surface);background:color-mix(in srgb,var(--tc,var(--accent)) 9%,var(--surface))}
+.tile.big .tn{color:var(--tc,var(--accent))}
+.tile.big .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--tc,var(--accent));color:var(--bg);font-size:.75rem}
+.tile.big.src{--tc:var(--muted)}
+.tile.big.src .num{background:none}
 .tile{all:unset;box-sizing:border-box;display:block;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-height:44px}
 .tile:hover,.tile:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 2px var(--accent)}
 .iqPanels canvas{display:block;width:100%;border-radius:6px;margin:4px 0}
@@ -201,34 +212,24 @@ header h1 button:hover{color:var(--accent)}
       <text x="716" y="66" font-size="10" fill="var(--muted)" text-anchor="end">general anaesthesia (slow + alpha)</text>
     </svg>
     <p><strong>A learning tool for anaesthesia staff</strong> about what general anaesthesia consists of, how the brain responds to it, and what the EEG and spectrogram actually show. Every card states its source; where the sources disagree, it says so.</p>
-    <div class="stats" id="homeStats"></div>
   </div>
 
-  <h2>Suggested path through the material</h2>
-  <div class="path">
-    <span class="step">1 Fundamentals</span><span class="arr">→</span>
-    <span class="step">2 Components</span><span class="arr">→</span>
-    <span class="step">3 Spectrogram</span><span class="arr">→</span>
-    <span class="step">4 Agents</span><span class="arr">→</span>
-    <span class="step">5 Perfusion</span><span class="arr">→</span>
-    <span class="step">6 Intensive care</span><span class="arr">→</span>
-    <span class="step">7 Burst suppression</span><span class="arr">→</span>
-    <span class="step">8 Quiz</span>
+  <h2>Choose a topic</h2>
+  <div class="tiles big">
+    <button class="tile big" style="--tc:var(--accent)" data-go="p-basis"><span class="num">1</span><span class="tn">Fundamentals</span><span class="td">What EEG is and how it is measured</span></button>
+    <button class="tile big" style="--tc:var(--c-amn)" data-go="p-comp"><span class="num">2</span><span class="tn">Components</span><span class="td">Consciousness, memory, pain and movement</span></button>
+    <button class="tile big" style="--tc:var(--c-hyp)" data-go="p-spec"><span class="num">3</span><span class="tn">Spectrogram</span><span class="td">Simulators, older patients, children and artefacts</span></button>
+    <button class="tile big" style="--tc:var(--c-ana)" data-go="p-drug"><span class="num">4</span><span class="tn">Agents</span><span class="td">Each drug on its own</span></button>
+    <button class="tile big" style="--tc:var(--c-sta)" data-go="p-perf"><span class="num">5</span><span class="tn">Perfusion</span><span class="td">Blood pressure, positioning and ischaemia</span></button>
+    <button class="tile big" style="--tc:var(--c-aki)" data-go="p-icu"><span class="num">6</span><span class="tn">Intensive care</span><span class="td">Sedation, seizures, coma and newborns</span></button>
+    <button class="tile big" style="--tc:var(--c-bs)" data-go="p-bs"><span class="num">7</span><span class="tn">Burst suppression</span><span class="td">Wanted, unnecessary or a warning?</span></button>
+    <button class="tile big" style="--tc:var(--c-quiz)" data-go="p-quiz"><span class="num">8</span><span class="tn">Quiz</span><span class="td">Test yourself</span></button>
+    <button class="tile big src" data-go="p-src"><span class="num">&nbsp;</span><span class="tn">Sources</span><span class="td">References and disagreements between sources</span></button>
   </div>
-  <p class="small">If you already know EEG, you can skip straight to Components. The quiz draws from all the tabs, so it works best at the end.</p>
+  <p class="small">New here? Follow the numbers from 1 to 8. If you already know EEG, you can skip straight to Components. The quiz draws from all the tabs, so it works best at the end.</p>
 
-  <h2>The tabs</h2>
-  <div class="tiles">
-    <button class="tile" data-go="p-basis"><span class="n">Fundamentals</span><h3>What EEG is and how it is measured</h3><p>Signal, frequency bands, 10–20, montages, filters. What a TCI pump knows. Nociception versus pain.</p></button>
-    <button class="tile" data-go="p-comp"><span class="n">Components</span><h3>Consciousness, memory, nociception, immobility</h3><p>The concepts that get mixed up, isolated forearm, implicit memory, the awareness figures and what they rest on.</p></button>
-    <button class="tile" data-go="p-spec"><span class="n">Spectrogram</span><h3>Simulator and signatures</h3><p>Propofol, sevoflurane, ketamine, dexmedetomidine and age in an interactive model, plus artefacts, children and older patients.</p></button>
-    <button class="tile" data-go="p-drug"><span class="n">Agents</span><h3>Drugs, consciousness and amnesia</h3><p>Concentration–effect, memory loss over time, benzodiazepines, opioids and EEG.</p></button>
-    <button class="tile" data-go="p-perf"><span class="n">Perfusion</span><h3>Blood flow, pressure and positioning</h3><p>CPP, autoregulation, EEG in ischaemia and raised ICP, Trendelenburg and beach chair.</p></button>
-    <button class="tile" data-go="p-icu"><span class="n">Intensive care</span><h3>Sedation over days and weeks</h3><p>PADIS, pEEG consensus, neurointensive care, coma patterns, ICU case reports.</p></button>
-    <button class="tile" data-go="p-bs"><span class="n">Burst suppression</span><h3>Wanted, unnecessary or a warning?</h3><p>Mechanisms, dose and age, outcomes, cardiac arrest and clinical examples in one place.</p></button>
-    <button class="tile" data-go="p-quiz"><span class="n">Quiz</span><h3>Test yourself</h3><p>Multiple-choice questions with explanation and source, drawn from all the tabs.</p></button>
-    <button class="tile" data-go="p-src"><span class="n">Sources</span><h3>References and discrepancies</h3><p>What the studies show, the original references in Miller's, disagreements between sources, full reference list.</p></button>
-  </div>
+  <h2 style="margin-top:22px">The content in numbers</h2>
+  <div class="stats" id="homeStats"></div>
 
   <details class="sc" id="about">
     <summary>About this tool: what, for whom and on what basis</summary>
@@ -241,7 +242,7 @@ header h1 button:hover{color:var(--accent)}
       <p><strong>What it is not.</strong> The spectrograms in the simulator are schematic models built on the descriptions in the sources, not recordings from patients. Where the sources disagree, or where articles contain internal discrepancies, this has been collected under “Discrepancies and disagreements between sources” in the Sources tab rather than smoothed over. Check the original sources before the content is used in teaching.</p>
       <p><strong>Independence.</strong> This is not product information. The app is product-neutral and recommends no monitors. Product names appear only where a study or clinical case measured with a specific device, because the index values then belong to that device, and in the conflicts of interest declared by the authors of the sources. No manufacturer or supplier has had any influence on the content. Conflicts of interest declared by the authors of the sources themselves are reproduced on each card.</p>
       <p><strong>About the author and independence.</strong> The app was made by a nurse anaesthetist in her spare time, with her own funds and her own equipment. It was made without funding from or influence by an employer, educational institution, manufacturers or suppliers. The author has experience in training others to use medical equipment, including EEG monitors. The app is product-neutral and recommends no monitors.</p>
-      <p class="small">Feedback or requests for missing content: <a href="mailto:heidimjelde@hotmail.com">heidimjelde@hotmail.com</a>. Last updated: 25 October 2026.</p>
+      <p class="small">Feedback or requests for missing content: <a href="mailto:heidimjelde@hotmail.com">heidimjelde@hotmail.com</a>. Last updated: 26 October 2026.</p>
       <p class="small">Licence: text, figures and simulators made for the app may be shared and adapted for non-commercial purposes, provided the author is credited (<a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>). Quotations, figures and findings from the sources belong to their respective authors and publishers.</p>
     </div>
   </details>
