@@ -159,6 +159,15 @@ details.sc .body{padding:0 12px 12px}
 @keyframes flash{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
 header h1 button{all:unset;cursor:pointer;font:inherit;color:inherit}
 header h1 button:hover{color:var(--accent)}
+.quickbtn{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:14px;width:100%;cursor:pointer;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:14px 16px;margin:8px 0 12px}
+.quickbtn:hover,.quickbtn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--line)}
+.quickbtn .qi{flex:0 0 auto;width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,var(--accent-ink) 18%,transparent);display:grid;place-items:center;font-size:1.1rem}
+.quickbtn .qt{display:block;font-weight:700;font-size:1.08rem}
+.quickbtn .qd{display:block;font-size:.88rem;opacity:.9}
+.quickbtn .qa{margin-left:auto;font-size:1.3rem}
+.heroSpecWrap{position:relative;margin:0 0 4px}
+#heroSpec{display:block;width:100%;height:auto;border-radius:8px}
+.heroLbl{position:absolute;left:8px;top:6px;font-size:.8rem;font-weight:600;color:#fff;text-shadow:0 1px 2px #000}
 .hero{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:8px 0 14px}
 .hero p{margin:6px 0 0;color:var(--muted)}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
@@ -205,11 +214,13 @@ header h1 button:hover{color:var(--accent)}
 
 <!-- ========== FORSIDE ========== -->
 <section class="panel" id="p-home">
+  <button class="quickbtn" data-jumptab="p-spec" data-jumpsub="sim" aria-label="Gå rett til simulatorene"><span class="qi" aria-hidden="true">▶</span><span><span class="qt">Simulatorer</span><span class="qd">Se hvordan spektrogrammet endrer seg med middel, alder og tid i forløpet</span></span><span class="qa" aria-hidden="true">→</span></button>
   <div class="hero">
-    <svg viewBox="0 0 720 70" style="width:100%;height:auto" role="img" aria-label="Stilisert EEG som går fra rask, lavamplitudig våken aktivitet til langsom aktivitet med frontal alfa under anestesi">
+    <div class="heroSpecWrap" role="img" aria-label="Skjematisk spektrogram og rå-EEG: fra våken, lavamplitudig rask aktivitet til generell anestesi med kraftig slow-delta og et tydelig alfa-bånd rundt 10 Hz"><canvas id="heroSpec" width="720" height="200"></canvas><span class="heroLbl" aria-hidden="true">Spektrogram (skjematisk)</span></div>
+    <svg viewBox="0 0 720 84" style="width:100%;height:auto" role="img" aria-label="Stilisert EEG som går fra rask, lavamplitudig våken aktivitet til langsom aktivitet med frontal alfa under anestesi">
       <polyline id="heroWave" fill="none" stroke="var(--accent)" stroke-width="1.6" points=""/>
-      <text x="4" y="66" font-size="10" fill="var(--muted)">våken</text>
-      <text x="716" y="66" font-size="10" fill="var(--muted)" text-anchor="end">generell anestesi (langsom + alfa)</text>
+      <text x="4" y="80" font-size="17" fill="var(--muted)">våken</text>
+      <text x="716" y="80" font-size="17" fill="var(--muted)" text-anchor="end">generell anestesi (langsom + alfa)</text>
     </svg>
     <p><strong>Et læringsverktøy for anestesipersonell</strong> om hva generell anestesi består av, hvordan hjernen svarer på den, og hva EEG og spektrogram faktisk viser. Hvert kort oppgir kilden; der kildene er uenige, står det.</p>
   </div>
@@ -7431,6 +7442,24 @@ function iqRender(){
     pts.push(i+','+(34-(awake+anes)*2.6).toFixed(1));}
   $('#heroWave').setAttribute('points',pts.join(' '));
 })();
+(function(){
+  const cv=document.getElementById('heroSpec'); if(!cv) return;
+  const W=cv.width,H=cv.height,ctx=cv.getContext('2d'),img=ctx.createImageData(W,H),FMAX=30;
+  const stops=[[0,[10,20,90]],[0.3,[20,90,200]],[0.5,[30,190,200]],[0.68,[230,220,60]],[0.85,[240,120,30]],[1,[190,20,20]]];
+  function cmap(v){v=Math.max(0,Math.min(1,v));for(let k=1;k<stops.length;k++){if(v<=stops[k][0]){const a=stops[k-1],b=stops[k],t=(v-a[0])/(b[0]-a[0]);return a[1].map((c,i)=>Math.round(c+(b[1][i]-c)*t));}}return stops[stops.length-1][1];}
+  let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+  const colN=[];let n=0;for(let i=0;i<W;i++){n=0.85*n+0.15*(rnd()-0.5);colN.push(n);}
+  for(let i=0;i<W;i++){const x=i/(W-1);const s=1/(1+Math.exp(-(x-0.42)*14));
+    for(let j=0;j<H;j++){const f=FMAX*(1-j/(H-1));
+      const awake=0.42*Math.exp(-f/40)+0.18*Math.exp(-Math.pow((f-19)/5,2));
+      const anes=0.92*Math.exp(-f/3)+0.78*Math.exp(-Math.pow((f-10.5)/1.8,2));
+      const v=0.08+(1-s)*awake+s*anes+0.10*colN[i]+0.05*(rnd()-0.5);
+      const c=cmap(v),p=(j*W+i)*4;img.data[p]=c[0];img.data[p+1]=c[1];img.data[p+2]=c[2];img.data[p+3]=255;}}
+  ctx.putImageData(img,0,0);
+  ctx.font='bold 20px sans-serif';ctx.fillStyle='#fff';ctx.textAlign='right';ctx.shadowColor='#000';ctx.shadowBlur=2;
+  [[10,'10'],[20,'20']].forEach(([f,t])=>{const y=H*(1-f/FMAX);ctx.fillText(t+' Hz',W-8,y+7);});
+})();
+
 
 /* ---------- Søk ---------- */
 const SEARCH=(()=>{
