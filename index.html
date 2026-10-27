@@ -168,6 +168,51 @@ header h1 button:hover{color:var(--accent)}
 .heroSpecWrap{position:relative;margin:0 0 4px}
 #heroSpec{display:block;width:100%;height:auto;border-radius:8px}
 .heroLbl{position:absolute;left:8px;top:6px;font-size:.8rem;font-weight:600;color:#fff;text-shadow:0 1px 2px #000}
+.vmode{display:flex;align-items:center;gap:8px;margin:8px 0 0;flex-wrap:wrap}
+.vmode .vl{font-size:.85rem;color:var(--muted);font-weight:600}
+.vmode .vb{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.vmode button{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 14px;font-size:.9rem;font-weight:600;color:var(--ink);min-height:36px}
+.vmode button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.vmode button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.lvl{display:inline-block;vertical-align:middle;margin-left:8px;font-size:.68rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.lvl-b{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.lvl-d{background:var(--soft);color:var(--muted)}
+.cardtog,.deeptog{all:unset;box-sizing:border-box;cursor:pointer;display:none;margin-top:8px;font-size:.88rem;font-weight:600;color:var(--accent);padding:6px 0}
+.deeptog{border:1.5px dashed var(--line);border-radius:10px;padding:10px 14px;margin:6px 0 14px;width:100%;text-align:center}
+.cardtog:focus-visible,.deeptog:focus-visible{outline:2px solid var(--accent)}
+body.simple .cardtog,body.simple .deeptog{display:block}
+body.simple .card.lv-b:not(.full):not(.inter) .more,
+body.simple .card.lv-b:not(.full):not(.inter) .more-b,
+body.simple .card.lv-b:not(.full):not(.inter) .small,
+body.simple .card.lv-b:not(.full):not(.inter) .tag,
+body.simple .card.lv-b:not(.full):not(.inter) .tblwrap,
+body.simple .card.lv-b:not(.full):not(.inter) table{display:none}
+body.simple .card.lv-d,body.simple .lv-dh,body.simple details.lv-dd{display:none}
+body.simple .showdeep .card.lv-d,body.simple .showdeep .lv-dh,body.simple .showdeep details.lv-dd{display:revert}
+.term{all:unset;cursor:help;border-bottom:1.5px dotted currentColor;color:inherit;font:inherit}
+.term:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+#gpop{position:absolute;z-index:60;max-width:320px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 6px 24px rgba(0,0,0,.18);font-size:.92rem;line-height:1.45}
+#gpop strong{display:block;margin-bottom:4px}
+#gpop .small{display:block;margin-top:6px}
+#gpop .gx{all:unset;position:absolute;top:6px;right:8px;cursor:pointer;font-size:1.1rem;color:var(--muted);padding:2px 6px}
+.quickrow{display:grid;grid-template-columns:1fr;gap:10px;margin:8px 0 12px}
+@media (min-width:720px){.quickrow{grid-template-columns:repeat(3,1fr)}}
+.quickrow .quickbtn{margin:0}
+.quickbtn.alt{background:var(--surface);color:var(--ink);border:2px solid var(--tc)}
+.quickbtn.alt .qi{background:color-mix(in srgb,var(--tc) 20%,transparent);color:var(--tc)}
+.quickbtn.alt .qa{color:var(--tc)}
+.sh-item{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
+.sh-num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:700;font-size:.92rem}
+.sh-item canvas,.at-item canvas{display:block;width:100%;border-radius:6px;margin:8px 0 2px}
+.sh-body p{margin:4px 0}
+.at-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:720px){.at-grid{grid-template-columns:repeat(2,1fr)}}
+.at-item h3{margin:0 0 6px}
+.at-item dl{margin:6px 0 0}.at-item dt{font-weight:700;font-size:.85rem;color:var(--muted);margin-top:6px}.at-item dd{margin:2px 0 0}
+.sh-body .linkbtn,.at-item .linkbtn{text-align:left}
+.nextrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.nextrow button{all:unset;box-sizing:border-box;cursor:pointer;border:1.5px solid var(--accent);color:var(--accent);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.92rem}
+.nextrow button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .hero{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:8px 0 14px}
 .hero p{margin:6px 0 0;color:var(--muted)}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
@@ -210,11 +255,16 @@ header h1 button:hover{color:var(--accent)}
     <input type="search" id="q" placeholder="Søk i kort, referanser og quiz (f.eks. «burst suppression», «Purdon», «alfa»)" autocomplete="off" aria-label="Søk i appen">
     <div class="sres" id="sres" aria-live="polite"></div>
   </div>
+  <div class="vmode" role="group" aria-label="Velg visning: enkel eller fordypning"><span class="vl">Visning:</span><span class="vb"><button type="button" data-mode="simple" aria-pressed="false">Enkel</button><button type="button" data-mode="deep" aria-pressed="true">Fordypning</button></span></div>
 </header>
 
 <!-- ========== FORSIDE ========== -->
 <section class="panel" id="p-home">
-  <button class="quickbtn" data-jumptab="p-spec" data-jumpsub="sim" aria-label="Gå rett til simulatorene"><span class="qi" aria-hidden="true">▶</span><span><span class="qt">Simulatorer</span><span class="qd">Se hvordan spektrogrammet endrer seg med middel, alder og tid i forløpet</span></span><span class="qa" aria-hidden="true">→</span></button>
+  <div class="quickrow">
+  <button class="quickbtn" data-goto="p-start"><span class="qi" aria-hidden="true">1</span><span><span class="qt">Start her</span><span class="qd">De 10 viktigste tingene</span></span><span class="qa" aria-hidden="true">→</span></button>
+  <button class="quickbtn alt" style="--tc:var(--c-hyp)" data-jumptab="p-spec" data-jumpsub="sim" aria-label="Simulatorer"><span class="qi" aria-hidden="true">▶</span><span><span class="qt">Simulatorer</span><span class="qd">Se hvordan spektrogrammet endrer seg med middel, alder og tid i forløpet</span></span><span class="qa" aria-hidden="true">→</span></button>
+  <button class="quickbtn alt" style="--tc:var(--c-quiz)" data-goto="p-atlas"><span class="qi" aria-hidden="true">?</span><span><span class="qt">Hva ser jeg?</span><span class="qd">Vanlige mønstre i spektrogrammet</span></span><span class="qa" aria-hidden="true">→</span></button>
+  </div>
   <div class="hero">
     <div class="heroSpecWrap" role="img" aria-label="Skjematisk spektrogram og rå-EEG: fra våken, lavamplitudig rask aktivitet til generell anestesi med kraftig slow-delta og et tydelig alfa-bånd rundt 10 Hz"><canvas id="heroSpec" width="720" height="200"></canvas><span class="heroLbl" aria-hidden="true">Spektrogram (skjematisk)</span></div>
     <svg viewBox="0 0 720 84" style="width:100%;height:auto" role="img" aria-label="Stilisert EEG som går fra rask, lavamplitudig våken aktivitet til langsom aktivitet med frontal alfa under anestesi">
@@ -4083,7 +4133,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Det er uklart om det er perfusjonen eller konsentrasjonen som virker.</strong> I en randomisert studie forsvant burst suppression i mer enn 50 % når MAP ble hevet til utgangsverdien. Forfatterne sier at det er uklart om det skyldes fysiologi, farmakokinetikk eller farmakodynamikk. Sjokk og lavt minuttvolum kan også øke propofolkonsentrasjonen og gjøre hjernen mer følsom.<span class="small" style="display:block;margin-top:2px">Kilder: Georgii 2022, omtalt i Guay 2025</span></li>
    <li><strong>EEG beviser ikke hypoperfusjon.</strong> Alfa-bortfall kan også komme av nociseptiv stimulering. Kasuistikkene illustrerer, men validerer ikke. Det finnes ingen terskel for hvilken MAP eller hjerteindeks som gir EEG-endring hos den enkelte pasienten. Det skjematiske eksempelet er simulert og viser derfor ingen årsak.<span class="small" style="display:block;margin-top:2px">Kilder: Hight 2019; García 2021; Guay 2025</span></li>
   </ul>
-  <p class="small">Studiene i detalj: <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Frontal EEG som perfusjonsmarkør i klinikken (Guay 2025)">Guay 2025</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Klinisk eksempel: alfa svekkes når minuttvolumet faller (eget tilfelle)">Eget tilfelle</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Skjematisk eksempel: fall i minuttvolum og alfa-bortfall">Skjematisk eksempel</button></p>
+  <p class="small">Studiene i detalj: <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Frontal EEG som perfusjonsmarkør i klinikken (Guay 2025)">Guay 2025</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Klinisk eksempel: alfa svekkes når minuttvolumet faller (delt tilfelle)">Delt tilfelle</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Skjematisk eksempel: fall i minuttvolum og alfa-bortfall">Skjematisk eksempel</button></p>
   <span class="tag">Guay 2025</span> <span class="tag">Georgii 2022</span> <span class="tag">Hight 2019</span> <span class="tag">García 2021</span>
   </div>
   <h3>Autoreguleringen er individuell</h3>
@@ -4131,7 +4181,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Alfa-bortfall har flere mulige årsaker:</strong> Både økning og reduksjon av alfa er rapportert ved nociseptiv stimulering. Sedativer og søvn kan også forstyrre bildet. Både nociseptiv stimulering og lavt minuttvolum er mulige årsaker til slike endringer på frontal EEG. Bildet viser derfor ingen årsak, og det kan ikke brukes til å skille perfusjon fra andre årsaker.<span class="small" style="display:block;margin-top:2px">Kilder: Sleigh mfl. 2025; Foreman og Claassen 2012; Guay 2025</span></li>
   </ul>
   <span class="tag">Foreman og Claassen 2012, Sleigh mfl. 2025</span></div>
-  <div class="card"><h3>Klinisk eksempel: alfa svekkes når minuttvolumet faller (eget tilfelle)</h3>
+  <div class="card"><h3>Klinisk eksempel: alfa svekkes når minuttvolumet faller (delt tilfelle)</h3>
   <p>Ett delt tilfelle fra norsk klinisk praksis, fra forfatteren av appen. Det er ikke publisert og ikke fagfellevurdert. Det tas med fordi det illustrerer det samme som kildene beskriver.<span class="small" style="display:block;margin-top:2px">Kilder: Guay 2025; Manquat 2022</span></p>
   <ul>
    <li><strong>Hva som ble sett:</strong> voksen under vedlikehold med uendret hypnotikumdose, PSI 30, SR 0, EMG 0, SEF 10–11 Hz. På samme skjerm viste en pulskonturmonitor at MAP og hjerteindeks falt i noen minutter (CI ned mot ca. 1 l/min/m²). I samme tidsrom ble alfa-båndet svakere og gled nedover i begge hemisfærer, og spektrogrammet ble «tynnere» uten suppresjon. Da MAP var 83 mmHg og CI 3,5 igjen, var alfa-båndet tilbake som før.</li>
@@ -5258,9 +5308,26 @@ header h1 button:hover{color:var(--accent)}
   </div>
 </section>
 
+<!-- ========== START HER / MØNSTERATLAS ========== -->
+<section class="panel" id="p-start" hidden>
+  <h2>Start her: de 10 viktigste tingene</h2>
+  <p>Ti punkter som gir grunnlaget for resten. Hvert punkt har en lenke videre til fordypningen.</p>
+  <p class="small">Tips: Velg «Enkel» øverst for å se bare hovedpoengene i alle fanene. Trykk på et understreket fagord for å få en kort forklaring.</p>
+  <div id="startBox"></div>
+  <p class="small">Bildene er skjematiske og tegnet ut fra beskrivelsene i kildene, ikke opptak fra pasienter. Spektrogram: tid langs x-aksen (ca. 15 minutter), frekvens 0–40 Hz langs y-aksen, rødt er mye effekt.</p>
+  <div class="card"><h3>Neste steg</h3><div class="nextrow"><button type="button" data-goto2="p-spec-sim">Simulatorer</button><button type="button" data-goto2="p-atlas">Hva ser jeg?</button><button type="button" data-goto2="p-quiz" data-qlevel="b">Quiz: grunnleggende</button></div></div>
+</section>
+<section class="panel" id="p-atlas" hidden>
+  <h2>Hva ser jeg? Vanlige mønstre i spektrogrammet</h2>
+  <p>De vanligste mønstrene, med hva du ser og hva du bør tenke på. Under hvert mønster er det en lenke til kortet med detaljene.</p>
+  <p class="small">Bildene er skjematiske og tegnet ut fra beskrivelsene i kildene, ikke opptak fra pasienter. Spektrogram: tid langs x-aksen (ca. 15 minutter), frekvens 0–40 Hz langs y-aksen, rødt er mye effekt.</p>
+  <div class="at-grid" id="atlasBox"></div>
+</section>
+
 <section class="panel" id="p-quiz" hidden>
   <h2>Quiz</h2>
   <p class="small">Velg tema, eller ta alle. Rekkefølgen er fast, så du kan fortsette der du slapp.</p>
+  <div class="chips" id="qlevels" aria-label="Nivå"></div>
   <div class="chips" id="qtopics"></div>
   <div class="prog" aria-hidden="true"><div id="qprog" style="width:0%"></div></div>
   <div id="quizBox"></div>
@@ -6728,12 +6795,17 @@ const QT=[['all','Alle'],['basis','Grunnlag'],['comp','Bevissthet og hukommelse'
 let qtopic='all';try{qtopic=localStorage.getItem('qtopic')||'all'}catch(e){}
 if(!QT.some(t=>t[0]===qtopic))qtopic='all';
 let QF=[];
-function qFilter(){QF=QS.map((q,i)=>i).filter(i=>qtopic==='all'||QS[i].t===qtopic);}
+const QB=new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 15, 17, 18, 20, 23, 27, 28, 29, 30, 33, 35, 37, 42, 43, 44, 46, 49, 50, 57, 75, 78, 83, 86, 90, 93, 95, 99, 108, 113, 114, 121, 122, 123, 145, 147, 148, 160, 163, 166, 175, 179, 182, 183, 195, 200, 201, 207, 208, 209, 210, 219, 224, 230, 231, 233, 236, 239, 240, 242, 248, 249, 251, 252, 253, 256, 257, 259, 260, 281, 282, 285]);
+let qlevel='all';try{qlevel=localStorage.getItem('qlevel')||'all'}catch(e){}
+function qLvOk(i){return qlevel==='all'||(qlevel==='b')===QB.has(i);}
+function qFilter(){QF=QS.map((q,i)=>i).filter(i=>(qtopic==='all'||QS[i].t===qtopic)&&qLvOk(i));}
+function renderLevels(){const box=$('#qlevels'); if(!box)return; const L=[['all',"Alle"],['b',"Grunnleggende"],['d',"Fordypning"]]; box.innerHTML='<span class="small" style="align-self:center;font-weight:600">Nivå:</span> '+L.map(([k,n])=>`<button class="chip${k===qlevel?' on':''}" data-l="${k}">${n} (${QS.filter((q,i)=>k==='all'||(k==='b')===QB.has(i)).length})</button>`).join(''); $$('#qlevels .chip').forEach(b=>b.onclick=()=>{window.setQLevel(b.dataset.l);});}
+window.setQLevel=function(l){qlevel=l;try{localStorage.setItem('qlevel',l)}catch(e){};qi=0;score=0;renderLevels();renderLevels();renderTopics();renderQ();};
 function qTopicName(k){const t=QT.find(t=>t[0]===k);return t?t[1]:''}
 function renderTopics(){
   const box=$('#qtopics'); if(!box)return;
-  box.innerHTML=QT.map(([k,n])=>`<button class="chip${k===qtopic?' on':''}" data-t="${k}">${n} (${k==='all'?QS.length:QS.filter(q=>q.t===k).length})</button>`).join('');
-  $$('#qtopics .chip').forEach(b=>b.onclick=()=>{qtopic=b.dataset.t;try{localStorage.setItem('qtopic',qtopic)}catch(e){};qi=0;score=0;renderTopics();renderQ();});
+  box.innerHTML=QT.map(([k,n])=>`<button class="chip${k===qtopic?' on':''}" data-t="${k}">${n} (${QS.filter((q,i)=>(k==='all'||q.t===k)&&qLvOk(i)).length})</button>`).join('');
+  $$('#qtopics .chip').forEach(b=>b.onclick=()=>{qtopic=b.dataset.t;try{localStorage.setItem('qtopic',qtopic)}catch(e){};qi=0;score=0;renderLevels();renderTopics();renderQ();});
 }
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function renderQ(){
@@ -6771,7 +6843,7 @@ function pick(i){
   $('#next').onclick=()=>{qi++;renderQ()};
   $('#next').focus();
 }
-renderTopics();renderQ();
+renderLevels();renderTopics();renderQ();
 
 /* ---------- Kilder ---------- */
 function refLink(r){
@@ -7144,6 +7216,7 @@ const REFS=[
  ['Puri A, Medhi B, Panda NB, Puri GD, Dhawan S. Propofol pharmacokinetics in young healthy Indian subjects. Indian J Pharmacol 2012;44(3):402–406.','https://pmc.ncbi.nlm.nih.gov/articles/PMC3371469/','26 pasienter, blodprøver; alle fikk morfin før propofol; fulltekst'],
  ['Budic I, Jevtovic Stoimenov T, Pavlovic D, et al. Clinical importance of potential genetic determinants affecting propofol pharmacokinetics and pharmacodynamics. Front Med 2022;9:809393.','https://doi.org/10.3389/fmed.2022.809393','Oversiktsartikkel; funnene for enkeltgener spriker'],
  ['Lampotang S, et al. Race-specific pharmacodynamic model of propofol-induced loss of consciousness. J Clin Pharmacol 2016;56(9):1141–1150.','https://pmc.ncbi.nlm.nih.gov/articles/PMC4981563/','Modell for simuleringstrening bygget på tidligere studier, ikke ny klinisk studie; tall beregnet med Marsh-modellen, ikke målt i blod; fulltekst'],
+ ['Ricci Z, Gobbi L, La Rosa E, et al. Analysis of SEF95 derived from two processed EEG devices during pediatric anesthesia for non-cardiac surgery. J Clin Monit Comput 2026;40(2):317–322.','https://doi.org/10.1007/s10877-025-01338-3','Definisjon av SEF95 i innledningen'],
  ['Li J, Hu R, Tan W, Li J, Huang W, Wang Z. Activation of glutamatergic neurones in the pedunculopontine tegmental nucleus promotes cortical activation and behavioural emergence from sevoflurane-induced unconsciousness in mice. Br J Anaesth 2024;132:320–333.','https://doi.org/10.1016/j.bja.2023.08.033','Dyreforsøk, mus. Ingen interessekonflikter.'],
  ['Wildes TS, Avidan MS. Critical appraisal of ENGAGES: cognitive dissonance and anesthesia research. Ann Transl Med 2019;7(20):599.','https://doi.org/10.21037/atm.2019.09.48','Svar fra studiens forfattere på Koch 2019. Ingen interessekonflikter oppgitt.'],
  ['Robinson TN, Eiseman B. Postoperative delirium in the elderly: diagnosis and management. Clin Interv Aging 2008;3:351–355.','https://dovepress.com/article/download/1759','Oversikt.'],
@@ -7459,6 +7532,96 @@ function iqRender(){
   ctx.font='bold 20px sans-serif';ctx.fillStyle='#fff';ctx.textAlign='right';ctx.shadowColor='#000';ctx.shadowBlur=2;
   [[10,'10'],[20,'20']].forEach(([f,t])=>{const y=H*(1-f/FMAX);ctx.fillText(t+' Hz',W-8,y+7);});
 })();
+/* ---------- Nivåer, enkel visning, fagord, Start her, mønsteratlas ---------- */
+(function(){
+const UI={"view": "Visning", "simple": "Enkel", "deep": "Fordypning", "basic": "Grunnleggende", "showcard": "Vis hele kortet", "shortcard": "Vis kortversjon", "showdeep": "Vis fordypningskort", "hidedeep": "Skjul fordypningskort", "src1": "Kilde", "srcN": "Kilder", "more": "Les mer", "close": "Lukk", "expl": "Forklaring", "see": "Hva du ser", "think": "Hva du bør tenke på", "level": "Nivå", "all": "Alle", "qs_t": "Start her", "qs_d": "De 10 viktigste tingene", "qsim_t": "Simulatorer", "qsim_d": "Se hvordan spektrogrammet endrer seg med middel, alder og tid i forløpet", "qat_t": "Hva ser jeg?", "qat_d": "Vanlige mønstre i spektrogrammet", "start_h": "Start her: de 10 viktigste tingene", "start_i": "Ti punkter som gir grunnlaget for resten. Hvert punkt har en lenke videre til fordypningen.", "start_tip": "Tips: Velg «Enkel» øverst for å se bare hovedpoengene i alle fanene. Trykk på et understreket fagord for å få en kort forklaring.", "next": "Neste steg", "quizb": "Quiz: grunnleggende", "atlas_h": "Hva ser jeg? Vanlige mønstre i spektrogrammet", "atlas_i": "De vanligste mønstrene, med hva du ser og hva du bør tenke på. Under hvert mønster er det en lenke til kortet med detaljene.", "schem": "Bildene er skjematiske og tegnet ut fra beskrivelsene i kildene, ikke opptak fra pasienter. Spektrogram: tid langs x-aksen (ca. 15 minutter), frekvens 0–40 Hz langs y-aksen, rødt er mye effekt.", "aria_vm": "Velg visning: enkel eller fordypning", "home_h": "  <h2>Velg et tema</h2>"}, GL=[{"k": "spek", "ci": true, "p": "spektrogram(?:met|mer|mene)?|DSA", "t": "Spektrogram (DSA)", "d": "Rå-EEG brutt ned i frekvenser over tid. Tiden går mot høyre, frekvensen øker oppover, og fargen viser effekten: rødt er mye, blått er lite.", "s": "Purdon 2015 Part I; Guay 2025 Part 2"}, {"k": "raw", "ci": true, "p": "rå-EEG(?:-et)?", "t": "Rå-EEG", "d": "Den ubehandlede EEG-kurven: spenning i mikrovolt over tid, slik elektrodene måler den.", "s": "Lobo og Lamperti 2025"}, {"k": "slow", "ci": true, "p": "slow-delta|langsom-delta", "t": "Slow-delta", "d": "Langsom aktivitet under 1 Hz, sammen med delta. Den er særlig kraftig under propofol.", "s": "Purdon 2015"}, {"k": "bs", "ci": true, "p": "burst suppression", "t": "Burst suppression", "d": "Flate perioder (suppresjon) avbrutt av korte utbrudd av aktivitet (bursts). Under vanlig anestesi er det mer enn pasienten trenger. På intensiv kan det være et behandlingsmål.", "s": "Ching 2012; Fritz 2016"}, {"k": "sr", "ci": true, "p": "suppresjonsrate(?:n)?|BSR", "t": "Suppresjonsrate (SR, BSR)", "d": "Andelen av tiden EEG er supprimert, i prosent. Monitoren beregner den ut fra en amplitudegrense. Støy kan gi falskt lav og dårlig kontakt falskt høy verdi.", "s": "Gruenbaum 2026"}, {"k": "iso", "ci": true, "p": "isoelektrisk(?:e)?", "t": "Isoelektrisk EEG", "d": "Flatt EEG. Elektrocerebral inaktivitet er 2 µV eller lavere, mens suppresjon er under 10 µV.", "s": "Guay 2025"}, {"k": "sef", "ci": false, "p": "SEF(?:95)?|[Ss]pektral kantfrekvens", "t": "SEF (spektral kantfrekvens)", "d": "Frekvensen som 95 % av den totale EEG-effekten ligger under (SEF95). Lav SEF betyr at det meste av effekten ligger ved lave frekvenser.", "s": "Ricci 2025"}, {"k": "emg", "ci": false, "p": "EMG", "t": "EMG", "d": "Elektrisk aktivitet fra muskler i panne og ansikt. Den ligger i samme frekvensområde som beta og gamma og kan gi falskt høy indeks. EMG kan også tyde på at pasienten trenger mer anestesi eller analgesi.", "s": "Hight 2017; Hight 2020"}, {"k": "tci", "ci": false, "p": "TCI", "t": "TCI (målstyrt infusjon)", "d": "Pumpen doserer for å nå en valgt, beregnet konsentrasjon i plasma eller effektsted. Tallet er en prediksjon fra en modell, ikke en måling.", "s": "Kim mfl. 2025; Sepúlveda 2010"}, {"k": "ce", "ci": true, "p": "effektsted(?:et|skonsentrasjon(?:en)?|konsentrasjon(?:en)?)?", "t": "Effektsted (Ce)", "d": "Stedet der legemidlet virker, for hypnotika hjernen. Konsentrasjonen der kan ikke måles. Pumpen beregner den med en modell.", "s": "Kim mfl. 2025"}, {"k": "mac", "ci": false, "p": "MAC", "t": "MAC", "d": "Den alveolære konsentrasjonen der halvparten av pasientene ikke beveger seg ved incision. MAC bygger bare på bevegelse og sier ikke nødvendigvis noe om bevissthet.", "s": "Perouansky mfl. 2025"}, {"k": "spindle", "ci": true, "p": "spindl(?:er|ene)|spindel(?:en)?", "t": "Spindler", "d": "Korte utbrudd av rytmisk aktivitet rundt 11–15 Hz, som i NREM-søvn stadium 2. Typiske under dexmedetomidin.", "s": "Akeju 2014; Huupponen 2008"}, {"k": "noc", "ci": true, "p": "nocisepsjon(?:en)?", "t": "Nocisepsjon", "d": "Den nevrale prosessen som koder skadelige stimuli. Det er ikke det samme som smerte, som er en opplevelse.", "s": "IASP; Raja 2020"}, {"k": "aware", "ci": true, "p": "awareness", "t": "Awareness", "d": "At pasienten er bevisst under generell anestesi og husker det etterpå. Å svare på beskjed under narkosen uten å huske det senere er langt vanligere.", "s": "Linassi 2018; Mashour og Avidan 2015"}, {"k": "ift", "ci": true, "p": "isolert underarm(?:steknikk(?:en)?)?|IFT", "t": "Isolert underarmsteknikk (IFT)", "d": "En mansjett på overarmen hindrer at muskelrelaksans når den ene underarmen. Da kan pasienten klemme hånden på beskjed under narkosen.", "s": "Linassi 2018; Sleigh mfl. 2025"}, {"k": "hyst", "ci": true, "p": "hysterese(?:n)?|nevral treghet", "t": "Hysterese og nevral treghet", "d": "Pasienter trenger høyere konsentrasjon for å miste respons enn den de våkner ved. Forskjellen lar seg ikke forklare fullt ut med farmakokinetikk.", "s": "Sleigh mfl. 2025"}, {"k": "parad", "ci": true, "p": "paradoks(?:al)? eksitasjon", "t": "Paradoksal eksitasjon", "d": "Økt beta ved lett sedasjon, for eksempel med benzodiazepiner eller lav dose propofol.", "s": "Lobo og Lamperti 2025"}, {"k": "aeeg", "ci": false, "p": "aEEG", "t": "aEEG", "d": "Et sterkt forenklet EEG for nyfødte. Signalet filtreres, likerettes og trykkes sammen i tid, slik at mange timer får plass på skjermen som et bånd.", "s": "Tao og Mathur 2010"}, {"k": "art", "ci": true, "p": "artefakt(?:er|en|ene)?", "t": "Artefakt", "d": "Signal som ikke kommer fra hjernen, for eksempel muskler (EMG), blunking, EKG, elektrokauter eller teknisk støy.", "s": "Hight 2020"}, {"k": "idx", "ci": false, "p": "BIS|PSI|qCON", "t": "Indeks (BIS, PSI, qCON)", "d": "Et tall fra 0 til 100 som monitoren beregner fra frontalt EEG. Hver monitor har sin egen skala og sitt eget anbefalte område, så tallene kan ikke sammenlignes direkte.", "s": "Schneider 2004; Lewis 2019"}, {"k": "autoreg", "ci": true, "p": "autoregulering(?:en)?", "t": "Autoregulering", "d": "Hjernens evne til å holde blodstrømmen stabil når blodtrykket endrer seg. Grensene er individuelle. Hos de fleste ligger den nedre grensen ikke under ca. 70 mmHg.", "s": "Patel mfl. 2025"}, {"k": "aper", "ci": true, "p": "aperiodisk(?:e)?", "t": "Aperiodisk aktivitet («1/f»)", "d": "Bakgrunnsaktiviteten i EEG uten fast rytme. Den er sterkest ved lave frekvenser og faller omtrent som 1 delt på frekvensen.", "s": "Lendner 2020"}, {"k": "delta", "ci": true, "p": "delta", "t": "Delta (under 4 Hz)", "d": "Langsomme bølger. Hos friske ses de i dyp søvn. Under propofol og sevofluran øker delta med dosen.", "s": "Lobo og Lamperti 2025"}, {"k": "theta", "ci": true, "p": "theta", "t": "Theta (4–8 Hz)", "d": "Døsighet og lett søvn. Under anestesi fyller sevofluran i høyere dose inn theta, og ketamin og opioider kan gi theta.", "s": "Lobo og Lamperti 2025"}, {"k": "alfa", "ci": true, "p": "alfa", "t": "Alfa (8–13 Hz)", "d": "Hos en våken person med lukkede øyne er alfa sterkest bak i hodet. Under propofol og sevofluran flyttes alfa til pannen og danner et bånd rundt 10 Hz.", "s": "Lobo og Lamperti 2025"}, {"k": "beta", "ci": true, "p": "beta", "t": "Beta (13–30 Hz)", "d": "Våken, aktiv tenkning. Under anestesi ses beta ved lett sedasjon og paradoksal eksitasjon, for eksempel med benzodiazepiner og lav dose propofol.", "s": "Lobo og Lamperti 2025"}, {"k": "gamma", "ci": true, "p": "gamma", "t": "Gamma (30–80 Hz)", "d": "Rask aktivitet. Ketamin gir høy beta og lav gamma. Gamma overlapper med muskelaktivitet (EMG) fra pannen.", "s": "Lobo og Lamperti 2025"}], ST=[{"t": "Generell anestesi består av flere komponenter.", "d": "Bevisstløshet, hukommelsestap, demping av nocisepsjon og ubevegelighet. Midlene treffer komponentene ulikt. Derfor er «anestesidybde» et upresist begrep.", "s": "Brown 2010", "img": null, "j": {"tab": "p-comp", "sub": "base", "card": "Generell anestesi har flere komponenter"}}, {"t": "EEG viser hvordan hjernebarken arbeider.", "d": "EEG er summen av små spenninger fra hjernebarken, målt i mikrovolt. Under anestesi er det det eneste rutinemålet på selve målorganet.", "s": "Lobo og Lamperti 2025", "img": null, "j": {"tab": "p-basis", "sub": "eeg", "card": "Hva EEG er"}}, {"t": "Spektrogrammet er rå-EEG brutt ned i frekvenser.", "d": "Tiden går mot høyre, frekvensen øker oppover, og fargen viser hvor mye effekt det er: rødt er mye, blått er lite.", "s": "Purdon 2015 Part I; Guay 2025 Part 2", "img": [9, 0], "j": {"tab": "p-spec", "sub": "sim", "card": "Fra rå-EEG til spektrogram"}}, {"t": "Fem frekvensbånd er nok til å begynne med.", "d": "Delta under 4 Hz, theta 4–8, alfa 8–13, beta 13–30 og gamma 30–80 Hz. Grensene varierer litt mellom kildene.", "s": "Lobo og Lamperti 2025", "img": null, "j": {"tab": "p-basis", "sub": "eeg", "card": "Frekvensbåndene"}}, {"t": "Propofol og sevofluran gir alfa og slow-delta.", "d": "Et sammenhengende bånd rundt 10 Hz og kraftig aktivitet nederst er det typiske bildet under vedlikehold. Sevofluran fyller i tillegg inn theta mellom delta og alfa.", "s": "Akeju 2014; Purdon 2015 Part I", "img": [9, 1], "j": {"tab": "p-comp", "sub": "consc", "card": "Hvert middel har sitt eget EEG-bilde"}}, {"t": "Andre midler ser annerledes ut.", "d": "Ketamin gir mye beta og lav gamma, og indeksen kan da vise «for lett». Dexmedetomidin gir søvnlignende spindler, og pasienten kan ofte vekkes.", "s": "Purdon 2015 Part I; Vlisides 2017; Huupponen 2008", "img": [8, null], "j": {"tab": "p-comp", "sub": "consc", "card": "Hvert middel har sitt eget EEG-bilde"}}, {"t": "Burst suppression er som regel mer enn pasienten trenger.", "d": "Flate perioder avbrutt av korte utbrudd. Det henger sammen med delirium i observasjonsstudier, men det er ikke vist at det er årsaken. På intensiv kan det være et behandlingsmål.", "s": "Ching 2012; Fritz 2016", "img": [2, null], "j": {"tab": "p-bs", "sub": "what", "card": "Når er burst suppression ønsket"}}, {"t": "Eldre har svakere EEG.", "d": "Effekten er lavere i alle bånd, og alfa er svakere. Indeksen kan derfor bli misvisende høy, og å jage tallet gir risiko for burst suppression.", "s": "Purdon 2015 BJA; Ni 2019", "img": [12, 1], "j": {"tab": "p-spec", "sub": "age", "card": "Eldre: lavamplitudig EEG"}}, {"t": "Indeksen er et beregnet tall. Se på bildet bak tallet.", "d": "Muskelaktivitet (EMG) og støy kan gi falskt høy indeks, og muskelrelaksantia kan gi lav indeks hos en våken person. Rå-EEG og spektrogram viser hva tallet bygger på.", "s": "Schuller 2015; Hight 2017; Hight 2020", "img": null, "j": {"tab": "p-basis", "sub": "mon", "card": "Når indeksen overrasker"}}, {"t": "Bevegelse betyr ikke at pasienten er våken.", "d": "Bevegelse ved smertestimulus er ofte en refleks fra ryggmargen. Propofol hindrer bevegelse dårlig, så ro kommer heller fra opioid eller muskelrelaksantia enn fra mer hypnotikum.", "s": "Perouansky mfl. 2025; Vuyk mfl. 2025; Sleigh mfl. 2025", "img": null, "j": {"tab": "p-comp", "sub": "move", "card": "Bevegelse handler mest om ryggmarg"}}], AT=[{"n": "Propofol: alfa og slow-delta", "w": "Et sammenhengende alfa-bånd rundt 10 Hz og kraftig slow-delta nederst.", "k": "Det forventede bildet under vedlikehold med propofol.", "s": "Akeju 2014; Purdon 2015 Part I", "img": [9, 0], "j": {"tab": "p-comp", "sub": "consc", "card": "Hvert middel har sitt eget EEG-bilde"}}, {"n": "Sevofluran: theta fyller inn", "w": "Som propofol, men theta fyller inn mellom delta og alfa, og det er litt mer beta.", "k": "Det forventede bildet under sevofluran.", "s": "Akeju 2014", "img": [9, 1], "j": {"tab": "p-comp", "sub": "consc", "card": "Hvert middel har sitt eget EEG-bilde"}}, {"n": "Dexmedetomidin: spindler", "w": "Slow-delta og spindler rundt 12–15 Hz som kommer og går, med lite beta. Ligner NREM-søvn.", "k": "Spindlene er ikke det samme som propofol-alfa. Pasienten kan ofte vekkes.", "s": "Purdon 2015 Part I; Huupponen 2008", "img": [7, null], "j": {"tab": "p-comp", "sub": "consc", "card": "Hvert middel har sitt eget EEG-bilde"}}, {"n": "Ketamin: høy beta og lav gamma", "w": "Et bredt bånd rundt 25–35 Hz, slow-delta nederst, mer theta og lite alfa.", "k": "Indeksen kan vise «for lett». Uten muskelrelaksantia må EMG utelukkes, fordi det ligger i samme frekvensområde.", "s": "Purdon 2015 Part I; Vlisides 2017", "img": [8, null], "j": {"tab": "p-comp", "sub": "consc", "card": "Hvert middel har sitt eget EEG-bilde"}}, {"n": "Oppvåkning", "w": "Alfa og slow-delta løser seg opp. Raskere frekvenser og EMG kommer inn, og indeksen stiger.", "k": "EMG er ofte det første tegnet. Konsentrasjonen ved oppvåkning er lavere enn ved innsovning.", "s": "Hight 2020; Hight 2017", "img": [3, null], "j": {"tab": "p-basis", "sub": "wake", "card": "Oppvåkning er ikke innledning baklengs"}}, {"n": "Alfa svekkes, delta består", "w": "Alfa-båndet blir svakere, mens slow-delta holder seg.", "k": "Flere forklaringer er mulige: mer enn pasienten trenger, nocisepsjon eller lav perfusjon. Se på rå-EEG, dose, blodtrykk og hva kirurgen gjør.", "s": "García 2021; Obert 2024", "img": [4, null], "j": {"tab": "p-spec", "sub": "basics", "card": "Klinisk eksempel: spektrogram uten tydelig alfa"}}, {"n": "Burst suppression", "w": "Mørke, flate perioder avbrutt av smale «flammer» (bursts).", "k": "Under vanlig anestesi er det mer enn pasienten trenger. Vurder dosen, særlig hos eldre.", "s": "Ching 2012; Fritz 2016", "img": [2, null], "j": {"tab": "p-bs", "sub": "dose", "card": "Burst suppression ligger langt over"}}, {"n": "Eldre: lite effekt i alle bånd", "w": "Lav effekt i alle bånd og svakere, litt langsommere alfa.", "k": "Indeksen kan bli misvisende høy. Å jage tallet gir risiko for burst suppression.", "s": "Purdon 2015 BJA; Ni 2019", "img": [12, 1], "j": {"tab": "p-spec", "sub": "age", "card": "Eldre: lavamplitudig EEG"}}, {"n": "Spedbarn: ingen alfa", "w": "Bare slow-delta, uten alfa-bånd.", "k": "Normalt de første månedene. Alfa kommer rundt 4–6 måneder. Indekser laget for voksne kan ikke tolkes hos de minste.", "s": "Cornelissen 2015; Cornelissen 2018", "img": [11, null], "j": {"tab": "p-spec", "sub": "kids", "card": "Spedbarn: EEG-et modnes"}}, {"n": "Alfa glir ned uten doseendring", "w": "Alfa svekkes og glir nedover i noen minutter uten at dosen er endret, og kommer tilbake.", "k": "Tenk på lav perfusjon. Sjekk blodtrykk og minuttvolum før du endrer dosen.", "s": "Guay 2025; Manquat 2022", "img": [16, null], "j": {"tab": "p-perf", "sub": "bp", "card": "Lav perfusjon kan ligne for dyp anestesi"}}, {"n": "Flammer som bygger seg opp", "w": "Bredbåndede, loddrette topper som bygger seg opp og avtar over minutter.", "k": "Mistenk epileptiform aktivitet, ikke dybde. Se på rå-EEG og be om fullt EEG.", "s": "Taccone 2026; Ko og Engelhard 2025", "img": [13, null], "j": {"tab": "p-icu", "sub": "seiz", "card": "Indeksen kan ligne dyp sedasjon under anfall"}}, {"n": "Skarp, jevn stripe", "w": "En smal stripe på én frekvens som ikke endrer seg over tid.", "k": "Teknisk støy. Hjerneaktivitet varierer, en konstant linje gjør det ikke. Støyen kan drive indeksen opp.", "s": "Hight 2020", "img": [14, null], "j": {"tab": "p-spec", "sub": "art", "card": "Artefakter og feilkilder i EEG"}}, {"n": "Svakt eller kraftig? Sjekk skalaen", "w": "Samme EEG kan se svakt eller kraftig ut avhengig av innstillingen for fargeskalaen.", "k": "Sjekk fargeskala og forsterkning før du tolker, slik du sjekker skalaen på et EKG.", "s": "Hight 2020", "img": [10, 0], "j": {"tab": "p-spec", "sub": "art", "card": "Artefakter og feilkilder i EEG"}}];
+const SKIP=new Set(['p-home','p-quiz','p-src','p-start','p-atlas']);
+function srcLine(s){const n=(s.split(';').length>1)?UI.srcN:UI.src1; return '<span class="small" style="display:block;margin-top:2px">'+n+': '+s+'</span>';}
+/* 1+6: nivåmerker og enkel visning */
+function titleOf(c){const h=c.querySelector(':scope > h3'); if(h) return h; const p=c.previousElementSibling; return (p&&p.tagName==='H3')?p:null;}
+function prepCard(c){
+  if(c.querySelector('canvas,input,select,textarea')){c.classList.add('inter');return false;}
+  let hidden=false; const ps=[...c.querySelectorAll('p')].filter(p=>p.closest('.card')===c&&!p.closest('table,figure,svg,.seg'));
+  ps.forEach((p,i)=>{ if(lead(p)) {hidden=wrapRest(p)||hidden;} else if(i>0){p.classList.add('more-b');hidden=true;} });
+  [...c.querySelectorAll('li')].filter(li=>li.closest('.card')===c&&!li.closest('table,figure,svg')).forEach(li=>{ if(lead(li)) hidden=wrapRest(li)||hidden; });
+  if(c.querySelector('.small,.tag,table')) hidden=true;
+  return hidden;
+}
+function lead(el){let n=el.firstChild; while(n&&n.nodeType===3&&!n.textContent.trim()) n=n.nextSibling; return n&&n.nodeType===1&&(n.tagName==='STRONG'||n.tagName==='B')?n:null;}
+function wrapRest(el){const st=lead(el); if(/:\s*$/.test(st.textContent)) return false; const rest=[]; let n=st.nextSibling; while(n){rest.push(n);n=n.nextSibling;}
+  if(!rest.some(x=>x.nodeType===1||x.textContent.trim())) return false; const sp=document.createElement('span'); sp.className='more'; rest.forEach(x=>sp.appendChild(x)); el.appendChild(sp); return true;}
+document.querySelectorAll('section.panel').forEach(sec=>{
+  if(SKIP.has(sec.id)) return;
+  const groups=[...sec.querySelectorAll(':scope > .subgrp')]; if(!groups.length) groups.push(sec);
+  groups.forEach(g=>{
+    let first=true, nDeep=0;
+    [...g.querySelectorAll('.card')].filter(c=>!c.parentElement.closest('.card')).forEach(c=>{
+      const h=titleOf(c); const t=h?h.textContent.trim():'';
+      const basic=!h||first||/^(Hovedpoengene|Key points)/.test(t)||c.querySelector('canvas,input,select');
+      if(h) first=false;
+      if(basic){c.classList.add('lv-b'); if(prepCard(c)){const b=document.createElement('button');b.type='button';b.className='cardtog';b.textContent=UI.showcard;c.appendChild(b);}}
+      else {c.classList.add('lv-d'); nDeep++; if(h&&h.parentElement!==c) h.classList.add('lv-dh');}
+      if(h&&t){const s=document.createElement('span'); s.className='lvl '+(basic?'lvl-b':'lvl-d'); s.textContent=basic?UI.basic:UI.deep; h.appendChild(s);}
+    });
+    {let seg=[],hasB=false; const flush=()=>{if(seg.length&&!hasB) seg.forEach(e=>e.classList.add('lv-dh')); seg=[];hasB=false;};
+     [...g.children].forEach(ch=>{ if(ch.tagName==='H2'){flush(); seg.push(ch); return;} if(!seg.length) return; if(ch.classList.contains('deeptog')) return;
+       if(ch.classList.contains('lv-b')||ch.querySelector('.lv-b')) hasB=true; else if(!ch.classList.contains('card')&&!ch.classList.contains('lv-dh')) seg.push(ch); }); flush();}
+    g.querySelectorAll('details').forEach(d=>{const cs=[...d.querySelectorAll('.card')]; if(cs.length&&cs.every(c=>c.classList.contains('lv-d'))) d.classList.add('lv-dd');});
+    if(nDeep){const b=document.createElement('button');b.type='button';b.className='deeptog';b.dataset.n=nDeep;b.textContent=UI.showdeep+' ('+nDeep+')';g.appendChild(b);}
+  });
+});
+document.addEventListener('click',e=>{
+  const ct=e.target.closest('.cardtog'); if(ct){const c=ct.closest('.card'); const on=c.classList.toggle('full'); ct.textContent=on?UI.shortcard:UI.showcard; return;}
+  const dt=e.target.closest('.deeptog'); if(dt){const g=dt.parentElement; const on=g.classList.toggle('showdeep'); dt.textContent=on?UI.hidedeep:(UI.showdeep+' ('+dt.dataset.n+')'); return;}
+});
+/* hopp til et fordypningskort i enkel visning: vis det */
+document.addEventListener('click',e=>{const b=e.target.closest('[data-jumptab]'); if(!b||!document.body.classList.contains('simple')) return;
+  const sec=document.getElementById(b.dataset.jumptab); if(!sec) return; const h=[...sec.querySelectorAll('h3')].find(x=>x.textContent.startsWith(b.dataset.jumpcard||'\u0000')); if(!h) return;
+  const c=h.closest('.card')||h.nextElementSibling; const g=h.closest('.subgrp')||sec; if(c&&c.classList.contains('lv-d')){g.classList.add('showdeep'); const dt=g.querySelector(':scope > .deeptog'); if(dt) dt.textContent=UI.hidedeep;} if(c) {c.classList.add('full'); const ct=c.querySelector('.cardtog'); if(ct) ct.textContent=UI.shortcard;}},true);
+function setMode(m){document.body.classList.toggle('simple',m==='simple'); document.querySelectorAll('.vmode button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m))); try{localStorage.setItem('viewMode',m)}catch(e){}}
+document.querySelectorAll('.vmode button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+let m0='deep'; try{m0=localStorage.getItem('viewMode')||'deep'}catch(e){} setMode(m0);
+window.setViewMode=setMode;
+/* 4: fagord */
+const BAD='h1,h2,h3,h4,button,a,svg,script,style,.small,.tag,.term,summary,label,.seg,code,canvas,.lvl,select,option,textarea,input,.heroLbl,.sh-num';
+let RX=[]; try{ RX=GL.map(g=>({g,re:new RegExp('(?<![\\p{L}\\p{N}])(?:'+g.p+')(?![\\p{L}\\p{N}])(?!-?\\d)(?!-(?:blok|block|adren|recept|amino|lakt|lact))',g.ci?'iu':'u')})); }catch(e){RX=[];}
+function termify(root){
+  RX.forEach(({g,re})=>{
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>(n.parentElement&&!n.parentElement.closest(BAD)&&re.test(n.textContent))?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP});
+    const n=w.nextNode(); if(!n) return; const m=n.textContent.match(re); if(!m) return;
+    const after=n.splitText(m.index); after.textContent=after.textContent.slice(m[0].length);
+    const b=document.createElement('button'); b.type='button'; b.className='term'; b.dataset.g=g.k; b.textContent=m[0]; b.setAttribute('aria-haspopup','dialog');
+    n.parentNode.insertBefore(b,after);
+  });
+}
+const GBY={}; GL.forEach(g=>GBY[g.k]=g);
+document.querySelectorAll('section.panel').forEach(sec=>{ if(sec.id==='p-home'||sec.id==='p-quiz'||sec.id==='p-src') return; sec.querySelectorAll('.card').forEach(c=>{ if(!c.parentElement.closest('.card')) termify(c); }); });
+let pop=null, popFor=null;
+function closePop(){ if(pop){pop.remove();pop=null; if(popFor){popFor.setAttribute('aria-expanded','false');} popFor=null;} }
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.term');
+  if(t){ e.stopPropagation(); if(popFor===t){closePop();return;} closePop(); const g=GBY[t.dataset.g];
+    pop=document.createElement('div'); pop.id='gpop'; pop.setAttribute('role','dialog'); pop.setAttribute('aria-label',UI.expl+': '+g.t);
+    pop.innerHTML='<button type="button" class="gx" aria-label="'+UI.close+'">×</button><strong>'+g.t+'</strong>'+g.d+srcLine(g.s);
+    document.body.appendChild(pop); const r=t.getBoundingClientRect(); const pw=Math.min(320,window.innerWidth-24);
+    pop.style.left=Math.max(12,Math.min(window.scrollX+r.left,window.scrollX+window.innerWidth-pw-12))+'px'; pop.style.top=(window.scrollY+r.bottom+6)+'px';
+    popFor=t; t.setAttribute('aria-expanded','true'); pop.querySelector('.gx').addEventListener('click',()=>{const f=popFor;closePop(); if(f) f.focus();}); return; }
+  if(pop&&!e.target.closest('#gpop')) closePop();
+},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pop){const f=popFor;closePop(); if(f) f.focus();}});
+/* 2+5: Start her og mønsteratlas */
+function imgOf(ix){const q=IQ[ix[0]]; const p=(ix[1]!=null&&q.pair)?q.pair[ix[1]]:q; return {P:p.P,sup:p.sup||(q.pair?null:q.sup),scale:p.scale||1,raw:p.raw||(q.pair?null:q.raw)};}
+function jumpBtn(j){return '<button type="button" class="linkbtn" data-jumptab="'+j.tab+'" data-jumpsub="'+j.sub+'" data-jumpcard="'+j.card.replace(/"/g,'&quot;')+'">'+UI.more+': '+j.card+'</button>';}
+const sb=document.getElementById('startBox');
+if(sb){ sb.innerHTML=ST.map((x,i)=>'<div class="card sh-item"><span class="sh-num">'+(i+1)+'</span><div class="sh-body"><p><strong>'+x.t+'</strong> '+x.d+'</p>'+(x.img?'<canvas class="shSpec" data-i="'+i+'" aria-label="'+x.t+'"></canvas>':'')+srcLine(x.s)+'<p class="small">'+jumpBtn(x.j)+'</p></div></div>').join(''); sb.querySelectorAll('.card').forEach(termify); }
+const ab=document.getElementById('atlasBox');
+if(ab){ ab.innerHTML=AT.map((x,i)=>'<div class="card at-item"><h3>'+x.n+'</h3><canvas class="atSpec" data-i="'+i+'" aria-label="'+x.n+'"></canvas>'+(imgOf(x.img).raw?'<canvas class="atRaw" data-i="'+i+'" aria-hidden="true"></canvas>':'')+'<dl><dt>'+UI.see+'</dt><dd>'+x.w+'</dd><dt>'+UI.think+'</dt><dd>'+x.k+'</dd></dl>'+srcLine(x.s)+'<p class="small">'+jumpBtn(x.j)+'</p></div>').join(''); ab.querySelectorAll('.card').forEach(termify); }
+function drawStart(){document.querySelectorAll('.shSpec').forEach(cv=>{const im=imgOf(ST[+cv.dataset.i].img); iqRenderSpec(cv,im.P,im.sup,im.scale);});}
+function drawAtlas(){document.querySelectorAll('.atSpec').forEach(cv=>{const im=imgOf(AT[+cv.dataset.i].img); iqRenderSpec(cv,im.P,im.sup,im.scale);}); document.querySelectorAll('.atRaw').forEach(cv=>{const im=imgOf(AT[+cv.dataset.i].img); iqRenderRaw(cv,im.raw);});}
+const _goTo=goTo; goTo=function(id){_goTo(id); closePop(); if(id==='p-start') drawStart(); if(id==='p-atlas') drawAtlas();};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-goto2]'); if(!b) return; if(b.dataset.qlevel&&window.setQLevel) window.setQLevel(b.dataset.qlevel); if(b.dataset.goto2==='p-spec-sim'){goTo('p-spec'); const nb=document.querySelector('#p-spec .subnav button[data-sub="sim"]'); if(nb) nb.click(); return;} goTo(b.dataset.goto2);});
+})();
+
 
 
 /* ---------- Søk ---------- */
@@ -7507,7 +7670,7 @@ const SEARCH=(()=>{
     } else {
       goTo('p-quiz');
       if(it.iq!==undefined){iqI=it.iq; iqRender(); setTimeout(()=>$('#imgQuizBox').scrollIntoView({behavior:'smooth',block:'start'}),60);}
-      else if(it.qi!==undefined&&typeof qi!=='undefined'){qtopic='all';qi=it.qi; if(typeof renderQ==='function'){if(typeof renderTopics==='function')renderTopics();renderQ(); setTimeout(()=>$('#quizBox').scrollIntoView({behavior:'smooth',block:'start'}),60);}}
+      else if(it.qi!==undefined&&typeof qi!=='undefined'){qtopic='all';qi=it.qi; if(typeof renderQ==='function'){if(typeof renderTopics==='function')renderLevels();renderTopics();renderQ(); setTimeout(()=>$('#quizBox').scrollIntoView({behavior:'smooth',block:'start'}),60);}}
     }
   }
   const inp=$('#q'); let tmr;

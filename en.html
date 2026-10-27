@@ -168,6 +168,51 @@ header h1 button:hover{color:var(--accent)}
 .heroSpecWrap{position:relative;margin:0 0 4px}
 #heroSpec{display:block;width:100%;height:auto;border-radius:8px}
 .heroLbl{position:absolute;left:8px;top:6px;font-size:.8rem;font-weight:600;color:#fff;text-shadow:0 1px 2px #000}
+.vmode{display:flex;align-items:center;gap:8px;margin:8px 0 0;flex-wrap:wrap}
+.vmode .vl{font-size:.85rem;color:var(--muted);font-weight:600}
+.vmode .vb{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.vmode button{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 14px;font-size:.9rem;font-weight:600;color:var(--ink);min-height:36px}
+.vmode button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.vmode button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.lvl{display:inline-block;vertical-align:middle;margin-left:8px;font-size:.68rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.lvl-b{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.lvl-d{background:var(--soft);color:var(--muted)}
+.cardtog,.deeptog{all:unset;box-sizing:border-box;cursor:pointer;display:none;margin-top:8px;font-size:.88rem;font-weight:600;color:var(--accent);padding:6px 0}
+.deeptog{border:1.5px dashed var(--line);border-radius:10px;padding:10px 14px;margin:6px 0 14px;width:100%;text-align:center}
+.cardtog:focus-visible,.deeptog:focus-visible{outline:2px solid var(--accent)}
+body.simple .cardtog,body.simple .deeptog{display:block}
+body.simple .card.lv-b:not(.full):not(.inter) .more,
+body.simple .card.lv-b:not(.full):not(.inter) .more-b,
+body.simple .card.lv-b:not(.full):not(.inter) .small,
+body.simple .card.lv-b:not(.full):not(.inter) .tag,
+body.simple .card.lv-b:not(.full):not(.inter) .tblwrap,
+body.simple .card.lv-b:not(.full):not(.inter) table{display:none}
+body.simple .card.lv-d,body.simple .lv-dh,body.simple details.lv-dd{display:none}
+body.simple .showdeep .card.lv-d,body.simple .showdeep .lv-dh,body.simple .showdeep details.lv-dd{display:revert}
+.term{all:unset;cursor:help;border-bottom:1.5px dotted currentColor;color:inherit;font:inherit}
+.term:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+#gpop{position:absolute;z-index:60;max-width:320px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:0 6px 24px rgba(0,0,0,.18);font-size:.92rem;line-height:1.45}
+#gpop strong{display:block;margin-bottom:4px}
+#gpop .small{display:block;margin-top:6px}
+#gpop .gx{all:unset;position:absolute;top:6px;right:8px;cursor:pointer;font-size:1.1rem;color:var(--muted);padding:2px 6px}
+.quickrow{display:grid;grid-template-columns:1fr;gap:10px;margin:8px 0 12px}
+@media (min-width:720px){.quickrow{grid-template-columns:repeat(3,1fr)}}
+.quickrow .quickbtn{margin:0}
+.quickbtn.alt{background:var(--surface);color:var(--ink);border:2px solid var(--tc)}
+.quickbtn.alt .qi{background:color-mix(in srgb,var(--tc) 20%,transparent);color:var(--tc)}
+.quickbtn.alt .qa{color:var(--tc)}
+.sh-item{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start}
+.sh-num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:700;font-size:.92rem}
+.sh-item canvas,.at-item canvas{display:block;width:100%;border-radius:6px;margin:8px 0 2px}
+.sh-body p{margin:4px 0}
+.at-grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:720px){.at-grid{grid-template-columns:repeat(2,1fr)}}
+.at-item h3{margin:0 0 6px}
+.at-item dl{margin:6px 0 0}.at-item dt{font-weight:700;font-size:.85rem;color:var(--muted);margin-top:6px}.at-item dd{margin:2px 0 0}
+.sh-body .linkbtn,.at-item .linkbtn{text-align:left}
+.nextrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.nextrow button{all:unset;box-sizing:border-box;cursor:pointer;border:1.5px solid var(--accent);color:var(--accent);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.92rem}
+.nextrow button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .hero{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:8px 0 14px}
 .hero p{margin:6px 0 0;color:var(--muted)}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
@@ -210,11 +255,16 @@ header h1 button:hover{color:var(--accent)}
     <input type="search" id="q" placeholder="Search cards, references and quiz (e.g. “burst suppression”, “Purdon”, “alpha”)" autocomplete="off" aria-label="Search the app">
     <div class="sres" id="sres" aria-live="polite"></div>
   </div>
+  <div class="vmode" role="group" aria-label="Choose view: simple or in depth"><span class="vl">View:</span><span class="vb"><button type="button" data-mode="simple" aria-pressed="false">Simple</button><button type="button" data-mode="deep" aria-pressed="true">In depth</button></span></div>
 </header>
 
 <!-- ========== HOME ========== -->
 <section class="panel" id="p-home">
-  <button class="quickbtn" data-jumptab="p-spec" data-jumpsub="sim" aria-label="Go straight to the simulators"><span class="qi" aria-hidden="true">▶</span><span><span class="qt">Simulators</span><span class="qd">See how the spectrogram changes with drug, age and time in the course</span></span><span class="qa" aria-hidden="true">→</span></button>
+  <div class="quickrow">
+  <button class="quickbtn" data-goto="p-start"><span class="qi" aria-hidden="true">1</span><span><span class="qt">Start here</span><span class="qd">The 10 most important things</span></span><span class="qa" aria-hidden="true">→</span></button>
+  <button class="quickbtn alt" style="--tc:var(--c-hyp)" data-jumptab="p-spec" data-jumpsub="sim" aria-label="Simulators"><span class="qi" aria-hidden="true">▶</span><span><span class="qt">Simulators</span><span class="qd">See how the spectrogram changes with drug, age and time in the course</span></span><span class="qa" aria-hidden="true">→</span></button>
+  <button class="quickbtn alt" style="--tc:var(--c-quiz)" data-goto="p-atlas"><span class="qi" aria-hidden="true">?</span><span><span class="qt">What am I seeing?</span><span class="qd">Common patterns in the spectrogram</span></span><span class="qa" aria-hidden="true">→</span></button>
+  </div>
   <div class="hero">
     <div class="heroSpecWrap" role="img" aria-label="Schematic spectrogram and raw EEG: from awake, low-amplitude fast activity to general anaesthesia with strong slow-delta and a clear alpha band around 10 Hz"><canvas id="heroSpec" width="720" height="200"></canvas><span class="heroLbl" aria-hidden="true">Spectrogram (schematic)</span></div>
     <svg viewBox="0 0 720 84" style="width:100%;height:auto" role="img" aria-label="Stylised EEG going from fast, low-amplitude awake activity to slow activity with frontal alpha during anaesthesia">
@@ -4082,7 +4132,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>It is unclear whether perfusion or concentration is at work.</strong> In a randomised trial, burst suppression disappeared in more than 50% when MAP was raised to the baseline value. The authors say it is unclear whether this is due to physiology, pharmacokinetics or pharmacodynamics. Shock and low cardiac output can also increase the propofol concentration and make the brain more sensitive.<span class="small" style="display:block;margin-top:2px">Sources: Georgii 2022, discussed in Guay 2025</span></li>
    <li><strong>The EEG does not prove hypoperfusion.</strong> Loss of alpha can also be caused by noxious stimulation. The case reports illustrate but do not validate. There is no threshold for which MAP or cardiac index produces EEG change in the individual patient. The schematic example is simulated and therefore shows no cause.<span class="small" style="display:block;margin-top:2px">Sources: Hight 2019; García 2021; Guay 2025</span></li>
   </ul>
-  <p class="small">The studies in detail: <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Frontal EEG as a perfusion marker in clinical practice (Guay 2025)">Guay 2025</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Clinical example: alpha weakens when cardiac output falls (own case)">Own case</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Schematic example: fall in cardiac output and loss of alpha">Schematic example</button></p>
+  <p class="small">The studies in detail: <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Frontal EEG as a perfusion marker in clinical practice (Guay 2025)">Guay 2025</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Clinical example: alpha weakens when cardiac output falls (shared case)">Shared case</button> <button type="button" class="linkbtn" data-jumptab="p-perf" data-jumpsub="bp" data-jumpcard="Schematic example: fall in cardiac output and loss of alpha">Schematic example</button></p>
   <span class="tag">Guay 2025</span> <span class="tag">Georgii 2022</span> <span class="tag">Hight 2019</span> <span class="tag">García 2021</span>
   </div>
   <h3>Autoregulation is individual</h3>
@@ -4130,7 +4180,7 @@ header h1 button:hover{color:var(--accent)}
    <li><strong>Loss of alpha has several possible causes:</strong> Both an increase and a reduction in alpha have been reported with noxious stimulation. Sedatives and sleep can also confound the picture. Both noxious stimulation and low cardiac output are possible causes of such changes on frontal EEG. The image therefore shows no cause, and it cannot be used to distinguish perfusion from other causes.<span class="small" style="display:block;margin-top:2px">Sources: Sleigh et al. 2025; Foreman and Claassen 2012; Guay 2025</span></li>
   </ul>
   <span class="tag">Foreman and Claassen 2012, Sleigh et al. 2025</span></div>
-  <div class="card"><h3>Clinical example: alpha weakens when cardiac output falls (own case)</h3>
+  <div class="card"><h3>Clinical example: alpha weakens when cardiac output falls (shared case)</h3>
   <p>One shared case from Norwegian clinical practice, from the author of the app. It is not published and not peer reviewed. It is included because it illustrates the same thing the sources describe.<span class="small" style="display:block;margin-top:2px">Sources: Guay 2025; Manquat 2022</span></p>
   <ul>
    <li><strong>What was seen:</strong> an adult during maintenance with an unchanged hypnotic dose, PSI 30, SR 0, EMG 0, SEF 10–11 Hz. On the same screen, a pulse contour monitor showed MAP and cardiac index falling for a few minutes (CI down towards about 1 l/min/m²). Over the same period the alpha band became weaker and drifted downwards in both hemispheres, and the spectrogram became “thinner” without suppression. When MAP was 83 mmHg and CI 3.5 again, the alpha band was back as before.</li>
@@ -5255,9 +5305,26 @@ header h1 button:hover{color:var(--accent)}
   </div>
 </section>
 
+<!-- ========== START HER / MØNSTERATLAS ========== -->
+<section class="panel" id="p-start" hidden>
+  <h2>Start here: the 10 most important things</h2>
+  <p>Ten points that give the foundation for the rest. Each point links on to the in-depth material.</p>
+  <p class="small">Tip: Choose “Simple” at the top to see only the key points in all tabs. Tap an underlined term for a short explanation.</p>
+  <div id="startBox"></div>
+  <p class="small">The images are schematic, drawn from the descriptions in the sources, not recordings from patients. Spectrogram: time along the x-axis (about 15 minutes), frequency 0–40 Hz along the y-axis, red is high power.</p>
+  <div class="card"><h3>Next steps</h3><div class="nextrow"><button type="button" data-goto2="p-spec-sim">Simulators</button><button type="button" data-goto2="p-atlas">What am I seeing?</button><button type="button" data-goto2="p-quiz" data-qlevel="b">Quiz: basic</button></div></div>
+</section>
+<section class="panel" id="p-atlas" hidden>
+  <h2>What am I seeing? Common patterns in the spectrogram</h2>
+  <p>The most common patterns, with what you see and what to think about. Below each pattern is a link to the card with the details.</p>
+  <p class="small">The images are schematic, drawn from the descriptions in the sources, not recordings from patients. Spectrogram: time along the x-axis (about 15 minutes), frequency 0–40 Hz along the y-axis, red is high power.</p>
+  <div class="at-grid" id="atlasBox"></div>
+</section>
+
 <section class="panel" id="p-quiz" hidden>
   <h2>Quiz</h2>
   <p class="small">Pick a topic, or take all of them. The order is fixed, so you can carry on where you left off.</p>
+  <div class="chips" id="qlevels" aria-label="Level"></div>
   <div class="chips" id="qtopics"></div>
   <div class="prog" aria-hidden="true"><div id="qprog" style="width:0%"></div></div>
   <div id="quizBox"></div>
@@ -6723,12 +6790,17 @@ const QT=[['all','All'],['basis','Fundamentals'],['comp','Consciousness and memo
 let qtopic='all';try{qtopic=localStorage.getItem('qtopic')||'all'}catch(e){}
 if(!QT.some(t=>t[0]===qtopic))qtopic='all';
 let QF=[];
-function qFilter(){QF=QS.map((q,i)=>i).filter(i=>qtopic==='all'||QS[i].t===qtopic);}
+const QB=new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 15, 17, 18, 20, 23, 27, 28, 29, 30, 33, 35, 37, 42, 43, 44, 46, 49, 50, 57, 75, 78, 83, 86, 90, 93, 95, 99, 108, 113, 114, 121, 122, 123, 145, 147, 148, 160, 163, 166, 175, 179, 182, 183, 195, 200, 201, 207, 208, 209, 210, 219, 224, 230, 231, 233, 236, 239, 240, 242, 248, 249, 251, 252, 253, 256, 257, 259, 260, 281, 282, 285]);
+let qlevel='all';try{qlevel=localStorage.getItem('qlevel')||'all'}catch(e){}
+function qLvOk(i){return qlevel==='all'||(qlevel==='b')===QB.has(i);}
+function qFilter(){QF=QS.map((q,i)=>i).filter(i=>(qtopic==='all'||QS[i].t===qtopic)&&qLvOk(i));}
+function renderLevels(){const box=$('#qlevels'); if(!box)return; const L=[['all',"All"],['b',"Basic"],['d',"In depth"]]; box.innerHTML='<span class="small" style="align-self:center;font-weight:600">Level:</span> '+L.map(([k,n])=>`<button class="chip${k===qlevel?' on':''}" data-l="${k}">${n} (${QS.filter((q,i)=>k==='all'||(k==='b')===QB.has(i)).length})</button>`).join(''); $$('#qlevels .chip').forEach(b=>b.onclick=()=>{window.setQLevel(b.dataset.l);});}
+window.setQLevel=function(l){qlevel=l;try{localStorage.setItem('qlevel',l)}catch(e){};qi=0;score=0;renderLevels();renderLevels();renderTopics();renderQ();};
 function qTopicName(k){const t=QT.find(t=>t[0]===k);return t?t[1]:''}
 function renderTopics(){
   const box=$('#qtopics'); if(!box)return;
-  box.innerHTML=QT.map(([k,n])=>`<button class="chip${k===qtopic?' on':''}" data-t="${k}">${n} (${k==='all'?QS.length:QS.filter(q=>q.t===k).length})</button>`).join('');
-  $$('#qtopics .chip').forEach(b=>b.onclick=()=>{qtopic=b.dataset.t;try{localStorage.setItem('qtopic',qtopic)}catch(e){};qi=0;score=0;renderTopics();renderQ();});
+  box.innerHTML=QT.map(([k,n])=>`<button class="chip${k===qtopic?' on':''}" data-t="${k}">${n} (${QS.filter((q,i)=>(k==='all'||q.t===k)&&qLvOk(i)).length})</button>`).join('');
+  $$('#qtopics .chip').forEach(b=>b.onclick=()=>{qtopic=b.dataset.t;try{localStorage.setItem('qtopic',qtopic)}catch(e){};qi=0;score=0;renderLevels();renderTopics();renderQ();});
 }
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function renderQ(){
@@ -6766,7 +6838,7 @@ function pick(i){
   $('#next').onclick=()=>{qi++;renderQ()};
   $('#next').focus();
 }
-renderTopics();renderQ();
+renderLevels();renderTopics();renderQ();
 
 /* ---------- Sources ---------- */
 function refLink(r){
@@ -7139,6 +7211,7 @@ const REFS=[
  ['Puri A, Medhi B, Panda NB, Puri GD, Dhawan S. Propofol pharmacokinetics in young healthy Indian subjects. Indian J Pharmacol 2012;44(3):402–406.','https://pmc.ncbi.nlm.nih.gov/articles/PMC3371469/','26 patients, blood samples; all received morphine before propofol; full text'],
  ['Budic I, Jevtovic Stoimenov T, Pavlovic D, et al. Clinical importance of potential genetic determinants affecting propofol pharmacokinetics and pharmacodynamics. Front Med 2022;9:809393.','https://doi.org/10.3389/fmed.2022.809393','Review; findings for single genes are inconsistent'],
  ['Lampotang S, et al. Race-specific pharmacodynamic model of propofol-induced loss of consciousness. J Clin Pharmacol 2016;56(9):1141–1150.','https://pmc.ncbi.nlm.nih.gov/articles/PMC4981563/','Model for simulation-based training built on earlier studies, not a new clinical trial; values calculated with the Marsh model, not measured in blood; full text'],
+ ['Ricci Z, Gobbi L, La Rosa E, et al. Analysis of SEF95 derived from two processed EEG devices during pediatric anesthesia for non-cardiac surgery. J Clin Monit Comput 2026;40(2):317–322.','https://doi.org/10.1007/s10877-025-01338-3','Definition of SEF95 in the introduction'],
  ['Li J, Hu R, Tan W, Li J, Huang W, Wang Z. Activation of glutamatergic neurones in the pedunculopontine tegmental nucleus promotes cortical activation and behavioural emergence from sevoflurane-induced unconsciousness in mice. Br J Anaesth 2024;132:320–333.','https://doi.org/10.1016/j.bja.2023.08.033','Animal study, mice. No conflicts of interest.'],
  ['Wildes TS, Avidan MS. Critical appraisal of ENGAGES: cognitive dissonance and anesthesia research. Ann Transl Med 2019;7(20):599.','https://doi.org/10.21037/atm.2019.09.48','Reply from the trial authors to Koch 2019. No conflicts of interest declared.'],
  ['Robinson TN, Eiseman B. Postoperative delirium in the elderly: diagnosis and management. Clin Interv Aging 2008;3:351–355.','https://dovepress.com/article/download/1759','Review.'],
@@ -7453,6 +7526,96 @@ function iqRender(){
   ctx.font='bold 20px sans-serif';ctx.fillStyle='#fff';ctx.textAlign='right';ctx.shadowColor='#000';ctx.shadowBlur=2;
   [[10,'10'],[20,'20']].forEach(([f,t])=>{const y=H*(1-f/FMAX);ctx.fillText(t+' Hz',W-8,y+7);});
 })();
+/* ---------- Nivåer, enkel visning, fagord, Start her, mønsteratlas ---------- */
+(function(){
+const UI={"view": "View", "simple": "Simple", "deep": "In depth", "basic": "Basic", "showcard": "Show the whole card", "shortcard": "Show the short version", "showdeep": "Show in-depth cards", "hidedeep": "Hide in-depth cards", "src1": "Source", "srcN": "Sources", "more": "Read more", "close": "Close", "expl": "Explanation", "see": "What you see", "think": "What to think about", "level": "Level", "all": "All", "qs_t": "Start here", "qs_d": "The 10 most important things", "qsim_t": "Simulators", "qsim_d": "See how the spectrogram changes with drug, age and time in the course", "qat_t": "What am I seeing?", "qat_d": "Common patterns in the spectrogram", "start_h": "Start here: the 10 most important things", "start_i": "Ten points that give the foundation for the rest. Each point links on to the in-depth material.", "start_tip": "Tip: Choose “Simple” at the top to see only the key points in all tabs. Tap an underlined term for a short explanation.", "next": "Next steps", "quizb": "Quiz: basic", "atlas_h": "What am I seeing? Common patterns in the spectrogram", "atlas_i": "The most common patterns, with what you see and what to think about. Below each pattern is a link to the card with the details.", "schem": "The images are schematic, drawn from the descriptions in the sources, not recordings from patients. Spectrogram: time along the x-axis (about 15 minutes), frequency 0–40 Hz along the y-axis, red is high power.", "aria_vm": "Choose view: simple or in depth", "home_h": "  <h2>Choose a topic</h2>"}, GL=[{"k": "spek", "ci": true, "p": "spectrograms?|DSA", "t": "Spectrogram (DSA)", "d": "Raw EEG broken down into frequencies over time. Time runs to the right, frequency increases upwards, and colour shows power: red is a lot, blue is little.", "s": "Purdon 2015 Part I; Guay 2025 Part 2"}, {"k": "raw", "ci": true, "p": "raw EEG", "t": "Raw EEG", "d": "The unprocessed EEG trace: voltage in microvolts over time, as the electrodes measure it.", "s": "Lobo and Lamperti 2025"}, {"k": "slow", "ci": true, "p": "slow-delta|slow delta", "t": "Slow-delta", "d": "Slow activity below 1 Hz, together with delta. It is particularly strong under propofol.", "s": "Purdon 2015"}, {"k": "bs", "ci": true, "p": "burst suppression", "t": "Burst suppression", "d": "Flat periods (suppression) interrupted by short bursts of activity. During routine anaesthesia it is more than the patient needs. In intensive care it can be a treatment goal.", "s": "Ching 2012; Fritz 2016"}, {"k": "sr", "ci": true, "p": "suppression ratio|BSR", "t": "Suppression ratio (SR, BSR)", "d": "The share of time the EEG is suppressed, in per cent. The monitor calculates it from an amplitude threshold. Noise can give a falsely low and poor contact a falsely high value.", "s": "Gruenbaum 2026"}, {"k": "iso", "ci": true, "p": "isoelectric", "t": "Isoelectric EEG", "d": "Flat EEG. Electrocerebral inactivity is 2 µV or lower, while suppression is below 10 µV.", "s": "Guay 2025"}, {"k": "sef", "ci": false, "p": "SEF(?:95)?|[Ss]pectral edge frequency", "t": "SEF (spectral edge frequency)", "d": "The frequency below which 95 % of the total EEG power lies (SEF95). A low SEF means that most of the power lies at low frequencies.", "s": "Ricci 2025"}, {"k": "emg", "ci": false, "p": "EMG", "t": "EMG", "d": "Electrical activity from the muscles of the forehead and face. It lies in the same frequency range as beta and gamma and can give a falsely high index. EMG can also suggest that the patient needs more anaesthesia or analgesia.", "s": "Hight 2017; Hight 2020"}, {"k": "tci", "ci": false, "p": "TCI", "t": "TCI (target-controlled infusion)", "d": "The pump doses to reach a chosen, calculated concentration in plasma or at the effect site. The number is a prediction from a model, not a measurement.", "s": "Kim et al. 2025; Sepúlveda 2010"}, {"k": "ce", "ci": true, "p": "effect[- ]site(?: concentration)?", "t": "Effect site (Ce)", "d": "Where the drug acts, for hypnotics the brain. The concentration there cannot be measured. The pump calculates it with a model.", "s": "Kim et al. 2025"}, {"k": "mac", "ci": false, "p": "MAC", "t": "MAC", "d": "The alveolar concentration at which half of patients do not move at incision. MAC is based on movement only and does not necessarily say anything about consciousness.", "s": "Perouansky et al. 2025"}, {"k": "spindle", "ci": true, "p": "spindles?", "t": "Spindles", "d": "Short bursts of rhythmic activity around 11–15 Hz, as in stage 2 NREM sleep. Typical under dexmedetomidine.", "s": "Akeju 2014; Huupponen 2008"}, {"k": "noc", "ci": true, "p": "nociception", "t": "Nociception", "d": "The neural process of encoding noxious stimuli. It is not the same as pain, which is an experience.", "s": "IASP; Raja 2020"}, {"k": "aware", "ci": true, "p": "awareness", "t": "Awareness", "d": "The patient is conscious during general anaesthesia and remembers it afterwards. Responding to command during anaesthesia without remembering it later is far more common.", "s": "Linassi 2018; Mashour and Avidan 2015"}, {"k": "ift", "ci": true, "p": "isolated forearm(?: technique)?|IFT", "t": "Isolated forearm technique (IFT)", "d": "A cuff on the upper arm stops the muscle relaxant from reaching one forearm. The patient can then squeeze a hand on command during anaesthesia.", "s": "Linassi 2018; Sleigh et al. 2025"}, {"k": "hyst", "ci": true, "p": "hysteresis|neural inertia", "t": "Hysteresis and neural inertia", "d": "Patients need a higher concentration to lose responsiveness than the one at which they wake. The difference cannot be fully explained by pharmacokinetics.", "s": "Sleigh et al. 2025"}, {"k": "parad", "ci": true, "p": "paradoxical excitation", "t": "Paradoxical excitation", "d": "Increased beta during light sedation, for example with benzodiazepines or a low dose of propofol.", "s": "Lobo and Lamperti 2025"}, {"k": "aeeg", "ci": false, "p": "aEEG", "t": "aEEG", "d": "A highly simplified EEG for newborns. The signal is filtered, rectified and compressed in time, so that many hours fit on the screen as a band.", "s": "Tao and Mathur 2010"}, {"k": "art", "ci": true, "p": "artefacts?|artifacts?", "t": "Artefact", "d": "A signal that does not come from the brain, for example muscle (EMG), blinking, ECG, electrocautery or technical noise.", "s": "Hight 2020"}, {"k": "idx", "ci": false, "p": "BIS|PSI|qCON", "t": "Index (BIS, PSI, qCON)", "d": "A number from 0 to 100 that the monitor calculates from frontal EEG. Each monitor has its own scale and its own recommended range, so the numbers cannot be compared directly.", "s": "Schneider 2004; Lewis 2019"}, {"k": "autoreg", "ci": true, "p": "autoregulation", "t": "Autoregulation", "d": "The brain’s ability to keep blood flow stable when blood pressure changes. The limits are individual. In most people the lower limit is not below about 70 mmHg.", "s": "Patel et al. 2025"}, {"k": "aper", "ci": true, "p": "aperiodic", "t": "Aperiodic activity (“1/f”)", "d": "The background activity in the EEG without a fixed rhythm. It is strongest at low frequencies and falls roughly as 1 divided by the frequency.", "s": "Lendner 2020"}, {"k": "delta", "ci": true, "p": "delta", "t": "Delta (below 4 Hz)", "d": "Slow waves. In healthy people they are seen in deep sleep. Under propofol and sevoflurane, delta increases with dose.", "s": "Lobo and Lamperti 2025"}, {"k": "theta", "ci": true, "p": "theta", "t": "Theta (4–8 Hz)", "d": "Drowsiness and light sleep. Under anaesthesia, sevoflurane at higher doses fills in theta, and ketamine and opioids can produce theta.", "s": "Lobo and Lamperti 2025"}, {"k": "alfa", "ci": true, "p": "alpha", "t": "Alpha (8–13 Hz)", "d": "In an awake person with closed eyes, alpha is strongest at the back of the head. Under propofol and sevoflurane, alpha moves to the forehead and forms a band around 10 Hz.", "s": "Lobo and Lamperti 2025"}, {"k": "beta", "ci": true, "p": "beta", "t": "Beta (13–30 Hz)", "d": "Awake, active thinking. Under anaesthesia, beta is seen in light sedation and paradoxical excitation, for example with benzodiazepines and a low dose of propofol.", "s": "Lobo and Lamperti 2025"}, {"k": "gamma", "ci": true, "p": "gamma", "t": "Gamma (30–80 Hz)", "d": "Fast activity. Ketamine produces high beta and low gamma. Gamma overlaps with muscle activity (EMG) from the forehead.", "s": "Lobo and Lamperti 2025"}], ST=[{"t": "General anaesthesia consists of several components.", "d": "Unconsciousness, amnesia, suppression of nociception and immobility. The drugs affect the components differently. That is why “depth of anaesthesia” is an imprecise term.", "s": "Brown 2010", "img": null, "j": {"tab": "p-comp", "sub": "base", "card": "General anaesthesia has several components, which is why “depth of anaesthesia” is an imprecise term"}}, {"t": "EEG shows how the cerebral cortex is working.", "d": "EEG is the sum of small voltages from the cerebral cortex, measured in microvolts. During anaesthesia it is the only routine measure of the target organ itself.", "s": "Lobo and Lamperti 2025", "img": null, "j": {"tab": "p-basis", "sub": "eeg", "card": "What EEG is"}}, {"t": "The spectrogram is raw EEG broken down into frequencies.", "d": "Time runs to the right, frequency increases upwards, and colour shows how much power there is: red is a lot, blue is little.", "s": "Purdon 2015 Part I; Guay 2025 Part 2", "img": [9, 0], "j": {"tab": "p-spec", "sub": "sim", "card": "From raw EEG to spectrogram (DSA): step by step"}}, {"t": "Five frequency bands are enough to start with.", "d": "Delta below 4 Hz, theta 4–8, alpha 8–13, beta 13–30 and gamma 30–80 Hz. The limits vary slightly between sources.", "s": "Lobo and Lamperti 2025", "img": null, "j": {"tab": "p-basis", "sub": "eeg", "card": "The frequency bands"}}, {"t": "Propofol and sevoflurane produce alpha and slow-delta.", "d": "A continuous band around 10 Hz and strong activity at the bottom is the typical picture during maintenance. Sevoflurane also fills in theta between delta and alpha.", "s": "Akeju 2014; Purdon 2015 Part I", "img": [9, 1], "j": {"tab": "p-comp", "sub": "consc", "card": "Each drug has its own EEG picture"}}, {"t": "Other drugs look different.", "d": "Ketamine produces a lot of beta and low gamma, and the index can then show “too light”. Dexmedetomidine produces sleep-like spindles, and the patient can often be woken.", "s": "Purdon 2015 Part I; Vlisides 2017; Huupponen 2008", "img": [8, null], "j": {"tab": "p-comp", "sub": "consc", "card": "Each drug has its own EEG picture"}}, {"t": "Burst suppression is usually more than the patient needs.", "d": "Flat periods interrupted by short bursts. It is associated with delirium in observational studies, but it has not been shown to be the cause. In intensive care it can be a treatment goal.", "s": "Ching 2012; Fritz 2016", "img": [2, null], "j": {"tab": "p-bs", "sub": "what", "card": "When is burst suppression wanted, and when is it not needed?"}}, {"t": "Older patients have a weaker EEG.", "d": "Power is lower in all bands, and alpha is weaker. The index can therefore be misleadingly high, and chasing the number risks burst suppression.", "s": "Purdon 2015 BJA; Ni 2019", "img": [12, 1], "j": {"tab": "p-spec", "sub": "age", "card": "Older patients: low-amplitude EEG, lower doses"}}, {"t": "The index is a calculated number. Look at the picture behind it.", "d": "Muscle activity (EMG) and noise can give a falsely high index, and muscle relaxants can give a low index in an awake person. Raw EEG and the spectrogram show what the number is based on.", "s": "Schuller 2015; Hight 2017; Hight 2020", "img": null, "j": {"tab": "p-basis", "sub": "mon", "card": "When the index surprises: the sources of error"}}, {"t": "Movement does not mean the patient is awake.", "d": "Movement in response to a painful stimulus is often a spinal reflex. Propofol prevents movement poorly, so stillness comes from an opioid or muscle relaxant rather than from more hypnotic.", "s": "Perouansky et al. 2025; Vuyk et al. 2025; Sleigh et al. 2025", "img": null, "j": {"tab": "p-comp", "sub": "move", "card": "Movement is mostly about spinal cord and analgesia"}}], AT=[{"n": "Propofol: alpha and slow-delta", "w": "A continuous alpha band around 10 Hz and strong slow-delta at the bottom.", "k": "The expected picture during maintenance with propofol.", "s": "Akeju 2014; Purdon 2015 Part I", "img": [9, 0], "j": {"tab": "p-comp", "sub": "consc", "card": "Each drug has its own EEG picture"}}, {"n": "Sevoflurane: theta fills in", "w": "Like propofol, but theta fills in between delta and alpha, and there is slightly more beta.", "k": "The expected picture under sevoflurane.", "s": "Akeju 2014", "img": [9, 1], "j": {"tab": "p-comp", "sub": "consc", "card": "Each drug has its own EEG picture"}}, {"n": "Dexmedetomidine: spindles", "w": "Slow-delta and spindles around 12–15 Hz that come and go, with little beta. Resembles NREM sleep.", "k": "The spindles are not the same as propofol alpha. The patient can often be woken.", "s": "Purdon 2015 Part I; Huupponen 2008", "img": [7, null], "j": {"tab": "p-comp", "sub": "consc", "card": "Each drug has its own EEG picture"}}, {"n": "Ketamine: high beta and low gamma", "w": "A broad band around 25–35 Hz, slow-delta at the bottom, more theta and little alpha.", "k": "The index can show “too light”. Without muscle relaxants, EMG must be ruled out, because it lies in the same frequency range.", "s": "Purdon 2015 Part I; Vlisides 2017", "img": [8, null], "j": {"tab": "p-comp", "sub": "consc", "card": "Each drug has its own EEG picture"}}, {"n": "Emergence", "w": "Alpha and slow-delta dissolve. Faster frequencies and EMG appear, and the index rises.", "k": "EMG is often the first sign. The concentration at emergence is lower than at induction.", "s": "Hight 2020; Hight 2017", "img": [3, null], "j": {"tab": "p-basis", "sub": "wake", "card": "Emergence is not induction in reverse"}}, {"n": "Alpha weakens, delta persists", "w": "The alpha band weakens while slow-delta persists.", "k": "Several explanations are possible: more than the patient needs, nociception or low perfusion. Look at the raw EEG, dose, blood pressure and what the surgeon is doing.", "s": "García 2021; Obert 2024", "img": [4, null], "j": {"tab": "p-spec", "sub": "basics", "card": "Clinical example: spectrogram without a distinct alpha band (“spectral fade”)"}}, {"n": "Burst suppression", "w": "Dark, flat periods interrupted by narrow “flames” (bursts).", "k": "During routine anaesthesia it is more than the patient needs. Review the dose, especially in older patients.", "s": "Ching 2012; Fritz 2016", "img": [2, null], "j": {"tab": "p-bs", "sub": "dose", "card": "Burst suppression lies far above what is needed"}}, {"n": "Older patients: little power in all bands", "w": "Low power in all bands and weaker, slightly slower alpha.", "k": "The index can be misleadingly high. Chasing the number risks burst suppression.", "s": "Purdon 2015 BJA; Ni 2019", "img": [12, 1], "j": {"tab": "p-spec", "sub": "age", "card": "Older patients: low-amplitude EEG, lower doses"}}, {"n": "Infants: no alpha", "w": "Only slow-delta, with no alpha band.", "k": "Normal in the first months. Alpha appears at around 4–6 months. Indices developed in adults cannot be interpreted in the youngest.", "s": "Cornelissen 2015; Cornelissen 2018", "img": [11, null], "j": {"tab": "p-spec", "sub": "kids", "card": "Infants: the EEG matures over the first months"}}, {"n": "Alpha slides down without a dose change", "w": "Alpha weakens and slides downwards for a few minutes without any change in dose, and then returns.", "k": "Think of low perfusion. Check blood pressure and cardiac output before changing the dose.", "s": "Guay 2025; Manquat 2022", "img": [16, null], "j": {"tab": "p-perf", "sub": "bp", "card": "Low perfusion can mimic excessive anaesthetic depth"}}, {"n": "Flames that build up", "w": "Broadband vertical peaks that build up and fade over minutes.", "k": "Suspect epileptiform activity, not depth. Look at the raw EEG and ask for a full EEG.", "s": "Taccone 2026; Ko and Engelhard 2025", "img": [13, null], "j": {"tab": "p-icu", "sub": "seiz", "card": "The index can resemble deep sedation during seizures"}}, {"n": "Sharp, steady stripe", "w": "A narrow stripe at one frequency that does not change over time.", "k": "Technical noise. Brain activity varies, a constant line does not. The noise can drive the index up.", "s": "Hight 2020", "img": [14, null], "j": {"tab": "p-spec", "sub": "art", "card": "Artefacts and sources of error in EEG"}}, {"n": "Weak or strong? Check the scale", "w": "The same EEG can look weak or strong depending on the colour scale setting.", "k": "Check the colour scale and gain before interpreting, as you would check the scale of an ECG.", "s": "Hight 2020", "img": [10, 0], "j": {"tab": "p-spec", "sub": "art", "card": "Artefacts and sources of error in EEG"}}];
+const SKIP=new Set(['p-home','p-quiz','p-src','p-start','p-atlas']);
+function srcLine(s){const n=(s.split(';').length>1)?UI.srcN:UI.src1; return '<span class="small" style="display:block;margin-top:2px">'+n+': '+s+'</span>';}
+/* 1+6: nivåmerker og enkel visning */
+function titleOf(c){const h=c.querySelector(':scope > h3'); if(h) return h; const p=c.previousElementSibling; return (p&&p.tagName==='H3')?p:null;}
+function prepCard(c){
+  if(c.querySelector('canvas,input,select,textarea')){c.classList.add('inter');return false;}
+  let hidden=false; const ps=[...c.querySelectorAll('p')].filter(p=>p.closest('.card')===c&&!p.closest('table,figure,svg,.seg'));
+  ps.forEach((p,i)=>{ if(lead(p)) {hidden=wrapRest(p)||hidden;} else if(i>0){p.classList.add('more-b');hidden=true;} });
+  [...c.querySelectorAll('li')].filter(li=>li.closest('.card')===c&&!li.closest('table,figure,svg')).forEach(li=>{ if(lead(li)) hidden=wrapRest(li)||hidden; });
+  if(c.querySelector('.small,.tag,table')) hidden=true;
+  return hidden;
+}
+function lead(el){let n=el.firstChild; while(n&&n.nodeType===3&&!n.textContent.trim()) n=n.nextSibling; return n&&n.nodeType===1&&(n.tagName==='STRONG'||n.tagName==='B')?n:null;}
+function wrapRest(el){const st=lead(el); if(/:\s*$/.test(st.textContent)) return false; const rest=[]; let n=st.nextSibling; while(n){rest.push(n);n=n.nextSibling;}
+  if(!rest.some(x=>x.nodeType===1||x.textContent.trim())) return false; const sp=document.createElement('span'); sp.className='more'; rest.forEach(x=>sp.appendChild(x)); el.appendChild(sp); return true;}
+document.querySelectorAll('section.panel').forEach(sec=>{
+  if(SKIP.has(sec.id)) return;
+  const groups=[...sec.querySelectorAll(':scope > .subgrp')]; if(!groups.length) groups.push(sec);
+  groups.forEach(g=>{
+    let first=true, nDeep=0;
+    [...g.querySelectorAll('.card')].filter(c=>!c.parentElement.closest('.card')).forEach(c=>{
+      const h=titleOf(c); const t=h?h.textContent.trim():'';
+      const basic=!h||first||/^(Hovedpoengene|Key points)/.test(t)||c.querySelector('canvas,input,select');
+      if(h) first=false;
+      if(basic){c.classList.add('lv-b'); if(prepCard(c)){const b=document.createElement('button');b.type='button';b.className='cardtog';b.textContent=UI.showcard;c.appendChild(b);}}
+      else {c.classList.add('lv-d'); nDeep++; if(h&&h.parentElement!==c) h.classList.add('lv-dh');}
+      if(h&&t){const s=document.createElement('span'); s.className='lvl '+(basic?'lvl-b':'lvl-d'); s.textContent=basic?UI.basic:UI.deep; h.appendChild(s);}
+    });
+    {let seg=[],hasB=false; const flush=()=>{if(seg.length&&!hasB) seg.forEach(e=>e.classList.add('lv-dh')); seg=[];hasB=false;};
+     [...g.children].forEach(ch=>{ if(ch.tagName==='H2'){flush(); seg.push(ch); return;} if(!seg.length) return; if(ch.classList.contains('deeptog')) return;
+       if(ch.classList.contains('lv-b')||ch.querySelector('.lv-b')) hasB=true; else if(!ch.classList.contains('card')&&!ch.classList.contains('lv-dh')) seg.push(ch); }); flush();}
+    g.querySelectorAll('details').forEach(d=>{const cs=[...d.querySelectorAll('.card')]; if(cs.length&&cs.every(c=>c.classList.contains('lv-d'))) d.classList.add('lv-dd');});
+    if(nDeep){const b=document.createElement('button');b.type='button';b.className='deeptog';b.dataset.n=nDeep;b.textContent=UI.showdeep+' ('+nDeep+')';g.appendChild(b);}
+  });
+});
+document.addEventListener('click',e=>{
+  const ct=e.target.closest('.cardtog'); if(ct){const c=ct.closest('.card'); const on=c.classList.toggle('full'); ct.textContent=on?UI.shortcard:UI.showcard; return;}
+  const dt=e.target.closest('.deeptog'); if(dt){const g=dt.parentElement; const on=g.classList.toggle('showdeep'); dt.textContent=on?UI.hidedeep:(UI.showdeep+' ('+dt.dataset.n+')'); return;}
+});
+/* hopp til et fordypningskort i enkel visning: vis det */
+document.addEventListener('click',e=>{const b=e.target.closest('[data-jumptab]'); if(!b||!document.body.classList.contains('simple')) return;
+  const sec=document.getElementById(b.dataset.jumptab); if(!sec) return; const h=[...sec.querySelectorAll('h3')].find(x=>x.textContent.startsWith(b.dataset.jumpcard||'\u0000')); if(!h) return;
+  const c=h.closest('.card')||h.nextElementSibling; const g=h.closest('.subgrp')||sec; if(c&&c.classList.contains('lv-d')){g.classList.add('showdeep'); const dt=g.querySelector(':scope > .deeptog'); if(dt) dt.textContent=UI.hidedeep;} if(c) {c.classList.add('full'); const ct=c.querySelector('.cardtog'); if(ct) ct.textContent=UI.shortcard;}},true);
+function setMode(m){document.body.classList.toggle('simple',m==='simple'); document.querySelectorAll('.vmode button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m))); try{localStorage.setItem('viewMode',m)}catch(e){}}
+document.querySelectorAll('.vmode button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+let m0='deep'; try{m0=localStorage.getItem('viewMode')||'deep'}catch(e){} setMode(m0);
+window.setViewMode=setMode;
+/* 4: fagord */
+const BAD='h1,h2,h3,h4,button,a,svg,script,style,.small,.tag,.term,summary,label,.seg,code,canvas,.lvl,select,option,textarea,input,.heroLbl,.sh-num';
+let RX=[]; try{ RX=GL.map(g=>({g,re:new RegExp('(?<![\\p{L}\\p{N}])(?:'+g.p+')(?![\\p{L}\\p{N}])(?!-?\\d)(?!-(?:blok|block|adren|recept|amino|lakt|lact))',g.ci?'iu':'u')})); }catch(e){RX=[];}
+function termify(root){
+  RX.forEach(({g,re})=>{
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>(n.parentElement&&!n.parentElement.closest(BAD)&&re.test(n.textContent))?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP});
+    const n=w.nextNode(); if(!n) return; const m=n.textContent.match(re); if(!m) return;
+    const after=n.splitText(m.index); after.textContent=after.textContent.slice(m[0].length);
+    const b=document.createElement('button'); b.type='button'; b.className='term'; b.dataset.g=g.k; b.textContent=m[0]; b.setAttribute('aria-haspopup','dialog');
+    n.parentNode.insertBefore(b,after);
+  });
+}
+const GBY={}; GL.forEach(g=>GBY[g.k]=g);
+document.querySelectorAll('section.panel').forEach(sec=>{ if(sec.id==='p-home'||sec.id==='p-quiz'||sec.id==='p-src') return; sec.querySelectorAll('.card').forEach(c=>{ if(!c.parentElement.closest('.card')) termify(c); }); });
+let pop=null, popFor=null;
+function closePop(){ if(pop){pop.remove();pop=null; if(popFor){popFor.setAttribute('aria-expanded','false');} popFor=null;} }
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.term');
+  if(t){ e.stopPropagation(); if(popFor===t){closePop();return;} closePop(); const g=GBY[t.dataset.g];
+    pop=document.createElement('div'); pop.id='gpop'; pop.setAttribute('role','dialog'); pop.setAttribute('aria-label',UI.expl+': '+g.t);
+    pop.innerHTML='<button type="button" class="gx" aria-label="'+UI.close+'">×</button><strong>'+g.t+'</strong>'+g.d+srcLine(g.s);
+    document.body.appendChild(pop); const r=t.getBoundingClientRect(); const pw=Math.min(320,window.innerWidth-24);
+    pop.style.left=Math.max(12,Math.min(window.scrollX+r.left,window.scrollX+window.innerWidth-pw-12))+'px'; pop.style.top=(window.scrollY+r.bottom+6)+'px';
+    popFor=t; t.setAttribute('aria-expanded','true'); pop.querySelector('.gx').addEventListener('click',()=>{const f=popFor;closePop(); if(f) f.focus();}); return; }
+  if(pop&&!e.target.closest('#gpop')) closePop();
+},true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pop){const f=popFor;closePop(); if(f) f.focus();}});
+/* 2+5: Start her og mønsteratlas */
+function imgOf(ix){const q=IQ[ix[0]]; const p=(ix[1]!=null&&q.pair)?q.pair[ix[1]]:q; return {P:p.P,sup:p.sup||(q.pair?null:q.sup),scale:p.scale||1,raw:p.raw||(q.pair?null:q.raw)};}
+function jumpBtn(j){return '<button type="button" class="linkbtn" data-jumptab="'+j.tab+'" data-jumpsub="'+j.sub+'" data-jumpcard="'+j.card.replace(/"/g,'&quot;')+'">'+UI.more+': '+j.card+'</button>';}
+const sb=document.getElementById('startBox');
+if(sb){ sb.innerHTML=ST.map((x,i)=>'<div class="card sh-item"><span class="sh-num">'+(i+1)+'</span><div class="sh-body"><p><strong>'+x.t+'</strong> '+x.d+'</p>'+(x.img?'<canvas class="shSpec" data-i="'+i+'" aria-label="'+x.t+'"></canvas>':'')+srcLine(x.s)+'<p class="small">'+jumpBtn(x.j)+'</p></div></div>').join(''); sb.querySelectorAll('.card').forEach(termify); }
+const ab=document.getElementById('atlasBox');
+if(ab){ ab.innerHTML=AT.map((x,i)=>'<div class="card at-item"><h3>'+x.n+'</h3><canvas class="atSpec" data-i="'+i+'" aria-label="'+x.n+'"></canvas>'+(imgOf(x.img).raw?'<canvas class="atRaw" data-i="'+i+'" aria-hidden="true"></canvas>':'')+'<dl><dt>'+UI.see+'</dt><dd>'+x.w+'</dd><dt>'+UI.think+'</dt><dd>'+x.k+'</dd></dl>'+srcLine(x.s)+'<p class="small">'+jumpBtn(x.j)+'</p></div>').join(''); ab.querySelectorAll('.card').forEach(termify); }
+function drawStart(){document.querySelectorAll('.shSpec').forEach(cv=>{const im=imgOf(ST[+cv.dataset.i].img); iqRenderSpec(cv,im.P,im.sup,im.scale);});}
+function drawAtlas(){document.querySelectorAll('.atSpec').forEach(cv=>{const im=imgOf(AT[+cv.dataset.i].img); iqRenderSpec(cv,im.P,im.sup,im.scale);}); document.querySelectorAll('.atRaw').forEach(cv=>{const im=imgOf(AT[+cv.dataset.i].img); iqRenderRaw(cv,im.raw);});}
+const _goTo=goTo; goTo=function(id){_goTo(id); closePop(); if(id==='p-start') drawStart(); if(id==='p-atlas') drawAtlas();};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-goto2]'); if(!b) return; if(b.dataset.qlevel&&window.setQLevel) window.setQLevel(b.dataset.qlevel); if(b.dataset.goto2==='p-spec-sim'){goTo('p-spec'); const nb=document.querySelector('#p-spec .subnav button[data-sub="sim"]'); if(nb) nb.click(); return;} goTo(b.dataset.goto2);});
+})();
+
 
 
 /* ---------- Search ---------- */
@@ -7501,7 +7664,7 @@ const SEARCH=(()=>{
     } else {
       goTo('p-quiz');
       if(it.iq!==undefined){iqI=it.iq; iqRender(); setTimeout(()=>$('#imgQuizBox').scrollIntoView({behavior:'smooth',block:'start'}),60);}
-      else if(it.qi!==undefined&&typeof qi!=='undefined'){qtopic='all';qi=it.qi; if(typeof renderQ==='function'){if(typeof renderTopics==='function')renderTopics();renderQ(); setTimeout(()=>$('#quizBox').scrollIntoView({behavior:'smooth',block:'start'}),60);}}
+      else if(it.qi!==undefined&&typeof qi!=='undefined'){qtopic='all';qi=it.qi; if(typeof renderQ==='function'){if(typeof renderTopics==='function')renderLevels();renderTopics();renderQ(); setTimeout(()=>$('#quizBox').scrollIntoView({behavior:'smooth',block:'start'}),60);}}
     }
   }
   const inp=$('#q'); let tmr;
