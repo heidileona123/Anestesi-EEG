@@ -962,31 +962,12 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
 
 <!-- ========== SPEKTROGRAM ========== -->
 <section class="panel" id="p-spec" hidden>
-  <p>The spectrogram shows how EEG power is distributed across frequencies and time, and the pattern depends on drug, dose and age. The “Simulators” sub-tab lets you try it yourself. The tab also explains how the spectrogram is built, how it looks different in older patients and children, why the effect lags behind the concentration, and which artefacts can produce misleading numbers. The main message is to read the raw EEG and spectrogram together with the index, not the index alone.</p>
+  <p>The spectrogram shows how EEG power is distributed across frequencies and time, and the pattern depends on drug, dose and age.</p>
+  <details class="simmore"><summary>More about this tab</summary><p>The “Simulators” sub-tab lets you try it yourself. The tab also explains how the spectrogram is built, how it looks different in older patients and children, why the effect lags behind the concentration, and which artefacts can produce misleading numbers. The main message is to read the raw EEG and spectrogram together with the index, not the index alone.</p></details>
   <div class="seg subnav" id="specSub" role="group" aria-label="Sections of the tab" style="margin:6px 0 14px"><button data-sub="sim" aria-pressed="true">Simulators</button><button data-sub="basics" aria-pressed="false">Basics</button><button data-sub="age" aria-pressed="false">Older patients and delirium</button><button data-sub="hyst" aria-pressed="false">Dosing and hysteresis</button><button data-sub="art" aria-pressed="false">Artefacts and pitfalls</button><button data-sub="kids" aria-pressed="false">Children</button><button data-sub="neon" aria-pressed="false">Newborns and preterm</button></div>
   <div class="subgrp" data-sub="sim">
-  <div class="card"><h3>From raw EEG to spectrogram (DSA): step by step</h3>
-  <p>This is how the monitor builds the spectrogram. The figure calculates the spectrogram from a synthetic EEG signal while you watch, one window at a time. Choose a step to see it highlighted.</p>
-  <div class="seg" id="dsaSteps" role="group" aria-label="Steps in the figure">
-    <button data-s="0" aria-pressed="false">All</button><button data-s="1" aria-pressed="true">1 Window</button><button data-s="2" aria-pressed="false">2 Spectrum</button><button data-s="3" aria-pressed="false">3 Colour</button><button data-s="4" aria-pressed="false">4 Spectrogram</button>
-  </div>
-  <div class="seg" id="dsaMeth" role="group" aria-label="Calculation method"><button data-m="mt" aria-pressed="true">Multitaper</button><button data-m="hann" aria-pressed="false">Single window (Hann)</button></div>
-  <div class="rawwrap"><canvas id="dsaCanvas" role="img" aria-label="Figure: from raw EEG to spectrogram"></canvas></div>
-  <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap">
-    <button id="dsaPlay" class="linkbtn" type="button">▶ Play</button>
-    <input id="dsaTime" type="range" min="2" max="120" step="1" value="12" aria-label="Time" style="flex:1 1 160px">
-  </div>
-  <p class="small" id="dsaTimeLbl" style="margin:4px 0 0"></p>
-  <p id="dsaText" style="margin-top:8px"></p>
-    <ol>
-   <li>The raw EEG is divided into short windows, 2 seconds in the figure.</li>
-   <li>The Fourier transform breaks each window down into sine waves of different frequency and amplitude (delta, theta, alpha, beta).</li>
-   <li>Power per frequency is drawn as a spectrum, and power is translated into colour.</li>
-   <li>The colour strips are placed side by side along the time axis, one per window, and become a spectrogram (density spectral array): time across, frequency upwards and power in colour.</li>
-  </ol>
-  <p class="small">Window length and calculation method vary between monitors and studies. Power can be shown in decibels (logarithmic scale), because it can differ by orders of magnitude across frequencies. The figure can show both multitaper (2 s windows, three tapers, time-bandwidth product 2, as in Guay 2025) and a single Hann window. The figure moves the window one second at a time, while Guay 2025 let the windows overlap by 0.2 seconds. The signal is synthetic and time is compressed: the changes leading up to loss of consciousness took about 30 minutes in the study, here one minute.<span class="small" style="display:block;margin-top:2px">Sources: Guay 2025 Part 2, Purdon 2013</span></p>
-  <span class="tag">Purpose-made figure, synthetic signal</span> <span class="tag">Guay 2025 Part 2, Purdon 2013, Purdon 2015 Part I</span></div>
-  <h2>Spectrogram simulator</h2>
+  <div class="seg simnav" role="group" aria-label="Go to"><button type="button" data-simgo="simSpec">Spectrogram simulator</button><button type="button" data-simgo="simDsa">From raw EEG to spectrogram</button><button type="button" data-simgo="simRaw">Raw EEG patterns</button></div>
+  <h2 id="simSpec">Spectrogram simulator</h2>
   <p>A spectrogram shows time along the x-axis, frequency (Hz) up the y-axis and power as colour. Select drug and age, and drag in the image or the slider to see how the pattern changes over the course of an anaesthetic.</p>
 
   <div class="ctl-label">Drug</div>
@@ -1018,16 +999,42 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
 
   <div class="state" id="stateBox" aria-live="polite">
     <h3 id="stateTitle"></h3>
-    <p id="stateText"></p>
-    <p class="small" id="stateAge"></p>
+    <details class="simmore"><summary>Read the explanation for this time point</summary><p id="stateText"></p>
+    <p class="small" id="stateAge"></p></details>
   </div>
 
+  <details class="simmore" open><summary>Show band power and raw EEG</summary>
   <div class="ctl-label">Relative power in frequency bands (schematic)</div>
   <div class="bars" id="bars"></div>
 
   <div class="ctl-label">Schematic raw EEG at this time point (<span id="rawSecLbl">4</span> seconds)</div>
   <div class="rawwrap"><canvas id="rawCanvas" role="img" aria-label="Schematic raw EEG"></canvas></div>
-  <div class="card"><h3>Raw EEG: seven patterns side by side</h3>
+  </details>
+
+  <div class="card" id="simDsa"><h3>From raw EEG to spectrogram (DSA): step by step</h3>
+  <p>This is how the monitor builds the spectrogram. The figure calculates the spectrogram from a synthetic EEG signal while you watch, one window at a time. Choose a step to see it highlighted.</p>
+  <div class="seg" id="dsaSteps" role="group" aria-label="Steps in the figure">
+    <button data-s="0" aria-pressed="true">All</button><button data-s="1" aria-pressed="false">1 Window</button><button data-s="2" aria-pressed="false">2 Spectrum</button><button data-s="3" aria-pressed="false">3 Colour</button><button data-s="4" aria-pressed="false">4 Spectrogram</button>
+  </div>
+  <div class="seg" id="dsaMeth" role="group" aria-label="Calculation method"><button data-m="mt" aria-pressed="true">Multitaper</button><button data-m="hann" aria-pressed="false">Single window (Hann)</button></div>
+  <div class="rawwrap"><canvas id="dsaCanvas" role="img" aria-label="Figure: from raw EEG to spectrogram"></canvas></div>
+  <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap">
+    <button id="dsaPlay" class="linkbtn" type="button">▶ Play</button>
+    <input id="dsaTime" type="range" min="2" max="120" step="1" value="12" aria-label="Time" style="flex:1 1 160px">
+  </div>
+  <p class="small" id="dsaTimeLbl" style="margin:4px 0 0"></p>
+  <p id="dsaText" style="margin-top:8px"></p>
+  <details class="simmore"><summary>How the spectrogram is computed (4 steps)</summary>
+    <ol>
+   <li>The raw EEG is divided into short windows, 2 seconds in the figure.</li>
+   <li>The Fourier transform breaks each window down into sine waves of different frequency and amplitude (delta, theta, alpha, beta).</li>
+   <li>Power per frequency is drawn as a spectrum, and power is translated into colour.</li>
+   <li>The colour strips are placed side by side along the time axis, one per window, and become a spectrogram (density spectral array): time across, frequency upwards and power in colour.</li>
+  </ol>
+  <p class="small">Window length and calculation method vary between monitors and studies. Power can be shown in decibels (logarithmic scale), because it can differ by orders of magnitude across frequencies. The figure can show both multitaper (2 s windows, three tapers, time-bandwidth product 2, as in Guay 2025) and a single Hann window. The figure moves the window one second at a time, while Guay 2025 let the windows overlap by 0.2 seconds. The signal is synthetic and time is compressed: the changes leading up to loss of consciousness took about 30 minutes in the study, here one minute.<span class="small" style="display:block;margin-top:2px">Sources: Guay 2025 Part 2, Purdon 2013</span></p>
+  </details>
+  <span class="tag">Purpose-made figure, synthetic signal</span> <span class="tag">Guay 2025 Part 2, Purdon 2013, Purdon 2015 Part I</span></div>
+  <div class="card" id="simRaw"><h3>Raw EEG: seven patterns side by side</h3>
   <p>Here you see schematic raw EEG traces (5 or 10 seconds, same scale for all) from the same patient in different states under propofol. Awake with EMG has been added to show what muscle activity looks like. The traces are synthetic, not patient data, and the amplitudes are only approximate ratios between the patterns.<span class="small" style="display:block;margin-top:2px">Source: Purdon 2015 Part I, fig. 2</span></p>
   <div class="seg" id="rawDemoSeg" role="group" aria-label="Raw EEG pattern">
     <button data-k="awakeEmg" aria-pressed="true">Awake with EMG</button>
@@ -5464,7 +5471,7 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
 
 <!-- ========== KILDER ========== -->
 <section class="panel" id="p-src" hidden>
-  <div class="seg subnav" id="srcSub" role="group" aria-label="Sections of the tab" style="margin:6px 0 14px"><button data-sub="studies" aria-pressed="true">Studies and findings</button><button data-sub="miller" aria-pressed="false">Original references in Miller's</button><button data-sub="avvik" aria-pressed="false">Discrepancies</button><button data-sub="refs" aria-pressed="false">References</button></div>
+  <div class="seg subnav" id="srcSub" role="group" aria-label="Sections of the tab" style="margin:6px 0 14px"><button data-sub="studies" aria-pressed="true">Studies and findings</button><button data-sub="miller" aria-pressed="false">Original references in Miller's</button><button data-sub="avvik" aria-pressed="false">Discrepancies</button><button data-sub="refs" aria-pressed="false">References</button><button data-sub="learn" aria-pressed="false">Further learning</button></div>
   <div class="subgrp" data-sub="studies">
   <h2>What the studies show</h2>
   <ul class="ev">
@@ -5653,6 +5660,29 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
   <h2 style="margin-top:28px">More studies mentioned in the text</h2>
   <p class="small">Studies mentioned in the app, often via another source. The links have been checked against DOI or PubMed.</p>
   <div id="linkRefs"></div>
+  </div>
+  <div class="subgrp" data-sub="learn">
+  <style>.subgrp[data-sub="learn"] a{color:var(--accent);text-underline-offset:3px}</style>
+  <h2>Recommended websites for further learning</h2>
+  <div class="card"><h3>Courses and online resources</h3>
+  <ul>
+   <li><strong><a href="https://icetap.org" target="_blank" rel="noopener">ICE-TAP (International Consortium for EEG Training of Anesthesia Practitioners)</a>.</strong> Online learning modules on EEG for anaesthesia practitioners, including waveforms, voltage and power scales, processed EEG, children and awareness. The website is linked to Washington University in St. Louis.</li>
+   <li><strong><a href="https://neuroeeg.co.uk/" target="_blank" rel="noopener">NeuroEEG</a>.</strong> UK website for brain-centred anaesthesia education.</li>
+  </ul></div>
+  <div class="card"><h3>Videos</h3>
+  <ul>
+   <li><a href="https://youtu.be/lss9V79zn5Q" target="_blank" rel="noopener">Emery Brown (Harvard Med., MIT) 1: Unconsciousness Under General Anesthetic is a Dynamic State</a></li>
+   <li><a href="https://youtu.be/ZGsmQBNmQrM" target="_blank" rel="noopener">Emery Brown (Harvard Med., MIT) 2: The Dynamics of the Brain under Anesthesia</a></li>
+  </ul>
+  <p style="margin-top:12px"><strong>The “EEG for Anesthesia” video series.</strong> Short introductory videos on the EEG signal and how anaesthetics change brain state. The series accompanies the review <a href="https://pubmed.ncbi.nlm.nih.gov/26275092/" target="_blank" rel="noopener">Purdon et al. 2015, Part I</a> (Clinical Electroencephalography for Anesthesiologists).</p>
+  <ul>
+   <li><a href="https://youtu.be/K2dMqs7GfuI" target="_blank" rel="noopener">EEG for Anesthesiology – Part 1: Introduction to the EEG for Anesthesiology</a></li>
+   <li><a href="https://youtu.be/Alp7n5IKTmU" target="_blank" rel="noopener">EEG for Anesthesiology – Part 2: The EEG Waveform and Spectrogram</a></li>
+   <li><a href="https://youtu.be/aceEqoqwugM" target="_blank" rel="noopener">EEG for Anesthesiology – Part 3: Propofol</a></li>
+   <li><a href="https://youtu.be/wY46TNLYtyw" target="_blank" rel="noopener">EEG for Anesthesiology – Part 4: Inhaled Ether-derived Anesthetics</a></li>
+   <li><a href="https://youtu.be/SxmRAsEr9DQ" target="_blank" rel="noopener">EEG for Anesthesiology – Part 5: Ketamine</a></li>
+   <li><a href="https://youtu.be/jetNwvJd-Hw" target="_blank" rel="noopener">EEG for Anesthesiology – Part 6: Dexmedetomidine</a></li>
+  </ul></div>
   </div>
 </section>
 </div>
@@ -7203,7 +7233,7 @@ const SEARCH=(()=>{
       goTo(it.pid);
       if(window.showSubFor) window.showSubFor(it.el);
       let p=it.el; while(p&&p!==document.body){ if(p.tagName==='DETAILS') p.open=true; p=p.parentElement; }
-      if(it.el.tagName==='DETAILS') it.el.open=true;
+      if(it.el.tagName==='DETAILS') it.el.open=true; if(window.openFold) openFold(it.el);
       setTimeout(()=>{it.el.scrollIntoView({behavior:'smooth',block:'start'}); it.el.classList.remove('flash'); void it.el.offsetWidth; it.el.classList.add('flash');},60);
     } else {
       goTo('p-quiz');
@@ -7490,7 +7520,7 @@ function cm(x){x=Math.max(0,Math.min(1,x));for(let i=0;i<STOPS.length-1;i++){con
 const nv=db=>(db-lo)/(hi-lo);
 
 /* --- tilstand --- */
-let cur=12, step=1, playing=false, last=0;
+let cur=12, step=0, playing=false, last=0;
 const tSl=document.getElementById('dsaTime'), pb=document.getElementById('dsaPlay');
 function phaseName(t){return t<30?T.ph[0]:(t<60?T.ph[1]:T.ph[2]);}
 function draw(){
@@ -7615,6 +7645,67 @@ ch.addEventListener('click',e=>{const b=e.target.closest('.ncnode');if(!b)return
  ch.querySelectorAll('.ncnode').forEach(x=>x.setAttribute('aria-expanded',String(x===b)));
  pan.innerHTML='<strong>'+n.t+'.</strong> '+n.x+n.j.map(r=>'<button type="button" class="linkbtn" data-jumptab="'+r.tab+'" data-jumpsub="'+(r.sub||'')+'" data-jumpcard="'+r.card.replace(/"/g,'&quot;')+'">'+d.more+': '+r.card+'</button>').join('');});});
 </script>
+<style id="fold178">
+.foldtog,.cardtog{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 16px;border-radius:999px;font-size:.9rem;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 13%,transparent);border:1.5px solid var(--accent);min-height:36px}
+.cardtog{display:none}body.simple .cardtog{display:inline-flex}
+.foldtog:hover,.cardtog:hover,.foldtog:focus-visible,.cardtog:focus-visible{background:var(--accent);color:var(--accent-ink)}
+.foldtog:focus-visible,.cardtog:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.foldtog::after{content:"▾"}.fold.open>.foldtog::after{content:"▴"}
+.fold:not(.open) li>strong:first-child,.fold:not(.open) p>strong:first-child{font-weight:700}
+.deeptog{color:var(--accent)!important;border:1.5px solid var(--accent)!important;border-style:solid!important;background:color-mix(in srgb,var(--accent) 10%,transparent)!important;font-weight:700!important}
+.deeptog:hover{background:var(--accent)!important;color:var(--accent-ink)!important}
+details.sc>summary,details.simmore>summary,details:not([class])>summary{color:var(--accent);font-weight:700;background:color-mix(in srgb,var(--accent) 10%,transparent);border:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:10px;padding:9px 14px;cursor:pointer}
+details.sc>summary:hover,details.simmore>summary:hover,details:not([class])>summary:hover{background:color-mix(in srgb,var(--accent) 20%,transparent)}
+.foldtog{display:none}
+body:not(.simple) .fold>.foldtog,body.simple .card.lv-d.fold>.foldtog,body.simple .card-like.fold>.foldtog{display:inline-flex}
+body:not(.simple) .fold:not(.open) .fhide,body.simple .card.lv-d.fold:not(.open) .fhide,body.simple .card-like.fold:not(.open) .fhide{display:none!important}
+@media print{.card.fold .fhide{display:revert!important}.foldtog{display:none!important}}
+</style>
+<script id="fold178s">(function(){
+const L={"more":"Show more","less":"Show less","items":"more","expl":"Show explanations and sources"};
+const SKIPP=new Set(['p-quiz','p-src','p-home']);
+const BLK='P,UL,OL,DIV,TABLE,FIGURE,DETAILS,BLOCKQUOTE,SPAN,DL,H4';
+function len(e){return (e.textContent||'').replace(/\s+/g,' ').trim().length;}
+function leadOf(el){let n=el.firstChild; while(n&&n.nodeType===3&&!n.textContent.trim()) n=n.nextSibling; return n&&n.nodeType===1&&(n.tagName==='STRONG'||n.tagName==='B')&&!/:\s*$/.test(n.textContent)?n:null;}
+function restLen(st){let t=0,x=st.nextSibling;while(x){t+=(x.textContent||'').trim().length;x=x.nextSibling;}return t;}
+function foldBox(c,host){
+  const kids=[...c.children].filter(k=>!/^H[1-3]$/.test(k.tagName)&&!k.matches('summary,.cardtog,.foldtog,.lvl,.nosimple,button'));
+  if(!kids.length)return; const total=kids.reduce((s,k)=>s+len(k),0); if(total<650)return;
+  const hid=[]; let items=0;
+  const leads=[...c.querySelectorAll('li,p')].filter(e=>(e.closest('.card,details.comp>.body')===c)&&!e.closest('table,figure,svg,.nchain,details:not(.comp),.fhide')&&leadOf(e)&&restLen(leadOf(e))>40);
+  const top=leads.filter(e=>!leads.some(o=>o!==e&&o.contains(e)));
+  if(top.length>=2){
+    let first=true;
+    kids.forEach(k=>{ if(k.matches('.tag'))return; const has=top.some(e=>k===e||k.contains(e));
+      if(has){first=false;return;} if(first&&!k.matches('table,.tblwrap')){first=false;return;}
+      if(k.matches('figure,.nchain')||k.querySelector('img,svg'))return; hid.push(k); });
+    top.forEach(e=>{const st=leadOf(e); const sp=document.createElement('span'); sp.className='fhide frest'; let x=st.nextSibling; const mv=[]; while(x){mv.push(x);x=x.nextSibling;} mv.forEach(y=>sp.appendChild(y)); e.appendChild(sp); items++;});
+    items=top.length; host.dataset.mode='lead';
+  } else {
+    let keep=0;
+    for(const k of kids){ if(k.matches('.tag')&&keep===0)continue;
+      if(keep>=1&&!(keep===1&&len(kids.find(x=>!x.matches('.tag')))<110)){hid.push(k); items+=(k.matches('ul,ol')?k.children.length:1); continue;}
+      keep++;
+      if(k.matches('ul,ol')&&k.children.length>3){[...k.children].slice(3).forEach(li=>{hid.push(li);items++;}); keep=99;}
+      if(k.classList.contains('nchain'))keep=99;
+    }
+  }
+  const hl=hid.reduce((s,k)=>s+len(k),0)+[...c.querySelectorAll('.frest')].reduce((s,k)=>s+len(k),0); if(hl<250){ c.querySelectorAll('.frest').forEach(sp=>{while(sp.firstChild)sp.parentNode.insertBefore(sp.firstChild,sp);sp.remove();}); return; }
+  hid.forEach(k=>k.classList.add('fhide')); host.classList.add('fold');
+  const b=document.createElement('button'); b.type='button'; b.className='foldtog'; b.dataset.n=items; b.dataset.lead=host.dataset.mode==='lead'?1:''; b.textContent=lbl(b,false); b.setAttribute('aria-expanded','false'); c.appendChild(b);
+}
+function lbl(b,on){const n=+b.dataset.n; return on?L.less:(b.dataset.lead?L.expl:L.more+(n>1?' ('+n+' '+L.items+')':''));}
+document.querySelectorAll('section.panel .card').forEach(c=>{
+  if(c.parentElement.closest('.card'))return; const sec=c.closest('section.panel'); if(!sec||SKIPP.has(sec.id))return;
+  if(c.classList.contains('inter')||c.querySelector('canvas,input,select,textarea'))return; foldBox(c,c);});
+document.querySelectorAll('section.panel details.comp>.body').forEach(bd=>{ if(bd.querySelector('canvas,input,select,textarea,.card'))return; bd.classList.add('card-like'); foldBox(bd,bd);});
+function openCard(c,on){c.classList.toggle('open',on);const b=c.querySelector(':scope>.foldtog');if(b){b.setAttribute('aria-expanded',String(on));b.textContent=lbl(b,on);}}
+window.openFold=function(el){const c=el&&el.closest&&el.closest('.fold');if(c)openCard(c,true);};
+document.addEventListener('click',e=>{const b=e.target.closest('.foldtog');if(!b)return;const c=b.closest('.fold');const on=!c.classList.contains('open');openCard(c,on);if(!on)c.scrollIntoView({block:'nearest'});});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]');if(!b)return;const sec=document.getElementById(b.dataset.jumptab);if(!sec)return;const h=[...sec.querySelectorAll('h3')].find(x=>x.textContent.startsWith(b.dataset.jumpcard));if(h){const c=h.closest('.card')||h.nextElementSibling;if(c&&c.classList.contains('fold'))openCard(c,true);const f=h.closest('.fold');if(f)openCard(f,true);}},true);
+})();</script>
+<style>details.simmore{margin:8px 0}details.simmore>summary{cursor:pointer;font-weight:600;color:var(--accent,#0F6B6B);padding:6px 0}.simnav button{font-size:.85em}</style>
+<script>document.addEventListener("click",e=>{const b=e.target.closest("[data-simgo]");if(!b)return;const t=document.getElementById(b.dataset.simgo);if(t)t.scrollIntoView({behavior:"smooth",block:"start"});});</script>
 <style>a.srclink{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px}a.srclink:hover{text-decoration-style:solid}.ref.reflash{background:rgba(255,214,0,.25);transition:background .6s}</style>
 <script>
 /* Referanser blir lenker overalt der de nevnes: «Kumar 2016» åpner studien */
@@ -7670,7 +7761,7 @@ ch.addEventListener('click',e=>{const b=e.target.closest('.ncnode');if(!b)return
  document.addEventListener('click',e=>{const b=e.target.closest('button.xref[data-xref]');if(!b)return;const h=findT(b.dataset.xref);if(!h)return;
   const sec=h.closest('section.panel');if(sec&&typeof goTo==='function')goTo(sec.id);const g=h.closest('.subgrp');
   if(sec&&g){const nb=sec.querySelector('.subnav button[data-sub="'+g.dataset.sub+'"]');if(nb)nb.click();}
-  let d=h.closest('details');while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}
+  if(window.openFold)openFold(h);let d=h.closest('details');while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}
   setTimeout(()=>h.scrollIntoView({behavior:'auto',block:'start'}),300);});
  function scan(root){
   if(!root||root.nodeType!==1||root.closest(SKIP))return;
