@@ -1,20 +1,14 @@
-OPPDATERING: PERIODISK OG APERIODISK EEG-AKTIVITET
+Oppdatering av Anestesi-EEG (GitHub), 1. november 2026
 
-Innhold
-  index.html   norsk versjon
-  en.html      engelsk versjon
+Last opp disse to filene til repoet heidileona123/Anestesi-EEG og erstatt de gamle:
+- index.html (norsk)
+- en.html (engelsk)
+Ingen andre filer er endret.
 
-Slik oppdaterer du
-  1. Pakk ut mappen.
-  2. Gå til repoet «Anestesi-EEG» på github.com.
-  3. Klikk «Add file» → «Upload files», og dra inn index.html og en.html.
-  4. Klikk «Commit changes». Siden er oppdatert etter 1–2 minutter.
-
-Nytt i denne versjonen
-  Kort i Spektrogram-fanen, under «Simulator og grunnlag»: «Periodisk og aperiodisk aktivitet:
-  alfa målt mot bakgrunnen», med skjematisk effektspekter og tre skjematiske spektrogrammer.
-  Tre nye referanser i Kilder-fanen.
-
-Sjekk før du laster opp
-  De to eLife-referansene er ikke åpnet i fulltekst. Bekreft at kulepunktene om helning og
-  våkenhetsnivå og om alfa og hjernens modning stemmer med artiklene.
+Endret i quizen (likt på norsk og engelsk):
+1. Eldre, spørsmål 1: fjernet setningen «Dette er forfatternes forslag, ikke testet direkte».
+2. Eldre, spørsmål 2: «Lavere amplitude og svakere alfa-effekt»; forklaringen sier 2–3 ganger lavere amplitude (Purdon 2015).
+3. Dexmedetomidin: «økte spindler (ca. 9–15 Hz) frontalt»; ny forklaring (Akeju 2016; Purdon 2015).
+4. Blodtomhetsmansjett: nytt spørsmål om multimodal behandling (lidokain, ketamin, magnesium).
+5. Burst suppression: forklaringen følger Gruenbaums fire trinn.
+«Sist oppdatert» / «Last updated» er satt til 1. november 2026.
