@@ -3686,18 +3686,18 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
     <p class="small">The signal was made for the figure and is not a recording from a patient. <button type="button" class="linkbtn" data-jumptab="p-spec" data-jumpsub="basics">How the spectrogram is built</button></p>
   </figure>
   <figure class="card inter" style="margin:10px 0 14px">
-    <div class="emgsim" style="color:var(--ink)" data-lbl="[&quot;Awake, with EMG&quot;,&quot;Induction&quot;,&quot;General anaesthesia&quot;]">
-      <canvas class="emgcv" width="1480" height="400" style="width:100%;height:auto;display:block;border-radius:8px;background:#0B1020"></canvas>
+    <div class="emgsim" style="color:var(--ink)" data-lbl='["Awake, with EMG", "Induction", "General anaesthesia", "Burst suppression"]'>
+      <canvas class="emgcv" width="1480" height="420" style="width:100%;height:auto;display:block;border-radius:8px;background:#0B1020"></canvas>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px">
-        <button type="button" class="emgplay" aria-pressed="true" data-txt="[&quot;Pause&quot;,&quot;Play&quot;]" style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer">Pause</button>
+        <button type="button" class="emgplay" aria-pressed="true" data-txt='["Pause", "Play"]' style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer">Pause</button>
         <label style="display:flex;align-items:center;gap:8px;flex:1 1 220px;font-size:.9rem;font-weight:600">Depth
           <input type="range" class="emgsl" min="0" max="100" value="0" style="flex:1" aria-label="Depth">
         </label>
         <span class="emgst" style="font-weight:700;min-width:11em">Awake, with EMG</span>
       </div>
     </div>
-    <figcaption class="small srckeep" style="font-weight:600">Figure: animated raw EEG, drawn by the app. Not a recording from a patient and not a picture of a monitor.</figcaption>
-    <p>Drag the slider, or let it run on its own. Awake, the trace is small and fast, and within it sits the EMG: the very short, spiky deflections from the forehead muscles. During induction the EMG disappears first, and then the waves grow and slow down. That is the transition you see on the screen during induction, and the reason an index number can fall long before the trace has changed.</p>
+    <figcaption class="small srckeep" style="font-weight:600">Figure: animated raw EEG, drawn by the app. Not a recording from a patient and not a picture of a monitor. The scale bar on the right is 50 microvolts.</figcaption>
+    <p>Drag the slider, or let it run on its own. Note the amplitude: awake, the trace is only around 10 microvolts, small and fast, and within it sits the EMG as short, spiky deflections from the forehead muscles. During induction the EMG disappears first, and then the waves grow to around 60 microvolts and slow down. That difference in size is the easiest thing to recognise on the screen. Move all the way to the right and burst suppression appears: the bursts contain what the anaesthesia contained, and between them the trace falls below 5 microvolts. The further right, the longer the suppressions.</p>
     <p class="small">EMG also disappears when the patient is given muscle relaxants, without the hypnosis being any deeper. <button type="button" class="linkbtn" data-jumptab="p-spec" data-jumpsub="art">EMG, noise and false numbers</button></p>
   </figure>
   <figure class="card inter" style="margin:10px 0 14px">
@@ -6033,6 +6033,32 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
    <li><strong><a href="https://icetap.org" target="_blank" rel="noopener">ICE-TAP (International Consortium for EEG Training of Anesthesia Practitioners)</a>.</strong> Online learning modules on EEG for anaesthesia practitioners, including waveforms, voltage and power scales, processed EEG, children and awareness. The website is linked to Washington University in St. Louis.</li>
    <li><strong><a href="https://neuroeeg.co.uk/" target="_blank" rel="noopener">NeuroEEG</a>.</strong> UK website for brain-centred anaesthesia education.</li>
   </ul></div>
+  <div class="card"><h3>Learning EEG: a site on EEG physiology and terminology</h3>
+  <p><strong>learningeeg.com</strong>, by David Valentine, MD. Freely available online.</p>
+  <p>Chapter 1 covers how the EEG signal arises, resting and action potentials, EPSPs and IPSPs, dipoles and why localisation can mislead, and the terminology for frequency, amplitude, morphology, rhythmicity and periodicity. It is the groundwork the app’s Basics tab builds on, explained more thoroughly than we do here.</p>
+  <p><strong>But note what it is not.</strong> The site is written for clinical neurophysiology and epilepsy, not for anaesthesia. It does not cover the EEG patterns of the anaesthetic agents, and the only drug mentioned in chapter 1 is benzodiazepines. Nor is it peer reviewed; it is a teaching site made by one named physician. Use it to learn the groundwork and the terminology, not as a source for claims about anaesthesia.</p>
+  <p class="small">https://www.learningeeg.com</p></div>
+  <div class="card"><h3>Learning EEG: the video lectures</h3>
+  <p>The same site has a lecture series on YouTube, 16 videos. They are free and follow the same syllabus as the chapters: where the signal comes from, polarity and montages, artefacts, the normal awake EEG and normal sleep, then the abnormalities. They are made for neurology and clinical neurophysiology, not for anaesthesia, and they are not peer reviewed.</p>
+  <p>Six of them are nonetheless directly useful to us, and they are marked in the list: the artefact lecture because those are the same artefacts we see in theatre, the awake EEG because that is the baseline before induction, the sleep lecture because it shows the real sleep stages that the anaesthetic patterns both resemble and differ from, and the last three because they cover diffuse slowing, periodic patterns and seizures in comatose patients, which is the subject of the ICU tab.</p>
+  <ol class="small">
+   <li><a href="https://youtu.be/XMizSSOejg0" target="_blank" rel="noopener">1. Introduction to EEG</a></li>
+   <li><a href="https://youtu.be/gpnGEHHVtRs" target="_blank" rel="noopener">2. Polarity Rules</a></li>
+   <li><a href="https://youtu.be/s1GknlqKGYo" target="_blank" rel="noopener">3. Eye Movements on EEG</a></li>
+   <li><a href="https://youtu.be/AcW97nMLGEs" target="_blank" rel="noopener">4. EEG Montages</a></li>
+   <li><a href="https://youtu.be/KrJaJDMBo54" target="_blank" rel="noopener">5. Technical Issues in EEG</a> <span class="tag">most relevant for us</span></li>
+   <li><a href="https://youtu.be/17uKMFfTupY" target="_blank" rel="noopener">6. Normal Awake EEG</a> <span class="tag">most relevant for us</span></li>
+   <li><a href="https://youtu.be/4LcnZJ9L3rg" target="_blank" rel="noopener">7. EEG in Normal Sleep</a> <span class="tag">most relevant for us</span></li>
+   <li><a href="https://youtu.be/3KIYD1QakU8" target="_blank" rel="noopener">8. Interictal Abnormalities</a></li>
+   <li><a href="https://youtu.be/OCRA0B_q8CE" target="_blank" rel="noopener">9. Focal Slowing</a></li>
+   <li><a href="https://youtu.be/K_2xu7oDFT0" target="_blank" rel="noopener">10. Diffuse Slowing and Periodic Discharges</a> <span class="tag">most relevant for us</span></li>
+   <li><a href="https://youtu.be/FQ8K0RsVeO8" target="_blank" rel="noopener">11. Recognizing Seizures in a Comatose Patient</a> <span class="tag">most relevant for us</span></li>
+   <li><a href="https://youtu.be/XyOv1RFT2ak" target="_blank" rel="noopener">Minileksjon 1. Small Sharp Spikes</a></li>
+   <li><a href="https://youtu.be/duX9Eg6MqH4" target="_blank" rel="noopener">Minileksjon 2. Wickets</a></li>
+   <li><a href="https://youtu.be/9Jzb5bAEa7k" target="_blank" rel="noopener">Minileksjon 3. 14 and 6 Hz Positive Bursts</a></li>
+   <li><a href="https://youtu.be/n6aYXKyNfkk" target="_blank" rel="noopener">15. Rhythmic and Periodic Patterns</a> <span class="tag">most relevant for us</span></li>
+   <li><a href="https://youtu.be/NY_CthbqObA" target="_blank" rel="noopener">16. Clinical and Electrographic Seizures</a></li>
+  </ol></div>
   <div class="card"><h3>Book: coma and near-death experience (not peer reviewed)</h3>
   <p><strong>Alan Pearce and Beverley Pearce. Coma and Near-Death Experience: The Beautiful, Disturbing, and Dangerous World of the Unconscious. Inner Traditions, 2024.</strong></p>
   <p>The book collects accounts from people who have been in a coma or under sedation, and from relatives and staff around them. It is included because it says something about how the state can be experienced from the inside, and that is a side of sedation that rarely comes through in the studies.</p>
@@ -8223,46 +8249,78 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
 })();
 </script>
 <script>
-/* Animert rå-EEG: våken med EMG til generell anestesi */
+/* Animert rå-EEG: våken med EMG, via innledning til burst suppression */
 (function(){
  document.querySelectorAll('.emgsim').forEach(function(box){
   var cv=box.querySelector('.emgcv'), sl=box.querySelector('.emgsl'),
       pb=box.querySelector('.emgplay'), st=box.querySelector('.emgst'),
-      ctx=cv.getContext('2d'), W=cv.width, H=cv.height, MID=H*0.5;
+      ctx=cv.getContext('2d'), W=cv.width, H=cv.height, MID=H*0.46;
   var LBL=JSON.parse(box.getAttribute('data-lbl')||'[]');
   var TXT=JSON.parse(pb.getAttribute('data-txt')||'[]');
-  var buf=new Array(560).fill(0), t=0, playing=true, auto=true, d=0, raf=null;
+  var PXUV=2.1;                 /* piksler per mikrovolt */
+  var N=620, buf=new Array(N).fill(0), t=0, playing=true, auto=true, d=0;
+  var burstOn=true, burstT=0;
+  function sm(x){ return x<0?0:(x>1?1:x); }
+  function amp(dep){
+   /* topp-til-topp i mikrovolt */
+   var awake=9, anes=62;
+   return awake+(anes-awake)*sm((dep-0.22)/0.30);
+  }
   function sample(dep){
    t+=1/120;
-   var emg=Math.max(0,1-dep*1.8), slow=dep, fast=Math.max(0,1-dep);
+   var emg=sm((0.26-dep)/0.26);
+   var fast=sm((0.40-dep)/0.40);
+   var slow=sm((dep-0.22)/0.26);
+   var a=amp(dep)/2;
    var v=0;
-   v+=fast*5*Math.sin(2*Math.PI*17*t)+fast*4*Math.sin(2*Math.PI*23*t+1);
-   v+=emg*(Math.random()*2-1)*17;
-   v+=emg*7*Math.sin(2*Math.PI*48*t+Math.random());
-   v+=slow*46*Math.sin(2*Math.PI*1.0*t)+slow*17*Math.sin(2*Math.PI*0.5*t+2);
-   v+=slow*20*Math.sin(2*Math.PI*10*t+0.6);
-   v+=(Math.random()*2-1)*2.2;
+   v+=fast*0.22*a*Math.sin(2*Math.PI*17*t)+fast*0.16*a*Math.sin(2*Math.PI*23*t+1);
+   v+=emg*(Math.random()*2-1)*5.5;
+   v+=emg*2.4*Math.sin(2*Math.PI*48*t+Math.random());
+   v+=slow*0.62*a*Math.sin(2*Math.PI*1.0*t)+slow*0.22*a*Math.sin(2*Math.PI*0.5*t+2);
+   v+=slow*0.26*a*Math.sin(2*Math.PI*10*t+0.6);
+   v+=(Math.random()*2-1)*0.9;
+   /* burst suppression i den dypeste delen */
+   if(dep>0.74){
+    var sr=sm((dep-0.74)/0.26);            /* andel suppresjon 0..1 */
+    burstT+=1/120;
+    var per=2.6, supp=per*(0.25+0.6*sr);
+    if((burstT%per)<supp) v*=0.045;         /* under 5 mikrovolt */
+   }
    return v;
   }
-  function state(dep){ return dep<0.28?0:(dep<0.62?1:2); }
+  function state(dep){ return dep<0.22?0:(dep<0.46?1:(dep<0.74?2:3)); }
+  function grid(){
+   ctx.strokeStyle='rgba(255,255,255,.10)'; ctx.lineWidth=1.4;
+   ctx.beginPath(); ctx.moveTo(0,MID); ctx.lineTo(W,MID); ctx.stroke();
+   /* målestokk: 50 mikrovolt */
+   var x=W-96, h=50*PXUV;
+   ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=3;
+   ctx.beginPath(); ctx.moveTo(x,MID-h/2); ctx.lineTo(x,MID+h/2); ctx.stroke();
+   ctx.beginPath(); ctx.moveTo(x-10,MID-h/2); ctx.lineTo(x+10,MID-h/2);
+   ctx.moveTo(x-10,MID+h/2); ctx.lineTo(x+10,MID+h/2); ctx.stroke();
+   ctx.font='600 22px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.75)';
+   ctx.textAlign='left'; ctx.fillText('50 \u00b5V',x+16,MID+8); ctx.textAlign='start';
+  }
   function draw(){
-   if(auto&&playing){ d+=0.0022; if(d>1.12) d=0; sl.value=Math.round(Math.min(d,1)*100); }
+   if(auto&&playing){ d+=0.0018; if(d>1.14) d=0; sl.value=Math.round(Math.min(d,1)*100); }
    var dep=Math.min(Math.max(auto?d:(sl.value/100),0),1);
    if(playing){ for(var k=0;k<4;k++){ buf.push(sample(dep)); buf.shift(); } }
    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0B1020'; ctx.fillRect(0,0,W,H);
-   ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1.5;
-   ctx.beginPath(); ctx.moveTo(0,MID); ctx.lineTo(W,MID); ctx.stroke();
-   ctx.strokeStyle='#8FE3C9'; ctx.lineWidth=2.6; ctx.lineJoin='round'; ctx.beginPath();
+   grid();
+   ctx.strokeStyle='#8FE3C9'; ctx.lineWidth=2.4; ctx.lineJoin='round'; ctx.beginPath();
    for(var i=0;i<buf.length;i++){
-    var x=i/(buf.length-1)*W, y=MID-buf[i]*2.6;
+    var x=i/(buf.length-1)*W, y=MID-buf[i]*PXUV;
+    if(y<4)y=4; if(y>H-4)y=H-4;
     i?ctx.lineTo(x,y):ctx.moveTo(x,y);
    }
    ctx.stroke();
    var s=state(dep);
    if(st.textContent!==LBL[s]) st.textContent=LBL[s];
-   ctx.font='600 26px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.82)';
+   ctx.font='600 26px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.85)';
    ctx.fillText(LBL[s],20,38);
-   raf=requestAnimationFrame(draw);
+   ctx.font='500 21px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.6)';
+   ctx.fillText(Math.round(amp(dep))+' \u00b5V',20,H-18);
+   requestAnimationFrame(draw);
   }
   pb.addEventListener('click',function(){
    playing=!playing; pb.setAttribute('aria-pressed',playing?'true':'false');
@@ -8326,7 +8384,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
 /* Opplesing av kort (Web Speech API) */
 (function(){
  var S=window.speechSynthesis;
- var L="en", T={"label": "Read aloud:", "off": "Off", "on": "On", "read": "Read aloud", "reading": "Reading …", "stop": "Stop", "lang": "en-GB", "nosupport": "Your browser does not support speech.", "novoice": "No matching voice is installed on this device. Choose a voice from the list, or add one in the system settings for spoken content.", "voicelabel": "Choose voice", "hello": "Read aloud is on. Press Read aloud on a card to hear it.", "sample": "This is how this voice sounds."};
+ var L="en", T={"label": "Read aloud:", "off": "Off", "on": "On", "read": "Read aloud", "reading": "Reading …", "stop": "Stop", "lang": "en-GB", "nosupport": "Your browser does not support speech.", "novoice": "No matching voice is installed on this device. Choose a voice from the list, or add one in the system settings for spoken content.", "voicelabel": "Choose voice", "hello": "Read aloud is on. Press Read aloud on a card to hear it.", "sample": "This is how this voice sounds.", "silent": "The app asked for speech, but the device did not start any audio. Check that the silent switch is off, that the volume is up, and that no other audio is playing. Try choosing a different voice from the list."};
  var header=document.querySelector('header .vmode');
  if(!header) return;
  var row=document.createElement('div'); row.className='tts-row';
@@ -8417,6 +8475,11 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
   if(b){ current=b; b.setAttribute('aria-pressed','true'); b.textContent=T.reading; }
   stop.hidden=false; startKeep();
   step();
+  setTimeout(function(){
+   var sp=false; try{ sp=S.speaking||S.pending; }catch(e){}
+   if(!sp && queue.length){ note.hidden=false; note.textContent=T.silent; }
+   else if(note.textContent===T.silent){ note.hidden=true; }
+  },900);
  }
  function speak(el,b){
   var t=textOf(el); if(!t) return;

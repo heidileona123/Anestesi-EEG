@@ -3687,18 +3687,18 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
     <p class="small">Signalet er laget for figuren og er ikke et opptak fra en pasient. <button type="button" class="linkbtn" data-jumptab="p-spec" data-jumpsub="basics">Hvordan spektrogrammet lages</button></p>
   </figure>
   <figure class="card inter" style="margin:10px 0 14px">
-    <div class="emgsim" style="color:var(--ink)" data-lbl="[&quot;V\u00e5ken, med EMG&quot;,&quot;Innledning&quot;,&quot;Generell anestesi&quot;]">
-      <canvas class="emgcv" width="1480" height="400" style="width:100%;height:auto;display:block;border-radius:8px;background:#0B1020"></canvas>
+    <div class="emgsim" style="color:var(--ink)" data-lbl='["Våken, med EMG", "Innledning", "Generell anestesi", "Burst suppression"]'>
+      <canvas class="emgcv" width="1480" height="420" style="width:100%;height:auto;display:block;border-radius:8px;background:#0B1020"></canvas>
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px">
-        <button type="button" class="emgplay" aria-pressed="true" data-txt="[&quot;Pause&quot;,&quot;Spill av&quot;]" style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer">Pause</button>
+        <button type="button" class="emgplay" aria-pressed="true" data-txt='["Pause", "Spill av"]' style="padding:7px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer">Pause</button>
         <label style="display:flex;align-items:center;gap:8px;flex:1 1 220px;font-size:.9rem;font-weight:600">Dybde
           <input type="range" class="emgsl" min="0" max="100" value="0" style="flex:1" aria-label="Dybde">
         </label>
         <span class="emgst" style="font-weight:700;min-width:11em">Våken, med EMG</span>
       </div>
     </div>
-    <figcaption class="small srckeep" style="font-weight:600">Figur: animert rå-EEG, tegnet av appen. Ikke et opptak fra en pasient og ikke et bilde av en monitor.</figcaption>
-    <p>Dra i skyvebryteren, eller la den gå selv. Våken er kurven liten og rask, og oppi den ligger EMG: de helt korte, spisse utslagene fra pannemuskulaturen. Under innledningen forsvinner EMG først, og så vokser bølgene og blir langsomme. Det er den overgangen du ser på skjermen under innledningen, og grunnen til at et indekstall kan falle lenge før kurven har endret seg.</p>
+    <figcaption class="small srckeep" style="font-weight:600">Figur: animert rå-EEG, tegnet av appen. Ikke et opptak fra en pasient og ikke et bilde av en monitor. Målestokken til høyre er 50 mikrovolt.</figcaption>
+    <p>Dra i skyvebryteren, eller la den gå selv. Legg merke til amplituden: våken er kurven bare rundt 10 mikrovolt, liten og rask, og oppi den ligger EMG som korte, spisse utslag fra pannemuskulaturen. Under innledningen forsvinner EMG først, og så vokser bølgene til rundt 60 mikrovolt og blir langsomme. Det er den størrelsesforskjellen som er lettest å kjenne igjen på skjermen. Går du helt til høyre, kommer burst suppression: burstene har samme innhold som anestesien hadde, og mellom dem faller kurven under 5 mikrovolt. Jo lenger til høyre, desto lengre suppresjoner.</p>
     <p class="small">EMG forsvinner også når pasienten får muskelrelaksantia, uten at hypnosen er dypere. <button type="button" class="linkbtn" data-jumptab="p-spec" data-jumpsub="art">EMG, støy og falske tall</button></p>
   </figure>
   <figure class="card inter" style="margin:10px 0 14px">
@@ -6038,6 +6038,32 @@ body.simple .lv-dpanel .subnav button.lv-dsub{display:revert}
    <li><strong><a href="https://icetap.org" target="_blank" rel="noopener">ICE-TAP (International Consortium for EEG Training of Anesthesia Practitioners)</a>.</strong> Nettbaserte læringsmoduler om EEG for anestesipersonell, blant annet bølgeformer, skalaer for spenning og effekt, prosessert EEG, barn og awareness. Nettsiden er knyttet til Washington University in St. Louis.</li>
    <li><strong><a href="https://neuroeeg.co.uk/" target="_blank" rel="noopener">NeuroEEG</a>.</strong> Britisk nettside for undervisning i hjernesentrert anestesi («Brain-Centred Anaesthesia Education»).</li>
   </ul></div>
+  <div class="card"><h3>Learning EEG: nettsted om EEG-fysiologi og terminologi</h3>
+  <p><strong>learningeeg.com</strong>, av David Valentine, lege. Fritt tilgjengelig på nett.</p>
+  <p>Kapittel 1 går gjennom hvordan EEG-signalet oppstår, hvile- og aksjonspotensial, EPSP og IPSP, dipoler og hvorfor lokalisering kan lure, og terminologien for frekvens, amplitude, morfologi, rytmisitet og periodisitet. Det er grunnlaget appens Grunnlag-fane bygger på, forklart grundigere enn vi gjør her.</p>
+  <p><strong>Men merk hva det ikke er.</strong> Nettstedet er skrevet for klinisk nevrofysiologi og epilepsi, ikke for anestesi. Det dekker ikke anestesimidlenes EEG-mønstre, og det eneste legemidlet som nevnes i kapittel 1 er benzodiazepiner. Det er heller ikke fagfellevurdert, det er et undervisningsnettsted laget av én navngitt lege. Bruk det til å lære grunnlaget og terminologien, ikke som kilde til påstander om anestesi.</p>
+  <p class="small">https://www.learningeeg.com</p></div>
+  <div class="card"><h3>Learning EEG: videoforelesningene</h3>
+  <p>Samme nettsted har en forelesningsserie på YouTube, 16 videoer. De er gratis og følger samme pensum som kapitlene: hvor signalet kommer fra, polaritet og montasjer, artefakter, normal våken EEG og normal søvn, og deretter avvikene. De er laget for nevrologi og klinisk nevrofysiologi, ikke for anestesi, og er ikke fagfellevurderte.</p>
+  <p>Seks av dem er likevel direkte nyttige for oss, og de er merket i listen: artefaktvideoen fordi det er de samme artefaktene vi ser på operasjonsstuen, våken EEG fordi det er utgangspunktet før induksjon, søvnvideoen fordi den viser de ekte søvnstadiene som anestesimønstrene både likner på og skiller seg fra, og de tre siste fordi de handler om diffus slowing, periodiske mønstre og anfall hos komatøse pasienter, altså det som er tema i intensivfanen.</p>
+  <ol class="small">
+   <li><a href="https://youtu.be/XMizSSOejg0" target="_blank" rel="noopener">1. Introduction to EEG</a></li>
+   <li><a href="https://youtu.be/gpnGEHHVtRs" target="_blank" rel="noopener">2. Polarity Rules</a></li>
+   <li><a href="https://youtu.be/s1GknlqKGYo" target="_blank" rel="noopener">3. Eye Movements on EEG</a></li>
+   <li><a href="https://youtu.be/AcW97nMLGEs" target="_blank" rel="noopener">4. EEG Montages</a></li>
+   <li><a href="https://youtu.be/KrJaJDMBo54" target="_blank" rel="noopener">5. Technical Issues in EEG</a> <span class="tag">mest relevant for oss</span></li>
+   <li><a href="https://youtu.be/17uKMFfTupY" target="_blank" rel="noopener">6. Normal Awake EEG</a> <span class="tag">mest relevant for oss</span></li>
+   <li><a href="https://youtu.be/4LcnZJ9L3rg" target="_blank" rel="noopener">7. EEG in Normal Sleep</a> <span class="tag">mest relevant for oss</span></li>
+   <li><a href="https://youtu.be/3KIYD1QakU8" target="_blank" rel="noopener">8. Interictal Abnormalities</a></li>
+   <li><a href="https://youtu.be/OCRA0B_q8CE" target="_blank" rel="noopener">9. Focal Slowing</a></li>
+   <li><a href="https://youtu.be/K_2xu7oDFT0" target="_blank" rel="noopener">10. Diffuse Slowing and Periodic Discharges</a> <span class="tag">mest relevant for oss</span></li>
+   <li><a href="https://youtu.be/FQ8K0RsVeO8" target="_blank" rel="noopener">11. Recognizing Seizures in a Comatose Patient</a> <span class="tag">mest relevant for oss</span></li>
+   <li><a href="https://youtu.be/XyOv1RFT2ak" target="_blank" rel="noopener">Minileksjon 1. Small Sharp Spikes</a></li>
+   <li><a href="https://youtu.be/duX9Eg6MqH4" target="_blank" rel="noopener">Minileksjon 2. Wickets</a></li>
+   <li><a href="https://youtu.be/9Jzb5bAEa7k" target="_blank" rel="noopener">Minileksjon 3. 14 and 6 Hz Positive Bursts</a></li>
+   <li><a href="https://youtu.be/n6aYXKyNfkk" target="_blank" rel="noopener">15. Rhythmic and Periodic Patterns</a> <span class="tag">mest relevant for oss</span></li>
+   <li><a href="https://youtu.be/NY_CthbqObA" target="_blank" rel="noopener">16. Clinical and Electrographic Seizures</a></li>
+  </ol></div>
   <div class="card"><h3>Bok: koma og nærdødsopplevelser (ikke fagfellevurdert)</h3>
   <p><strong>Alan Pearce og Beverley Pearce. Coma and Near-Death Experience: The Beautiful, Disturbing, and Dangerous World of the Unconscious. Inner Traditions, 2024.</strong></p>
   <p>Boka samler beretninger fra mennesker som har vært i koma eller under sedasjon, og fra pårørende og personell rundt dem. Den er tatt med fordi den sier noe om hvordan tilstanden kan oppleves innenfra, og det er en side ved sedasjon som sjelden kommer fram i studiene.</p>
@@ -8229,46 +8255,78 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
 })();
 </script>
 <script>
-/* Animert rå-EEG: våken med EMG til generell anestesi */
+/* Animert rå-EEG: våken med EMG, via innledning til burst suppression */
 (function(){
  document.querySelectorAll('.emgsim').forEach(function(box){
   var cv=box.querySelector('.emgcv'), sl=box.querySelector('.emgsl'),
       pb=box.querySelector('.emgplay'), st=box.querySelector('.emgst'),
-      ctx=cv.getContext('2d'), W=cv.width, H=cv.height, MID=H*0.5;
+      ctx=cv.getContext('2d'), W=cv.width, H=cv.height, MID=H*0.46;
   var LBL=JSON.parse(box.getAttribute('data-lbl')||'[]');
   var TXT=JSON.parse(pb.getAttribute('data-txt')||'[]');
-  var buf=new Array(560).fill(0), t=0, playing=true, auto=true, d=0, raf=null;
+  var PXUV=2.1;                 /* piksler per mikrovolt */
+  var N=620, buf=new Array(N).fill(0), t=0, playing=true, auto=true, d=0;
+  var burstOn=true, burstT=0;
+  function sm(x){ return x<0?0:(x>1?1:x); }
+  function amp(dep){
+   /* topp-til-topp i mikrovolt */
+   var awake=9, anes=62;
+   return awake+(anes-awake)*sm((dep-0.22)/0.30);
+  }
   function sample(dep){
    t+=1/120;
-   var emg=Math.max(0,1-dep*1.8), slow=dep, fast=Math.max(0,1-dep);
+   var emg=sm((0.26-dep)/0.26);
+   var fast=sm((0.40-dep)/0.40);
+   var slow=sm((dep-0.22)/0.26);
+   var a=amp(dep)/2;
    var v=0;
-   v+=fast*5*Math.sin(2*Math.PI*17*t)+fast*4*Math.sin(2*Math.PI*23*t+1);
-   v+=emg*(Math.random()*2-1)*17;
-   v+=emg*7*Math.sin(2*Math.PI*48*t+Math.random());
-   v+=slow*46*Math.sin(2*Math.PI*1.0*t)+slow*17*Math.sin(2*Math.PI*0.5*t+2);
-   v+=slow*20*Math.sin(2*Math.PI*10*t+0.6);
-   v+=(Math.random()*2-1)*2.2;
+   v+=fast*0.22*a*Math.sin(2*Math.PI*17*t)+fast*0.16*a*Math.sin(2*Math.PI*23*t+1);
+   v+=emg*(Math.random()*2-1)*5.5;
+   v+=emg*2.4*Math.sin(2*Math.PI*48*t+Math.random());
+   v+=slow*0.62*a*Math.sin(2*Math.PI*1.0*t)+slow*0.22*a*Math.sin(2*Math.PI*0.5*t+2);
+   v+=slow*0.26*a*Math.sin(2*Math.PI*10*t+0.6);
+   v+=(Math.random()*2-1)*0.9;
+   /* burst suppression i den dypeste delen */
+   if(dep>0.74){
+    var sr=sm((dep-0.74)/0.26);            /* andel suppresjon 0..1 */
+    burstT+=1/120;
+    var per=2.6, supp=per*(0.25+0.6*sr);
+    if((burstT%per)<supp) v*=0.045;         /* under 5 mikrovolt */
+   }
    return v;
   }
-  function state(dep){ return dep<0.28?0:(dep<0.62?1:2); }
+  function state(dep){ return dep<0.22?0:(dep<0.46?1:(dep<0.74?2:3)); }
+  function grid(){
+   ctx.strokeStyle='rgba(255,255,255,.10)'; ctx.lineWidth=1.4;
+   ctx.beginPath(); ctx.moveTo(0,MID); ctx.lineTo(W,MID); ctx.stroke();
+   /* målestokk: 50 mikrovolt */
+   var x=W-96, h=50*PXUV;
+   ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=3;
+   ctx.beginPath(); ctx.moveTo(x,MID-h/2); ctx.lineTo(x,MID+h/2); ctx.stroke();
+   ctx.beginPath(); ctx.moveTo(x-10,MID-h/2); ctx.lineTo(x+10,MID-h/2);
+   ctx.moveTo(x-10,MID+h/2); ctx.lineTo(x+10,MID+h/2); ctx.stroke();
+   ctx.font='600 22px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.75)';
+   ctx.textAlign='left'; ctx.fillText('50 \u00b5V',x+16,MID+8); ctx.textAlign='start';
+  }
   function draw(){
-   if(auto&&playing){ d+=0.0022; if(d>1.12) d=0; sl.value=Math.round(Math.min(d,1)*100); }
+   if(auto&&playing){ d+=0.0018; if(d>1.14) d=0; sl.value=Math.round(Math.min(d,1)*100); }
    var dep=Math.min(Math.max(auto?d:(sl.value/100),0),1);
    if(playing){ for(var k=0;k<4;k++){ buf.push(sample(dep)); buf.shift(); } }
    ctx.clearRect(0,0,W,H); ctx.fillStyle='#0B1020'; ctx.fillRect(0,0,W,H);
-   ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=1.5;
-   ctx.beginPath(); ctx.moveTo(0,MID); ctx.lineTo(W,MID); ctx.stroke();
-   ctx.strokeStyle='#8FE3C9'; ctx.lineWidth=2.6; ctx.lineJoin='round'; ctx.beginPath();
+   grid();
+   ctx.strokeStyle='#8FE3C9'; ctx.lineWidth=2.4; ctx.lineJoin='round'; ctx.beginPath();
    for(var i=0;i<buf.length;i++){
-    var x=i/(buf.length-1)*W, y=MID-buf[i]*2.6;
+    var x=i/(buf.length-1)*W, y=MID-buf[i]*PXUV;
+    if(y<4)y=4; if(y>H-4)y=H-4;
     i?ctx.lineTo(x,y):ctx.moveTo(x,y);
    }
    ctx.stroke();
    var s=state(dep);
    if(st.textContent!==LBL[s]) st.textContent=LBL[s];
-   ctx.font='600 26px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.82)';
+   ctx.font='600 26px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.85)';
    ctx.fillText(LBL[s],20,38);
-   raf=requestAnimationFrame(draw);
+   ctx.font='500 21px system-ui,sans-serif'; ctx.fillStyle='rgba(255,255,255,.6)';
+   ctx.fillText(Math.round(amp(dep))+' \u00b5V',20,H-18);
+   requestAnimationFrame(draw);
   }
   pb.addEventListener('click',function(){
    playing=!playing; pb.setAttribute('aria-pressed',playing?'true':'false');
@@ -8332,7 +8390,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
 /* Opplesing av kort (Web Speech API) */
 (function(){
  var S=window.speechSynthesis;
- var L="nb", T={"label": "Opplesing:", "off": "Av", "on": "På", "read": "Les opp", "reading": "Leser …", "stop": "Stopp", "lang": "nb-NO", "nosupport": "Nettleseren din støtter ikke opplesing.", "novoice": "Ingen norsk stemme er installert på enheten. Velg en stemme i listen, eller legg til norsk: på iPhone og iPad under Innstillinger, Tilgjengelighet, Talt innhold, Stemmer, Norsk bokmål. På Mac under Systeminnstillinger, Tilgjengelighet, Talt innhold, Systemstemme, Administrer stemmer. På Windows under Innstillinger, Tid og språk, Tale. Uten norsk stemme blir uttalen feil, og svensk er som regel lettere å forstå enn engelsk.", "voicelabel": "Velg stemme", "hello": "Opplesing er på. Trykk Les opp på et kort for å høre det.", "sample": "Slik høres denne stemmen ut."};
+ var L="nb", T={"label": "Opplesing:", "off": "Av", "on": "På", "read": "Les opp", "reading": "Leser …", "stop": "Stopp", "lang": "nb-NO", "nosupport": "Nettleseren din støtter ikke opplesing.", "novoice": "Ingen norsk stemme er installert på enheten. Velg en stemme i listen, eller legg til norsk: på iPhone og iPad under Innstillinger, Tilgjengelighet, Talt innhold, Stemmer, Norsk bokmål. På Mac under Systeminnstillinger, Tilgjengelighet, Talt innhold, Systemstemme, Administrer stemmer. På Windows under Innstillinger, Tid og språk, Tale. Uten norsk stemme blir uttalen feil, og svensk er som regel lettere å forstå enn engelsk.", "voicelabel": "Velg stemme", "hello": "Opplesing er på. Trykk Les opp på et kort for å høre det.", "sample": "Slik høres denne stemmen ut.", "silent": "Appen ba om opplesing, men enheten startet ikke lyd. Sjekk at lydbryteren på siden av telefonen ikke står på lydløs, at volumet er oppe, og at ingen annen lyd spiller. På iPhone må norsk stemme være lastet ned under Innstillinger, Tilgjengelighet, Talt innhold, Stemmer. Prøv også å velge en annen stemme i listen."};
  var header=document.querySelector('header .vmode');
  if(!header) return;
  var row=document.createElement('div'); row.className='tts-row';
@@ -8423,6 +8481,11 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
   if(b){ current=b; b.setAttribute('aria-pressed','true'); b.textContent=T.reading; }
   stop.hidden=false; startKeep();
   step();
+  setTimeout(function(){
+   var sp=false; try{ sp=S.speaking||S.pending; }catch(e){}
+   if(!sp && queue.length){ note.hidden=false; note.textContent=T.silent; }
+   else if(note.textContent===T.silent){ note.hidden=true; }
+  },900);
  }
  function speak(el,b){
   var t=textOf(el); if(!t) return;
