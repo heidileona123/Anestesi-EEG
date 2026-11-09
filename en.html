@@ -230,6 +230,17 @@ body.tts .ttsbtn[aria-pressed="true"]{background:var(--accent);color:var(--accen
  background:color-mix(in srgb,#C0392B 9%,var(--surface));padding:12px 14px;margin-top:4px}
 .ladfoot b{color:#C0392B}
 @media (max-width:420px){.stepbody{padding-left:16px}}
+.figzoombtn{display:block;margin:8px auto 2px;border:1px solid var(--line,#C9D3CF);background:var(--card,#fff);
+ color:var(--ink,#14201E);border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600;cursor:pointer}
+.figzoomhost{position:relative}
+.figzoom{position:fixed;inset:0;z-index:9999;background:var(--bg,#EDF0EC);display:flex;flex-direction:column;
+ padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.figzoom .fzbar{flex:0 0 auto;display:flex;gap:8px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line,#C9D3CF)}
+.figzoom .fzbar button{border:1px solid var(--line,#C9D3CF);background:var(--card,#fff);color:var(--ink,#14201E);
+ border-radius:10px;padding:8px 14px;font-size:15px;font-weight:600;cursor:pointer;min-width:44px}
+.figzoom .fzbar .fzsp{flex:1 1 auto;font-size:13px;color:var(--muted,#4F615E)}
+.figzoom .fzview{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;padding:12px}
+.figzoom .fzview>svg{display:block;width:var(--fzw,900px);max-width:none;height:auto}
 .ttsnote{font-size:.84rem;color:var(--muted);margin:4px 0 0}
 .ttsstat{font-size:.78rem;color:var(--muted);margin:3px 0 0;font-family:ui-monospace,Menlo,monospace}
 .ttssel{max-width:16em;padding:5px 9px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.86rem}
@@ -635,7 +646,7 @@ draw(cv);cv.dataset.drawn='1';})();</script>
   <div class="subgrp" data-sub="move">
 <figure class="card inter movefig" style="margin:10px 0 14px">
     <div class="movewrap" role="img" aria-label="Schematic figure with four levels: cortex, brainstem, spinal cord and muscle, showing that movement on noxious stimulation is generated in the spinal cord and not in the cortex. At the bottom a frog leg is drawn with grains of salt above it, standing for movement with no nervous system at all">
-    <svg viewBox="0 0 720 420" style="width:100%;height:auto;display:block;border-radius:8px;background:#0B1020">
+    <svg viewBox="0 0 320 442" style="width:100%;height:auto;display:block;border-radius:8px;background:var(--card,#fff)">
       <defs>
         <radialGradient id="mgKor" cx="40%" cy="38%"><stop offset="0%" stop-color="#F7D49A"/><stop offset="100%" stop-color="#8A5408"/></radialGradient>
         <radialGradient id="mgHjs" cx="45%" cy="32%"><stop offset="0%" stop-color="#F8CFEB"/><stop offset="100%" stop-color="#8E3579"/></radialGradient>
@@ -644,17 +655,15 @@ draw(cv);cv.dataset.drawn='1';})();</script>
         <filter id="mglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <marker id="marr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#E6C77A"/></marker>
       </defs>
-      <rect x="0" y="0" width="720" height="420" fill="#101728"/>
-      <text x="24" y="34" font-size="19" font-weight="700" fill="#F2EDE4">Where does movement come from?</text>
-      <text x="24" y="56" font-size="13.5" fill="#A39B8F">Tap the levels in the list below the figure</text>
+      <rect x="0" y="0" width="320" height="442" fill="var(--card,#fff)"/>
+      <text x="24" y="34" font-size="19" font-weight="700" fill="var(--ink,#14201E)">Where does movement come from?</text>
+      <text x="24" y="56" font-size="13.5" fill="var(--muted,#4F615E)">Tap the levels in the list below the figure</text>
 
       <!-- nivå 1 korteks (dempet) -->
-      <g id="mvKor" opacity=".38">
+      <g id="mvKor" opacity=".78">
         <ellipse cx="190" cy="108" rx="104" ry="40" fill="url(#mgKor)"/>
-        <text x="190" y="114" font-size="16" font-weight="700" fill="#2A1C05" text-anchor="middle">CORTEX</text>
+        <text x="190" y="114" font-size="16" font-weight="700" fill="#241703" text-anchor="middle">CORTEX</text>
       </g>
-      <text x="310" y="100" font-size="13.5" fill="#E6C77A">Consciousness. Not where movement is made.</text>
-      <text x="310" y="120" font-size="13.5" fill="#8C8577">Switched off by anaesthesia, yet movement can still come.</text>
 
       <!-- nivå 2 hjernestamme -->
       <g id="mvHjs">
@@ -662,8 +671,6 @@ draw(cv);cv.dataset.drawn='1';})();</script>
         <text x="190" y="194" font-size="13" font-weight="700" fill="#2A0820" text-anchor="middle">BRAIN-</text>
         <text x="190" y="209" font-size="13" font-weight="700" fill="#2A0820" text-anchor="middle">STEM</text>
       </g>
-      <text x="310" y="182" font-size="13.5" fill="#F0B9DF">Turns the reflex up and down.</text>
-      <text x="310" y="202" font-size="13.5" fill="#8C8577">It modulates. It does not generate.</text>
       <path d="M190,218 L190,246" stroke="#F0B9DF" stroke-width="2.4" stroke-dasharray="5 4" marker-end="url(#marr)"/>
 
       <!-- nivå 3 ryggmarg -->
@@ -672,36 +679,31 @@ draw(cv);cv.dataset.drawn='1';})();</script>
         <text x="190" y="275" font-size="14" font-weight="700" fill="#06240F" text-anchor="middle">SPINAL CORD</text>
         <text x="190" y="294" font-size="12" font-weight="600" fill="#06240F" text-anchor="middle">ventral horn</text>
       </g>
-      <text x="310" y="266" font-size="14" font-weight="700" fill="#8FE6B4">This is where movement is generated.</text>
-      <text x="310" y="286" font-size="13.5" fill="#8C8577">MAC is largely a spinal measure.</text>
-      <text x="310" y="304" font-size="13.5" fill="#8C8577">Rats without a forebrain needed just as much isoflurane.</text>
 
       <!-- nivå 4 muskel -->
       <g id="mvMus">
         <rect x="118" y="336" width="104" height="48" rx="12" fill="url(#mgMus)"/>
         <text x="170" y="366" font-size="13" font-weight="700" fill="#2E0C03" text-anchor="middle">MUSCLE</text>
         <g opacity=".95">
-          <circle cx="240" cy="328" r="2.1" fill="#F2EDE4"/><circle cx="252" cy="322" r="1.7" fill="#F2EDE4"/>
-          <circle cx="264" cy="327" r="2.1" fill="#F2EDE4"/><circle cx="276" cy="321" r="1.6" fill="#F2EDE4"/>
-          <circle cx="258" cy="333" r="1.5" fill="#F2EDE4"/>
-          <text x="286" y="327" font-size="11.5" font-weight="700" fill="#F2EDE4">salt</text>
+          <circle cx="240" cy="328" r="2.1" fill="var(--muted,#4F615E)"/><circle cx="252" cy="322" r="1.7" fill="var(--muted,#4F615E)"/>
+          <circle cx="264" cy="327" r="2.1" fill="var(--muted,#4F615E)"/><circle cx="276" cy="321" r="1.6" fill="var(--muted,#4F615E)"/>
+          <circle cx="258" cy="333" r="1.5" fill="var(--muted,#4F615E)"/>
+          <text x="286" y="327" font-size="11.5" font-weight="700" fill="var(--muted,#4F615E)">salt</text>
         </g>
         <path d="M234,342 C252,344 268,350 272,359 C275,368 262,372 252,377"
               fill="none" stroke="#FFC2A8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M252,377 L234,386 M252,377 L237,392 M252,377 L246,397"
               fill="none" stroke="#FFC2A8" stroke-width="4.2" stroke-linecap="round"/>
         <path d="M234,386 C240,390 243,394 246,397" fill="none" stroke="#FFC2A8" stroke-width="1.8" opacity=".55"/>
-        <text x="256" y="412" font-size="11.5" font-weight="600" fill="#C9A392">frog leg</text>
+        <text x="256" y="412" font-size="11.5" font-weight="600" fill="var(--muted,#4F615E)">frog leg</text>
       </g>
-      <text x="310" y="352" font-size="13.5" fill="#FFBDA6">Pure excitability, with no nervous system above.</text>
-      <text x="310" y="372" font-size="13.5" fill="#8C8577">This is what the frog-leg videos show.</text>
 
       <!-- refleksbue -->
       <path id="mvIn" d="M136,352 C86,338 74,298 114,280" fill="none" stroke="#E6C77A" stroke-width="2.6" marker-end="url(#marr)"/>
       <path id="mvOut" d="M114,296 C72,316 84,354 134,366" fill="none" stroke="#8FE6B4" stroke-width="2.6" marker-end="url(#marr)"/>
       <circle cx="140" cy="352" r="9" fill="none" stroke="#E6C77A" stroke-width="1.6" opacity=".55"/>
       <circle id="mvDot" cx="136" cy="352" r="6" fill="#E6C77A"/>
-      <text x="24" y="396" font-size="12.5" fill="#A39B8F">stimulus → spinal cord → movement</text>
+      <text x="24" y="430" font-size="12.5" fill="var(--muted,#4F615E)">stimulus → spinal cord → movement</text>
     </svg>
     </div>
     <figcaption class="small srckeep" style="font-weight:600">Figure: where movement in response to noxious stimulation arises, drawn for the app. Schematic, not anatomically accurate.</figcaption>
@@ -3580,55 +3582,50 @@ draw(cv);cv.dataset.drawn='1';})();</script>
 <div class="subgrp" data-sub="sed">
 <figure class="card inter doegnfig" style="margin:10px 0 14px">
     <div class="doegnwrap" role="img" aria-label="Schematic 24-hour timeline from 07:00 to 07:00. The left half is the day shift with physiotherapy, procedures, ward rounds, care and weaning. The right half is the night. Below it shows that benzodiazepine and opioid doses rise at night while sedation scores and nursing workload are equal, and that unintentional device removal and self-extubation happen more often during the day.">
-    <svg viewBox="0 0 720 430" style="width:100%;height:auto;display:block;background:#0B1020">
-      <defs>
-        <linearGradient id="dgDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2A3752"/><stop offset="100%" stop-color="#1A2338"/></linearGradient>
-        <linearGradient id="dgNite" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#11192B"/><stop offset="100%" stop-color="#0A1120"/></linearGradient>
-      </defs>
-      <rect x="0" y="0" width="720" height="430" fill="#101728"/>
-      <text x="20" y="26" font-size="16.5" font-weight="700" fill="#F2EDE4">The 24 hours in intensive care: awake by day, most drug at night</text>
-      <text x="20" y="45" font-size="12.5" fill="#A39B8F">Tap the rows in the list below the figure</text>
+    <svg viewBox="0 0 340 530" style="width:100%;height:auto;display:block;border-radius:8px;background:var(--card,#fff)">
+      <rect x="0" y="0" width="340" height="530" fill="var(--card,#fff)"/>
+      <text x="14" y="22" font-size="14.5" font-weight="700" fill="var(--ink,#14201E)">The day on the ICU</text>
+      <text x="14" y="38" font-size="11.5" fill="var(--muted,#4F615E)">Tap the rows in the list below the figure</text>
 
-      <rect x="20" y="58" width="340" height="340" rx="8" fill="url(#dgDay)"/>
-      <rect x="360" y="58" width="340" height="340" rx="8" fill="url(#dgNite)"/>
-      <text x="190" y="80" font-size="14" font-weight="700" fill="#BFD2EE" text-anchor="middle">DAY  07–19</text>
-      <text x="530" y="80" font-size="14" font-weight="700" fill="#8C8577" text-anchor="middle">NIGHT  19–07</text>
+      <rect x="12" y="50" width="158" height="26" rx="6" fill="#F3E3C6"/>
+      <rect x="174" y="50" width="154" height="26" rx="6" fill="#DCE3EC"/>
+      <text x="91" y="68" font-size="12.5" font-weight="700" fill="#6B4A09" text-anchor="middle">DAY 07&#8211;19</text>
+      <text x="251" y="68" font-size="12.5" font-weight="700" fill="#2C3E55" text-anchor="middle">NIGHT 19&#8211;07</text>
 
-      <g id="dgAct">
-        <text x="190" y="106" font-size="12.5" fill="#D8E4F4" text-anchor="middle">physiotherapy · procedures · investigations</text>
-        <text x="190" y="124" font-size="12.5" fill="#D8E4F4" text-anchor="middle">ward round · visitors · care · weaning</text>
-        <text x="530" y="106" font-size="12.5" fill="#9A9488" text-anchor="middle">fewer people · darker · quieter</text>
-        <text x="530" y="124" font-size="12.5" fill="#9A9488" text-anchor="middle">an expectation that the patient should rest</text>
-      </g>
+      <text x="14" y="100" font-size="12.5" font-weight="700" fill="#C2621B">Benzodiazepine and opioid</text>
+      <path d="M16,168 L104,168 L104,165 L172,165 L172,131 L236,127 L252,125 L252,120 L326,118"
+            fill="none" stroke="#E08B3E" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M172,165 L172,131" stroke="#E08B3E" stroke-width="3" stroke-dasharray="4 3"/>
+      <text x="100" y="186" font-size="11" fill="var(--muted,#4F615E)" text-anchor="middle">baseline</text>
+      <text x="326" y="110" font-size="12" font-weight="700" fill="#B4561A" text-anchor="end">+23.3 mg midazolam equiv.</text>
+      <text x="326" y="144" font-size="12" font-weight="700" fill="#B4561A" text-anchor="end">+356 &#181;g fentanyl equiv.</text>
 
-      <g id="dgDose">
-        <text x="32" y="162" font-size="12.5" font-weight="700" fill="#F09A6A">Benzodiazepine and opioid</text>
-        <path d="M30,232 L186,232 L186,228 L340,228" fill="none" stroke="#F09A6A" stroke-width="2.6"/>
-        <path d="M360,196 L520,192 L520,188 L694,190" fill="none" stroke="#F09A6A" stroke-width="3.2"/>
-        <path d="M340,228 L360,196" fill="none" stroke="#F09A6A" stroke-width="2.6" stroke-dasharray="4 4"/>
-        <text x="530" y="178" font-size="12.5" font-weight="700" fill="#FFC9A8" text-anchor="middle">+23.3 mg midazolam equiv.</text>
-        <text x="530" y="214" font-size="12.5" font-weight="700" fill="#FFC9A8" text-anchor="middle">+356 µg fentanyl equiv.</text>
-        <text x="186" y="252" font-size="12" fill="#9FB0C6" text-anchor="middle">baseline</text>
-      </g>
+      <line x1="14" y1="208" x2="326" y2="208" stroke="#2E8B57" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="14" y="228" font-size="12" font-weight="700" fill="#1F6B42">Sedation score and workload: the same around the clock</text>
+      <text x="91" y="250" font-size="12.5" fill="var(--ink,#14201E)" text-anchor="middle">SAS 3,3 &#183; VAS 4,0</text>
+      <text x="251" y="250" font-size="12.5" fill="var(--ink,#14201E)" text-anchor="middle">SAS 3,2 &#183; VAS 3,9</text>
 
-      <g id="dgSame">
-        <path d="M30,286 H694" stroke="#8FE6B4" stroke-width="2" stroke-dasharray="6 5" opacity=".75"/>
-        <text x="32" y="278" font-size="12.5" font-weight="700" fill="#8FE6B4">Sedation score and workload: the same round the clock</text>
-        <text x="186" y="304" font-size="12" fill="#8FC9A8" text-anchor="middle">SAS 3.3  ·  VAS 4.0</text>
-        <text x="530" y="304" font-size="12" fill="#8FC9A8" text-anchor="middle">SAS 3.2  ·  VAS 3.9</text>
-      </g>
+      <text x="14" y="288" font-size="12" font-weight="700" fill="#A06A0C">Signs the patient was most awake during the day</text>
 
-      <g id="dgAwake">
-        <text x="32" y="336" font-size="12.5" font-weight="700" fill="#F7C45A">Signs that the patient was most awake during the day</text>
-        <rect x="76" y="346" width="220" height="20" rx="5" fill="#C98A1E"/>
-        <rect x="430" y="346" width="126" height="20" rx="5" fill="#6E5A2A"/>
-        <text x="186" y="361" font-size="12" font-weight="700" fill="#201401" text-anchor="middle">pulled out equipment 15.9%</text>
-        <text x="493" y="361" font-size="12" font-weight="700" fill="#E8D6AE" text-anchor="middle">9.1%</text>
-        <text x="186" y="384" font-size="11.5" fill="#D3B176" text-anchor="middle">self-extubation 4.0%</text>
-        <text x="493" y="384" font-size="11.5" fill="#9A8A64" text-anchor="middle">1.7%</text>
-      </g>
+      <text x="14" y="312" font-size="11.5" font-weight="600" fill="var(--ink,#14201E)">Device removal</text>
+      <text x="56" y="336" font-size="11.5" font-weight="700" fill="#6B4A09" text-anchor="end">DAY</text>
+      <rect x="62" y="322" width="143" height="19" rx="4" fill="#D9A23A"/>
+      <text x="211" y="336" font-size="12" font-weight="700" fill="var(--ink,#14201E)">15,9 %</text>
+      <text x="56" y="362" font-size="11.5" font-weight="700" fill="#2C3E55" text-anchor="end">NIGHT</text>
+      <rect x="62" y="348" width="82" height="19" rx="4" fill="#8B7A4A"/>
+      <text x="150" y="362" font-size="12" font-weight="700" fill="var(--ink,#14201E)">9,1 %</text>
 
-      <text x="20" y="420" font-size="11.5" fill="#8C8577">423 ventilated patients, 16 North American ICUs. Night is defined as 19:00–07:00, so the evening shift counts as night.</text>
+      <text x="14" y="396" font-size="11.5" font-weight="600" fill="var(--ink,#14201E)">Self-extubation</text>
+      <text x="56" y="420" font-size="11.5" font-weight="700" fill="#6B4A09" text-anchor="end">DAY</text>
+      <rect x="62" y="406" width="36" height="19" rx="4" fill="#D9A23A"/>
+      <text x="104" y="420" font-size="12" font-weight="700" fill="var(--ink,#14201E)">4,0 %</text>
+      <text x="56" y="446" font-size="11.5" font-weight="700" fill="#2C3E55" text-anchor="end">NIGHT</text>
+      <rect x="62" y="432" width="15" height="19" rx="4" fill="#8B7A4A"/>
+      <text x="83" y="446" font-size="12" font-weight="700" fill="var(--ink,#14201E)">1,7 %</text>
+
+      <text x="14" y="482" font-size="10.5" fill="var(--muted,#4F615E)">423 ventilated patients, 16 North American</text>
+      <text x="14" y="497" font-size="10.5" fill="var(--muted,#4F615E)">intensive care units. Night is defined as</text>
+      <text x="14" y="512" font-size="10.5" fill="var(--muted,#4F615E)">19&#8211;07, so the evening shift counts as night.</text>
     </svg>
     </div>
     <figcaption class="small srckeep" style="font-weight:600">Figure: the diurnal variation in sedation, drawn for the app from the figures in Mehta et al. 2016. Schematic; the curves show direction, not measured time courses.</figcaption>
@@ -9544,4 +9541,40 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
 </html>
 
 </body></html>
+<script>(function(){
+ var L={no:{z:'Forstørr',c:'Lukk',h:'Dra for å flytte. Bruk + og −.'},
+        en:{z:'Enlarge',c:'Close',h:'Drag to move. Use + and −.'}};
+ var T=(document.documentElement.lang||'no').slice(0,2)==='en'?L.en:L.no;
+ function open(svg){
+  var ov=document.createElement('div');ov.className='figzoom';
+  var bar=document.createElement('div');bar.className='fzbar';
+  var minus=document.createElement('button');minus.type='button';minus.textContent='−';minus.setAttribute('aria-label','−');
+  var plus=document.createElement('button');plus.type='button';plus.textContent='+';plus.setAttribute('aria-label','+');
+  var sp=document.createElement('span');sp.className='fzsp';sp.textContent=T.h;
+  var cl=document.createElement('button');cl.type='button';cl.textContent=T.c;
+  bar.appendChild(minus);bar.appendChild(plus);bar.appendChild(sp);bar.appendChild(cl);
+  var view=document.createElement('div');view.className='fzview';
+  var cp=svg.cloneNode(true);cp.removeAttribute('style');view.appendChild(cp);
+  ov.appendChild(bar);ov.appendChild(view);document.body.appendChild(ov);
+  var vb=(svg.getAttribute('viewBox')||'0 0 720 420').split(/\s+/);
+  var ratio=(+vb[2]||720)/(+vb[3]||420);
+  var W0=Math.max(240,window.innerWidth-24);
+  var w=Math.round(Math.min(Math.max(W0*1.8,(window.innerHeight-130)*ratio),W0*3));
+  function set(){ov.style.setProperty('--fzw',w+'px');}
+  set();
+  minus.onclick=function(){w=Math.max(220,Math.round(w/1.35));set();};
+  plus.onclick=function(){w=Math.min(6000,Math.round(w*1.35));set();};
+  function shut(){ov.remove();document.removeEventListener('keydown',esc);}
+  function esc(e){if(e.key==='Escape')shut();}
+  cl.onclick=shut;document.addEventListener('keydown',esc);
+ }
+ document.querySelectorAll('figure.card.inter').forEach(function(f){
+  var svg=f.querySelector('svg');if(!svg)return;
+  var host=svg.parentNode;host.classList.add('figzoomhost');
+  var b=document.createElement('button');b.type='button';b.className='figzoombtn';b.textContent=T.z;
+  b.addEventListener('click',function(e){e.stopPropagation();open(svg);});
+  host.appendChild(b);
+ });
+})();</script>
+
 </body></html>
