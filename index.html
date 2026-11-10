@@ -241,7 +241,9 @@ body.tts .ttsbtn[aria-pressed="true"]{background:var(--accent);color:var(--accen
  border-radius:10px;padding:8px 14px;font-size:15px;font-weight:600;cursor:pointer;min-width:44px}
 .figzoom .fzbar .fzsp{flex:1 1 auto;font-size:13px;color:var(--muted,#4F615E)}
 .figzoom .fzview{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;padding:12px}
-.figzoom .fzview>svg{display:block;width:var(--fzw,900px);max-width:none;height:auto}
+.figzoom .fzview>svg,.figzoom .fzview>img{display:block;width:var(--fzw,900px);max-width:none;height:auto}
+.bkon>ellipse,.bkon>rect,.bkon>circle,.bkon>path{stroke:var(--ink,#14201E);stroke-width:2.6;paint-order:stroke}
+[data-bkwired]{cursor:pointer}
 .ttsnote{font-size:.84rem;color:var(--muted);margin:4px 0 0}
 .ttsstat{font-size:.78rem;color:var(--muted);margin:3px 0 0;font-family:ui-monospace,Menlo,monospace}
 .ttssel{max-width:16em;padding:5px 9px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.86rem}
@@ -659,7 +661,7 @@ draw(cv);cv.dataset.drawn='1';})();</script>
       </defs>
       <rect x="0" y="0" width="320" height="442" fill="var(--card,#fff)"/>
       <text x="24" y="34" font-size="19" font-weight="700" fill="var(--ink,#14201E)">Hvor kommer bevegelsen fra?</text>
-      <text x="24" y="56" font-size="13.5" fill="var(--muted,#4F615E)">Trykk på nivåene i listen under figuren</text>
+      <text x="24" y="56" font-size="13.5" fill="var(--muted,#4F615E)">Trykk på nivåene i figuren, eller på radene under</text>
 
       <!-- nivå 1 korteks (dempet) -->
       <g id="mvKor" opacity=".78">
@@ -854,7 +856,7 @@ draw(cv);cv.dataset.drawn='1';})();</script>
     <svg viewBox="0 0 720 430" style="width:100%;height:auto;display:block;border-radius:8px;background:#0B1020">
       <rect x="0" y="0" width="720" height="430" fill="#101728"/>
       <text x="22" y="28" font-size="16.5" font-weight="700" fill="#F2EDE4">Opplevelse og erindring er to ulike ting</text>
-      <text x="22" y="48" font-size="13" fill="#A39B8F">Trykk på feltene i listen under figuren</text>
+      <text x="22" y="48" font-size="13" fill="#A39B8F">Trykk på feltene i figuren, eller på radene under</text>
 
       <text x="30" y="196" font-size="12.5" font-weight="700" fill="#8C8577" transform="rotate(-90 30 196)" text-anchor="middle">ERINDRING</text>
       <text x="52" y="118" font-size="12.5" font-weight="700" fill="#A39B8F" text-anchor="middle">JA</text>
@@ -1179,7 +1181,7 @@ draw(cv);cv.dataset.drawn='1';})();</script>
       </defs>
       <rect x="0" y="0" width="720" height="430" fill="#101728"/>
       <text x="22" y="30" font-size="17" font-weight="700" fill="#F2EDE4">Vekkesystemene i hjernestammen og hypothalamus</text>
-      <text x="22" y="50" font-size="13" fill="#A39B8F">Trykk på kjernene i listen under figuren</text>
+      <text x="22" y="50" font-size="13" fill="#A39B8F">Trykk på kjernene i figuren, eller på radene under</text>
 
       <g clip-path="url(#arClip)">
         <rect x="50" y="56" width="560" height="320" fill="#141B2E"/>
@@ -2401,9 +2403,9 @@ draw(cv);cv.dataset.drawn='1';})();</script>
    <li><strong>Mot propofol: nei.</strong> MENDS2 er den metodisk sterkeste studien på spørsmålet: <strong>dobbeltblind</strong>, 422 ventilerte voksne med sepsis ved 13 sentre, lett sedasjon som mål (RASS 0 til −2). Dager i live uten delirium eller koma var 10,7 mot 10,8, justert OR 0,96 (95 % KI 0,74–1,26, p = 0,79). Respiratorfrie dager 23,7 mot 24,0. Død etter 90 dager 38 % mot 39 %. Kognisjon etter 6 måneder uten forskjell. <strong>Forfatternes egen konklusjon er at utfallene ikke skilte seg, og at dette støtter retningslinjer som anbefaler begge midler.</strong></li>
    <li><strong>En fersk metaanalyse peker motsatt vei, men svakt.</strong> Zhang mfl. 2026 samlet 8 randomiserte studier med 1156 pasienter og fant OR 0,52 (95 % KI 0,33–0,80, p = 0,010) i favør av dexmedetomidin mot propofol. Men delirium var sekundærutfall, de fleste studiene var åpne, og forfatterne påpeker selv at funnet <em>ikke</em> når deres egen justerte signifikansgrense på rundt 0,007. De kaller det et signal som trenger egen bekreftelse. Mot én dobbeltblindet studie med forhåndsdefinert primærutfall veier det lite.</li>
    <li><strong>Postoperativt er bildet bedre.</strong> En nettverksmetaanalyse med 41 randomiserte studier og 6679 pasienter rangerte dexmedetomidin først av fire sedativa for å forebygge postoperativt delirium: OR 0,42 mot saltvann (95 % KI 0,33–0,54) og OR 0,47 mot propofol (95 % KI 0,25–0,90). Men oversikten har ingen GRADE-vurdering, to studier var høy risiko og fem middels risiko for skjevhet, og forfatterne påpeker at delirium er multifaktorielt og at skalaene er subjektive.</li>
-   <li><strong>Prisen er bradykardi.</strong> I SEDCOM forekom bradykardi hos 42,2 % mot 18,9 % (p &lt; 0,001). Bradykardi som krevde behandling var 4,9 % mot 0,8 % (p = 0,07). Nettverksmetaanalysen fant også mer bradykardi enn med saltvann.</li>
+   <li><strong>Som sedasjon til regionalanestesi: ja, i to randomiserte studier.</strong> Shin mfl. 2023 randomiserte 748 pasienter på 65 år og eldre, dobbeltblindt, til dexmedetomidin eller propofol som sedasjon under spinalanestesi til ortopedisk kirurgi på underekstremitet. Delirium målt med CAM de tre første døgnene forekom hos 3,0 % mot 6,6 % (OR 0,42; 95 % KI 0,20–0,86; p = 0,036). Middelarterietrykket var høyere under sedasjonen med dexmedetomidin, men lavere på postoperativ avdeling, og pulsen var lavere begge steder.<span class="small" style="display:block;margin-top:2px">Kilde: Shin mfl. 2023</span></li> <li><strong>Og dybden betyr mest for propofol.</strong> Zhu mfl. 2023 randomiserte 219 pasienter på 65 år og eldre til hoftebruddkirurgi i spinal, til fire grupper: lett eller dyp sedasjon med hvert av de to midlene. Dexmedetomidin samlet ga 11,9 % mot 23,6 % (RR 0,51; 95 % KI 0,27–0,93; p = 0,024). Det mest interessante funnet ligger inni propofolgruppen: dyp sedasjon ga 32,7 % mot 14,5 % ved lett (RR 2,25; 95 % KI 1,07–4,74; p = 0,025), mens sedasjonsdybden ikke ga utslag i dexmedetomidingruppen. Studien er fra ett senter, uten EEG-monitorering, og fulgte bare til tredje døgn.<span class="small" style="display:block;margin-top:2px">Kilde: Zhu mfl. 2023</span></li> <li><strong>Metaanalysen på det samme spørsmålet er svakere enn tallene ser ut.</strong> Wang mfl. 2024 samlet 17 randomiserte studier med 2763 pasienter over 60 år under regionalanestesi og fant RR 0,48 (95 % KI 0,37–0,63) for delirium, uten heterogenitet. Men alle studiene er fra asiatiske land, 12 av 17 ble vurdert til å ha «noen bekymringer» for skjevhet, ingen av dem rapporterte bivirkninger, og oversikten er ikke konsistent med seg selv om antall studier eller om tallene for kognitiv dysfunksjon.<span class="small" style="display:block;margin-top:2px">Kilde: Wang mfl. 2024</span></li> <li><strong>Prisen er bradykardi.</strong> I SEDCOM forekom bradykardi hos 42,2 % mot 18,9 % (p &lt; 0,001). Bradykardi som krevde behandling var 4,9 % mot 0,8 % (p = 0,07). Nettverksmetaanalysen fant også mer bradykardi enn med saltvann.</li>
   </ul>
-  <p><strong>Det presise svaret:</strong> mot benzodiazepiner ja, postoperativt trolig ja med moderat sikkerhet, og mot propofol på intensiv nei. Når noen sier «dexmedetomidin gir mindre delirium» uten å si mot hva, er påstanden ikke gal, men den er ufullstendig på en måte som endrer hva den betyr klinisk.</p>
+  <p><strong>Det presise svaret:</strong> mot benzodiazepiner ja, postoperativt trolig ja med moderat sikkerhet, som sedasjon til regionalanestesi hos eldre ja i to randomiserte studier, og mot propofol på intensiv nei. Når noen sier «dexmedetomidin gir mindre delirium» uten å si mot hva, er påstanden ikke gal, men den er ufullstendig på en måte som endrer hva den betyr klinisk.</p>
   <p class="small">Tolkning ut fra kildene: sammenstillingen av de fire studiene og slutningen om at komparatoren avgjør, står ikke slik i noen av dem.</p>
   <span class="tag">Riker mfl. JAMA 2009;301:489–499</span> <span class="tag">Hughes mfl. N Engl J Med 2021 (MENDS2)</span> <span class="tag">Huang mfl. BMC Cardiovasc Disord 2024;24:147</span> <span class="tag">Zhang mfl. Front Neurol 2026;17:1875240</span></div>
 
@@ -3589,13 +3591,16 @@ draw(cv);cv.dataset.drawn='1';})();</script>
     <svg viewBox="0 0 340 530" style="width:100%;height:auto;display:block;border-radius:8px;background:var(--card,#fff)">
       <rect x="0" y="0" width="340" height="530" fill="var(--card,#fff)"/>
       <text x="14" y="22" font-size="14.5" font-weight="700" fill="var(--ink,#14201E)">D&#248;gnet p&#229; intensiv</text>
-      <text x="14" y="38" font-size="11.5" fill="var(--muted,#4F615E)">Trykk p&#229; radene i listen under figuren</text>
+      <text x="14" y="38" font-size="11.5" fill="var(--muted,#4F615E)">Trykk p&#229; feltene i figuren, eller p&#229; radene under</text>
 
+      <g id="dgAct">
       <rect x="12" y="50" width="158" height="26" rx="6" fill="#F3E3C6"/>
       <rect x="174" y="50" width="154" height="26" rx="6" fill="#DCE3EC"/>
       <text x="91" y="68" font-size="12.5" font-weight="700" fill="#6B4A09" text-anchor="middle">DAG 07&#8211;19</text>
       <text x="251" y="68" font-size="12.5" font-weight="700" fill="#2C3E55" text-anchor="middle">NATT 19&#8211;07</text>
+      </g>
 
+      <g id="dgDose">
       <text x="14" y="100" font-size="12.5" font-weight="700" fill="#C2621B">Benzodiazepin og opioid</text>
       <path d="M16,168 L104,168 L104,165 L172,165 L172,131 L236,127 L252,125 L252,120 L326,118"
             fill="none" stroke="#E08B3E" stroke-width="3" stroke-linejoin="round"/>
@@ -3603,12 +3608,16 @@ draw(cv);cv.dataset.drawn='1';})();</script>
       <text x="100" y="186" font-size="11" fill="var(--muted,#4F615E)" text-anchor="middle">utgangspunkt</text>
       <text x="326" y="110" font-size="12" font-weight="700" fill="#B4561A" text-anchor="end">+23,3 mg midazolam-ekv.</text>
       <text x="326" y="144" font-size="12" font-weight="700" fill="#B4561A" text-anchor="end">+356 &#181;g fentanyl-ekv.</text>
+      </g>
 
+      <g id="dgSame">
       <line x1="14" y1="208" x2="326" y2="208" stroke="#2E8B57" stroke-width="2" stroke-dasharray="7 5"/>
       <text x="14" y="228" font-size="12" font-weight="700" fill="#1F6B42">Sedasjonssk&#229;r og arbeidsbelastning: like hele d&#248;gnet</text>
       <text x="91" y="250" font-size="12.5" fill="var(--ink,#14201E)" text-anchor="middle">SAS 3,3 &#183; VAS 4,0</text>
       <text x="251" y="250" font-size="12.5" fill="var(--ink,#14201E)" text-anchor="middle">SAS 3,2 &#183; VAS 3,9</text>
+      </g>
 
+      <g id="dgAwake">
       <text x="14" y="288" font-size="12" font-weight="700" fill="#A06A0C">Tegn p&#229; at pasienten var mest v&#229;ken om dagen</text>
 
       <text x="14" y="312" font-size="11.5" font-weight="600" fill="var(--ink,#14201E)">Dro ut utstyr</text>
@@ -3626,6 +3635,7 @@ draw(cv);cv.dataset.drawn='1';})();</script>
       <text x="56" y="446" font-size="11.5" font-weight="700" fill="#2C3E55" text-anchor="end">NATT</text>
       <rect x="62" y="432" width="15" height="19" rx="4" fill="#8B7A4A"/>
       <text x="83" y="446" font-size="12" font-weight="700" fill="var(--ink,#14201E)">1,7 %</text>
+      </g>
 
       <text x="14" y="482" font-size="10.5" fill="var(--muted,#4F615E)">423 ventilerte pasienter, 16 nordamerikanske</text>
       <text x="14" y="497" font-size="10.5" fill="var(--muted,#4F615E)">intensivavdelinger. Natt er definert 19&#8211;07,</text>
@@ -7556,6 +7566,9 @@ const REFS=[
  ['Skin conductance algesimeter is unreliable during sudden perioperative temperature increases. Scand J Pain 2024 (kort kommunikasjon, Kongsgaard UE medforfatter).','https://doi.org/10.1515/sjpain-2023-0106','Pilot, 10 pasienter ved HIPEC.'],
  ['Butterworth JF, Mackey DC, Wasnick JD. Morgan & Mikhail\'s Clinical Anesthesiology. 7. utg. McGraw Hill 2022, kap. 8, 9 og 43.','','Lærebok; brukt som sammenligning med Miller\'s.'],
  ['Purdon PL, Pierce ET, Mukamel EA, et al. Electroencephalogram signatures of loss and recovery of consciousness from propofol. Proc Natl Acad Sci USA 2013;110:E1142–E1151.','https://doi.org/10.1073/pnas.1221180110','10 frivillige, 64-kanals EEG, trinnvis propofol.'],
+ ['Shin HJ, Woo Nam S, Kim H, Yim S, Han SH, Hwang JW, Do SH, Na HS. Postoperative delirium after dexmedetomidine versus propofol sedation in healthy older adults undergoing orthopedic lower limb surgery with spinal anesthesia: a randomized controlled trial. Anesthesiology 2023;138:164–171.','https://doi.org/10.1097/ALN.0000000000004438','748 randomisert, 65 år og eldre, dobbeltblindt. Delirium målt med CAM de tre første døgnene: 3,0 % med dexmedetomidin mot 6,6 % med propofol (OR 0,42; 95 % KI 0,20–0,86; p = 0,036). Høyere middelarterietrykk under sedasjonen, lavere postoperativt, og lavere puls begge steder.'],
+ ['Zhu S, Liu Y, Wang X, Wang L, Li J, Xue X, Li Z, Liu J, Liu X, Zhao S. Different sedation strategies in older patients receiving spinal anesthesia for hip surgery on postoperative delirium: a randomized clinical trial. Drug Des Devel Ther 2023;17:3845–3854.','https://doi.org/10.2147/DDDT.S439543','219 analysert, fire grupper: lett eller dyp sedasjon med propofol eller dexmedetomidin. Dexmedetomidin samlet 11,9 % mot propofol 23,6 % (RR 0,51; 95 % KI 0,27–0,93). Inni propofolgruppen ga dyp sedasjon 32,7 % mot 14,5 % ved lett (RR 2,25; 95 % KI 1,07–4,74). Dybden ga ikke utslag med dexmedetomidin. Ett senter, uten EEG-monitorering.'],
+ ['Wang D, He X, Li Z, Tao H, Bi C. The role of dexmedetomidine administered via intravenous infusion as adjunctive therapy to mitigate postoperative delirium and postoperative cognitive dysfunction in elderly patients undergoing regional anesthesia: a meta-analysis of randomized controlled trials. BMC Anesthesiol 2024;24:73.','https://doi.org/10.1186/s12871-024-02453-5','17 randomiserte studier, 2763 pasienter over 60 år under regionalanestesi. Delirium RR 0,48 (95 % KI 0,37–0,63), I² = 0 %. Alle studiene fra asiatiske land, 12 av 17 med «noen bekymringer» for skjevhet, ingen bivirkninger rapportert, og oversikten er ikke konsistent med seg selv om antall studier.'],
  ['Feshchenko VA, Veselis RA, Reinsel RA. Comparison of the EEG effects of midazolam, thiopental, and propofol: the role of underlying oscillatory systems. Neuropsychobiology 1997;35:211–220.','https://doi.org/10.1159/000119347','47 friske frivillige under våken sedasjon. Midazolam dempet alfa-rytmen og økte total beta-effekt. Beta-rytmene skilte seg både fra dem ved tiopental og fra søvnspindler.'],
  ['Windmann V, Spies C, Knaak C, Wollersheim T, Piper SK, Vorderwülbecke G, Kurpanik M, Kuenz S, Lachmann G, Koch S; BioCog study group. Influence of midazolam premedication on intraoperative EEG signatures in elderly patients. Clin Neurophysiol 2019;130:1673–1681.','https://doi.org/10.1016/j.clinph.2019.05.035','45 pasienter på 65 år og eldre, frontalt EEG med SedLine. Midazolam ga lavere alfa-effekt før innledning (−10,75 mot −9,20 dB; p=0,036), men høyere etter innledning (−3,56 mot −6,69 dB; p=0,004) og under anestesien (−2,12 mot −6,10 dB; p=0,024). Tolkes som at svak GABAA-aktivering forsterker propofols frontale alfa.'],
  ['Lewis SR, Pritchard MW, Fawcett LJ, Punjasawadwong Y. Bispectral index for improving intraoperative awareness and early postoperative recovery in adults. Cochrane Database Syst Rev 2019;9:CD003843.','https://doi.org/10.1002/14651858.CD003843.pub4','52 studier, 41 331 deltakere. BIS mot kliniske tegn: awareness 3 mot 9 per 1000 (Peto OR 0,36; 95 % KI 0,21–0,60; 27 studier, 9765 deltakere) og noe raskere oppvåkning. BIS mot endetidal gassmåling: ingen forskjell (Peto OR 1,13; 95 % KI 0,56–2,26; 5 studier, 26 572 deltakere). Begge funnene gradert som lav sikkerhet, og evidensen kalles upresis.'],
@@ -9589,10 +9602,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
 </body></html>
 </body></html>
 <script>(function(){
- var L={no:{z:'Forstørr',c:'Lukk',h:'Dra for å flytte. Bruk + og −.'},
-        en:{z:'Enlarge',c:'Close',h:'Drag to move. Use + and −.'}};
+ var L={no:{z:'Forstørr',c:'Lukk',h:'Dra for å flytte. Bruk + og −.',s:'Stillbilde av figuren slik den var.'},
+        en:{z:'Enlarge',c:'Close',h:'Drag to move. Use + and −.',s:'A still of the figure as it was.'}};
  var T=(document.documentElement.lang||'no').slice(0,2)==='en'?L.en:L.no;
- function open(svg){
+ function open(node){
   var ov=document.createElement('div');ov.className='figzoom';
   var bar=document.createElement('div');bar.className='fzbar';
   var minus=document.createElement('button');minus.type='button';minus.textContent='−';minus.setAttribute('aria-label','−');
@@ -9601,10 +9614,22 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
   var cl=document.createElement('button');cl.type='button';cl.textContent=T.c;
   bar.appendChild(minus);bar.appendChild(plus);bar.appendChild(sp);bar.appendChild(cl);
   var view=document.createElement('div');view.className='fzview';
-  var cp=svg.cloneNode(true);cp.removeAttribute('style');view.appendChild(cp);
+  var cp, ratio=1.6, tag=node.tagName.toUpperCase();
+  if(tag==='CANVAS'){
+   cp=document.createElement('img');
+   try{ cp.src=node.toDataURL('image/png'); }catch(e){}
+   ratio=(node.width||16)/(node.height||10);
+   sp.textContent=T.h+' '+T.s;
+  }else if(tag==='IMG'){
+   cp=node.cloneNode(true); cp.removeAttribute('style');
+   ratio=(node.naturalWidth||node.width||16)/(node.naturalHeight||node.height||10);
+  }else{
+   cp=node.cloneNode(true); cp.removeAttribute('style');
+   var vb=(node.getAttribute('viewBox')||'0 0 720 420').split(/[\s,]+/);
+   ratio=(+vb[2]||720)/(+vb[3]||420);
+  }
+  view.appendChild(cp);
   ov.appendChild(bar);ov.appendChild(view);document.body.appendChild(ov);
-  var vb=(svg.getAttribute('viewBox')||'0 0 720 420').split(/\s+/);
-  var ratio=(+vb[2]||720)/(+vb[3]||420);
   var W0=Math.max(240,window.innerWidth-24);
   var w=Math.round(Math.min(Math.max(W0*1.8,(window.innerHeight-130)*ratio),W0*3));
   function set(){ov.style.setProperty('--fzw',w+'px');}
@@ -9615,13 +9640,53 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
   function esc(e){if(e.key==='Escape')shut();}
   cl.onclick=shut;document.addEventListener('keydown',esc);
  }
- document.querySelectorAll('figure.card.inter').forEach(function(f){
-  var svg=f.querySelector('svg');if(!svg)return;
-  var host=svg.parentNode;host.classList.add('figzoomhost');
+ function big(n){
+  var t=n.tagName.toUpperCase();
+  if(t==='CANVAS') return (n.width||0)>=200;
+  if(t==='IMG') return (n.naturalWidth||n.width||0)>=200 || (n.getBoundingClientRect().width>=200);
+  var vb=(n.getAttribute('viewBox')||'').split(/[\s,]+/);
+  return (+vb[2]||0)>=200 || n.getBoundingClientRect().width>=200;
+ }
+ document.querySelectorAll('section.panel svg, section.panel canvas, section.panel img').forEach(function(n){
+  if(n.closest('.figzoom')) return;
+  if(n.dataset.zoomed) return;
+  if(!big(n)) return;
+  var host=n.parentNode; if(!host || host.dataset.zoomhost) return;
+  host.dataset.zoomhost='1'; n.dataset.zoomed='1';
+  host.classList.add('figzoomhost');
   var b=document.createElement('button');b.type='button';b.className='figzoombtn';b.textContent=T.z;
-  b.addEventListener('click',function(e){e.stopPropagation();open(svg);});
+  b.addEventListener('click',function(e){e.stopPropagation();open(n);});
   host.appendChild(b);
  });
 })();</script>
 
+<script>
+/* Kjernene i figurene er klikkbare, og markeres naar raden er aapen */
+(function(){
+ document.querySelectorAll('.brainkey li').forEach(function(li){
+  var t=li.querySelector('.bktog[data-bkgo]'); if(!t) return;
+  var key=t.getAttribute('data-bkgo');
+  if(!li.hasAttribute('data-bk')) li.setAttribute('data-bk',key);
+  var node=document.getElementById(key); if(!node) return;
+  if(node.dataset.bkwired) return; node.dataset.bkwired='1';
+  node.style.cursor='pointer';
+  node.setAttribute('role','button'); node.setAttribute('tabindex','0');
+  node.setAttribute('aria-label',(t.textContent||'').trim());
+  function go(){
+   if(t.getAttribute('aria-expanded')!=='true') t.click();
+   node.classList.add('bkon');
+   li.scrollIntoView({block:'center',behavior:'smooth'});
+   li.classList.add('flash'); setTimeout(function(){li.classList.remove('flash');},1200);
+  }
+  node.addEventListener('click',function(e){e.stopPropagation();go();});
+  node.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+  t.addEventListener('click',function(){
+   setTimeout(function(){
+    if(t.getAttribute('aria-expanded')==='true') node.classList.add('bkon');
+    else node.classList.remove('bkon');
+   },0);
+  });
+ });
+})();
+</script>
 </body></html>
