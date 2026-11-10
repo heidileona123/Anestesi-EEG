@@ -4379,7 +4379,7 @@ draw(cv);cv.dataset.drawn='1';})();</script>
       </div>
     </div>
     <figcaption class="small srckeep" style="font-weight:600">Figure: animated raw EEG, drawn by the app. Not a recording from a patient and not a picture of a monitor. The scale bar on the right is 50 microvolts.</figcaption>
-    <p>Drag the slider, or let it run on its own. Note the amplitude: awake, the trace is only around 10 microvolts, small and fast, and within it sits the EMG as short, spiky deflections from the forehead muscles. During induction the EMG disappears first, and then the waves grow to around 60 microvolts and slow down. That difference in size is the easiest thing to recognise on the screen. Move all the way to the right and burst suppression appears: the bursts contain what the anaesthesia contained, and between them the trace falls below 5 microvolts. The further right, the longer the suppressions.</p>
+    <p>Drag the slider, or let it run on its own. Note the amplitude. Awake, EMG from the forehead muscles fills much of the picture: the trace is large, fast and jagged, and the EEG rhythms underneath are small. During induction the EMG disappears first. What is left is beta, and it is clearly larger than the awake beta was. Awake beta and sedation beta are therefore not the same thing: the first sits hidden under the EMG, the second emerges once the muscles let go. The peak frequency travels downwards at the same time, from around 23 towards 12 Hz (Purdon et al. 2013). Then the waves grow to around 60 microvolts and slow down. That difference in size is the easiest thing to recognise on the screen. Move all the way to the right and burst suppression appears: the bursts contain what the anaesthesia contained, and between them the trace falls below 5 microvolts. The further right, the longer the suppressions.</p>
     <p class="small">EMG also disappears when the patient is given muscle relaxants, without the hypnosis being any deeper. <button type="button" class="linkbtn" data-jumptab="p-spec" data-jumpsub="art">EMG, noise and false numbers</button></p>
   </figure>
   <figure class="card inter" style="margin:10px 0 14px">
@@ -9036,31 +9036,66 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-jumpcard]'
   var PXUV=2.1;                 /* piksler per mikrovolt */
   var N=620, buf=new Array(N).fill(0), t=0, playing=true, auto=true, d=0;
   var burstOn=true, burstT=0;
+  var pk1=0, pk2=0, jit=0, dr=0;
   function sm(x){ return x<0?0:(x>1?1:x); }
+  function rnd(){ return Math.random()*2-1; }
+  function pinkSlow(){ pk1=0.90*pk1+0.10*rnd(); return pk1*2.6+rnd()*0.5; }
+  function pinkFast(){ pk2=0.55*pk2+0.45*rnd(); return pk2*1.5+rnd()*0.8; }
+  function drift(){ dr=0.993*dr+0.007*rnd(); return dr*11; }
+  function emgEnv(dep){ return Math.pow(sm((0.24-dep)/0.24),0.75); }
+  function osc(dep){
+   /* topp-til-topp i mikrovolt for selve EEG-rytmene */
+   var awake=11, anes=62;
+   return awake+(anes-awake)*sm((dep-0.26)/0.32);
+  }
   function amp(dep){
-   /* topp-til-topp i mikrovolt */
-   var awake=9, anes=62;
-   return awake+(anes-awake)*sm((dep-0.22)/0.30);
+   /* det som vises som tall: rytmene pluss EMG */
+   return osc(dep)+46*emgEnv(dep)+26*Math.exp(-Math.pow((dep-0.34)/0.15,2));
   }
   function sample(dep){
-   t+=1/120;
-   var emg=sm((0.26-dep)/0.26);
-   var fast=sm((0.40-dep)/0.40);
-   var slow=sm((dep-0.22)/0.26);
-   var a=amp(dep)/2;
+   t+=1/150;
+   var emg=emgEnv(dep);
+   /* sedasjonsbeta: kommer etter at EMG er borte, og er stoerre enn den vaakne betaen.
+      Toppfrekvensen vandrer nedover fra ca. 23 mot 13 Hz (Purdon mfl. 2013) */
+   var bet=Math.exp(-Math.pow((dep-0.34)/0.15,2));
+   var slow=sm((dep-0.26)/0.26);
+   var alf=sm((dep-0.34)/0.26);
+   var a=osc(dep)/2;
    var v=0;
-   v+=fast*0.22*a*Math.sin(2*Math.PI*17*t)+fast*0.16*a*Math.sin(2*Math.PI*23*t+1);
-   v+=emg*(Math.random()*2-1)*5.5;
-   v+=emg*2.4*Math.sin(2*Math.PI*48*t+Math.random());
-   v+=slow*0.62*a*Math.sin(2*Math.PI*1.0*t)+slow*0.22*a*Math.sin(2*Math.PI*0.5*t+2);
-   v+=slow*0.26*a*Math.sin(2*Math.PI*10*t+0.6);
-   v+=(Math.random()*2-1)*0.9;
+   /* vaaken beta: liten, uregelmessig */
+   v+=emg*2.6*Math.sin(2*Math.PI*(18+1.6*Math.sin(0.7*t))*t+0.4);
+   /* EMG: bredbaandet og stort */
+   v+=emg*pinkFast()*17.0;
+   v+=emg*7.5*Math.sin(2*Math.PI*(46+9*Math.sin(2.3*t))*t+Math.random());
+   /* sedasjonsbeta */
+   jit=0.97*jit+0.03*rnd();
+   var fb=(23-10*sm((dep-0.22)/0.24))*(1+0.07*jit*3);
+   v+=bet*12.0*Math.sin(2*Math.PI*fb*t+1.1)*(0.70+0.30*Math.sin(1.9*t+0.5));
+   /* langsom aktivitet, med litt ujevn frekvens */
+   v+=slow*0.62*a*Math.sin(2*Math.PI*(1.0+0.22*Math.sin(0.47*t))*t);
+   v+=slow*0.24*a*Math.sin(2*Math.PI*0.5*t+2);
+   /* alfa som spindler oppaa */
+   v+=alf*0.27*a*Math.sin(2*Math.PI*(10+0.5*Math.sin(0.9*t))*t+0.6)
+        *(0.42+0.58*Math.pow(Math.max(0,Math.sin(2*Math.PI*0.5*t+0.7)),1.2));
+   /* bakgrunnsuro: hakk og smaa ujevnheter, alltid til stede */
+   v+=pinkSlow()*(1.1+0.052*osc(dep))+rnd()*(0.8+1.5*emg);
+   /* langsom grunnlinjevandring, som paa en ekte monitor */
+   v+=drift()*1.3;
    /* burst suppression i den dypeste delen */
    if(dep>0.74){
     var sr=sm((dep-0.74)/0.26);            /* andel suppresjon 0..1 */
-    burstT+=1/120;
-    var per=2.6, supp=per*(0.25+0.6*sr);
-    if((burstT%per)<supp) v*=0.045;         /* under 5 mikrovolt */
+    burstT+=1/150;
+    var per=2.1, supp=per*(0.25+0.6*sr);
+    var ph=burstT%per;
+    if(ph<supp){
+     /* suppresjon: ikke strek, men en langsom vandring under 5 mikrovolt */
+     v=v*0.03+drift()*1.6+rnd()*0.45;
+    }else{
+     /* bursten starter brått og høyt med raskt innhold, og avtar gjennom bursten */
+     var u=(ph-supp)/(per-supp);
+     var env=Math.exp(-u*2.4), ons=Math.exp(-u*8.5);
+     v=v*(0.55+1.45*env)+ons*8.5*Math.sin(2*Math.PI*14*t+0.3)+ons*5.0*Math.sin(2*Math.PI*21*t+1.1);
+    }
    }
    return v;
   }
